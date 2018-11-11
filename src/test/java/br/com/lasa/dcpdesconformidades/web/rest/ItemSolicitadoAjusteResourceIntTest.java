@@ -3,6 +3,7 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste;
+import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemSolicitadoAjusteRepository;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
@@ -119,6 +120,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
             .motivoDivergencia(DEFAULT_MOTIVO_DIVERGENCIA)
             .acaoCorretivaOuPreventiva(DEFAULT_ACAO_CORRETIVA_OU_PREVENTIVA)
             .responsavel(DEFAULT_RESPONSAVEL);
+        // Add required entity
+        Avaliacao avaliacao = AvaliacaoResourceIntTest.createEntity(em);
+        em.persist(avaliacao);
+        em.flush();
+        itemSolicitadoAjuste.setAvaliacao(avaliacao);
         return itemSolicitadoAjuste;
     }
 

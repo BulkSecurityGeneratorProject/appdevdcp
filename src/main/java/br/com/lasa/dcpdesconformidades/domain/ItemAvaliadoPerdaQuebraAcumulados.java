@@ -60,7 +60,8 @@ public class ItemAvaliadoPerdaQuebraAcumulados implements Serializable {
     @Column(name = "longitude_local_resposta", nullable = false)
     private Double longitudeLocalResposta;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("itensPerdaEQuebraAcumulados")
     private Avaliacao avaliacao;
 

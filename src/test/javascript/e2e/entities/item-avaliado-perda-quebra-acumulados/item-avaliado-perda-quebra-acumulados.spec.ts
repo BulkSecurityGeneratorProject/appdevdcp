@@ -15,7 +15,7 @@ describe('ItemAvaliadoPerdaQuebraAcumulados e2e test', () => {
   let signInPage: SignInPage;
   let itemAvaliadoPerdaQuebraAcumuladosUpdatePage: ItemAvaliadoPerdaQuebraAcumuladosUpdatePage;
   let itemAvaliadoPerdaQuebraAcumuladosComponentsPage: ItemAvaliadoPerdaQuebraAcumuladosComponentsPage;
-  let itemAvaliadoPerdaQuebraAcumuladosDeleteDialog: ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog;
+  /*let itemAvaliadoPerdaQuebraAcumuladosDeleteDialog: ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog;*/
 
   before(async () => {
     await browser.get('/');
@@ -45,51 +45,49 @@ describe('ItemAvaliadoPerdaQuebraAcumulados e2e test', () => {
     );
   });
 
-  it('should create and save ItemAvaliadoPerdaQuebraAcumulados', async () => {
-    const nbButtonsBeforeCreate = await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons();
+  /* it('should create and save ItemAvaliadoPerdaQuebraAcumulados', async () => {
+        const nbButtonsBeforeCreate = await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons();
 
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.tipoSelectLastOption();
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setRespondidoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getRespondidoEmInput()).to.contain('2001-01-01T02:30');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setUltimaAtualizacaoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getUltimaAtualizacaoEmInput()).to.contain('2001-01-01T02:30');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setPercentualInput('5');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getPercentualInput()).to.eq('5');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setFinanceiroInput('5');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getFinanceiroInput()).to.eq('5');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setPontuacaoInput('5');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getPontuacaoInput()).to.eq('5');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setLatitudeLocalRespostaInput('5');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLatitudeLocalRespostaInput()).to.eq('5');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setLongitudeLocalRespostaInput('5');
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLongitudeLocalRespostaInput()).to.eq('5');
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.avaliacaoSelectLastOption();
-    await waitUntilDisplayed(itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton());
-    await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.save();
-    await waitUntilHidden(itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton());
-    expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton().isPresent()).to.be.false;
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.tipoSelectLastOption();
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setRespondidoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getRespondidoEmInput()).to.contain('2001-01-01T02:30');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setUltimaAtualizacaoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getUltimaAtualizacaoEmInput()).to.contain('2001-01-01T02:30');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setPercentualInput('5');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getPercentualInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setFinanceiroInput('5');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getFinanceiroInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setPontuacaoInput('5');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getPontuacaoInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setLatitudeLocalRespostaInput('5');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLatitudeLocalRespostaInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setLongitudeLocalRespostaInput('5');
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLongitudeLocalRespostaInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.avaliacaoSelectLastOption();
+        await waitUntilDisplayed(itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton());
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.save();
+        await waitUntilHidden(itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton());
+        expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton().isPresent()).to.be.false;
 
-    await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
-    expect(await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
-  });
+        await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
+        expect(await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
+    });*/
 
-  it('should delete last ItemAvaliadoPerdaQuebraAcumulados', async () => {
-    await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilLoaded();
-    const nbButtonsBeforeDelete = await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons();
-    await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.clickOnLastDeleteButton();
+  /* it('should delete last ItemAvaliadoPerdaQuebraAcumulados', async () => {
+        await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilLoaded();
+        const nbButtonsBeforeDelete = await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons();
+        await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.clickOnLastDeleteButton();
 
-    const deleteModal = element(by.className('modal'));
-    await waitUntilDisplayed(deleteModal);
+        const deleteModal = element(by.className('modal'));
+        await waitUntilDisplayed(deleteModal);
 
-    itemAvaliadoPerdaQuebraAcumuladosDeleteDialog = new ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog();
-    expect(await itemAvaliadoPerdaQuebraAcumuladosDeleteDialog.getDialogTitle().getAttribute('id')).to.match(
-      /dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.delete.question/
-    );
-    await itemAvaliadoPerdaQuebraAcumuladosDeleteDialog.clickOnConfirmButton();
+        itemAvaliadoPerdaQuebraAcumuladosDeleteDialog = new ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog();
+        expect(await itemAvaliadoPerdaQuebraAcumuladosDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.delete.question/);
+        await itemAvaliadoPerdaQuebraAcumuladosDeleteDialog.clickOnConfirmButton();
 
-    await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
-    expect(await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-  });
+        await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
+        expect(await itemAvaliadoPerdaQuebraAcumuladosComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
+    });*/
 
   after(async () => {
     await navBarPage.autoSignOut();

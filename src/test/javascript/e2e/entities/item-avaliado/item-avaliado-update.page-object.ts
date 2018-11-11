@@ -10,8 +10,8 @@ export default class ItemAvaliadoUpdatePage {
   observacoesInput: ElementFinder = element(by.css('input#item-avaliado-observacoes'));
   latitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-latitudeLocalResposta'));
   longitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-longitudeLocalResposta'));
-  avaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-avaliacao'));
   itemAvaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-itemAvaliacao'));
+  avaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-avaliacao'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -71,25 +71,6 @@ export default class ItemAvaliadoUpdatePage {
     return this.longitudeLocalRespostaInput.getAttribute('value');
   }
 
-  async avaliacaoSelectLastOption() {
-    await this.avaliacaoSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async avaliacaoSelectOption(option) {
-    await this.avaliacaoSelect.sendKeys(option);
-  }
-
-  getAvaliacaoSelect() {
-    return this.avaliacaoSelect;
-  }
-
-  async getAvaliacaoSelectedOption() {
-    return this.avaliacaoSelect.element(by.css('option:checked')).getText();
-  }
-
   async itemAvaliacaoSelectLastOption() {
     await this.itemAvaliacaoSelect
       .all(by.tagName('option'))
@@ -107,6 +88,25 @@ export default class ItemAvaliadoUpdatePage {
 
   async getItemAvaliacaoSelectedOption() {
     return this.itemAvaliacaoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async avaliacaoSelectLastOption() {
+    await this.avaliacaoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async avaliacaoSelectOption(option) {
+    await this.avaliacaoSelect.sendKeys(option);
+  }
+
+  getAvaliacaoSelect() {
+    return this.avaliacaoSelect;
+  }
+
+  async getAvaliacaoSelectedOption() {
+    return this.avaliacaoSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

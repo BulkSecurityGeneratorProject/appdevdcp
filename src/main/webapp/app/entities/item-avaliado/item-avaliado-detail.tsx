@@ -70,13 +70,13 @@ export class ItemAvaliadoDetail extends React.Component<IItemAvaliadoDetailProps
             </dt>
             <dd>{itemAvaliadoEntity.longitudeLocalResposta}</dd>
             <dt>
-              <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
-            </dt>
-            <dd>{itemAvaliadoEntity.avaliacao ? itemAvaliadoEntity.avaliacao.id : ''}</dd>
-            <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
             </dt>
             <dd>{itemAvaliadoEntity.itemAvaliacao ? itemAvaliadoEntity.itemAvaliacao.descricao : ''}</dd>
+            <dt>
+              <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
+            </dt>
+            <dd>{itemAvaliadoEntity.avaliacao ? itemAvaliadoEntity.avaliacao.id : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-avaliado" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

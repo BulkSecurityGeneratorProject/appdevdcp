@@ -24,7 +24,7 @@ export interface IAvaliacao {
   longitudeSubmissaoAvaliacao?: number;
   observacaoSubmissaoEnviadaForaDaLoja?: string;
   status?: StatusAvaliacao;
-  itemAvaliados?: IItemAvaliado[];
+  itensAvaliados?: IItemAvaliado[];
   itensPerdaEQuebraAcumulados?: IItemAvaliadoPerdaQuebraAcumulados[];
   itensAuditados?: IItemAuditado[];
   itensComAjusteSolicitados?: IItemSolicitadoAjuste[];

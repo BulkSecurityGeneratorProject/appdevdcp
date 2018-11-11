@@ -3,6 +3,7 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.AnexoItem;
+import br.com.lasa.dcpdesconformidades.domain.ItemAvaliado;
 import br.com.lasa.dcpdesconformidades.repository.AnexoItemRepository;
 import br.com.lasa.dcpdesconformidades.service.AnexoItemService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
@@ -90,6 +91,11 @@ public class AnexoItemResourceIntTest {
         AnexoItem anexoItem = new AnexoItem()
             .tipo(DEFAULT_TIPO)
             .caminhoArquivo(DEFAULT_CAMINHO_ARQUIVO);
+        // Add required entity
+        ItemAvaliado itemAvaliado = ItemAvaliadoResourceIntTest.createEntity(em);
+        em.persist(itemAvaliado);
+        em.flush();
+        anexoItem.setItemAvaliado(itemAvaliado);
         return anexoItem;
     }
 

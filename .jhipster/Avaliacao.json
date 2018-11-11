@@ -58,7 +58,7 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "itemAvaliado",
+            "relationshipName": "itensAvaliados",
             "otherEntityName": "itemAvaliado",
             "otherEntityRelationshipName": "avaliacao"
         },
@@ -82,12 +82,14 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "questionario",
             "otherEntityName": "questionario",
             "otherEntityField": "nome"
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "avaliador",
             "otherEntityName": "avaliador",
             "otherEntityField": "nome"

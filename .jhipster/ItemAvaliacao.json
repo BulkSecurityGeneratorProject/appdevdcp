@@ -26,7 +26,7 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "itemAvaliado",
+            "relationshipName": "itensAvaliados",
             "otherEntityName": "itemAvaliado",
             "otherEntityRelationshipName": "itemAvaliacao"
         },

@@ -230,8 +230,13 @@ export class ItemAuditadoUpdate extends React.Component<IItemAuditadoUpdateProps
                   <Label for="avaliacao.id">
                     <Translate contentKey="dcpdesconformidadesApp.itemAuditado.avaliacao">Avaliacao</Translate>
                   </Label>
-                  <AvInput id="item-auditado-avaliacao" type="select" className="form-control" name="avaliacao.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="item-auditado-avaliacao"
+                    type="select"
+                    className="form-control"
+                    name="avaliacao.id"
+                    value={isNew ? avaliacaos[0] && avaliacaos[0].id : itemAuditadoEntity.avaliacao.id}
+                  >
                     {avaliacaos
                       ? avaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

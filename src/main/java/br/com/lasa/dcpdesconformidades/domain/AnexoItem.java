@@ -35,7 +35,8 @@ public class AnexoItem implements Serializable {
     @Column(name = "caminho_arquivo", nullable = false)
     private String caminhoArquivo;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("anexos")
     private ItemAvaliado itemAvaliado;
 

@@ -56,13 +56,15 @@ public class ItemAvaliado implements Serializable {
     @OneToMany(mappedBy = "itemAvaliado")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AnexoItem> anexos = new HashSet<>();
-    @ManyToOne
-    @JsonIgnoreProperties("itemAvaliados")
-    private Avaliacao avaliacao;
-
-    @ManyToOne
-    @JsonIgnoreProperties("itemAvaliados")
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("itensAvaliados")
     private ItemAvaliacao itemAvaliacao;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("itensAvaliados")
+    private Avaliacao avaliacao;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -176,19 +178,6 @@ public class ItemAvaliado implements Serializable {
         this.anexos = anexoItems;
     }
 
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
-    }
-
-    public ItemAvaliado avaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-        return this;
-    }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-
     public ItemAvaliacao getItemAvaliacao() {
         return itemAvaliacao;
     }
@@ -200,6 +189,19 @@ public class ItemAvaliado implements Serializable {
 
     public void setItemAvaliacao(ItemAvaliacao itemAvaliacao) {
         this.itemAvaliacao = itemAvaliacao;
+    }
+
+    public Avaliacao getAvaliacao() {
+        return avaliacao;
+    }
+
+    public ItemAvaliado avaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
+        return this;
+    }
+
+    public void setAvaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

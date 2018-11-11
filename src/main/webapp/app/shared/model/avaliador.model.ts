@@ -6,7 +6,7 @@ export interface IAvaliador {
   nome?: string;
   login?: string;
   prontuario?: number;
-  avaliacaos?: IAvaliacao[];
+  avaliacoes?: IAvaliacao[];
   lojas?: ILoja[];
 }
 

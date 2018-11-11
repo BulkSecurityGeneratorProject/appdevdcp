@@ -3,6 +3,7 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.ItemAuditado;
+import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemAuditadoRepository;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
@@ -116,6 +117,11 @@ public class ItemAuditadoResourceIntTest {
             .saldoSap(DEFAULT_SALDO_SAP)
             .saldoFisico(DEFAULT_SALDO_FISICO)
             .motivoDivergencia(DEFAULT_MOTIVO_DIVERGENCIA);
+        // Add required entity
+        Avaliacao avaliacao = AvaliacaoResourceIntTest.createEntity(em);
+        em.persist(avaliacao);
+        em.flush();
+        itemAuditado.setAvaliacao(avaliacao);
         return itemAuditado;
     }
 

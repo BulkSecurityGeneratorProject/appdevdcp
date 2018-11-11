@@ -3,6 +3,7 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.ItemAvaliadoPerdaQuebraAcumulados;
+import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemAvaliadoPerdaQuebraAcumuladosRepository;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
@@ -113,6 +114,11 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
             .pontuacao(DEFAULT_PONTUACAO)
             .latitudeLocalResposta(DEFAULT_LATITUDE_LOCAL_RESPOSTA)
             .longitudeLocalResposta(DEFAULT_LONGITUDE_LOCAL_RESPOSTA);
+        // Add required entity
+        Avaliacao avaliacao = AvaliacaoResourceIntTest.createEntity(em);
+        em.persist(avaliacao);
+        em.flush();
+        itemAvaliadoPerdaQuebraAcumulados.setAvaliacao(avaliacao);
         return itemAvaliadoPerdaQuebraAcumulados;
     }
 

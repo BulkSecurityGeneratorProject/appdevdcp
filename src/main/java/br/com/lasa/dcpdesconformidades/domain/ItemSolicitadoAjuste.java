@@ -61,7 +61,8 @@ public class ItemSolicitadoAjuste implements Serializable {
     @Column(name = "responsavel")
     private String responsavel;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("itensComAjusteSolicitados")
     private Avaliacao avaliacao;
 

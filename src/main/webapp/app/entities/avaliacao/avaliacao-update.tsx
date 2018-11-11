@@ -246,7 +246,6 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                     <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
                   </Label>
                   <AvInput id="avaliacao-questionario" type="select" className="form-control" name="questionarioId">
-                    <option value="" key="0" />
                     {questionarios
                       ? questionarios.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
@@ -261,7 +260,6 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                     <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate>
                   </Label>
                   <AvInput id="avaliacao-avaliador" type="select" className="form-control" name="avaliadorId">
-                    <option value="" key="0" />
                     {avaliadors
                       ? avaliadors.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

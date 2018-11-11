@@ -40,7 +40,7 @@ public class Avaliador implements Serializable {
 
     @OneToMany(mappedBy = "avaliador")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Avaliacao> avaliacaos = new HashSet<>();
+    private Set<Avaliacao> avaliacoes = new HashSet<>();
     @ManyToMany(mappedBy = "avaliadors")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
@@ -94,29 +94,29 @@ public class Avaliador implements Serializable {
         this.prontuario = prontuario;
     }
 
-    public Set<Avaliacao> getAvaliacaos() {
-        return avaliacaos;
+    public Set<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
     }
 
-    public Avaliador avaliacaos(Set<Avaliacao> avaliacaos) {
-        this.avaliacaos = avaliacaos;
+    public Avaliador avaliacoes(Set<Avaliacao> avaliacaos) {
+        this.avaliacoes = avaliacaos;
         return this;
     }
 
-    public Avaliador addAvaliacao(Avaliacao avaliacao) {
-        this.avaliacaos.add(avaliacao);
+    public Avaliador addAvaliacoes(Avaliacao avaliacao) {
+        this.avaliacoes.add(avaliacao);
         avaliacao.setAvaliador(this);
         return this;
     }
 
-    public Avaliador removeAvaliacao(Avaliacao avaliacao) {
-        this.avaliacaos.remove(avaliacao);
+    public Avaliador removeAvaliacoes(Avaliacao avaliacao) {
+        this.avaliacoes.remove(avaliacao);
         avaliacao.setAvaliador(null);
         return this;
     }
 
-    public void setAvaliacaos(Set<Avaliacao> avaliacaos) {
-        this.avaliacaos = avaliacaos;
+    public void setAvaliacoes(Set<Avaliacao> avaliacaos) {
+        this.avaliacoes = avaliacaos;
     }
 
     public Set<Loja> getLojas() {

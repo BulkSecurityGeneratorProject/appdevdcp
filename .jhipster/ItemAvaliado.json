@@ -48,15 +48,17 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "avaliacao",
-            "otherEntityName": "avaliacao",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "itemAvaliacao",
             "otherEntityName": "itemAvaliacao",
             "otherEntityField": "descricao"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "avaliacao",
+            "otherEntityName": "avaliacao",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20181111155656",

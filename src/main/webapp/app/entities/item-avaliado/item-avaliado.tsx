@@ -57,10 +57,10 @@ export class ItemAvaliado extends React.Component<IItemAvaliadoProps> {
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.longitudeLocalResposta">Longitude Local Resposta</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
                 </th>
                 <th />
               </tr>
@@ -86,14 +86,14 @@ export class ItemAvaliado extends React.Component<IItemAvaliadoProps> {
                   <td>{itemAvaliado.latitudeLocalResposta}</td>
                   <td>{itemAvaliado.longitudeLocalResposta}</td>
                   <td>
-                    {itemAvaliado.avaliacao ? <Link to={`avaliacao/${itemAvaliado.avaliacao.id}`}>{itemAvaliado.avaliacao.id}</Link> : ''}
-                  </td>
-                  <td>
                     {itemAvaliado.itemAvaliacao ? (
                       <Link to={`item-avaliacao/${itemAvaliado.itemAvaliacao.id}`}>{itemAvaliado.itemAvaliacao.descricao}</Link>
                     ) : (
                       ''
                     )}
+                  </td>
+                  <td>
+                    {itemAvaliado.avaliacao ? <Link to={`avaliacao/${itemAvaliado.avaliacao.id}`}>{itemAvaliado.avaliacao.id}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

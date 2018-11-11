@@ -62,7 +62,8 @@ public class ItemAuditado implements Serializable {
     @Column(name = "motivo_divergencia")
     private String motivoDivergencia;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("itensAuditados")
     private Avaliacao avaliacao;
 

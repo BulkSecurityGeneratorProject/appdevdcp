@@ -240,8 +240,13 @@ export class ItemAvaliadoPerdaQuebraAcumuladosUpdate extends React.Component<
                   <Label for="avaliacao.id">
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.avaliacao">Avaliacao</Translate>
                   </Label>
-                  <AvInput id="item-avaliado-perda-quebra-acumulados-avaliacao" type="select" className="form-control" name="avaliacao.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="item-avaliado-perda-quebra-acumulados-avaliacao"
+                    type="select"
+                    className="form-control"
+                    name="avaliacao.id"
+                    value={isNew ? avaliacaos[0] && avaliacaos[0].id : itemAvaliadoPerdaQuebraAcumuladosEntity.avaliacao.id}
+                  >
                     {avaliacaos
                       ? avaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

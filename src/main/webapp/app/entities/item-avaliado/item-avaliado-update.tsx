@@ -8,10 +8,10 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IAvaliacao } from 'app/shared/model/avaliacao.model';
-import { getEntities as getAvaliacaos } from 'app/entities/avaliacao/avaliacao.reducer';
 import { IItemAvaliacao } from 'app/shared/model/item-avaliacao.model';
 import { getEntities as getItemAvaliacaos } from 'app/entities/item-avaliacao/item-avaliacao.reducer';
+import { IAvaliacao } from 'app/shared/model/avaliacao.model';
+import { getEntities as getAvaliacaos } from 'app/entities/avaliacao/avaliacao.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './item-avaliado.reducer';
 import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
 // tslint:disable-next-line:no-unused-variable
@@ -22,16 +22,16 @@ export interface IItemAvaliadoUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface IItemAvaliadoUpdateState {
   isNew: boolean;
-  avaliacaoId: string;
   itemAvaliacaoId: string;
+  avaliacaoId: string;
 }
 
 export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps, IItemAvaliadoUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      avaliacaoId: '0',
       itemAvaliacaoId: '0',
+      avaliacaoId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -49,8 +49,8 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getAvaliacaos();
     this.props.getItemAvaliacaos();
+    this.props.getAvaliacaos();
   }
 
   saveEntity = (event, errors, values) => {
@@ -77,7 +77,7 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
   };
 
   render() {
-    const { itemAvaliadoEntity, avaliacaos, itemAvaliacaos, loading, updating } = this.props;
+    const { itemAvaliadoEntity, itemAvaliacaos, avaliacaos, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -189,30 +189,40 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="avaliacao.id">
-                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
+                  <Label for="itemAvaliacao.descricao">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
                   </Label>
-                  <AvInput id="item-avaliado-avaliacao" type="select" className="form-control" name="avaliacao.id">
-                    <option value="" key="0" />
-                    {avaliacaos
-                      ? avaliacaos.map(otherEntity => (
+                  <AvInput
+                    id="item-avaliado-itemAvaliacao"
+                    type="select"
+                    className="form-control"
+                    name="itemAvaliacao.id"
+                    value={isNew ? itemAvaliacaos[0] && itemAvaliacaos[0].id : itemAvaliadoEntity.itemAvaliacao.id}
+                  >
+                    {itemAvaliacaos
+                      ? itemAvaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.descricao}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="itemAvaliacao.descricao">
-                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
+                  <Label for="avaliacao.id">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
                   </Label>
-                  <AvInput id="item-avaliado-itemAvaliacao" type="select" className="form-control" name="itemAvaliacao.id">
-                    <option value="" key="0" />
-                    {itemAvaliacaos
-                      ? itemAvaliacaos.map(otherEntity => (
+                  <AvInput
+                    id="item-avaliado-avaliacao"
+                    type="select"
+                    className="form-control"
+                    name="avaliacao.id"
+                    value={isNew ? avaliacaos[0] && avaliacaos[0].id : itemAvaliadoEntity.avaliacao.id}
+                  >
+                    {avaliacaos
+                      ? avaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.descricao}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -241,8 +251,8 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  avaliacaos: storeState.avaliacao.entities,
   itemAvaliacaos: storeState.itemAvaliacao.entities,
+  avaliacaos: storeState.avaliacao.entities,
   itemAvaliadoEntity: storeState.itemAvaliado.entity,
   loading: storeState.itemAvaliado.loading,
   updating: storeState.itemAvaliado.updating,
@@ -250,8 +260,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getAvaliacaos,
   getItemAvaliacaos,
+  getAvaliacaos,
   getEntity,
   updateEntity,
   createEntity,

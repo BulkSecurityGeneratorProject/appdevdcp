@@ -67,7 +67,7 @@ public class Avaliacao implements Serializable {
 
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ItemAvaliado> itemAvaliados = new HashSet<>();
+    private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAvaliadoPerdaQuebraAcumulados> itensPerdaEQuebraAcumulados = new HashSet<>();
@@ -77,12 +77,14 @@ public class Avaliacao implements Serializable {
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties("avaliacoesRealizadas")
     private Questionario questionario;
 
-    @ManyToOne
-    @JsonIgnoreProperties("avaliacaos")
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("avaliacoes")
     private Avaliador avaliador;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -224,29 +226,29 @@ public class Avaliacao implements Serializable {
         this.status = status;
     }
 
-    public Set<ItemAvaliado> getItemAvaliados() {
-        return itemAvaliados;
+    public Set<ItemAvaliado> getItensAvaliados() {
+        return itensAvaliados;
     }
 
-    public Avaliacao itemAvaliados(Set<ItemAvaliado> itemAvaliados) {
-        this.itemAvaliados = itemAvaliados;
+    public Avaliacao itensAvaliados(Set<ItemAvaliado> itemAvaliados) {
+        this.itensAvaliados = itemAvaliados;
         return this;
     }
 
-    public Avaliacao addItemAvaliado(ItemAvaliado itemAvaliado) {
-        this.itemAvaliados.add(itemAvaliado);
+    public Avaliacao addItensAvaliados(ItemAvaliado itemAvaliado) {
+        this.itensAvaliados.add(itemAvaliado);
         itemAvaliado.setAvaliacao(this);
         return this;
     }
 
-    public Avaliacao removeItemAvaliado(ItemAvaliado itemAvaliado) {
-        this.itemAvaliados.remove(itemAvaliado);
+    public Avaliacao removeItensAvaliados(ItemAvaliado itemAvaliado) {
+        this.itensAvaliados.remove(itemAvaliado);
         itemAvaliado.setAvaliacao(null);
         return this;
     }
 
-    public void setItemAvaliados(Set<ItemAvaliado> itemAvaliados) {
-        this.itemAvaliados = itemAvaliados;
+    public void setItensAvaliados(Set<ItemAvaliado> itemAvaliados) {
+        this.itensAvaliados = itemAvaliados;
     }
 
     public Set<ItemAvaliadoPerdaQuebraAcumulados> getItensPerdaEQuebraAcumulados() {

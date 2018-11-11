@@ -3,6 +3,8 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
+import br.com.lasa.dcpdesconformidades.domain.Questionario;
+import br.com.lasa.dcpdesconformidades.domain.Avaliador;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.AvaliacaoService;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
@@ -129,6 +131,16 @@ public class AvaliacaoResourceIntTest {
             .longitudeSubmissaoAvaliacao(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO)
             .observacaoSubmissaoEnviadaForaDaLoja(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA)
             .status(DEFAULT_STATUS);
+        // Add required entity
+        Questionario questionario = QuestionarioResourceIntTest.createEntity(em);
+        em.persist(questionario);
+        em.flush();
+        avaliacao.setQuestionario(questionario);
+        // Add required entity
+        Avaliador avaliador = AvaliadorResourceIntTest.createEntity(em);
+        em.persist(avaliador);
+        em.flush();
+        avaliacao.setAvaliador(avaliador);
         return avaliacao;
     }
 

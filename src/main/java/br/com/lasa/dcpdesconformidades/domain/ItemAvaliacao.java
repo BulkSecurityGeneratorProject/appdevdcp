@@ -41,7 +41,7 @@ public class ItemAvaliacao implements Serializable {
 
     @OneToMany(mappedBy = "itemAvaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ItemAvaliado> itemAvaliados = new HashSet<>();
+    private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
     @ManyToMany(mappedBy = "itens")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
@@ -95,29 +95,29 @@ public class ItemAvaliacao implements Serializable {
         this.criadoEm = criadoEm;
     }
 
-    public Set<ItemAvaliado> getItemAvaliados() {
-        return itemAvaliados;
+    public Set<ItemAvaliado> getItensAvaliados() {
+        return itensAvaliados;
     }
 
-    public ItemAvaliacao itemAvaliados(Set<ItemAvaliado> itemAvaliados) {
-        this.itemAvaliados = itemAvaliados;
+    public ItemAvaliacao itensAvaliados(Set<ItemAvaliado> itemAvaliados) {
+        this.itensAvaliados = itemAvaliados;
         return this;
     }
 
-    public ItemAvaliacao addItemAvaliado(ItemAvaliado itemAvaliado) {
-        this.itemAvaliados.add(itemAvaliado);
+    public ItemAvaliacao addItensAvaliados(ItemAvaliado itemAvaliado) {
+        this.itensAvaliados.add(itemAvaliado);
         itemAvaliado.setItemAvaliacao(this);
         return this;
     }
 
-    public ItemAvaliacao removeItemAvaliado(ItemAvaliado itemAvaliado) {
-        this.itemAvaliados.remove(itemAvaliado);
+    public ItemAvaliacao removeItensAvaliados(ItemAvaliado itemAvaliado) {
+        this.itensAvaliados.remove(itemAvaliado);
         itemAvaliado.setItemAvaliacao(null);
         return this;
     }
 
-    public void setItemAvaliados(Set<ItemAvaliado> itemAvaliados) {
-        this.itemAvaliados = itemAvaliados;
+    public void setItensAvaliados(Set<ItemAvaliado> itemAvaliados) {
+        this.itensAvaliados = itemAvaliados;
     }
 
     public Set<GrupoItens> getGrupos() {

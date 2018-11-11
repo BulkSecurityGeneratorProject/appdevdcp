@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface AvaliadorMapper extends EntityMapper<AvaliadorDTO, Avaliador> {
 
 
-    @Mapping(target = "avaliacaos", ignore = true)
+    @Mapping(target = "avaliacoes", ignore = true)
     @Mapping(target = "lojas", ignore = true)
     Avaliador toEntity(AvaliadorDTO avaliadorDTO);
 

@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface ItemAvaliacaoMapper extends EntityMapper<ItemAvaliacaoDTO, ItemAvaliacao> {
 
 
-    @Mapping(target = "itemAvaliados", ignore = true)
+    @Mapping(target = "itensAvaliados", ignore = true)
     @Mapping(target = "grupos", ignore = true)
     ItemAvaliacao toEntity(ItemAvaliacaoDTO itemAvaliacaoDTO);
 

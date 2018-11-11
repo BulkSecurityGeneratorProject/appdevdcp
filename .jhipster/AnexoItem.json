@@ -19,9 +19,10 @@
     ],
     "relationships": [
         {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "itemAvaliado",
             "otherEntityName": "itemAvaliado",
-            "relationshipType": "many-to-one",
             "otherEntityField": "id"
         }
     ],
