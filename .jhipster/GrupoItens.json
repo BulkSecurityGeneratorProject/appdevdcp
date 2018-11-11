@@ -1,0 +1,47 @@
+{
+    "name": "GrupoItens",
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "criadoEm",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "grupo",
+            "relationshipName": "itens",
+            "otherEntityName": "itemAvaliacao",
+            "otherEntityField": "descricao",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "questionario",
+            "otherEntityName": "questionario",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "grupo"
+        }
+    ],
+    "changelogDate": "20181111155658",
+    "entityTableName": "grupo_itens",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

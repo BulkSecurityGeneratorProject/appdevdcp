@@ -1,0 +1,107 @@
+{
+    "name": "Avaliacao",
+    "fields": [
+        {
+            "fieldName": "dataInicio",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "latitudeInicioAvaliacao",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "longitudeInicioAvaliacao",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nomeResponsavelLoja",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "prontuarioResponsavelLoja",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "submetidoEm",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "latitudeSubmissaoAvaliacao",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longitudeSubmissaoAvaliacao",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "observacaoSubmissaoEnviadaForaDaLoja",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusAvaliacao",
+            "fieldValues": "INICIADA,RELATORIO_FINALIZADO,ANEXO_AUDITORIA_FINALIZADO,ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,SUBMETIDO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "itemAvaliado",
+            "otherEntityName": "itemAvaliado",
+            "otherEntityRelationshipName": "avaliacao"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "itensPerdaEQuebraAcumulados",
+            "otherEntityName": "itemAvaliadoPerdaQuebraAcumulados",
+            "otherEntityRelationshipName": "avaliacao"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "itensAuditados",
+            "otherEntityName": "itemAuditado",
+            "otherEntityRelationshipName": "avaliacao"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "itensComAjusteSolicitado",
+            "otherEntityName": "itemSolicitadoAjuste",
+            "otherEntityRelationshipName": "avaliacao"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "questionario",
+            "otherEntityName": "questionario",
+            "otherEntityField": "nome"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "avaliador",
+            "otherEntityName": "avaliador",
+            "otherEntityField": "nome"
+        }
+    ],
+    "changelogDate": "20181111155654",
+    "entityTableName": "avaliacao",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

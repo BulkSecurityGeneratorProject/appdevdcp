@@ -1,0 +1,78 @@
+{
+    "name": "ItemAvaliadoPerdaQuebraAcumulados",
+    "fields": [
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoItemAvaliadoPerdaQuebra",
+            "fieldValues": "PERDA,QUEBRA",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "respondidoEm",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ultimaAtualizacaoEm",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "percentual",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "financeiro",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pontuacao",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "latitudeLocalResposta",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "longitudeLocalResposta",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "avaliacao",
+            "otherEntityName": "avaliacao",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181111155657",
+    "entityTableName": "item_avaliado_perda_quebra_acumulados",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

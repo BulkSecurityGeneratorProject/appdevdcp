@@ -1,0 +1,39 @@
+{
+    "name": "AnexoItem",
+    "fields": [
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoAnexoItem",
+            "fieldValues": "IMAGEM",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "caminhoArquivo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "itemAvaliado",
+            "otherEntityName": "itemAvaliado",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181111155659",
+    "entityTableName": "anexo_item",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

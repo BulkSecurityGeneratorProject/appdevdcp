@@ -1,0 +1,82 @@
+{
+    "name": "ItemSolicitadoAjuste",
+    "fields": [
+        {
+            "fieldName": "respondidoEm",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ultimaAtualizacaoEm",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "departamento",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "codigoSap",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descricaoItem",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "saldoSap",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "saldoFisico",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "motivoDivergencia",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "acaoCorretivaOuPreventiva",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "responsavel",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "avaliacao",
+            "otherEntityName": "avaliacao",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181111155701",
+    "entityTableName": "item_solicitado_ajuste",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

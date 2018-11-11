@@ -1,0 +1,52 @@
+{
+    "name": "ItemAvaliacao",
+    "fields": [
+        {
+            "fieldName": "descricao",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "anexoObrigatorio",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "criadoEm",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "itemAvaliado",
+            "otherEntityName": "itemAvaliado",
+            "otherEntityRelationshipName": "itemAvaliacao"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "grupo",
+            "otherEntityName": "grupoItens",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "itens"
+        }
+    ],
+    "changelogDate": "20181111155655",
+    "entityTableName": "item_avaliacao",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

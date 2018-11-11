@@ -1,0 +1,29 @@
+{
+  "dcpdesconformidadesApp": {
+    "itemAvaliado": {
+      "home": {
+        "title": "Item Avaliados",
+        "createLabel": "Criar novo Item Avaliado",
+        "createOrEditLabel": "Criar ou editar Item Avaliado"
+      },
+      "created": "Um novo Item Avaliado foi criado com o identificador {{ param }}",
+      "updated": "Um Item Avaliado foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Item Avaliado foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Item Avaliado {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Avaliado"
+      },
+      "respondidoEm": "Respondido Em",
+      "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+      "status": "Status",
+      "observacoes": "Observacoes",
+      "latitudeLocalResposta": "Latitude Local Resposta",
+      "longitudeLocalResposta": "Longitude Local Resposta",
+      "anexos": "Anexos",
+      "avaliacao": "Avaliacao",
+      "itemAvaliacao": "Item Avaliacao"
+    }
+  }
+}

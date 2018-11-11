@@ -1,0 +1,25 @@
+{
+  "dcpdesconformidadesApp": {
+    "avaliador": {
+      "home": {
+        "title": "Avaliadors",
+        "createLabel": "Criar novo Avaliador",
+        "createOrEditLabel": "Criar ou editar Avaliador"
+      },
+      "created": "Um novo Avaliador foi criado com o identificador {{ param }}",
+      "updated": "Um Avaliador foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Avaliador foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Avaliador {{ id }}?"
+      },
+      "detail": {
+        "title": "Avaliador"
+      },
+      "nome": "Nome",
+      "login": "Login",
+      "prontuario": "Prontuario",
+      "avaliacao": "Avaliacao",
+      "loja": "Loja"
+    }
+  }
+}

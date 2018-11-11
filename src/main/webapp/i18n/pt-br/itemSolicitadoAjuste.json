@@ -1,0 +1,31 @@
+{
+  "dcpdesconformidadesApp": {
+    "itemSolicitadoAjuste": {
+      "home": {
+        "title": "Item Solicitado Ajustes",
+        "createLabel": "Criar novo Item Solicitado Ajuste",
+        "createOrEditLabel": "Criar ou editar Item Solicitado Ajuste"
+      },
+      "created": "Um novo Item Solicitado Ajuste foi criado com o identificador {{ param }}",
+      "updated": "Um Item Solicitado Ajuste foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Item Solicitado Ajuste foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Item Solicitado Ajuste {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Solicitado Ajuste"
+      },
+      "respondidoEm": "Respondido Em",
+      "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+      "departamento": "Departamento",
+      "codigoSap": "Codigo Sap",
+      "descricaoItem": "Descricao Item",
+      "saldoSap": "Saldo Sap",
+      "saldoFisico": "Saldo Fisico",
+      "motivoDivergencia": "Motivo Divergencia",
+      "acaoCorretivaOuPreventiva": "Acao Corretiva Ou Preventiva",
+      "responsavel": "Responsavel",
+      "avaliacao": "Avaliacao"
+    }
+  }
+}

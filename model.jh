@@ -17,6 +17,7 @@ application {
     testFrameworks [protractor]
     useSass true
   }
+  entities *
 }
 
 enum StatusAvaliacao {

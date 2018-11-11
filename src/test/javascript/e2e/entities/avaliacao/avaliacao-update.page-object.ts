@@ -1,0 +1,159 @@
+import { element, by, ElementFinder } from 'protractor';
+
+export default class AvaliacaoUpdatePage {
+  pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.avaliacao.home.createOrEditLabel'));
+  saveButton: ElementFinder = element(by.id('save-entity'));
+  cancelButton: ElementFinder = element(by.id('cancel-save'));
+  dataInicioInput: ElementFinder = element(by.css('input#avaliacao-dataInicio'));
+  latitudeInicioAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-latitudeInicioAvaliacao'));
+  longitudeInicioAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-longitudeInicioAvaliacao'));
+  nomeResponsavelLojaInput: ElementFinder = element(by.css('input#avaliacao-nomeResponsavelLoja'));
+  prontuarioResponsavelLojaInput: ElementFinder = element(by.css('input#avaliacao-prontuarioResponsavelLoja'));
+  submetidoEmInput: ElementFinder = element(by.css('input#avaliacao-submetidoEm'));
+  latitudeSubmissaoAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-latitudeSubmissaoAvaliacao'));
+  longitudeSubmissaoAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-longitudeSubmissaoAvaliacao'));
+  observacaoSubmissaoEnviadaForaDaLojaInput: ElementFinder = element(by.css('input#avaliacao-observacaoSubmissaoEnviadaForaDaLoja'));
+  statusSelect: ElementFinder = element(by.css('select#avaliacao-status'));
+  questionarioSelect: ElementFinder = element(by.css('select#avaliacao-questionario'));
+  avaliadorSelect: ElementFinder = element(by.css('select#avaliacao-avaliador'));
+
+  getPageTitle() {
+    return this.pageTitle;
+  }
+
+  async setDataInicioInput(dataInicio) {
+    await this.dataInicioInput.sendKeys(dataInicio);
+  }
+
+  async getDataInicioInput() {
+    return this.dataInicioInput.getAttribute('value');
+  }
+
+  async setLatitudeInicioAvaliacaoInput(latitudeInicioAvaliacao) {
+    await this.latitudeInicioAvaliacaoInput.sendKeys(latitudeInicioAvaliacao);
+  }
+
+  async getLatitudeInicioAvaliacaoInput() {
+    return this.latitudeInicioAvaliacaoInput.getAttribute('value');
+  }
+
+  async setLongitudeInicioAvaliacaoInput(longitudeInicioAvaliacao) {
+    await this.longitudeInicioAvaliacaoInput.sendKeys(longitudeInicioAvaliacao);
+  }
+
+  async getLongitudeInicioAvaliacaoInput() {
+    return this.longitudeInicioAvaliacaoInput.getAttribute('value');
+  }
+
+  async setNomeResponsavelLojaInput(nomeResponsavelLoja) {
+    await this.nomeResponsavelLojaInput.sendKeys(nomeResponsavelLoja);
+  }
+
+  async getNomeResponsavelLojaInput() {
+    return this.nomeResponsavelLojaInput.getAttribute('value');
+  }
+
+  async setProntuarioResponsavelLojaInput(prontuarioResponsavelLoja) {
+    await this.prontuarioResponsavelLojaInput.sendKeys(prontuarioResponsavelLoja);
+  }
+
+  async getProntuarioResponsavelLojaInput() {
+    return this.prontuarioResponsavelLojaInput.getAttribute('value');
+  }
+
+  async setSubmetidoEmInput(submetidoEm) {
+    await this.submetidoEmInput.sendKeys(submetidoEm);
+  }
+
+  async getSubmetidoEmInput() {
+    return this.submetidoEmInput.getAttribute('value');
+  }
+
+  async setLatitudeSubmissaoAvaliacaoInput(latitudeSubmissaoAvaliacao) {
+    await this.latitudeSubmissaoAvaliacaoInput.sendKeys(latitudeSubmissaoAvaliacao);
+  }
+
+  async getLatitudeSubmissaoAvaliacaoInput() {
+    return this.latitudeSubmissaoAvaliacaoInput.getAttribute('value');
+  }
+
+  async setLongitudeSubmissaoAvaliacaoInput(longitudeSubmissaoAvaliacao) {
+    await this.longitudeSubmissaoAvaliacaoInput.sendKeys(longitudeSubmissaoAvaliacao);
+  }
+
+  async getLongitudeSubmissaoAvaliacaoInput() {
+    return this.longitudeSubmissaoAvaliacaoInput.getAttribute('value');
+  }
+
+  async setObservacaoSubmissaoEnviadaForaDaLojaInput(observacaoSubmissaoEnviadaForaDaLoja) {
+    await this.observacaoSubmissaoEnviadaForaDaLojaInput.sendKeys(observacaoSubmissaoEnviadaForaDaLoja);
+  }
+
+  async getObservacaoSubmissaoEnviadaForaDaLojaInput() {
+    return this.observacaoSubmissaoEnviadaForaDaLojaInput.getAttribute('value');
+  }
+
+  async setStatusSelect(status) {
+    await this.statusSelect.sendKeys(status);
+  }
+
+  async getStatusSelect() {
+    return this.statusSelect.element(by.css('option:checked')).getText();
+  }
+
+  async statusSelectLastOption() {
+    await this.statusSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async questionarioSelectLastOption() {
+    await this.questionarioSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async questionarioSelectOption(option) {
+    await this.questionarioSelect.sendKeys(option);
+  }
+
+  getQuestionarioSelect() {
+    return this.questionarioSelect;
+  }
+
+  async getQuestionarioSelectedOption() {
+    return this.questionarioSelect.element(by.css('option:checked')).getText();
+  }
+
+  async avaliadorSelectLastOption() {
+    await this.avaliadorSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async avaliadorSelectOption(option) {
+    await this.avaliadorSelect.sendKeys(option);
+  }
+
+  getAvaliadorSelect() {
+    return this.avaliadorSelect;
+  }
+
+  async getAvaliadorSelectedOption() {
+    return this.avaliadorSelect.element(by.css('option:checked')).getText();
+  }
+
+  async save() {
+    await this.saveButton.click();
+  }
+
+  async cancel() {
+    await this.cancelButton.click();
+  }
+
+  getSaveButton() {
+    return this.saveButton;
+  }
+}

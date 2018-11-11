@@ -1,0 +1,9 @@
+{
+  "dcpdesconformidadesApp": {
+    "TipoItemAvaliadoPerdaQuebra": {
+      "null": "",
+      "PERDA": "PERDA",
+      "QUEBRA": "QUEBRA"
+    }
+  }
+}

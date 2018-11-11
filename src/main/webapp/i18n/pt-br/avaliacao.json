@@ -1,0 +1,36 @@
+{
+  "dcpdesconformidadesApp": {
+    "avaliacao": {
+      "home": {
+        "title": "Avaliacaos",
+        "createLabel": "Criar novo Avaliacao",
+        "createOrEditLabel": "Criar ou editar Avaliacao"
+      },
+      "created": "Um novo Avaliacao foi criado com o identificador {{ param }}",
+      "updated": "Um Avaliacao foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Avaliacao foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Avaliacao {{ id }}?"
+      },
+      "detail": {
+        "title": "Avaliacao"
+      },
+      "dataInicio": "Data Inicio",
+      "latitudeInicioAvaliacao": "Latitude Inicio Avaliacao",
+      "longitudeInicioAvaliacao": "Longitude Inicio Avaliacao",
+      "nomeResponsavelLoja": "Nome Responsavel Loja",
+      "prontuarioResponsavelLoja": "Prontuario Responsavel Loja",
+      "submetidoEm": "Submetido Em",
+      "latitudeSubmissaoAvaliacao": "Latitude Submissao Avaliacao",
+      "longitudeSubmissaoAvaliacao": "Longitude Submissao Avaliacao",
+      "observacaoSubmissaoEnviadaForaDaLoja": "Observacao Submissao Enviada Fora Da Loja",
+      "status": "Status",
+      "itemAvaliado": "Item Avaliado",
+      "itensPerdaEQuebraAcumulados": "Itens Perda E Quebra Acumulados",
+      "itensAuditados": "Itens Auditados",
+      "itensComAjusteSolicitado": "Itens Com Ajuste Solicitado",
+      "questionario": "Questionario",
+      "avaliador": "Avaliador"
+    }
+  }
+}

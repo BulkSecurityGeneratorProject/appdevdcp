@@ -1,0 +1,10 @@
+{
+  "dcpdesconformidadesApp": {
+    "StatusItemAvaliado": {
+      "null": "",
+      "OK": "OK",
+      "NAO_OK": "NAO_OK",
+      "N_A": "N_A"
+    }
+  }
+}

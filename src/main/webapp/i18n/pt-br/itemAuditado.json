@@ -1,0 +1,30 @@
+{
+  "dcpdesconformidadesApp": {
+    "itemAuditado": {
+      "home": {
+        "title": "Item Auditados",
+        "createLabel": "Criar novo Item Auditado",
+        "createOrEditLabel": "Criar ou editar Item Auditado"
+      },
+      "created": "Um novo Item Auditado foi criado com o identificador {{ param }}",
+      "updated": "Um Item Auditado foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Item Auditado foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Item Auditado {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Auditado"
+      },
+      "respondidoEm": "Respondido Em",
+      "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+      "tipo": "Tipo",
+      "departamento": "Departamento",
+      "codigoSap": "Codigo Sap",
+      "descricaoItem": "Descricao Item",
+      "saldoSap": "Saldo Sap",
+      "saldoFisico": "Saldo Fisico",
+      "motivoDivergencia": "Motivo Divergencia",
+      "avaliacao": "Avaliacao"
+    }
+  }
+}

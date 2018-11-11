@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity ItemSolicitadoAjuste.
+    -->
+    <changeSet id="20181111155701-1" author="jhipster">
+        <createTable tableName="item_solicitado_ajuste">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="respondido_em" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="ultima_atualizacao_em" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="departamento" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="codigo_sap" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="descricao_item" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="saldo_sap" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="saldo_fisico" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="motivo_divergencia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="acao_corretiva_ou_preventiva" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="responsavel" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="avaliacao_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="item_solicitado_ajuste" columnName="respondido_em" columnDataType="datetime"/>
+        <dropDefaultValue tableName="item_solicitado_ajuste" columnName="ultima_atualizacao_em" columnDataType="datetime"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

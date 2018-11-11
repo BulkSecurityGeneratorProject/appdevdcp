@@ -1,0 +1,73 @@
+{
+    "name": "ItemAvaliado",
+    "fields": [
+        {
+            "fieldName": "respondidoEm",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ultimaAtualizacaoEm",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusItemAvaliado",
+            "fieldValues": "OK,NAO_OK,N_A",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "observacoes",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "latitudeLocalResposta",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "longitudeLocalResposta",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "anexos",
+            "otherEntityName": "anexoItem",
+            "otherEntityRelationshipName": "itemAvaliado"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "avaliacao",
+            "otherEntityName": "avaliacao",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "itemAvaliacao",
+            "otherEntityName": "itemAvaliacao",
+            "otherEntityField": "descricao"
+        }
+    ],
+    "changelogDate": "20181111155656",
+    "entityTableName": "item_avaliado",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "dcpdesconformidades"
+    ]
+}

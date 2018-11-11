@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Avaliacao.
+    -->
+    <changeSet id="20181111155654-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="questionario_id"
+                                 baseTableName="avaliacao"
+                                 constraintName="fk_avaliacao_questionario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questionario"/>
+
+        <addForeignKeyConstraint baseColumnNames="avaliador_id"
+                                 baseTableName="avaliacao"
+                                 constraintName="fk_avaliacao_avaliador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="avaliador"/>
+
+    </changeSet>
+</databaseChangeLog>

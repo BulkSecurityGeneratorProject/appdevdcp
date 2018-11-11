@@ -1,0 +1,24 @@
+{
+  "dcpdesconformidadesApp": {
+    "grupoItens": {
+      "home": {
+        "title": "Grupo Itens",
+        "createLabel": "Criar novo Grupo Itens",
+        "createOrEditLabel": "Criar ou editar Grupo Itens"
+      },
+      "created": "Um novo Grupo Itens foi criado com o identificador {{ param }}",
+      "updated": "Um Grupo Itens foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Grupo Itens foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Grupo Itens {{ id }}?"
+      },
+      "detail": {
+        "title": "Grupo Itens"
+      },
+      "nome": "Nome",
+      "criadoEm": "Criado Em",
+      "itens": "Itens",
+      "questionario": "Questionario"
+    }
+  }
+}

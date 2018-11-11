@@ -1,0 +1,26 @@
+{
+  "dcpdesconformidadesApp": {
+    "loja": {
+      "home": {
+        "title": "Lojas",
+        "createLabel": "Criar novo Loja",
+        "createOrEditLabel": "Criar ou editar Loja"
+      },
+      "created": "Um novo Loja foi criado com o identificador {{ param }}",
+      "updated": "Um Loja foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Loja foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Loja {{ id }}?"
+      },
+      "detail": {
+        "title": "Loja"
+      },
+      "nome": "Nome",
+      "nomeResponsavel": "Nome Responsavel",
+      "prontuarioResponsavel": "Prontuario Responsavel",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "avaliador": "Avaliador"
+    }
+  }
+}

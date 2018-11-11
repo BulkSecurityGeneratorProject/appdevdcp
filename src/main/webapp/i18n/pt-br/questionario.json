@@ -1,0 +1,26 @@
+{
+  "dcpdesconformidadesApp": {
+    "questionario": {
+      "home": {
+        "title": "Questionarios",
+        "createLabel": "Criar novo Questionario",
+        "createOrEditLabel": "Criar ou editar Questionario"
+      },
+      "created": "Um novo Questionario foi criado com o identificador {{ param }}",
+      "updated": "Um Questionario foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Questionario foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Questionario {{ id }}?"
+      },
+      "detail": {
+        "title": "Questionario"
+      },
+      "nome": "Nome",
+      "descricao": "Descricao",
+      "ativo": "Ativo",
+      "criadoEm": "Criado Em",
+      "avaliacoesRealizadas": "Avaliacoes Realizadas",
+      "grupo": "Grupo"
+    }
+  }
+}
