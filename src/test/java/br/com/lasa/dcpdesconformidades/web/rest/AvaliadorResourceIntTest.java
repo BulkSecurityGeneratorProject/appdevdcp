@@ -5,6 +5,8 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 import br.com.lasa.dcpdesconformidades.domain.Avaliador;
 import br.com.lasa.dcpdesconformidades.repository.AvaliadorRepository;
 import br.com.lasa.dcpdesconformidades.service.AvaliadorService;
+import br.com.lasa.dcpdesconformidades.service.dto.AvaliadorDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.AvaliadorMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -51,6 +53,9 @@ public class AvaliadorResourceIntTest {
 
     @Autowired
     private AvaliadorRepository avaliadorRepository;
+
+    @Autowired
+    private AvaliadorMapper avaliadorMapper;
 
     @Autowired
     private AvaliadorService avaliadorService;
@@ -107,9 +112,10 @@ public class AvaliadorResourceIntTest {
         int databaseSizeBeforeCreate = avaliadorRepository.findAll().size();
 
         // Create the Avaliador
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
         restAvaliadorMockMvc.perform(post("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Avaliador in the database
@@ -128,11 +134,12 @@ public class AvaliadorResourceIntTest {
 
         // Create the Avaliador with an existing ID
         avaliador.setId(1L);
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAvaliadorMockMvc.perform(post("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Avaliador in the database
@@ -148,10 +155,11 @@ public class AvaliadorResourceIntTest {
         avaliador.setNome(null);
 
         // Create the Avaliador, which fails.
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
 
         restAvaliadorMockMvc.perform(post("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isBadRequest());
 
         List<Avaliador> avaliadorList = avaliadorRepository.findAll();
@@ -166,10 +174,11 @@ public class AvaliadorResourceIntTest {
         avaliador.setLogin(null);
 
         // Create the Avaliador, which fails.
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
 
         restAvaliadorMockMvc.perform(post("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isBadRequest());
 
         List<Avaliador> avaliadorList = avaliadorRepository.findAll();
@@ -184,10 +193,11 @@ public class AvaliadorResourceIntTest {
         avaliador.setProntuario(null);
 
         // Create the Avaliador, which fails.
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
 
         restAvaliadorMockMvc.perform(post("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isBadRequest());
 
         List<Avaliador> avaliadorList = avaliadorRepository.findAll();
@@ -238,7 +248,7 @@ public class AvaliadorResourceIntTest {
     @Transactional
     public void updateAvaliador() throws Exception {
         // Initialize the database
-        avaliadorService.save(avaliador);
+        avaliadorRepository.saveAndFlush(avaliador);
 
         int databaseSizeBeforeUpdate = avaliadorRepository.findAll().size();
 
@@ -250,10 +260,11 @@ public class AvaliadorResourceIntTest {
             .nome(UPDATED_NOME)
             .login(UPDATED_LOGIN)
             .prontuario(UPDATED_PRONTUARIO);
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(updatedAvaliador);
 
         restAvaliadorMockMvc.perform(put("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAvaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isOk());
 
         // Validate the Avaliador in the database
@@ -271,11 +282,12 @@ public class AvaliadorResourceIntTest {
         int databaseSizeBeforeUpdate = avaliadorRepository.findAll().size();
 
         // Create the Avaliador
+        AvaliadorDTO avaliadorDTO = avaliadorMapper.toDto(avaliador);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAvaliadorMockMvc.perform(put("/api/avaliadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(avaliador)))
+            .content(TestUtil.convertObjectToJsonBytes(avaliadorDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Avaliador in the database
@@ -287,7 +299,7 @@ public class AvaliadorResourceIntTest {
     @Transactional
     public void deleteAvaliador() throws Exception {
         // Initialize the database
-        avaliadorService.save(avaliador);
+        avaliadorRepository.saveAndFlush(avaliador);
 
         int databaseSizeBeforeDelete = avaliadorRepository.findAll().size();
 
@@ -314,5 +326,28 @@ public class AvaliadorResourceIntTest {
         assertThat(avaliador1).isNotEqualTo(avaliador2);
         avaliador1.setId(null);
         assertThat(avaliador1).isNotEqualTo(avaliador2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(AvaliadorDTO.class);
+        AvaliadorDTO avaliadorDTO1 = new AvaliadorDTO();
+        avaliadorDTO1.setId(1L);
+        AvaliadorDTO avaliadorDTO2 = new AvaliadorDTO();
+        assertThat(avaliadorDTO1).isNotEqualTo(avaliadorDTO2);
+        avaliadorDTO2.setId(avaliadorDTO1.getId());
+        assertThat(avaliadorDTO1).isEqualTo(avaliadorDTO2);
+        avaliadorDTO2.setId(2L);
+        assertThat(avaliadorDTO1).isNotEqualTo(avaliadorDTO2);
+        avaliadorDTO1.setId(null);
+        assertThat(avaliadorDTO1).isNotEqualTo(avaliadorDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(avaliadorMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(avaliadorMapper.fromId(null)).isNull();
     }
 }

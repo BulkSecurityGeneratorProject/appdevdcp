@@ -1,11 +1,11 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import br.com.lasa.dcpdesconformidades.domain.Avaliador;
 import br.com.lasa.dcpdesconformidades.service.AvaliadorService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
 import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
+import br.com.lasa.dcpdesconformidades.service.dto.AvaliadorDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class AvaliadorResource {
     /**
      * POST  /avaliadors : Create a new avaliador.
      *
-     * @param avaliador the avaliador to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new avaliador, or with status 400 (Bad Request) if the avaliador has already an ID
+     * @param avaliadorDTO the avaliadorDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new avaliadorDTO, or with status 400 (Bad Request) if the avaliador has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/avaliadors")
     @Timed
-    public ResponseEntity<Avaliador> createAvaliador(@Valid @RequestBody Avaliador avaliador) throws URISyntaxException {
-        log.debug("REST request to save Avaliador : {}", avaliador);
-        if (avaliador.getId() != null) {
+    public ResponseEntity<AvaliadorDTO> createAvaliador(@Valid @RequestBody AvaliadorDTO avaliadorDTO) throws URISyntaxException {
+        log.debug("REST request to save Avaliador : {}", avaliadorDTO);
+        if (avaliadorDTO.getId() != null) {
             throw new BadRequestAlertException("A new avaliador cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Avaliador result = avaliadorService.save(avaliador);
+        AvaliadorDTO result = avaliadorService.save(avaliadorDTO);
         return ResponseEntity.created(new URI("/api/avaliadors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class AvaliadorResource {
     /**
      * PUT  /avaliadors : Updates an existing avaliador.
      *
-     * @param avaliador the avaliador to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated avaliador,
-     * or with status 400 (Bad Request) if the avaliador is not valid,
-     * or with status 500 (Internal Server Error) if the avaliador couldn't be updated
+     * @param avaliadorDTO the avaliadorDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated avaliadorDTO,
+     * or with status 400 (Bad Request) if the avaliadorDTO is not valid,
+     * or with status 500 (Internal Server Error) if the avaliadorDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/avaliadors")
     @Timed
-    public ResponseEntity<Avaliador> updateAvaliador(@Valid @RequestBody Avaliador avaliador) throws URISyntaxException {
-        log.debug("REST request to update Avaliador : {}", avaliador);
-        if (avaliador.getId() == null) {
+    public ResponseEntity<AvaliadorDTO> updateAvaliador(@Valid @RequestBody AvaliadorDTO avaliadorDTO) throws URISyntaxException {
+        log.debug("REST request to update Avaliador : {}", avaliadorDTO);
+        if (avaliadorDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Avaliador result = avaliadorService.save(avaliador);
+        AvaliadorDTO result = avaliadorService.save(avaliadorDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, avaliador.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, avaliadorDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class AvaliadorResource {
      */
     @GetMapping("/avaliadors")
     @Timed
-    public ResponseEntity<List<Avaliador>> getAllAvaliadors(Pageable pageable) {
+    public ResponseEntity<List<AvaliadorDTO>> getAllAvaliadors(Pageable pageable) {
         log.debug("REST request to get a page of Avaliadors");
-        Page<Avaliador> page = avaliadorService.findAll(pageable);
+        Page<AvaliadorDTO> page = avaliadorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/avaliadors");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -100,21 +100,21 @@ public class AvaliadorResource {
     /**
      * GET  /avaliadors/:id : get the "id" avaliador.
      *
-     * @param id the id of the avaliador to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the avaliador, or with status 404 (Not Found)
+     * @param id the id of the avaliadorDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the avaliadorDTO, or with status 404 (Not Found)
      */
     @GetMapping("/avaliadors/{id}")
     @Timed
-    public ResponseEntity<Avaliador> getAvaliador(@PathVariable Long id) {
+    public ResponseEntity<AvaliadorDTO> getAvaliador(@PathVariable Long id) {
         log.debug("REST request to get Avaliador : {}", id);
-        Optional<Avaliador> avaliador = avaliadorService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(avaliador);
+        Optional<AvaliadorDTO> avaliadorDTO = avaliadorService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(avaliadorDTO);
     }
 
     /**
      * DELETE  /avaliadors/:id : delete the "id" avaliador.
      *
-     * @param id the id of the avaliador to delete
+     * @param id the id of the avaliadorDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/avaliadors/{id}")

@@ -1,10 +1,10 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import br.com.lasa.dcpdesconformidades.domain.GrupoItens;
-import br.com.lasa.dcpdesconformidades.repository.GrupoItensRepository;
+import br.com.lasa.dcpdesconformidades.service.GrupoItensService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
+import br.com.lasa.dcpdesconformidades.service.dto.GrupoItensDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,27 +29,27 @@ public class GrupoItensResource {
 
     private static final String ENTITY_NAME = "grupoItens";
 
-    private final GrupoItensRepository grupoItensRepository;
+    private final GrupoItensService grupoItensService;
 
-    public GrupoItensResource(GrupoItensRepository grupoItensRepository) {
-        this.grupoItensRepository = grupoItensRepository;
+    public GrupoItensResource(GrupoItensService grupoItensService) {
+        this.grupoItensService = grupoItensService;
     }
 
     /**
      * POST  /grupo-itens : Create a new grupoItens.
      *
-     * @param grupoItens the grupoItens to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new grupoItens, or with status 400 (Bad Request) if the grupoItens has already an ID
+     * @param grupoItensDTO the grupoItensDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new grupoItensDTO, or with status 400 (Bad Request) if the grupoItens has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/grupo-itens")
     @Timed
-    public ResponseEntity<GrupoItens> createGrupoItens(@Valid @RequestBody GrupoItens grupoItens) throws URISyntaxException {
-        log.debug("REST request to save GrupoItens : {}", grupoItens);
-        if (grupoItens.getId() != null) {
+    public ResponseEntity<GrupoItensDTO> createGrupoItens(@Valid @RequestBody GrupoItensDTO grupoItensDTO) throws URISyntaxException {
+        log.debug("REST request to save GrupoItens : {}", grupoItensDTO);
+        if (grupoItensDTO.getId() != null) {
             throw new BadRequestAlertException("A new grupoItens cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        GrupoItens result = grupoItensRepository.save(grupoItens);
+        GrupoItensDTO result = grupoItensService.save(grupoItensDTO);
         return ResponseEntity.created(new URI("/api/grupo-itens/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -58,22 +58,22 @@ public class GrupoItensResource {
     /**
      * PUT  /grupo-itens : Updates an existing grupoItens.
      *
-     * @param grupoItens the grupoItens to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated grupoItens,
-     * or with status 400 (Bad Request) if the grupoItens is not valid,
-     * or with status 500 (Internal Server Error) if the grupoItens couldn't be updated
+     * @param grupoItensDTO the grupoItensDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated grupoItensDTO,
+     * or with status 400 (Bad Request) if the grupoItensDTO is not valid,
+     * or with status 500 (Internal Server Error) if the grupoItensDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/grupo-itens")
     @Timed
-    public ResponseEntity<GrupoItens> updateGrupoItens(@Valid @RequestBody GrupoItens grupoItens) throws URISyntaxException {
-        log.debug("REST request to update GrupoItens : {}", grupoItens);
-        if (grupoItens.getId() == null) {
+    public ResponseEntity<GrupoItensDTO> updateGrupoItens(@Valid @RequestBody GrupoItensDTO grupoItensDTO) throws URISyntaxException {
+        log.debug("REST request to update GrupoItens : {}", grupoItensDTO);
+        if (grupoItensDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        GrupoItens result = grupoItensRepository.save(grupoItens);
+        GrupoItensDTO result = grupoItensService.save(grupoItensDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, grupoItens.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, grupoItensDTO.getId().toString()))
             .body(result);
     }
 
@@ -85,37 +85,36 @@ public class GrupoItensResource {
      */
     @GetMapping("/grupo-itens")
     @Timed
-    public List<GrupoItens> getAllGrupoItens(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<GrupoItensDTO> getAllGrupoItens(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all GrupoItens");
-        return grupoItensRepository.findAllWithEagerRelationships();
+        return grupoItensService.findAll();
     }
 
     /**
      * GET  /grupo-itens/:id : get the "id" grupoItens.
      *
-     * @param id the id of the grupoItens to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the grupoItens, or with status 404 (Not Found)
+     * @param id the id of the grupoItensDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the grupoItensDTO, or with status 404 (Not Found)
      */
     @GetMapping("/grupo-itens/{id}")
     @Timed
-    public ResponseEntity<GrupoItens> getGrupoItens(@PathVariable Long id) {
+    public ResponseEntity<GrupoItensDTO> getGrupoItens(@PathVariable Long id) {
         log.debug("REST request to get GrupoItens : {}", id);
-        Optional<GrupoItens> grupoItens = grupoItensRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(grupoItens);
+        Optional<GrupoItensDTO> grupoItensDTO = grupoItensService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(grupoItensDTO);
     }
 
     /**
      * DELETE  /grupo-itens/:id : delete the "id" grupoItens.
      *
-     * @param id the id of the grupoItens to delete
+     * @param id the id of the grupoItensDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/grupo-itens/{id}")
     @Timed
     public ResponseEntity<Void> deleteGrupoItens(@PathVariable Long id) {
         log.debug("REST request to delete GrupoItens : {}", id);
-
-        grupoItensRepository.deleteById(id);
+        grupoItensService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

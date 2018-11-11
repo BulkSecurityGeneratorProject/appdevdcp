@@ -4,6 +4,9 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.GrupoItens;
 import br.com.lasa.dcpdesconformidades.repository.GrupoItensRepository;
+import br.com.lasa.dcpdesconformidades.service.GrupoItensService;
+import br.com.lasa.dcpdesconformidades.service.dto.GrupoItensDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.GrupoItensMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -59,6 +62,15 @@ public class GrupoItensResourceIntTest {
     private GrupoItensRepository grupoItensRepositoryMock;
 
     @Autowired
+    private GrupoItensMapper grupoItensMapper;
+
+    @Mock
+    private GrupoItensService grupoItensServiceMock;
+
+    @Autowired
+    private GrupoItensService grupoItensService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -77,7 +89,7 @@ public class GrupoItensResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensRepository);
+        final GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensService);
         this.restGrupoItensMockMvc = MockMvcBuilders.standaloneSetup(grupoItensResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,9 +121,10 @@ public class GrupoItensResourceIntTest {
         int databaseSizeBeforeCreate = grupoItensRepository.findAll().size();
 
         // Create the GrupoItens
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
         restGrupoItensMockMvc.perform(post("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(grupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isCreated());
 
         // Validate the GrupoItens in the database
@@ -129,11 +142,12 @@ public class GrupoItensResourceIntTest {
 
         // Create the GrupoItens with an existing ID
         grupoItens.setId(1L);
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restGrupoItensMockMvc.perform(post("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(grupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the GrupoItens in the database
@@ -149,10 +163,11 @@ public class GrupoItensResourceIntTest {
         grupoItens.setNome(null);
 
         // Create the GrupoItens, which fails.
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
 
         restGrupoItensMockMvc.perform(post("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(grupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isBadRequest());
 
         List<GrupoItens> grupoItensList = grupoItensRepository.findAll();
@@ -167,10 +182,11 @@ public class GrupoItensResourceIntTest {
         grupoItens.setCriadoEm(null);
 
         // Create the GrupoItens, which fails.
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
 
         restGrupoItensMockMvc.perform(post("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(grupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isBadRequest());
 
         List<GrupoItens> grupoItensList = grupoItensRepository.findAll();
@@ -194,8 +210,8 @@ public class GrupoItensResourceIntTest {
     
     @SuppressWarnings({"unchecked"})
     public void getAllGrupoItensWithEagerRelationshipsIsEnabled() throws Exception {
-        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensRepositoryMock);
-        when(grupoItensRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensServiceMock);
+        when(grupoItensServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restGrupoItensMockMvc = MockMvcBuilders.standaloneSetup(grupoItensResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -206,13 +222,13 @@ public class GrupoItensResourceIntTest {
         restGrupoItensMockMvc.perform(get("/api/grupo-itens?eagerload=true"))
         .andExpect(status().isOk());
 
-        verify(grupoItensRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+        verify(grupoItensServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllGrupoItensWithEagerRelationshipsIsNotEnabled() throws Exception {
-        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensRepositoryMock);
-            when(grupoItensRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensServiceMock);
+            when(grupoItensServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restGrupoItensMockMvc = MockMvcBuilders.standaloneSetup(grupoItensResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -222,7 +238,7 @@ public class GrupoItensResourceIntTest {
         restGrupoItensMockMvc.perform(get("/api/grupo-itens?eagerload=true"))
         .andExpect(status().isOk());
 
-            verify(grupoItensRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+            verify(grupoItensServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -263,10 +279,11 @@ public class GrupoItensResourceIntTest {
         updatedGrupoItens
             .nome(UPDATED_NOME)
             .criadoEm(UPDATED_CRIADO_EM);
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(updatedGrupoItens);
 
         restGrupoItensMockMvc.perform(put("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedGrupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isOk());
 
         // Validate the GrupoItens in the database
@@ -283,11 +300,12 @@ public class GrupoItensResourceIntTest {
         int databaseSizeBeforeUpdate = grupoItensRepository.findAll().size();
 
         // Create the GrupoItens
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restGrupoItensMockMvc.perform(put("/api/grupo-itens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(grupoItens)))
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the GrupoItens in the database
@@ -326,5 +344,28 @@ public class GrupoItensResourceIntTest {
         assertThat(grupoItens1).isNotEqualTo(grupoItens2);
         grupoItens1.setId(null);
         assertThat(grupoItens1).isNotEqualTo(grupoItens2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(GrupoItensDTO.class);
+        GrupoItensDTO grupoItensDTO1 = new GrupoItensDTO();
+        grupoItensDTO1.setId(1L);
+        GrupoItensDTO grupoItensDTO2 = new GrupoItensDTO();
+        assertThat(grupoItensDTO1).isNotEqualTo(grupoItensDTO2);
+        grupoItensDTO2.setId(grupoItensDTO1.getId());
+        assertThat(grupoItensDTO1).isEqualTo(grupoItensDTO2);
+        grupoItensDTO2.setId(2L);
+        assertThat(grupoItensDTO1).isNotEqualTo(grupoItensDTO2);
+        grupoItensDTO1.setId(null);
+        assertThat(grupoItensDTO1).isNotEqualTo(grupoItensDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(grupoItensMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(grupoItensMapper.fromId(null)).isNull();
     }
 }

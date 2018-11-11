@@ -40,7 +40,7 @@
     ],
     "changelogDate": "20181111155652",
     "entityTableName": "avaliador",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceClass",
     "jpaMetamodelFiltering": false,
