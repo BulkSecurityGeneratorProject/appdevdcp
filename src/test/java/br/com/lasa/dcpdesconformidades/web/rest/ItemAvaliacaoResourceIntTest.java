@@ -4,6 +4,9 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.ItemAvaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemAvaliacaoRepository;
+import br.com.lasa.dcpdesconformidades.service.ItemAvaliacaoService;
+import br.com.lasa.dcpdesconformidades.service.dto.ItemAvaliacaoDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemAvaliacaoMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -54,6 +57,12 @@ public class ItemAvaliacaoResourceIntTest {
     private ItemAvaliacaoRepository itemAvaliacaoRepository;
 
     @Autowired
+    private ItemAvaliacaoMapper itemAvaliacaoMapper;
+
+    @Autowired
+    private ItemAvaliacaoService itemAvaliacaoService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -72,7 +81,7 @@ public class ItemAvaliacaoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ItemAvaliacaoResource itemAvaliacaoResource = new ItemAvaliacaoResource(itemAvaliacaoRepository);
+        final ItemAvaliacaoResource itemAvaliacaoResource = new ItemAvaliacaoResource(itemAvaliacaoService);
         this.restItemAvaliacaoMockMvc = MockMvcBuilders.standaloneSetup(itemAvaliacaoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -105,9 +114,10 @@ public class ItemAvaliacaoResourceIntTest {
         int databaseSizeBeforeCreate = itemAvaliacaoRepository.findAll().size();
 
         // Create the ItemAvaliacao
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
         restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the ItemAvaliacao in the database
@@ -126,11 +136,12 @@ public class ItemAvaliacaoResourceIntTest {
 
         // Create the ItemAvaliacao with an existing ID
         itemAvaliacao.setId(1L);
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemAvaliacao in the database
@@ -146,10 +157,11 @@ public class ItemAvaliacaoResourceIntTest {
         itemAvaliacao.setDescricao(null);
 
         // Create the ItemAvaliacao, which fails.
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
 
         restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAvaliacao> itemAvaliacaoList = itemAvaliacaoRepository.findAll();
@@ -164,10 +176,11 @@ public class ItemAvaliacaoResourceIntTest {
         itemAvaliacao.setAnexoObrigatorio(null);
 
         // Create the ItemAvaliacao, which fails.
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
 
         restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAvaliacao> itemAvaliacaoList = itemAvaliacaoRepository.findAll();
@@ -182,10 +195,11 @@ public class ItemAvaliacaoResourceIntTest {
         itemAvaliacao.setCriadoEm(null);
 
         // Create the ItemAvaliacao, which fails.
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
 
         restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAvaliacao> itemAvaliacaoList = itemAvaliacaoRepository.findAll();
@@ -248,10 +262,11 @@ public class ItemAvaliacaoResourceIntTest {
             .descricao(UPDATED_DESCRICAO)
             .anexoObrigatorio(UPDATED_ANEXO_OBRIGATORIO)
             .criadoEm(UPDATED_CRIADO_EM);
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(updatedItemAvaliacao);
 
         restItemAvaliacaoMockMvc.perform(put("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedItemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isOk());
 
         // Validate the ItemAvaliacao in the database
@@ -269,11 +284,12 @@ public class ItemAvaliacaoResourceIntTest {
         int databaseSizeBeforeUpdate = itemAvaliacaoRepository.findAll().size();
 
         // Create the ItemAvaliacao
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restItemAvaliacaoMockMvc.perform(put("/api/item-avaliacaos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacao)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemAvaliacao in the database
@@ -312,5 +328,28 @@ public class ItemAvaliacaoResourceIntTest {
         assertThat(itemAvaliacao1).isNotEqualTo(itemAvaliacao2);
         itemAvaliacao1.setId(null);
         assertThat(itemAvaliacao1).isNotEqualTo(itemAvaliacao2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(ItemAvaliacaoDTO.class);
+        ItemAvaliacaoDTO itemAvaliacaoDTO1 = new ItemAvaliacaoDTO();
+        itemAvaliacaoDTO1.setId(1L);
+        ItemAvaliacaoDTO itemAvaliacaoDTO2 = new ItemAvaliacaoDTO();
+        assertThat(itemAvaliacaoDTO1).isNotEqualTo(itemAvaliacaoDTO2);
+        itemAvaliacaoDTO2.setId(itemAvaliacaoDTO1.getId());
+        assertThat(itemAvaliacaoDTO1).isEqualTo(itemAvaliacaoDTO2);
+        itemAvaliacaoDTO2.setId(2L);
+        assertThat(itemAvaliacaoDTO1).isNotEqualTo(itemAvaliacaoDTO2);
+        itemAvaliacaoDTO1.setId(null);
+        assertThat(itemAvaliacaoDTO1).isNotEqualTo(itemAvaliacaoDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(itemAvaliacaoMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(itemAvaliacaoMapper.fromId(null)).isNull();
     }
 }
