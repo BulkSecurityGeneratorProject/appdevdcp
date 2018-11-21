@@ -36,6 +36,50 @@ enum TipoItemAvaliadoPerdaQuebra {
 	PERDA, QUEBRA
 }
 
+enum CriticidadePainel {
+    INADMISSIVEL,
+    CONTROLE,
+    VALOR_ELEVADO,
+    CRITICO,
+    ATENCAO
+}
+
+/**
+ * TODO Incluir limite superior (perda e quebra) e inferior (perda e quebra) da faixa e pontuação para cada categorização
+ */
+enum CategorizacaoPerdaQuebra {
+    INADMISSIVEL,
+    CRITICO,
+    VALOR_ELEVADO,
+    ATENCAO,
+    CONTROLE,
+    SOBRA_DESCONTROLE
+}
+
+/**
+ * TODO Incluir limite superior e inferior para cada nível
+ */
+enum NivelEficiencia {
+    A, B, C, D, E
+}
+
+/**
+ * TODO Incluir limite superior (perda e quebra) e inferior (perda e quebra) para cada faixa
+ */
+enum ClassificacaoPerdaQuebra {
+    CONFORMIDADE,
+    DESCONFORMIDADE
+}
+
+/**
+ * TODO Fazer o link com o enum StatusItemAvaliado (1 Status tem uma Classificacao)
+ */
+enum ClassificacaoItemAvaliado {
+    CONFORMIDADE,
+    DESCONFORMIDADE,
+    N_A
+}
+
 entity Questionario {
 	nome String required
     descricao String
@@ -68,12 +112,24 @@ entity Avaliacao {
     longitudeSubmissaoAvaliacao Double
     observacaoSubmissaoEnviadaForaDaLoja String
     status StatusAvaliacao required
+    criticidadePainel CriticidadePainel
+    nivelEficienciaGeral NivelEficiencia
+    nivelEficienciaProcedimento NivelEficiencia
+    nivelEficienciaPessoa NivelEficiencia
+    nivelEficienciaProcesso NivelEficiencia
+    nivelEficienciaProduto NivelEficiencia
+    canceladoEm Instant
+    motivoCancelamento String
 }
 
 entity ItemAvaliacao {
 	descricao String required
     anexoObrigatorio Boolean required
     criadoEm Instant required
+    pontosProcedimento Integer required
+    pontosPessoa Integer required
+    pontosProcesso Integer required
+    pontosProduto Integer required
 }
 
 entity ItemAvaliado {
@@ -83,6 +139,14 @@ entity ItemAvaliado {
 	observacoes String
     latitudeLocalResposta Double required
     longitudeLocalResposta Double required
+    pontosProcedimento Integer required
+    pontosPessoa Integer required
+    pontosProcesso Integer required
+    pontosProduto Integer required
+    pontosObtidosProcedimento Integer required
+    pontosObtidosPessoa Integer required
+    pontosObtidosProcesso Integer required
+    pontosObtidosProduto Integer required
 }
 
 entity ItemAvaliadoPerdaQuebraAcumulados {
@@ -94,6 +158,8 @@ entity ItemAvaliadoPerdaQuebraAcumulados {
     pontuacao Integer required
     latitudeLocalResposta Double required
     longitudeLocalResposta Double required
+    classificacao ClassificacaoPerdaQuebra required
+    categorizacao CategorizacaoPerdaQuebra required
 }
 
 entity GrupoItens {
@@ -118,7 +184,7 @@ entity ItemAuditado {
     respondidoEm Instant required
     ultimaAtualizacaoEm Instant
 	tipo TipoItemAuditado required
-	departamento Integer required
+	codigoDepartamento Integer required
     codigoSap Integer required
     descricaoItem String required
     saldoSap Integer required
@@ -129,7 +195,7 @@ entity ItemAuditado {
 entity ItemSolicitadoAjuste {
     respondidoEm Instant required
     ultimaAtualizacaoEm Instant
-	departamento Integer required
+	codigoDepartamento Integer required
     codigoSap Integer required
     descricaoItem String required
     saldoSap Integer required
@@ -156,6 +222,6 @@ relationship ManyToMany {
     Loja{avaliador(nome)} to Avaliador{loja(nome)}
 }
 
-service Questionario, Avaliacao, AnexoItem, Loja, Avaliador, GrupoItens, ItemAvaliacao with serviceClass
+service Questionario, Avaliacao, AnexoItem, Loja, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
 paginate Avaliador, Loja, Avaliacao with pagination
-dto Avaliacao, Questionario, Avaliador, GrupoItens, ItemAvaliacao with mapstruct
+dto Avaliacao, Questionario, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem with mapstruct
