@@ -63,8 +63,8 @@ export class AnexoItem extends React.Component<IAnexoItemProps> {
                   </td>
                   <td>{anexoItem.caminhoArquivo}</td>
                   <td>
-                    {anexoItem.itemAvaliado ? (
-                      <Link to={`item-avaliado/${anexoItem.itemAvaliado.id}`}>{anexoItem.itemAvaliado.id}</Link>
+                    {anexoItem.itemAvaliadoId ? (
+                      <Link to={`item-avaliado/${anexoItem.itemAvaliadoId}`}>{anexoItem.itemAvaliadoId}</Link>
                     ) : (
                       ''
                     )}

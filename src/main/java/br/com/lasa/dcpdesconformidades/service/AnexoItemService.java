@@ -2,14 +2,18 @@ package br.com.lasa.dcpdesconformidades.service;
 
 import br.com.lasa.dcpdesconformidades.domain.AnexoItem;
 import br.com.lasa.dcpdesconformidades.repository.AnexoItemRepository;
+import br.com.lasa.dcpdesconformidades.service.dto.AnexoItemDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.AnexoItemMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing AnexoItem.
@@ -22,19 +26,25 @@ public class AnexoItemService {
 
     private final AnexoItemRepository anexoItemRepository;
 
-    public AnexoItemService(AnexoItemRepository anexoItemRepository) {
+    private final AnexoItemMapper anexoItemMapper;
+
+    public AnexoItemService(AnexoItemRepository anexoItemRepository, AnexoItemMapper anexoItemMapper) {
         this.anexoItemRepository = anexoItemRepository;
+        this.anexoItemMapper = anexoItemMapper;
     }
 
     /**
      * Save a anexoItem.
      *
-     * @param anexoItem the entity to save
+     * @param anexoItemDTO the entity to save
      * @return the persisted entity
      */
-    public AnexoItem save(AnexoItem anexoItem) {
-        log.debug("Request to save AnexoItem : {}", anexoItem);
-        return anexoItemRepository.save(anexoItem);
+    public AnexoItemDTO save(AnexoItemDTO anexoItemDTO) {
+        log.debug("Request to save AnexoItem : {}", anexoItemDTO);
+
+        AnexoItem anexoItem = anexoItemMapper.toEntity(anexoItemDTO);
+        anexoItem = anexoItemRepository.save(anexoItem);
+        return anexoItemMapper.toDto(anexoItem);
     }
 
     /**
@@ -43,9 +53,11 @@ public class AnexoItemService {
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public List<AnexoItem> findAll() {
+    public List<AnexoItemDTO> findAll() {
         log.debug("Request to get all AnexoItems");
-        return anexoItemRepository.findAll();
+        return anexoItemRepository.findAll().stream()
+            .map(anexoItemMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -56,9 +68,10 @@ public class AnexoItemService {
      * @return the entity
      */
     @Transactional(readOnly = true)
-    public Optional<AnexoItem> findOne(Long id) {
+    public Optional<AnexoItemDTO> findOne(Long id) {
         log.debug("Request to get AnexoItem : {}", id);
-        return anexoItemRepository.findById(id);
+        return anexoItemRepository.findById(id)
+            .map(anexoItemMapper::toDto);
     }
 
     /**

@@ -18,7 +18,7 @@
       "respondidoEm": "Respondido Em",
       "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
       "tipo": "Tipo",
-      "departamento": "Departamento",
+      "codigoDepartamento": "Codigo Departamento",
       "codigoSap": "Codigo Sap",
       "descricaoItem": "Descricao Item",
       "saldoSap": "Saldo Sap",

@@ -97,6 +97,58 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps> {
             </dt>
             <dd>{avaliacaoEntity.status}</dd>
             <dt>
+              <span id="criticidadePainel">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.criticidadePainel}</dd>
+            <dt>
+              <span id="nivelEficienciaGeral">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral">Nivel Eficiencia Geral</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.nivelEficienciaGeral}</dd>
+            <dt>
+              <span id="nivelEficienciaProcedimento">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento">
+                  Nivel Eficiencia Procedimento
+                </Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.nivelEficienciaProcedimento}</dd>
+            <dt>
+              <span id="nivelEficienciaPessoa">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa">Nivel Eficiencia Pessoa</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.nivelEficienciaPessoa}</dd>
+            <dt>
+              <span id="nivelEficienciaProcesso">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso">Nivel Eficiencia Processo</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.nivelEficienciaProcesso}</dd>
+            <dt>
+              <span id="nivelEficienciaProduto">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto">Nivel Eficiencia Produto</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.nivelEficienciaProduto}</dd>
+            <dt>
+              <span id="canceladoEm">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>
+              </span>
+            </dt>
+            <dd>
+              <TextFormat value={avaliacaoEntity.canceladoEm} type="date" format={APP_DATE_FORMAT} />
+            </dd>
+            <dt>
+              <span id="motivoCancelamento">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.motivoCancelamento}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
             </dt>
             <dd>{avaliacaoEntity.questionarioNome ? avaliacaoEntity.questionarioNome : ''}</dd>

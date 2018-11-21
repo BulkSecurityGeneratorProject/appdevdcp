@@ -7,7 +7,7 @@ export default class ItemAuditadoUpdatePage {
   respondidoEmInput: ElementFinder = element(by.css('input#item-auditado-respondidoEm'));
   ultimaAtualizacaoEmInput: ElementFinder = element(by.css('input#item-auditado-ultimaAtualizacaoEm'));
   tipoSelect: ElementFinder = element(by.css('select#item-auditado-tipo'));
-  departamentoInput: ElementFinder = element(by.css('input#item-auditado-departamento'));
+  codigoDepartamentoInput: ElementFinder = element(by.css('input#item-auditado-codigoDepartamento'));
   codigoSapInput: ElementFinder = element(by.css('input#item-auditado-codigoSap'));
   descricaoItemInput: ElementFinder = element(by.css('input#item-auditado-descricaoItem'));
   saldoSapInput: ElementFinder = element(by.css('input#item-auditado-saldoSap'));
@@ -49,12 +49,12 @@ export default class ItemAuditadoUpdatePage {
       .last()
       .click();
   }
-  async setDepartamentoInput(departamento) {
-    await this.departamentoInput.sendKeys(departamento);
+  async setCodigoDepartamentoInput(codigoDepartamento) {
+    await this.codigoDepartamentoInput.sendKeys(codigoDepartamento);
   }
 
-  async getDepartamentoInput() {
-    return this.departamentoInput.getAttribute('value');
+  async getCodigoDepartamentoInput() {
+    return this.codigoDepartamentoInput.getAttribute('value');
   }
 
   async setCodigoSapInput(codigoSap) {

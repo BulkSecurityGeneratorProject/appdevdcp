@@ -54,6 +54,14 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="classificacao" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="categorizacao" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="avaliacao_id" type="bigint">
                 <constraints nullable="false" />
             </column>

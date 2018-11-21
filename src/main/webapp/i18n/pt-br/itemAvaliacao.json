@@ -18,6 +18,10 @@
       "descricao": "Descricao",
       "anexoObrigatorio": "Anexo Obrigatorio",
       "criadoEm": "Criado Em",
+      "pontosProcedimento": "Pontos Procedimento",
+      "pontosPessoa": "Pontos Pessoa",
+      "pontosProcesso": "Pontos Processo",
+      "pontosProduto": "Pontos Produto",
       "itensAvaliados": "Itens Avaliados",
       "grupo": "Grupo"
     }

@@ -1,10 +1,10 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import br.com.lasa.dcpdesconformidades.domain.AnexoItem;
 import br.com.lasa.dcpdesconformidades.service.AnexoItemService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
+import br.com.lasa.dcpdesconformidades.service.dto.AnexoItemDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,18 +38,18 @@ public class AnexoItemResource {
     /**
      * POST  /anexo-items : Create a new anexoItem.
      *
-     * @param anexoItem the anexoItem to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new anexoItem, or with status 400 (Bad Request) if the anexoItem has already an ID
+     * @param anexoItemDTO the anexoItemDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new anexoItemDTO, or with status 400 (Bad Request) if the anexoItem has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/anexo-items")
     @Timed
-    public ResponseEntity<AnexoItem> createAnexoItem(@Valid @RequestBody AnexoItem anexoItem) throws URISyntaxException {
-        log.debug("REST request to save AnexoItem : {}", anexoItem);
-        if (anexoItem.getId() != null) {
+    public ResponseEntity<AnexoItemDTO> createAnexoItem(@Valid @RequestBody AnexoItemDTO anexoItemDTO) throws URISyntaxException {
+        log.debug("REST request to save AnexoItem : {}", anexoItemDTO);
+        if (anexoItemDTO.getId() != null) {
             throw new BadRequestAlertException("A new anexoItem cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        AnexoItem result = anexoItemService.save(anexoItem);
+        AnexoItemDTO result = anexoItemService.save(anexoItemDTO);
         return ResponseEntity.created(new URI("/api/anexo-items/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -58,22 +58,22 @@ public class AnexoItemResource {
     /**
      * PUT  /anexo-items : Updates an existing anexoItem.
      *
-     * @param anexoItem the anexoItem to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated anexoItem,
-     * or with status 400 (Bad Request) if the anexoItem is not valid,
-     * or with status 500 (Internal Server Error) if the anexoItem couldn't be updated
+     * @param anexoItemDTO the anexoItemDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated anexoItemDTO,
+     * or with status 400 (Bad Request) if the anexoItemDTO is not valid,
+     * or with status 500 (Internal Server Error) if the anexoItemDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/anexo-items")
     @Timed
-    public ResponseEntity<AnexoItem> updateAnexoItem(@Valid @RequestBody AnexoItem anexoItem) throws URISyntaxException {
-        log.debug("REST request to update AnexoItem : {}", anexoItem);
-        if (anexoItem.getId() == null) {
+    public ResponseEntity<AnexoItemDTO> updateAnexoItem(@Valid @RequestBody AnexoItemDTO anexoItemDTO) throws URISyntaxException {
+        log.debug("REST request to update AnexoItem : {}", anexoItemDTO);
+        if (anexoItemDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        AnexoItem result = anexoItemService.save(anexoItem);
+        AnexoItemDTO result = anexoItemService.save(anexoItemDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, anexoItem.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, anexoItemDTO.getId().toString()))
             .body(result);
     }
 
@@ -84,7 +84,7 @@ public class AnexoItemResource {
      */
     @GetMapping("/anexo-items")
     @Timed
-    public List<AnexoItem> getAllAnexoItems() {
+    public List<AnexoItemDTO> getAllAnexoItems() {
         log.debug("REST request to get all AnexoItems");
         return anexoItemService.findAll();
     }
@@ -92,21 +92,21 @@ public class AnexoItemResource {
     /**
      * GET  /anexo-items/:id : get the "id" anexoItem.
      *
-     * @param id the id of the anexoItem to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the anexoItem, or with status 404 (Not Found)
+     * @param id the id of the anexoItemDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the anexoItemDTO, or with status 404 (Not Found)
      */
     @GetMapping("/anexo-items/{id}")
     @Timed
-    public ResponseEntity<AnexoItem> getAnexoItem(@PathVariable Long id) {
+    public ResponseEntity<AnexoItemDTO> getAnexoItem(@PathVariable Long id) {
         log.debug("REST request to get AnexoItem : {}", id);
-        Optional<AnexoItem> anexoItem = anexoItemService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(anexoItem);
+        Optional<AnexoItemDTO> anexoItemDTO = anexoItemService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(anexoItemDTO);
     }
 
     /**
      * DELETE  /anexo-items/:id : delete the "id" anexoItem.
      *
-     * @param id the id of the anexoItem to delete
+     * @param id the id of the anexoItemDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/anexo-items/{id}")

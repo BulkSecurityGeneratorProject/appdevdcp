@@ -6,6 +6,8 @@ import br.com.lasa.dcpdesconformidades.domain.AnexoItem;
 import br.com.lasa.dcpdesconformidades.domain.ItemAvaliado;
 import br.com.lasa.dcpdesconformidades.repository.AnexoItemRepository;
 import br.com.lasa.dcpdesconformidades.service.AnexoItemService;
+import br.com.lasa.dcpdesconformidades.service.dto.AnexoItemDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.AnexoItemMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -50,6 +52,9 @@ public class AnexoItemResourceIntTest {
 
     @Autowired
     private AnexoItemRepository anexoItemRepository;
+
+    @Autowired
+    private AnexoItemMapper anexoItemMapper;
 
     @Autowired
     private AnexoItemService anexoItemService;
@@ -110,9 +115,10 @@ public class AnexoItemResourceIntTest {
         int databaseSizeBeforeCreate = anexoItemRepository.findAll().size();
 
         // Create the AnexoItem
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(anexoItem);
         restAnexoItemMockMvc.perform(post("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(anexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isCreated());
 
         // Validate the AnexoItem in the database
@@ -130,11 +136,12 @@ public class AnexoItemResourceIntTest {
 
         // Create the AnexoItem with an existing ID
         anexoItem.setId(1L);
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(anexoItem);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAnexoItemMockMvc.perform(post("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(anexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AnexoItem in the database
@@ -150,10 +157,11 @@ public class AnexoItemResourceIntTest {
         anexoItem.setTipo(null);
 
         // Create the AnexoItem, which fails.
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(anexoItem);
 
         restAnexoItemMockMvc.perform(post("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(anexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isBadRequest());
 
         List<AnexoItem> anexoItemList = anexoItemRepository.findAll();
@@ -168,10 +176,11 @@ public class AnexoItemResourceIntTest {
         anexoItem.setCaminhoArquivo(null);
 
         // Create the AnexoItem, which fails.
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(anexoItem);
 
         restAnexoItemMockMvc.perform(post("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(anexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isBadRequest());
 
         List<AnexoItem> anexoItemList = anexoItemRepository.findAll();
@@ -220,7 +229,7 @@ public class AnexoItemResourceIntTest {
     @Transactional
     public void updateAnexoItem() throws Exception {
         // Initialize the database
-        anexoItemService.save(anexoItem);
+        anexoItemRepository.saveAndFlush(anexoItem);
 
         int databaseSizeBeforeUpdate = anexoItemRepository.findAll().size();
 
@@ -231,10 +240,11 @@ public class AnexoItemResourceIntTest {
         updatedAnexoItem
             .tipo(UPDATED_TIPO)
             .caminhoArquivo(UPDATED_CAMINHO_ARQUIVO);
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(updatedAnexoItem);
 
         restAnexoItemMockMvc.perform(put("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAnexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isOk());
 
         // Validate the AnexoItem in the database
@@ -251,11 +261,12 @@ public class AnexoItemResourceIntTest {
         int databaseSizeBeforeUpdate = anexoItemRepository.findAll().size();
 
         // Create the AnexoItem
+        AnexoItemDTO anexoItemDTO = anexoItemMapper.toDto(anexoItem);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAnexoItemMockMvc.perform(put("/api/anexo-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(anexoItem)))
+            .content(TestUtil.convertObjectToJsonBytes(anexoItemDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AnexoItem in the database
@@ -267,7 +278,7 @@ public class AnexoItemResourceIntTest {
     @Transactional
     public void deleteAnexoItem() throws Exception {
         // Initialize the database
-        anexoItemService.save(anexoItem);
+        anexoItemRepository.saveAndFlush(anexoItem);
 
         int databaseSizeBeforeDelete = anexoItemRepository.findAll().size();
 
@@ -294,5 +305,28 @@ public class AnexoItemResourceIntTest {
         assertThat(anexoItem1).isNotEqualTo(anexoItem2);
         anexoItem1.setId(null);
         assertThat(anexoItem1).isNotEqualTo(anexoItem2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(AnexoItemDTO.class);
+        AnexoItemDTO anexoItemDTO1 = new AnexoItemDTO();
+        anexoItemDTO1.setId(1L);
+        AnexoItemDTO anexoItemDTO2 = new AnexoItemDTO();
+        assertThat(anexoItemDTO1).isNotEqualTo(anexoItemDTO2);
+        anexoItemDTO2.setId(anexoItemDTO1.getId());
+        assertThat(anexoItemDTO1).isEqualTo(anexoItemDTO2);
+        anexoItemDTO2.setId(2L);
+        assertThat(anexoItemDTO1).isNotEqualTo(anexoItemDTO2);
+        anexoItemDTO1.setId(null);
+        assertThat(anexoItemDTO1).isNotEqualTo(anexoItemDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(anexoItemMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(anexoItemMapper.fromId(null)).isNull();
     }
 }

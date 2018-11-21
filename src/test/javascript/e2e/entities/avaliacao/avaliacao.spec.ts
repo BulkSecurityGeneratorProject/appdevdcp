@@ -65,6 +65,16 @@ describe('Avaliacao e2e test', () => {
         await avaliacaoUpdatePage.setObservacaoSubmissaoEnviadaForaDaLojaInput('observacaoSubmissaoEnviadaForaDaLoja');
         expect(await avaliacaoUpdatePage.getObservacaoSubmissaoEnviadaForaDaLojaInput()).to.match(/observacaoSubmissaoEnviadaForaDaLoja/);
         await avaliacaoUpdatePage.statusSelectLastOption();
+        await avaliacaoUpdatePage.criticidadePainelSelectLastOption();
+        await avaliacaoUpdatePage.nivelEficienciaGeralSelectLastOption();
+        await avaliacaoUpdatePage.nivelEficienciaProcedimentoSelectLastOption();
+        await avaliacaoUpdatePage.nivelEficienciaPessoaSelectLastOption();
+        await avaliacaoUpdatePage.nivelEficienciaProcessoSelectLastOption();
+        await avaliacaoUpdatePage.nivelEficienciaProdutoSelectLastOption();
+        await avaliacaoUpdatePage.setCanceladoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await avaliacaoUpdatePage.getCanceladoEmInput()).to.contain('2001-01-01T02:30');
+        await avaliacaoUpdatePage.setMotivoCancelamentoInput('motivoCancelamento');
+        expect(await avaliacaoUpdatePage.getMotivoCancelamentoInput()).to.match(/motivoCancelamento/);
         await avaliacaoUpdatePage.questionarioSelectLastOption();
         await avaliacaoUpdatePage.avaliadorSelectLastOption();
         await waitUntilDisplayed(avaliacaoUpdatePage.getSaveButton());

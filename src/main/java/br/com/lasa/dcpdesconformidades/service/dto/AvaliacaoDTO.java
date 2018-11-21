@@ -5,6 +5,12 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 
 /**
  * A DTO for the Avaliacao entity.
@@ -36,6 +42,22 @@ public class AvaliacaoDTO implements Serializable {
 
     @NotNull
     private StatusAvaliacao status;
+
+    private CriticidadePainel criticidadePainel;
+
+    private NivelEficiencia nivelEficienciaGeral;
+
+    private NivelEficiencia nivelEficienciaProcedimento;
+
+    private NivelEficiencia nivelEficienciaPessoa;
+
+    private NivelEficiencia nivelEficienciaProcesso;
+
+    private NivelEficiencia nivelEficienciaProduto;
+
+    private Instant canceladoEm;
+
+    private String motivoCancelamento;
 
     private Long questionarioId;
 
@@ -133,6 +155,70 @@ public class AvaliacaoDTO implements Serializable {
         this.status = status;
     }
 
+    public CriticidadePainel getCriticidadePainel() {
+        return criticidadePainel;
+    }
+
+    public void setCriticidadePainel(CriticidadePainel criticidadePainel) {
+        this.criticidadePainel = criticidadePainel;
+    }
+
+    public NivelEficiencia getNivelEficienciaGeral() {
+        return nivelEficienciaGeral;
+    }
+
+    public void setNivelEficienciaGeral(NivelEficiencia nivelEficienciaGeral) {
+        this.nivelEficienciaGeral = nivelEficienciaGeral;
+    }
+
+    public NivelEficiencia getNivelEficienciaProcedimento() {
+        return nivelEficienciaProcedimento;
+    }
+
+    public void setNivelEficienciaProcedimento(NivelEficiencia nivelEficienciaProcedimento) {
+        this.nivelEficienciaProcedimento = nivelEficienciaProcedimento;
+    }
+
+    public NivelEficiencia getNivelEficienciaPessoa() {
+        return nivelEficienciaPessoa;
+    }
+
+    public void setNivelEficienciaPessoa(NivelEficiencia nivelEficienciaPessoa) {
+        this.nivelEficienciaPessoa = nivelEficienciaPessoa;
+    }
+
+    public NivelEficiencia getNivelEficienciaProcesso() {
+        return nivelEficienciaProcesso;
+    }
+
+    public void setNivelEficienciaProcesso(NivelEficiencia nivelEficienciaProcesso) {
+        this.nivelEficienciaProcesso = nivelEficienciaProcesso;
+    }
+
+    public NivelEficiencia getNivelEficienciaProduto() {
+        return nivelEficienciaProduto;
+    }
+
+    public void setNivelEficienciaProduto(NivelEficiencia nivelEficienciaProduto) {
+        this.nivelEficienciaProduto = nivelEficienciaProduto;
+    }
+
+    public Instant getCanceladoEm() {
+        return canceladoEm;
+    }
+
+    public void setCanceladoEm(Instant canceladoEm) {
+        this.canceladoEm = canceladoEm;
+    }
+
+    public String getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
+
+    public void setMotivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
+    }
+
     public Long getQuestionarioId() {
         return questionarioId;
     }
@@ -200,6 +286,14 @@ public class AvaliacaoDTO implements Serializable {
             ", longitudeSubmissaoAvaliacao=" + getLongitudeSubmissaoAvaliacao() +
             ", observacaoSubmissaoEnviadaForaDaLoja='" + getObservacaoSubmissaoEnviadaForaDaLoja() + "'" +
             ", status='" + getStatus() + "'" +
+            ", criticidadePainel='" + getCriticidadePainel() + "'" +
+            ", nivelEficienciaGeral='" + getNivelEficienciaGeral() + "'" +
+            ", nivelEficienciaProcedimento='" + getNivelEficienciaProcedimento() + "'" +
+            ", nivelEficienciaPessoa='" + getNivelEficienciaPessoa() + "'" +
+            ", nivelEficienciaProcesso='" + getNivelEficienciaProcesso() + "'" +
+            ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
+            ", canceladoEm='" + getCanceladoEm() + "'" +
+            ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
             ", questionario=" + getQuestionarioId() +
             ", questionario='" + getQuestionarioNome() + "'" +
             ", avaliador=" + getAvaliadorId() +

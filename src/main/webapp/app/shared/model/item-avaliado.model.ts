@@ -1,7 +1,5 @@
 import { Moment } from 'moment';
 import { IAnexoItem } from 'app/shared/model//anexo-item.model';
-import { IItemAvaliacao } from 'app/shared/model//item-avaliacao.model';
-import { IAvaliacao } from 'app/shared/model//avaliacao.model';
 
 export const enum StatusItemAvaliado {
   OK = 'OK',
@@ -17,9 +15,18 @@ export interface IItemAvaliado {
   observacoes?: string;
   latitudeLocalResposta?: number;
   longitudeLocalResposta?: number;
+  pontosProcedimento?: number;
+  pontosPessoa?: number;
+  pontosProcesso?: number;
+  pontosProduto?: number;
+  pontosObtidosProcedimento?: number;
+  pontosObtidosPessoa?: number;
+  pontosObtidosProcesso?: number;
+  pontosObtidosProduto?: number;
   anexos?: IAnexoItem[];
-  itemAvaliacao?: IItemAvaliacao;
-  avaliacao?: IAvaliacao;
+  itemAvaliacaoDescricao?: string;
+  itemAvaliacaoId?: number;
+  avaliacaoId?: number;
 }
 
 export const defaultValue: Readonly<IItemAvaliado> = {};

@@ -10,6 +10,14 @@ export default class ItemAvaliadoUpdatePage {
   observacoesInput: ElementFinder = element(by.css('input#item-avaliado-observacoes'));
   latitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-latitudeLocalResposta'));
   longitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-longitudeLocalResposta'));
+  pontosProcedimentoInput: ElementFinder = element(by.css('input#item-avaliado-pontosProcedimento'));
+  pontosPessoaInput: ElementFinder = element(by.css('input#item-avaliado-pontosPessoa'));
+  pontosProcessoInput: ElementFinder = element(by.css('input#item-avaliado-pontosProcesso'));
+  pontosProdutoInput: ElementFinder = element(by.css('input#item-avaliado-pontosProduto'));
+  pontosObtidosProcedimentoInput: ElementFinder = element(by.css('input#item-avaliado-pontosObtidosProcedimento'));
+  pontosObtidosPessoaInput: ElementFinder = element(by.css('input#item-avaliado-pontosObtidosPessoa'));
+  pontosObtidosProcessoInput: ElementFinder = element(by.css('input#item-avaliado-pontosObtidosProcesso'));
+  pontosObtidosProdutoInput: ElementFinder = element(by.css('input#item-avaliado-pontosObtidosProduto'));
   itemAvaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-itemAvaliacao'));
   avaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-avaliacao'));
 
@@ -69,6 +77,70 @@ export default class ItemAvaliadoUpdatePage {
 
   async getLongitudeLocalRespostaInput() {
     return this.longitudeLocalRespostaInput.getAttribute('value');
+  }
+
+  async setPontosProcedimentoInput(pontosProcedimento) {
+    await this.pontosProcedimentoInput.sendKeys(pontosProcedimento);
+  }
+
+  async getPontosProcedimentoInput() {
+    return this.pontosProcedimentoInput.getAttribute('value');
+  }
+
+  async setPontosPessoaInput(pontosPessoa) {
+    await this.pontosPessoaInput.sendKeys(pontosPessoa);
+  }
+
+  async getPontosPessoaInput() {
+    return this.pontosPessoaInput.getAttribute('value');
+  }
+
+  async setPontosProcessoInput(pontosProcesso) {
+    await this.pontosProcessoInput.sendKeys(pontosProcesso);
+  }
+
+  async getPontosProcessoInput() {
+    return this.pontosProcessoInput.getAttribute('value');
+  }
+
+  async setPontosProdutoInput(pontosProduto) {
+    await this.pontosProdutoInput.sendKeys(pontosProduto);
+  }
+
+  async getPontosProdutoInput() {
+    return this.pontosProdutoInput.getAttribute('value');
+  }
+
+  async setPontosObtidosProcedimentoInput(pontosObtidosProcedimento) {
+    await this.pontosObtidosProcedimentoInput.sendKeys(pontosObtidosProcedimento);
+  }
+
+  async getPontosObtidosProcedimentoInput() {
+    return this.pontosObtidosProcedimentoInput.getAttribute('value');
+  }
+
+  async setPontosObtidosPessoaInput(pontosObtidosPessoa) {
+    await this.pontosObtidosPessoaInput.sendKeys(pontosObtidosPessoa);
+  }
+
+  async getPontosObtidosPessoaInput() {
+    return this.pontosObtidosPessoaInput.getAttribute('value');
+  }
+
+  async setPontosObtidosProcessoInput(pontosObtidosProcesso) {
+    await this.pontosObtidosProcessoInput.sendKeys(pontosObtidosProcesso);
+  }
+
+  async getPontosObtidosProcessoInput() {
+    return this.pontosObtidosProcessoInput.getAttribute('value');
+  }
+
+  async setPontosObtidosProdutoInput(pontosObtidosProduto) {
+    await this.pontosObtidosProdutoInput.sendKeys(pontosObtidosProduto);
+  }
+
+  async getPontosObtidosProdutoInput() {
+    return this.pontosObtidosProdutoInput.getAttribute('value');
   }
 
   async itemAvaliacaoSelectLastOption() {

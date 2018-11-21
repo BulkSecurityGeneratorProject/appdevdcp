@@ -16,6 +16,10 @@ import java.util.Objects;
 
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
+
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+
 /**
  * A Avaliacao.
  */
@@ -64,6 +68,36 @@ public class Avaliacao implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private StatusAvaliacao status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "criticidade_painel")
+    private CriticidadePainel criticidadePainel;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_eficiencia_geral")
+    private NivelEficiencia nivelEficienciaGeral;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_eficiencia_procedimento")
+    private NivelEficiencia nivelEficienciaProcedimento;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_eficiencia_pessoa")
+    private NivelEficiencia nivelEficienciaPessoa;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_eficiencia_processo")
+    private NivelEficiencia nivelEficienciaProcesso;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_eficiencia_produto")
+    private NivelEficiencia nivelEficienciaProduto;
+
+    @Column(name = "cancelado_em")
+    private Instant canceladoEm;
+
+    @Column(name = "motivo_cancelamento")
+    private String motivoCancelamento;
 
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -224,6 +258,110 @@ public class Avaliacao implements Serializable {
 
     public void setStatus(StatusAvaliacao status) {
         this.status = status;
+    }
+
+    public CriticidadePainel getCriticidadePainel() {
+        return criticidadePainel;
+    }
+
+    public Avaliacao criticidadePainel(CriticidadePainel criticidadePainel) {
+        this.criticidadePainel = criticidadePainel;
+        return this;
+    }
+
+    public void setCriticidadePainel(CriticidadePainel criticidadePainel) {
+        this.criticidadePainel = criticidadePainel;
+    }
+
+    public NivelEficiencia getNivelEficienciaGeral() {
+        return nivelEficienciaGeral;
+    }
+
+    public Avaliacao nivelEficienciaGeral(NivelEficiencia nivelEficienciaGeral) {
+        this.nivelEficienciaGeral = nivelEficienciaGeral;
+        return this;
+    }
+
+    public void setNivelEficienciaGeral(NivelEficiencia nivelEficienciaGeral) {
+        this.nivelEficienciaGeral = nivelEficienciaGeral;
+    }
+
+    public NivelEficiencia getNivelEficienciaProcedimento() {
+        return nivelEficienciaProcedimento;
+    }
+
+    public Avaliacao nivelEficienciaProcedimento(NivelEficiencia nivelEficienciaProcedimento) {
+        this.nivelEficienciaProcedimento = nivelEficienciaProcedimento;
+        return this;
+    }
+
+    public void setNivelEficienciaProcedimento(NivelEficiencia nivelEficienciaProcedimento) {
+        this.nivelEficienciaProcedimento = nivelEficienciaProcedimento;
+    }
+
+    public NivelEficiencia getNivelEficienciaPessoa() {
+        return nivelEficienciaPessoa;
+    }
+
+    public Avaliacao nivelEficienciaPessoa(NivelEficiencia nivelEficienciaPessoa) {
+        this.nivelEficienciaPessoa = nivelEficienciaPessoa;
+        return this;
+    }
+
+    public void setNivelEficienciaPessoa(NivelEficiencia nivelEficienciaPessoa) {
+        this.nivelEficienciaPessoa = nivelEficienciaPessoa;
+    }
+
+    public NivelEficiencia getNivelEficienciaProcesso() {
+        return nivelEficienciaProcesso;
+    }
+
+    public Avaliacao nivelEficienciaProcesso(NivelEficiencia nivelEficienciaProcesso) {
+        this.nivelEficienciaProcesso = nivelEficienciaProcesso;
+        return this;
+    }
+
+    public void setNivelEficienciaProcesso(NivelEficiencia nivelEficienciaProcesso) {
+        this.nivelEficienciaProcesso = nivelEficienciaProcesso;
+    }
+
+    public NivelEficiencia getNivelEficienciaProduto() {
+        return nivelEficienciaProduto;
+    }
+
+    public Avaliacao nivelEficienciaProduto(NivelEficiencia nivelEficienciaProduto) {
+        this.nivelEficienciaProduto = nivelEficienciaProduto;
+        return this;
+    }
+
+    public void setNivelEficienciaProduto(NivelEficiencia nivelEficienciaProduto) {
+        this.nivelEficienciaProduto = nivelEficienciaProduto;
+    }
+
+    public Instant getCanceladoEm() {
+        return canceladoEm;
+    }
+
+    public Avaliacao canceladoEm(Instant canceladoEm) {
+        this.canceladoEm = canceladoEm;
+        return this;
+    }
+
+    public void setCanceladoEm(Instant canceladoEm) {
+        this.canceladoEm = canceladoEm;
+    }
+
+    public String getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
+
+    public Avaliacao motivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
+        return this;
+    }
+
+    public void setMotivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
     }
 
     public Set<ItemAvaliado> getItensAvaliados() {
@@ -387,6 +525,14 @@ public class Avaliacao implements Serializable {
             ", longitudeSubmissaoAvaliacao=" + getLongitudeSubmissaoAvaliacao() +
             ", observacaoSubmissaoEnviadaForaDaLoja='" + getObservacaoSubmissaoEnviadaForaDaLoja() + "'" +
             ", status='" + getStatus() + "'" +
+            ", criticidadePainel='" + getCriticidadePainel() + "'" +
+            ", nivelEficienciaGeral='" + getNivelEficienciaGeral() + "'" +
+            ", nivelEficienciaProcedimento='" + getNivelEficienciaProcedimento() + "'" +
+            ", nivelEficienciaPessoa='" + getNivelEficienciaPessoa() + "'" +
+            ", nivelEficienciaProcesso='" + getNivelEficienciaProcesso() + "'" +
+            ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
+            ", canceladoEm='" + getCanceladoEm() + "'" +
+            ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
             "}";
     }
 }

@@ -130,14 +130,14 @@ export class ItemSolicitadoAjusteUpdate extends React.Component<IItemSolicitadoA
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="departamentoLabel" for="departamento">
-                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.departamento">Departamento</Translate>
+                  <Label id="codigoDepartamentoLabel" for="codigoDepartamento">
+                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.codigoDepartamento">Codigo Departamento</Translate>
                   </Label>
                   <AvField
-                    id="item-solicitado-ajuste-departamento"
+                    id="item-solicitado-ajuste-codigoDepartamento"
                     type="string"
                     className="form-control"
-                    name="departamento"
+                    name="codigoDepartamento"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }

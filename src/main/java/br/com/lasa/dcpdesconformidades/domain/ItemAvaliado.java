@@ -53,6 +53,38 @@ public class ItemAvaliado implements Serializable {
     @Column(name = "longitude_local_resposta", nullable = false)
     private Double longitudeLocalResposta;
 
+    @NotNull
+    @Column(name = "pontos_procedimento", nullable = false)
+    private Integer pontosProcedimento;
+
+    @NotNull
+    @Column(name = "pontos_pessoa", nullable = false)
+    private Integer pontosPessoa;
+
+    @NotNull
+    @Column(name = "pontos_processo", nullable = false)
+    private Integer pontosProcesso;
+
+    @NotNull
+    @Column(name = "pontos_produto", nullable = false)
+    private Integer pontosProduto;
+
+    @NotNull
+    @Column(name = "pontos_obtidos_procedimento", nullable = false)
+    private Integer pontosObtidosProcedimento;
+
+    @NotNull
+    @Column(name = "pontos_obtidos_pessoa", nullable = false)
+    private Integer pontosObtidosPessoa;
+
+    @NotNull
+    @Column(name = "pontos_obtidos_processo", nullable = false)
+    private Integer pontosObtidosProcesso;
+
+    @NotNull
+    @Column(name = "pontos_obtidos_produto", nullable = false)
+    private Integer pontosObtidosProduto;
+
     @OneToMany(mappedBy = "itemAvaliado")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AnexoItem> anexos = new HashSet<>();
@@ -153,6 +185,110 @@ public class ItemAvaliado implements Serializable {
         this.longitudeLocalResposta = longitudeLocalResposta;
     }
 
+    public Integer getPontosProcedimento() {
+        return pontosProcedimento;
+    }
+
+    public ItemAvaliado pontosProcedimento(Integer pontosProcedimento) {
+        this.pontosProcedimento = pontosProcedimento;
+        return this;
+    }
+
+    public void setPontosProcedimento(Integer pontosProcedimento) {
+        this.pontosProcedimento = pontosProcedimento;
+    }
+
+    public Integer getPontosPessoa() {
+        return pontosPessoa;
+    }
+
+    public ItemAvaliado pontosPessoa(Integer pontosPessoa) {
+        this.pontosPessoa = pontosPessoa;
+        return this;
+    }
+
+    public void setPontosPessoa(Integer pontosPessoa) {
+        this.pontosPessoa = pontosPessoa;
+    }
+
+    public Integer getPontosProcesso() {
+        return pontosProcesso;
+    }
+
+    public ItemAvaliado pontosProcesso(Integer pontosProcesso) {
+        this.pontosProcesso = pontosProcesso;
+        return this;
+    }
+
+    public void setPontosProcesso(Integer pontosProcesso) {
+        this.pontosProcesso = pontosProcesso;
+    }
+
+    public Integer getPontosProduto() {
+        return pontosProduto;
+    }
+
+    public ItemAvaliado pontosProduto(Integer pontosProduto) {
+        this.pontosProduto = pontosProduto;
+        return this;
+    }
+
+    public void setPontosProduto(Integer pontosProduto) {
+        this.pontosProduto = pontosProduto;
+    }
+
+    public Integer getPontosObtidosProcedimento() {
+        return pontosObtidosProcedimento;
+    }
+
+    public ItemAvaliado pontosObtidosProcedimento(Integer pontosObtidosProcedimento) {
+        this.pontosObtidosProcedimento = pontosObtidosProcedimento;
+        return this;
+    }
+
+    public void setPontosObtidosProcedimento(Integer pontosObtidosProcedimento) {
+        this.pontosObtidosProcedimento = pontosObtidosProcedimento;
+    }
+
+    public Integer getPontosObtidosPessoa() {
+        return pontosObtidosPessoa;
+    }
+
+    public ItemAvaliado pontosObtidosPessoa(Integer pontosObtidosPessoa) {
+        this.pontosObtidosPessoa = pontosObtidosPessoa;
+        return this;
+    }
+
+    public void setPontosObtidosPessoa(Integer pontosObtidosPessoa) {
+        this.pontosObtidosPessoa = pontosObtidosPessoa;
+    }
+
+    public Integer getPontosObtidosProcesso() {
+        return pontosObtidosProcesso;
+    }
+
+    public ItemAvaliado pontosObtidosProcesso(Integer pontosObtidosProcesso) {
+        this.pontosObtidosProcesso = pontosObtidosProcesso;
+        return this;
+    }
+
+    public void setPontosObtidosProcesso(Integer pontosObtidosProcesso) {
+        this.pontosObtidosProcesso = pontosObtidosProcesso;
+    }
+
+    public Integer getPontosObtidosProduto() {
+        return pontosObtidosProduto;
+    }
+
+    public ItemAvaliado pontosObtidosProduto(Integer pontosObtidosProduto) {
+        this.pontosObtidosProduto = pontosObtidosProduto;
+        return this;
+    }
+
+    public void setPontosObtidosProduto(Integer pontosObtidosProduto) {
+        this.pontosObtidosProduto = pontosObtidosProduto;
+    }
+
     public Set<AnexoItem> getAnexos() {
         return anexos;
     }
@@ -235,6 +371,14 @@ public class ItemAvaliado implements Serializable {
             ", observacoes='" + getObservacoes() + "'" +
             ", latitudeLocalResposta=" + getLatitudeLocalResposta() +
             ", longitudeLocalResposta=" + getLongitudeLocalResposta() +
+            ", pontosProcedimento=" + getPontosProcedimento() +
+            ", pontosPessoa=" + getPontosPessoa() +
+            ", pontosProcesso=" + getPontosProcesso() +
+            ", pontosProduto=" + getPontosProduto() +
+            ", pontosObtidosProcedimento=" + getPontosObtidosProcedimento() +
+            ", pontosObtidosPessoa=" + getPontosObtidosPessoa() +
+            ", pontosObtidosProcesso=" + getPontosObtidosProcesso() +
+            ", pontosObtidosProduto=" + getPontosObtidosProduto() +
             "}";
     }
 }

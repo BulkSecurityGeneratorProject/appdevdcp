@@ -63,6 +63,8 @@ describe('ItemAvaliadoPerdaQuebraAcumulados e2e test', () => {
         expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLatitudeLocalRespostaInput()).to.eq('5');
         await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.setLongitudeLocalRespostaInput('5');
         expect(await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getLongitudeLocalRespostaInput()).to.eq('5');
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.classificacaoSelectLastOption();
+        await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.categorizacaoSelectLastOption();
         await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.avaliacaoSelectLastOption();
         await waitUntilDisplayed(itemAvaliadoPerdaQuebraAcumuladosUpdatePage.getSaveButton());
         await itemAvaliadoPerdaQuebraAcumuladosUpdatePage.save();

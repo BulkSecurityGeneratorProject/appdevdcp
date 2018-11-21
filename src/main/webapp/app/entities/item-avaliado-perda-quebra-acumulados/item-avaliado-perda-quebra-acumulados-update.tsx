@@ -237,6 +237,56 @@ export class ItemAvaliadoPerdaQuebraAcumuladosUpdate extends React.Component<
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="classificacaoLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.classificacao">Classificacao</Translate>
+                  </Label>
+                  <AvInput
+                    id="item-avaliado-perda-quebra-acumulados-classificacao"
+                    type="select"
+                    className="form-control"
+                    name="classificacao"
+                    value={(!isNew && itemAvaliadoPerdaQuebraAcumuladosEntity.classificacao) || 'CONFORMIDADE'}
+                  >
+                    <option value="CONFORMIDADE">
+                      <Translate contentKey="dcpdesconformidadesApp.ClassificacaoPerdaQuebra.CONFORMIDADE" />
+                    </option>
+                    <option value="DESCONFORMIDADE">
+                      <Translate contentKey="dcpdesconformidadesApp.ClassificacaoPerdaQuebra.DESCONFORMIDADE" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="categorizacaoLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.categorizacao">Categorizacao</Translate>
+                  </Label>
+                  <AvInput
+                    id="item-avaliado-perda-quebra-acumulados-categorizacao"
+                    type="select"
+                    className="form-control"
+                    name="categorizacao"
+                    value={(!isNew && itemAvaliadoPerdaQuebraAcumuladosEntity.categorizacao) || 'INADMISSIVEL'}
+                  >
+                    <option value="INADMISSIVEL">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.INADMISSIVEL" />
+                    </option>
+                    <option value="CRITICO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CRITICO" />
+                    </option>
+                    <option value="VALOR_ELEVADO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.VALOR_ELEVADO" />
+                    </option>
+                    <option value="ATENCAO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.ATENCAO" />
+                    </option>
+                    <option value="CONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CONTROLE" />
+                    </option>
+                    <option value="SOBRA_DESCONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.SOBRA_DESCONTROLE" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="avaliacao.id">
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.avaliacao">Avaliacao</Translate>
                   </Label>

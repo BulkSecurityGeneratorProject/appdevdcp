@@ -70,13 +70,63 @@ export class ItemAvaliadoDetail extends React.Component<IItemAvaliadoDetailProps
             </dt>
             <dd>{itemAvaliadoEntity.longitudeLocalResposta}</dd>
             <dt>
+              <span id="pontosProcedimento">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcedimento">Pontos Procedimento</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosProcedimento}</dd>
+            <dt>
+              <span id="pontosPessoa">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosPessoa">Pontos Pessoa</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosPessoa}</dd>
+            <dt>
+              <span id="pontosProcesso">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcesso">Pontos Processo</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosProcesso}</dd>
+            <dt>
+              <span id="pontosProduto">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProduto">Pontos Produto</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosProduto}</dd>
+            <dt>
+              <span id="pontosObtidosProcedimento">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcedimento">
+                  Pontos Obtidos Procedimento
+                </Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosObtidosProcedimento}</dd>
+            <dt>
+              <span id="pontosObtidosPessoa">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosPessoa">Pontos Obtidos Pessoa</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosObtidosPessoa}</dd>
+            <dt>
+              <span id="pontosObtidosProcesso">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcesso">Pontos Obtidos Processo</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosObtidosProcesso}</dd>
+            <dt>
+              <span id="pontosObtidosProduto">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProduto">Pontos Obtidos Produto</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoEntity.pontosObtidosProduto}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
             </dt>
-            <dd>{itemAvaliadoEntity.itemAvaliacao ? itemAvaliadoEntity.itemAvaliacao.descricao : ''}</dd>
+            <dd>{itemAvaliadoEntity.itemAvaliacaoDescricao ? itemAvaliadoEntity.itemAvaliacaoDescricao : ''}</dd>
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
             </dt>
-            <dd>{itemAvaliadoEntity.avaliacao ? itemAvaliadoEntity.avaliacao.id : ''}</dd>
+            <dd>{itemAvaliadoEntity.avaliacaoId ? itemAvaliadoEntity.avaliacaoId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-avaliado" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

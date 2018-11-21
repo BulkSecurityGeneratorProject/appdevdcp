@@ -54,6 +54,22 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "classificacao",
+            "fieldType": "ClassificacaoPerdaQuebra",
+            "fieldValues": "CONFORMIDADE,DESCONFORMIDADE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "categorizacao",
+            "fieldType": "CategorizacaoPerdaQuebra",
+            "fieldValues": "INADMISSIVEL,CRITICO,VALOR_ELEVADO,ATENCAO,CONTROLE,SOBRA_DESCONTROLE",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [

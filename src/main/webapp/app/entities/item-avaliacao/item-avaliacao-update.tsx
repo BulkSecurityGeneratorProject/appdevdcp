@@ -131,6 +131,66 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
                     }}
                   />
                 </AvGroup>
+                <AvGroup>
+                  <Label id="pontosProcedimentoLabel" for="pontosProcedimento">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliacao-pontosProcedimento"
+                    type="string"
+                    className="form-control"
+                    name="pontosProcedimento"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosPessoaLabel" for="pontosPessoa">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosPessoa">Pontos Pessoa</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliacao-pontosPessoa"
+                    type="string"
+                    className="form-control"
+                    name="pontosPessoa"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosProcessoLabel" for="pontosProcesso">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcesso">Pontos Processo</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliacao-pontosProcesso"
+                    type="string"
+                    className="form-control"
+                    name="pontosProcesso"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosProdutoLabel" for="pontosProduto">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProduto">Pontos Produto</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliacao-pontosProduto"
+                    type="string"
+                    className="form-control"
+                    name="pontosProduto"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/item-avaliacao" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

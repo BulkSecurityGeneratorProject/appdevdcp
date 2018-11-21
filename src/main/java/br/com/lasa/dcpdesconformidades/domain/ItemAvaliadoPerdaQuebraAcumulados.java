@@ -14,6 +14,10 @@ import java.util.Objects;
 
 import br.com.lasa.dcpdesconformidades.domain.enumeration.TipoItemAvaliadoPerdaQuebra;
 
+import br.com.lasa.dcpdesconformidades.domain.enumeration.ClassificacaoPerdaQuebra;
+
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
+
 /**
  * A ItemAvaliadoPerdaQuebraAcumulados.
  */
@@ -59,6 +63,16 @@ public class ItemAvaliadoPerdaQuebraAcumulados implements Serializable {
     @NotNull
     @Column(name = "longitude_local_resposta", nullable = false)
     private Double longitudeLocalResposta;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "classificacao", nullable = false)
+    private ClassificacaoPerdaQuebra classificacao;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categorizacao", nullable = false)
+    private CategorizacaoPerdaQuebra categorizacao;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -178,6 +192,32 @@ public class ItemAvaliadoPerdaQuebraAcumulados implements Serializable {
         this.longitudeLocalResposta = longitudeLocalResposta;
     }
 
+    public ClassificacaoPerdaQuebra getClassificacao() {
+        return classificacao;
+    }
+
+    public ItemAvaliadoPerdaQuebraAcumulados classificacao(ClassificacaoPerdaQuebra classificacao) {
+        this.classificacao = classificacao;
+        return this;
+    }
+
+    public void setClassificacao(ClassificacaoPerdaQuebra classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public CategorizacaoPerdaQuebra getCategorizacao() {
+        return categorizacao;
+    }
+
+    public ItemAvaliadoPerdaQuebraAcumulados categorizacao(CategorizacaoPerdaQuebra categorizacao) {
+        this.categorizacao = categorizacao;
+        return this;
+    }
+
+    public void setCategorizacao(CategorizacaoPerdaQuebra categorizacao) {
+        this.categorizacao = categorizacao;
+    }
+
     public Avaliacao getAvaliacao() {
         return avaliacao;
     }
@@ -224,6 +264,8 @@ public class ItemAvaliadoPerdaQuebraAcumulados implements Serializable {
             ", pontuacao=" + getPontuacao() +
             ", latitudeLocalResposta=" + getLatitudeLocalResposta() +
             ", longitudeLocalResposta=" + getLongitudeLocalResposta() +
+            ", classificacao='" + getClassificacao() + "'" +
+            ", categorizacao='" + getCategorizacao() + "'" +
             "}";
     }
 }

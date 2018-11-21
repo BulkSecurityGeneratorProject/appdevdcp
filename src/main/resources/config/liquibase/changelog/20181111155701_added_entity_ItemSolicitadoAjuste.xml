@@ -30,7 +30,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="departamento" type="integer">
+            <column name="codigo_departamento" type="integer">
                 <constraints nullable="false" />
             </column>
 

@@ -120,6 +120,40 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                 <th className="hand" onClick={this.sort('status')}>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.status">Status</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('criticidadePainel')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('nivelEficienciaGeral')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral">Nivel Eficiencia Geral</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('nivelEficienciaProcedimento')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento">
+                    Nivel Eficiencia Procedimento
+                  </Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('nivelEficienciaPessoa')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa">Nivel Eficiencia Pessoa</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('nivelEficienciaProcesso')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso">Nivel Eficiencia Processo</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('nivelEficienciaProduto')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto">Nivel Eficiencia Produto</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('canceladoEm')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('motivoCancelamento')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
@@ -154,6 +188,28 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacao.status}`} />
                   </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacao.criticidadePainel}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaGeral}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProcedimento}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaPessoa}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProcesso}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProduto}`} />
+                  </td>
+                  <td>
+                    <TextFormat type="date" value={avaliacao.canceladoEm} format={APP_DATE_FORMAT} />
+                  </td>
+                  <td>{avaliacao.motivoCancelamento}</td>
                   <td>
                     {avaliacao.questionarioNome ? (
                       <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>

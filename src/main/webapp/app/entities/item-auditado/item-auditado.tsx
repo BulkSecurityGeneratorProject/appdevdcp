@@ -48,7 +48,7 @@ export class ItemAuditado extends React.Component<IItemAuditadoProps> {
                   <Translate contentKey="dcpdesconformidadesApp.itemAuditado.tipo">Tipo</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.departamento">Departamento</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.codigoDepartamento">Codigo Departamento</Translate>
                 </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAuditado.codigoSap">Codigo Sap</Translate>
@@ -88,7 +88,7 @@ export class ItemAuditado extends React.Component<IItemAuditadoProps> {
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.TipoItemAuditado.${itemAuditado.tipo}`} />
                   </td>
-                  <td>{itemAuditado.departamento}</td>
+                  <td>{itemAuditado.codigoDepartamento}</td>
                   <td>{itemAuditado.codigoSap}</td>
                   <td>{itemAuditado.descricaoItem}</td>
                   <td>{itemAuditado.saldoSap}</td>

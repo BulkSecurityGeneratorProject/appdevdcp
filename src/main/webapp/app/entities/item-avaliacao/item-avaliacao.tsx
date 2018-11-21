@@ -47,6 +47,18 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.criadoEm">Criado Em</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosPessoa">Pontos Pessoa</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcesso">Pontos Processo</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProduto">Pontos Produto</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -63,6 +75,10 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                   <td>
                     <TextFormat type="date" value={itemAvaliacao.criadoEm} format={APP_DATE_FORMAT} />
                   </td>
+                  <td>{itemAvaliacao.pontosProcedimento}</td>
+                  <td>{itemAvaliacao.pontosPessoa}</td>
+                  <td>{itemAvaliacao.pontosProcesso}</td>
+                  <td>{itemAvaliacao.pontosProduto}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${itemAvaliacao.id}`} color="info" size="sm">

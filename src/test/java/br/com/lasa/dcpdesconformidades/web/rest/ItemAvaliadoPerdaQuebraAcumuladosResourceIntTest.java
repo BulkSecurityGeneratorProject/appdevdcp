@@ -35,6 +35,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import br.com.lasa.dcpdesconformidades.domain.enumeration.TipoItemAvaliadoPerdaQuebra;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.ClassificacaoPerdaQuebra;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 /**
  * Test class for the ItemAvaliadoPerdaQuebraAcumuladosResource REST controller.
  *
@@ -67,6 +69,12 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
 
     private static final Double DEFAULT_LONGITUDE_LOCAL_RESPOSTA = 1D;
     private static final Double UPDATED_LONGITUDE_LOCAL_RESPOSTA = 2D;
+
+    private static final ClassificacaoPerdaQuebra DEFAULT_CLASSIFICACAO = ClassificacaoPerdaQuebra.CONFORMIDADE;
+    private static final ClassificacaoPerdaQuebra UPDATED_CLASSIFICACAO = ClassificacaoPerdaQuebra.DESCONFORMIDADE;
+
+    private static final CategorizacaoPerdaQuebra DEFAULT_CATEGORIZACAO = CategorizacaoPerdaQuebra.INADMISSIVEL;
+    private static final CategorizacaoPerdaQuebra UPDATED_CATEGORIZACAO = CategorizacaoPerdaQuebra.CRITICO;
 
     @Autowired
     private ItemAvaliadoPerdaQuebraAcumuladosRepository itemAvaliadoPerdaQuebraAcumuladosRepository;
@@ -113,7 +121,9 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
             .financeiro(DEFAULT_FINANCEIRO)
             .pontuacao(DEFAULT_PONTUACAO)
             .latitudeLocalResposta(DEFAULT_LATITUDE_LOCAL_RESPOSTA)
-            .longitudeLocalResposta(DEFAULT_LONGITUDE_LOCAL_RESPOSTA);
+            .longitudeLocalResposta(DEFAULT_LONGITUDE_LOCAL_RESPOSTA)
+            .classificacao(DEFAULT_CLASSIFICACAO)
+            .categorizacao(DEFAULT_CATEGORIZACAO);
         // Add required entity
         Avaliacao avaliacao = AvaliacaoResourceIntTest.createEntity(em);
         em.persist(avaliacao);
@@ -150,6 +160,8 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getPontuacao()).isEqualTo(DEFAULT_PONTUACAO);
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getLatitudeLocalResposta()).isEqualTo(DEFAULT_LATITUDE_LOCAL_RESPOSTA);
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getLongitudeLocalResposta()).isEqualTo(DEFAULT_LONGITUDE_LOCAL_RESPOSTA);
+        assertThat(testItemAvaliadoPerdaQuebraAcumulados.getClassificacao()).isEqualTo(DEFAULT_CLASSIFICACAO);
+        assertThat(testItemAvaliadoPerdaQuebraAcumulados.getCategorizacao()).isEqualTo(DEFAULT_CATEGORIZACAO);
     }
 
     @Test
@@ -299,6 +311,42 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
 
     @Test
     @Transactional
+    public void checkClassificacaoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = itemAvaliadoPerdaQuebraAcumuladosRepository.findAll().size();
+        // set the field null
+        itemAvaliadoPerdaQuebraAcumulados.setClassificacao(null);
+
+        // Create the ItemAvaliadoPerdaQuebraAcumulados, which fails.
+
+        restItemAvaliadoPerdaQuebraAcumuladosMockMvc.perform(post("/api/item-avaliado-perda-quebra-acumulados")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliadoPerdaQuebraAcumulados)))
+            .andExpect(status().isBadRequest());
+
+        List<ItemAvaliadoPerdaQuebraAcumulados> itemAvaliadoPerdaQuebraAcumuladosList = itemAvaliadoPerdaQuebraAcumuladosRepository.findAll();
+        assertThat(itemAvaliadoPerdaQuebraAcumuladosList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCategorizacaoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = itemAvaliadoPerdaQuebraAcumuladosRepository.findAll().size();
+        // set the field null
+        itemAvaliadoPerdaQuebraAcumulados.setCategorizacao(null);
+
+        // Create the ItemAvaliadoPerdaQuebraAcumulados, which fails.
+
+        restItemAvaliadoPerdaQuebraAcumuladosMockMvc.perform(post("/api/item-avaliado-perda-quebra-acumulados")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliadoPerdaQuebraAcumulados)))
+            .andExpect(status().isBadRequest());
+
+        List<ItemAvaliadoPerdaQuebraAcumulados> itemAvaliadoPerdaQuebraAcumuladosList = itemAvaliadoPerdaQuebraAcumuladosRepository.findAll();
+        assertThat(itemAvaliadoPerdaQuebraAcumuladosList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllItemAvaliadoPerdaQuebraAcumulados() throws Exception {
         // Initialize the database
         itemAvaliadoPerdaQuebraAcumuladosRepository.saveAndFlush(itemAvaliadoPerdaQuebraAcumulados);
@@ -315,7 +363,9 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
             .andExpect(jsonPath("$.[*].financeiro").value(hasItem(DEFAULT_FINANCEIRO.intValue())))
             .andExpect(jsonPath("$.[*].pontuacao").value(hasItem(DEFAULT_PONTUACAO)))
             .andExpect(jsonPath("$.[*].latitudeLocalResposta").value(hasItem(DEFAULT_LATITUDE_LOCAL_RESPOSTA.doubleValue())))
-            .andExpect(jsonPath("$.[*].longitudeLocalResposta").value(hasItem(DEFAULT_LONGITUDE_LOCAL_RESPOSTA.doubleValue())));
+            .andExpect(jsonPath("$.[*].longitudeLocalResposta").value(hasItem(DEFAULT_LONGITUDE_LOCAL_RESPOSTA.doubleValue())))
+            .andExpect(jsonPath("$.[*].classificacao").value(hasItem(DEFAULT_CLASSIFICACAO.toString())))
+            .andExpect(jsonPath("$.[*].categorizacao").value(hasItem(DEFAULT_CATEGORIZACAO.toString())));
     }
     
     @Test
@@ -336,7 +386,9 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
             .andExpect(jsonPath("$.financeiro").value(DEFAULT_FINANCEIRO.intValue()))
             .andExpect(jsonPath("$.pontuacao").value(DEFAULT_PONTUACAO))
             .andExpect(jsonPath("$.latitudeLocalResposta").value(DEFAULT_LATITUDE_LOCAL_RESPOSTA.doubleValue()))
-            .andExpect(jsonPath("$.longitudeLocalResposta").value(DEFAULT_LONGITUDE_LOCAL_RESPOSTA.doubleValue()));
+            .andExpect(jsonPath("$.longitudeLocalResposta").value(DEFAULT_LONGITUDE_LOCAL_RESPOSTA.doubleValue()))
+            .andExpect(jsonPath("$.classificacao").value(DEFAULT_CLASSIFICACAO.toString()))
+            .andExpect(jsonPath("$.categorizacao").value(DEFAULT_CATEGORIZACAO.toString()));
     }
 
     @Test
@@ -367,7 +419,9 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
             .financeiro(UPDATED_FINANCEIRO)
             .pontuacao(UPDATED_PONTUACAO)
             .latitudeLocalResposta(UPDATED_LATITUDE_LOCAL_RESPOSTA)
-            .longitudeLocalResposta(UPDATED_LONGITUDE_LOCAL_RESPOSTA);
+            .longitudeLocalResposta(UPDATED_LONGITUDE_LOCAL_RESPOSTA)
+            .classificacao(UPDATED_CLASSIFICACAO)
+            .categorizacao(UPDATED_CATEGORIZACAO);
 
         restItemAvaliadoPerdaQuebraAcumuladosMockMvc.perform(put("/api/item-avaliado-perda-quebra-acumulados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -386,6 +440,8 @@ public class ItemAvaliadoPerdaQuebraAcumuladosResourceIntTest {
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getPontuacao()).isEqualTo(UPDATED_PONTUACAO);
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getLatitudeLocalResposta()).isEqualTo(UPDATED_LATITUDE_LOCAL_RESPOSTA);
         assertThat(testItemAvaliadoPerdaQuebraAcumulados.getLongitudeLocalResposta()).isEqualTo(UPDATED_LONGITUDE_LOCAL_RESPOSTA);
+        assertThat(testItemAvaliadoPerdaQuebraAcumulados.getClassificacao()).isEqualTo(UPDATED_CLASSIFICACAO);
+        assertThat(testItemAvaliadoPerdaQuebraAcumulados.getCategorizacao()).isEqualTo(UPDATED_CATEGORIZACAO);
     }
 
     @Test

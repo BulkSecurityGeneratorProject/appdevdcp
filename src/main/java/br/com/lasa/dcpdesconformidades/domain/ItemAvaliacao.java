@@ -39,6 +39,22 @@ public class ItemAvaliacao implements Serializable {
     @Column(name = "criado_em", nullable = false)
     private Instant criadoEm;
 
+    @NotNull
+    @Column(name = "pontos_procedimento", nullable = false)
+    private Integer pontosProcedimento;
+
+    @NotNull
+    @Column(name = "pontos_pessoa", nullable = false)
+    private Integer pontosPessoa;
+
+    @NotNull
+    @Column(name = "pontos_processo", nullable = false)
+    private Integer pontosProcesso;
+
+    @NotNull
+    @Column(name = "pontos_produto", nullable = false)
+    private Integer pontosProduto;
+
     @OneToMany(mappedBy = "itemAvaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
@@ -93,6 +109,58 @@ public class ItemAvaliacao implements Serializable {
 
     public void setCriadoEm(Instant criadoEm) {
         this.criadoEm = criadoEm;
+    }
+
+    public Integer getPontosProcedimento() {
+        return pontosProcedimento;
+    }
+
+    public ItemAvaliacao pontosProcedimento(Integer pontosProcedimento) {
+        this.pontosProcedimento = pontosProcedimento;
+        return this;
+    }
+
+    public void setPontosProcedimento(Integer pontosProcedimento) {
+        this.pontosProcedimento = pontosProcedimento;
+    }
+
+    public Integer getPontosPessoa() {
+        return pontosPessoa;
+    }
+
+    public ItemAvaliacao pontosPessoa(Integer pontosPessoa) {
+        this.pontosPessoa = pontosPessoa;
+        return this;
+    }
+
+    public void setPontosPessoa(Integer pontosPessoa) {
+        this.pontosPessoa = pontosPessoa;
+    }
+
+    public Integer getPontosProcesso() {
+        return pontosProcesso;
+    }
+
+    public ItemAvaliacao pontosProcesso(Integer pontosProcesso) {
+        this.pontosProcesso = pontosProcesso;
+        return this;
+    }
+
+    public void setPontosProcesso(Integer pontosProcesso) {
+        this.pontosProcesso = pontosProcesso;
+    }
+
+    public Integer getPontosProduto() {
+        return pontosProduto;
+    }
+
+    public ItemAvaliacao pontosProduto(Integer pontosProduto) {
+        this.pontosProduto = pontosProduto;
+        return this;
+    }
+
+    public void setPontosProduto(Integer pontosProduto) {
+        this.pontosProduto = pontosProduto;
     }
 
     public Set<ItemAvaliado> getItensAvaliados() {
@@ -173,6 +241,10 @@ public class ItemAvaliacao implements Serializable {
             ", descricao='" + getDescricao() + "'" +
             ", anexoObrigatorio='" + isAnexoObrigatorio() + "'" +
             ", criadoEm='" + getCriadoEm() + "'" +
+            ", pontosProcedimento=" + getPontosProcedimento() +
+            ", pontosPessoa=" + getPontosPessoa() +
+            ", pontosProcesso=" + getPontosProcesso() +
+            ", pontosProduto=" + getPontosProduto() +
             "}";
     }
 }

@@ -56,6 +56,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
   saveEntity = (event, errors, values) => {
     values.dataInicio = new Date(values.dataInicio);
     values.submetidoEm = new Date(values.submetidoEm);
+    values.canceladoEm = new Date(values.canceladoEm);
 
     if (errors.length === 0) {
       const { avaliacaoEntity } = this.props;
@@ -240,6 +241,194 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                       <Translate contentKey="dcpdesconformidadesApp.StatusAvaliacao.SUBMETIDO" />
                     </option>
                   </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="criticidadePainelLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-criticidadePainel"
+                    type="select"
+                    className="form-control"
+                    name="criticidadePainel"
+                    value={(!isNew && avaliacaoEntity.criticidadePainel) || 'INADMISSIVEL'}
+                  >
+                    <option value="INADMISSIVEL">
+                      <Translate contentKey="dcpdesconformidadesApp.CriticidadePainel.INADMISSIVEL" />
+                    </option>
+                    <option value="CONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CriticidadePainel.CONTROLE" />
+                    </option>
+                    <option value="VALOR_ELEVADO">
+                      <Translate contentKey="dcpdesconformidadesApp.CriticidadePainel.VALOR_ELEVADO" />
+                    </option>
+                    <option value="CRITICO">
+                      <Translate contentKey="dcpdesconformidadesApp.CriticidadePainel.CRITICO" />
+                    </option>
+                    <option value="ATENCAO">
+                      <Translate contentKey="dcpdesconformidadesApp.CriticidadePainel.ATENCAO" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nivelEficienciaGeralLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral">Nivel Eficiencia Geral</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-nivelEficienciaGeral"
+                    type="select"
+                    className="form-control"
+                    name="nivelEficienciaGeral"
+                    value={(!isNew && avaliacaoEntity.nivelEficienciaGeral) || 'A'}
+                  >
+                    <option value="A">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.A" />
+                    </option>
+                    <option value="B">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.B" />
+                    </option>
+                    <option value="C">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.C" />
+                    </option>
+                    <option value="D">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.D" />
+                    </option>
+                    <option value="E">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.E" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nivelEficienciaProcedimentoLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento">
+                      Nivel Eficiencia Procedimento
+                    </Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-nivelEficienciaProcedimento"
+                    type="select"
+                    className="form-control"
+                    name="nivelEficienciaProcedimento"
+                    value={(!isNew && avaliacaoEntity.nivelEficienciaProcedimento) || 'A'}
+                  >
+                    <option value="A">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.A" />
+                    </option>
+                    <option value="B">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.B" />
+                    </option>
+                    <option value="C">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.C" />
+                    </option>
+                    <option value="D">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.D" />
+                    </option>
+                    <option value="E">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.E" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nivelEficienciaPessoaLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa">Nivel Eficiencia Pessoa</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-nivelEficienciaPessoa"
+                    type="select"
+                    className="form-control"
+                    name="nivelEficienciaPessoa"
+                    value={(!isNew && avaliacaoEntity.nivelEficienciaPessoa) || 'A'}
+                  >
+                    <option value="A">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.A" />
+                    </option>
+                    <option value="B">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.B" />
+                    </option>
+                    <option value="C">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.C" />
+                    </option>
+                    <option value="D">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.D" />
+                    </option>
+                    <option value="E">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.E" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nivelEficienciaProcessoLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso">Nivel Eficiencia Processo</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-nivelEficienciaProcesso"
+                    type="select"
+                    className="form-control"
+                    name="nivelEficienciaProcesso"
+                    value={(!isNew && avaliacaoEntity.nivelEficienciaProcesso) || 'A'}
+                  >
+                    <option value="A">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.A" />
+                    </option>
+                    <option value="B">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.B" />
+                    </option>
+                    <option value="C">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.C" />
+                    </option>
+                    <option value="D">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.D" />
+                    </option>
+                    <option value="E">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.E" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nivelEficienciaProdutoLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto">Nivel Eficiencia Produto</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-nivelEficienciaProduto"
+                    type="select"
+                    className="form-control"
+                    name="nivelEficienciaProduto"
+                    value={(!isNew && avaliacaoEntity.nivelEficienciaProduto) || 'A'}
+                  >
+                    <option value="A">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.A" />
+                    </option>
+                    <option value="B">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.B" />
+                    </option>
+                    <option value="C">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.C" />
+                    </option>
+                    <option value="D">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.D" />
+                    </option>
+                    <option value="E">
+                      <Translate contentKey="dcpdesconformidadesApp.NivelEficiencia.E" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="canceladoEmLabel" for="canceladoEm">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-canceladoEm"
+                    type="datetime-local"
+                    className="form-control"
+                    name="canceladoEm"
+                    value={isNew ? null : convertDateTimeFromServer(this.props.avaliacaoEntity.canceladoEm)}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="motivoCancelamentoLabel" for="motivoCancelamento">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>
+                  </Label>
+                  <AvField id="avaliacao-motivoCancelamento" type="text" name="motivoCancelamento" />
                 </AvGroup>
                 <AvGroup>
                   <Label for="questionario.nome">

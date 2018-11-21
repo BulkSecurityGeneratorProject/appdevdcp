@@ -43,7 +43,7 @@ export class AnexoItemDetail extends React.Component<IAnexoItemDetailProps> {
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.anexoItem.itemAvaliado">Item Avaliado</Translate>
             </dt>
-            <dd>{anexoItemEntity.itemAvaliado ? anexoItemEntity.itemAvaliado.id : ''}</dd>
+            <dd>{anexoItemEntity.itemAvaliadoId ? anexoItemEntity.itemAvaliadoId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/anexo-item" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

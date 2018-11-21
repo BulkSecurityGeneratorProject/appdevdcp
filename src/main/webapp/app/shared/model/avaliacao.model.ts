@@ -12,6 +12,22 @@ export const enum StatusAvaliacao {
   SUBMETIDO = 'SUBMETIDO'
 }
 
+export const enum CriticidadePainel {
+  INADMISSIVEL = 'INADMISSIVEL',
+  CONTROLE = 'CONTROLE',
+  VALOR_ELEVADO = 'VALOR_ELEVADO',
+  CRITICO = 'CRITICO',
+  ATENCAO = 'ATENCAO'
+}
+
+export const enum NivelEficiencia {
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E'
+}
+
 export interface IAvaliacao {
   id?: number;
   dataInicio?: Moment;
@@ -24,6 +40,14 @@ export interface IAvaliacao {
   longitudeSubmissaoAvaliacao?: number;
   observacaoSubmissaoEnviadaForaDaLoja?: string;
   status?: StatusAvaliacao;
+  criticidadePainel?: CriticidadePainel;
+  nivelEficienciaGeral?: NivelEficiencia;
+  nivelEficienciaProcedimento?: NivelEficiencia;
+  nivelEficienciaPessoa?: NivelEficiencia;
+  nivelEficienciaProcesso?: NivelEficiencia;
+  nivelEficienciaProduto?: NivelEficiencia;
+  canceladoEm?: Moment;
+  motivoCancelamento?: string;
   itensAvaliados?: IItemAvaliado[];
   itensPerdaEQuebraAcumulados?: IItemAvaliadoPerdaQuebraAcumulados[];
   itensAuditados?: IItemAuditado[];

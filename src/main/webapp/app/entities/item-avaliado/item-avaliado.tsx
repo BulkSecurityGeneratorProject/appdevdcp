@@ -57,6 +57,32 @@ export class ItemAvaliado extends React.Component<IItemAvaliadoProps> {
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.longitudeLocalResposta">Longitude Local Resposta</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcedimento">Pontos Procedimento</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosPessoa">Pontos Pessoa</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcesso">Pontos Processo</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProduto">Pontos Produto</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcedimento">
+                    Pontos Obtidos Procedimento
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosPessoa">Pontos Obtidos Pessoa</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcesso">Pontos Obtidos Processo</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProduto">Pontos Obtidos Produto</Translate>
+                </th>
+                <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
                 </th>
                 <th>
@@ -85,15 +111,23 @@ export class ItemAvaliado extends React.Component<IItemAvaliadoProps> {
                   <td>{itemAvaliado.observacoes}</td>
                   <td>{itemAvaliado.latitudeLocalResposta}</td>
                   <td>{itemAvaliado.longitudeLocalResposta}</td>
+                  <td>{itemAvaliado.pontosProcedimento}</td>
+                  <td>{itemAvaliado.pontosPessoa}</td>
+                  <td>{itemAvaliado.pontosProcesso}</td>
+                  <td>{itemAvaliado.pontosProduto}</td>
+                  <td>{itemAvaliado.pontosObtidosProcedimento}</td>
+                  <td>{itemAvaliado.pontosObtidosPessoa}</td>
+                  <td>{itemAvaliado.pontosObtidosProcesso}</td>
+                  <td>{itemAvaliado.pontosObtidosProduto}</td>
                   <td>
-                    {itemAvaliado.itemAvaliacao ? (
-                      <Link to={`item-avaliacao/${itemAvaliado.itemAvaliacao.id}`}>{itemAvaliado.itemAvaliacao.descricao}</Link>
+                    {itemAvaliado.itemAvaliacaoDescricao ? (
+                      <Link to={`item-avaliacao/${itemAvaliado.itemAvaliacaoId}`}>{itemAvaliado.itemAvaliacaoDescricao}</Link>
                     ) : (
                       ''
                     )}
                   </td>
                   <td>
-                    {itemAvaliado.avaliacao ? <Link to={`avaliacao/${itemAvaliado.avaliacao.id}`}>{itemAvaliado.avaliacao.id}</Link> : ''}
+                    {itemAvaliado.avaliacaoId ? <Link to={`avaliacao/${itemAvaliado.avaliacaoId}`}>{itemAvaliado.avaliacaoId}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

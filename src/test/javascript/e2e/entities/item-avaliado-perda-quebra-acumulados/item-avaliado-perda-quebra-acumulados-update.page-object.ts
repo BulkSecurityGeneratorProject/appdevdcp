@@ -12,6 +12,8 @@ export default class ItemAvaliadoPerdaQuebraAcumuladosUpdatePage {
   pontuacaoInput: ElementFinder = element(by.css('input#item-avaliado-perda-quebra-acumulados-pontuacao'));
   latitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-perda-quebra-acumulados-latitudeLocalResposta'));
   longitudeLocalRespostaInput: ElementFinder = element(by.css('input#item-avaliado-perda-quebra-acumulados-longitudeLocalResposta'));
+  classificacaoSelect: ElementFinder = element(by.css('select#item-avaliado-perda-quebra-acumulados-classificacao'));
+  categorizacaoSelect: ElementFinder = element(by.css('select#item-avaliado-perda-quebra-acumulados-categorizacao'));
   avaliacaoSelect: ElementFinder = element(by.css('select#item-avaliado-perda-quebra-acumulados-avaliacao'));
 
   getPageTitle() {
@@ -88,6 +90,34 @@ export default class ItemAvaliadoPerdaQuebraAcumuladosUpdatePage {
     return this.longitudeLocalRespostaInput.getAttribute('value');
   }
 
+  async setClassificacaoSelect(classificacao) {
+    await this.classificacaoSelect.sendKeys(classificacao);
+  }
+
+  async getClassificacaoSelect() {
+    return this.classificacaoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async classificacaoSelectLastOption() {
+    await this.classificacaoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setCategorizacaoSelect(categorizacao) {
+    await this.categorizacaoSelect.sendKeys(categorizacao);
+  }
+
+  async getCategorizacaoSelect() {
+    return this.categorizacaoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async categorizacaoSelectLastOption() {
+    await this.categorizacaoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
   async avaliacaoSelectLastOption() {
     await this.avaliacaoSelect
       .all(by.tagName('option'))

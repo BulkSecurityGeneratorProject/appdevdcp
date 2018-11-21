@@ -7,6 +7,10 @@ export interface IItemAvaliacao {
   descricao?: string;
   anexoObrigatorio?: boolean;
   criadoEm?: Moment;
+  pontosProcedimento?: number;
+  pontosPessoa?: number;
+  pontosProcesso?: number;
+  pontosProduto?: number;
   itensAvaliados?: IItemAvaliado[];
   grupos?: IGrupoItens[];
 }

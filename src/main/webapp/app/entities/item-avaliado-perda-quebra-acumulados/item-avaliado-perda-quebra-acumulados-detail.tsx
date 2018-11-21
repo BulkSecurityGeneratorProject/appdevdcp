@@ -90,6 +90,18 @@ export class ItemAvaliadoPerdaQuebraAcumuladosDetail extends React.Component<IIt
             </dt>
             <dd>{itemAvaliadoPerdaQuebraAcumuladosEntity.longitudeLocalResposta}</dd>
             <dt>
+              <span id="classificacao">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.classificacao">Classificacao</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoPerdaQuebraAcumuladosEntity.classificacao}</dd>
+            <dt>
+              <span id="categorizacao">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.categorizacao">Categorizacao</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliadoPerdaQuebraAcumuladosEntity.categorizacao}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.avaliacao">Avaliacao</Translate>
             </dt>
             <dd>{itemAvaliadoPerdaQuebraAcumuladosEntity.avaliacao ? itemAvaliadoPerdaQuebraAcumuladosEntity.avaliacao.id : ''}</dd>

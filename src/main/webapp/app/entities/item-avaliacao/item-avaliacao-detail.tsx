@@ -49,6 +49,30 @@ export class ItemAvaliacaoDetail extends React.Component<IItemAvaliacaoDetailPro
             <dd>
               <TextFormat value={itemAvaliacaoEntity.criadoEm} type="date" format={APP_DATE_FORMAT} />
             </dd>
+            <dt>
+              <span id="pontosProcedimento">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliacaoEntity.pontosProcedimento}</dd>
+            <dt>
+              <span id="pontosPessoa">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosPessoa">Pontos Pessoa</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliacaoEntity.pontosPessoa}</dd>
+            <dt>
+              <span id="pontosProcesso">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcesso">Pontos Processo</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliacaoEntity.pontosProcesso}</dd>
+            <dt>
+              <span id="pontosProduto">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProduto">Pontos Produto</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliacaoEntity.pontosProduto}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-avaliacao" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

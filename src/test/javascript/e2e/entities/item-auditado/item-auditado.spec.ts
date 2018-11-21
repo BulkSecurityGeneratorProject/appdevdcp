@@ -53,8 +53,8 @@ describe('ItemAuditado e2e test', () => {
         await itemAuditadoUpdatePage.setUltimaAtualizacaoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
         expect(await itemAuditadoUpdatePage.getUltimaAtualizacaoEmInput()).to.contain('2001-01-01T02:30');
         await itemAuditadoUpdatePage.tipoSelectLastOption();
-        await itemAuditadoUpdatePage.setDepartamentoInput('5');
-        expect(await itemAuditadoUpdatePage.getDepartamentoInput()).to.eq('5');
+        await itemAuditadoUpdatePage.setCodigoDepartamentoInput('5');
+        expect(await itemAuditadoUpdatePage.getCodigoDepartamentoInput()).to.eq('5');
         await itemAuditadoUpdatePage.setCodigoSapInput('5');
         expect(await itemAuditadoUpdatePage.getCodigoSapInput()).to.eq('5');
         await itemAuditadoUpdatePage.setDescricaoItemInput('descricaoItem');

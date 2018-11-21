@@ -52,8 +52,8 @@ public class ItemAuditadoResourceIntTest {
     private static final TipoItemAuditado DEFAULT_TIPO = TipoItemAuditado.TOP_5_PERDAS;
     private static final TipoItemAuditado UPDATED_TIPO = TipoItemAuditado.ALTO_RISCO;
 
-    private static final Integer DEFAULT_DEPARTAMENTO = 1;
-    private static final Integer UPDATED_DEPARTAMENTO = 2;
+    private static final Integer DEFAULT_CODIGO_DEPARTAMENTO = 1;
+    private static final Integer UPDATED_CODIGO_DEPARTAMENTO = 2;
 
     private static final Integer DEFAULT_CODIGO_SAP = 1;
     private static final Integer UPDATED_CODIGO_SAP = 2;
@@ -111,7 +111,7 @@ public class ItemAuditadoResourceIntTest {
             .respondidoEm(DEFAULT_RESPONDIDO_EM)
             .ultimaAtualizacaoEm(DEFAULT_ULTIMA_ATUALIZACAO_EM)
             .tipo(DEFAULT_TIPO)
-            .departamento(DEFAULT_DEPARTAMENTO)
+            .codigoDepartamento(DEFAULT_CODIGO_DEPARTAMENTO)
             .codigoSap(DEFAULT_CODIGO_SAP)
             .descricaoItem(DEFAULT_DESCRICAO_ITEM)
             .saldoSap(DEFAULT_SALDO_SAP)
@@ -148,7 +148,7 @@ public class ItemAuditadoResourceIntTest {
         assertThat(testItemAuditado.getRespondidoEm()).isEqualTo(DEFAULT_RESPONDIDO_EM);
         assertThat(testItemAuditado.getUltimaAtualizacaoEm()).isEqualTo(DEFAULT_ULTIMA_ATUALIZACAO_EM);
         assertThat(testItemAuditado.getTipo()).isEqualTo(DEFAULT_TIPO);
-        assertThat(testItemAuditado.getDepartamento()).isEqualTo(DEFAULT_DEPARTAMENTO);
+        assertThat(testItemAuditado.getCodigoDepartamento()).isEqualTo(DEFAULT_CODIGO_DEPARTAMENTO);
         assertThat(testItemAuditado.getCodigoSap()).isEqualTo(DEFAULT_CODIGO_SAP);
         assertThat(testItemAuditado.getDescricaoItem()).isEqualTo(DEFAULT_DESCRICAO_ITEM);
         assertThat(testItemAuditado.getSaldoSap()).isEqualTo(DEFAULT_SALDO_SAP);
@@ -213,10 +213,10 @@ public class ItemAuditadoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDepartamentoIsRequired() throws Exception {
+    public void checkCodigoDepartamentoIsRequired() throws Exception {
         int databaseSizeBeforeTest = itemAuditadoRepository.findAll().size();
         // set the field null
-        itemAuditado.setDepartamento(null);
+        itemAuditado.setCodigoDepartamento(null);
 
         // Create the ItemAuditado, which fails.
 
@@ -315,7 +315,7 @@ public class ItemAuditadoResourceIntTest {
             .andExpect(jsonPath("$.[*].respondidoEm").value(hasItem(DEFAULT_RESPONDIDO_EM.toString())))
             .andExpect(jsonPath("$.[*].ultimaAtualizacaoEm").value(hasItem(DEFAULT_ULTIMA_ATUALIZACAO_EM.toString())))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
-            .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
+            .andExpect(jsonPath("$.[*].codigoDepartamento").value(hasItem(DEFAULT_CODIGO_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].codigoSap").value(hasItem(DEFAULT_CODIGO_SAP)))
             .andExpect(jsonPath("$.[*].descricaoItem").value(hasItem(DEFAULT_DESCRICAO_ITEM.toString())))
             .andExpect(jsonPath("$.[*].saldoSap").value(hasItem(DEFAULT_SALDO_SAP)))
@@ -337,7 +337,7 @@ public class ItemAuditadoResourceIntTest {
             .andExpect(jsonPath("$.respondidoEm").value(DEFAULT_RESPONDIDO_EM.toString()))
             .andExpect(jsonPath("$.ultimaAtualizacaoEm").value(DEFAULT_ULTIMA_ATUALIZACAO_EM.toString()))
             .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO.toString()))
-            .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
+            .andExpect(jsonPath("$.codigoDepartamento").value(DEFAULT_CODIGO_DEPARTAMENTO))
             .andExpect(jsonPath("$.codigoSap").value(DEFAULT_CODIGO_SAP))
             .andExpect(jsonPath("$.descricaoItem").value(DEFAULT_DESCRICAO_ITEM.toString()))
             .andExpect(jsonPath("$.saldoSap").value(DEFAULT_SALDO_SAP))
@@ -369,7 +369,7 @@ public class ItemAuditadoResourceIntTest {
             .respondidoEm(UPDATED_RESPONDIDO_EM)
             .ultimaAtualizacaoEm(UPDATED_ULTIMA_ATUALIZACAO_EM)
             .tipo(UPDATED_TIPO)
-            .departamento(UPDATED_DEPARTAMENTO)
+            .codigoDepartamento(UPDATED_CODIGO_DEPARTAMENTO)
             .codigoSap(UPDATED_CODIGO_SAP)
             .descricaoItem(UPDATED_DESCRICAO_ITEM)
             .saldoSap(UPDATED_SALDO_SAP)
@@ -388,7 +388,7 @@ public class ItemAuditadoResourceIntTest {
         assertThat(testItemAuditado.getRespondidoEm()).isEqualTo(UPDATED_RESPONDIDO_EM);
         assertThat(testItemAuditado.getUltimaAtualizacaoEm()).isEqualTo(UPDATED_ULTIMA_ATUALIZACAO_EM);
         assertThat(testItemAuditado.getTipo()).isEqualTo(UPDATED_TIPO);
-        assertThat(testItemAuditado.getDepartamento()).isEqualTo(UPDATED_DEPARTAMENTO);
+        assertThat(testItemAuditado.getCodigoDepartamento()).isEqualTo(UPDATED_CODIGO_DEPARTAMENTO);
         assertThat(testItemAuditado.getCodigoSap()).isEqualTo(UPDATED_CODIGO_SAP);
         assertThat(testItemAuditado.getDescricaoItem()).isEqualTo(UPDATED_DESCRICAO_ITEM);
         assertThat(testItemAuditado.getSaldoSap()).isEqualTo(UPDATED_SALDO_SAP);

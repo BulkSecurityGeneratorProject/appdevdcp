@@ -34,6 +34,22 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="pontos_procedimento" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pontos_pessoa" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pontos_processo" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pontos_produto" type="integer">
+                <constraints nullable="false" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="item_avaliacao" columnName="criado_em" columnDataType="datetime"/>

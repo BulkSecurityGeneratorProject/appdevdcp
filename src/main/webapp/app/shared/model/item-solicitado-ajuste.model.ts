@@ -5,7 +5,7 @@ export interface IItemSolicitadoAjuste {
   id?: number;
   respondidoEm?: Moment;
   ultimaAtualizacaoEm?: Moment;
-  departamento?: number;
+  codigoDepartamento?: number;
   codigoSap?: number;
   descricaoItem?: string;
   saldoSap?: number;

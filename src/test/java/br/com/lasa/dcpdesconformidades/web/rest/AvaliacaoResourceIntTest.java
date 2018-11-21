@@ -38,6 +38,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 /**
  * Test class for the AvaliacaoResource REST controller.
  *
@@ -76,6 +82,30 @@ public class AvaliacaoResourceIntTest {
 
     private static final StatusAvaliacao DEFAULT_STATUS = StatusAvaliacao.INICIADA;
     private static final StatusAvaliacao UPDATED_STATUS = StatusAvaliacao.RELATORIO_FINALIZADO;
+
+    private static final CriticidadePainel DEFAULT_CRITICIDADE_PAINEL = CriticidadePainel.INADMISSIVEL;
+    private static final CriticidadePainel UPDATED_CRITICIDADE_PAINEL = CriticidadePainel.CONTROLE;
+
+    private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_GERAL = NivelEficiencia.A;
+    private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_GERAL = NivelEficiencia.B;
+
+    private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_PROCEDIMENTO = NivelEficiencia.A;
+    private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_PROCEDIMENTO = NivelEficiencia.B;
+
+    private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_PESSOA = NivelEficiencia.A;
+    private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_PESSOA = NivelEficiencia.B;
+
+    private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_PROCESSO = NivelEficiencia.A;
+    private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_PROCESSO = NivelEficiencia.B;
+
+    private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_PRODUTO = NivelEficiencia.A;
+    private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_PRODUTO = NivelEficiencia.B;
+
+    private static final Instant DEFAULT_CANCELADO_EM = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CANCELADO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_MOTIVO_CANCELAMENTO = "AAAAAAAAAA";
+    private static final String UPDATED_MOTIVO_CANCELAMENTO = "BBBBBBBBBB";
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
@@ -130,7 +160,15 @@ public class AvaliacaoResourceIntTest {
             .latitudeSubmissaoAvaliacao(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO)
             .longitudeSubmissaoAvaliacao(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO)
             .observacaoSubmissaoEnviadaForaDaLoja(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .criticidadePainel(DEFAULT_CRITICIDADE_PAINEL)
+            .nivelEficienciaGeral(DEFAULT_NIVEL_EFICIENCIA_GERAL)
+            .nivelEficienciaProcedimento(DEFAULT_NIVEL_EFICIENCIA_PROCEDIMENTO)
+            .nivelEficienciaPessoa(DEFAULT_NIVEL_EFICIENCIA_PESSOA)
+            .nivelEficienciaProcesso(DEFAULT_NIVEL_EFICIENCIA_PROCESSO)
+            .nivelEficienciaProduto(DEFAULT_NIVEL_EFICIENCIA_PRODUTO)
+            .canceladoEm(DEFAULT_CANCELADO_EM)
+            .motivoCancelamento(DEFAULT_MOTIVO_CANCELAMENTO);
         // Add required entity
         Questionario questionario = QuestionarioResourceIntTest.createEntity(em);
         em.persist(questionario);
@@ -175,6 +213,14 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getLongitudeSubmissaoAvaliacao()).isEqualTo(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getObservacaoSubmissaoEnviadaForaDaLoja()).isEqualTo(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA);
         assertThat(testAvaliacao.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAvaliacao.getCriticidadePainel()).isEqualTo(DEFAULT_CRITICIDADE_PAINEL);
+        assertThat(testAvaliacao.getNivelEficienciaGeral()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_GERAL);
+        assertThat(testAvaliacao.getNivelEficienciaProcedimento()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PROCEDIMENTO);
+        assertThat(testAvaliacao.getNivelEficienciaPessoa()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PESSOA);
+        assertThat(testAvaliacao.getNivelEficienciaProcesso()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PROCESSO);
+        assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PRODUTO);
+        assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(DEFAULT_CANCELADO_EM);
+        assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(DEFAULT_MOTIVO_CANCELAMENTO);
     }
 
     @Test
@@ -293,7 +339,15 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].latitudeSubmissaoAvaliacao").value(hasItem(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].longitudeSubmissaoAvaliacao").value(hasItem(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].observacaoSubmissaoEnviadaForaDaLoja").value(hasItem(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].criticidadePainel").value(hasItem(DEFAULT_CRITICIDADE_PAINEL.toString())))
+            .andExpect(jsonPath("$.[*].nivelEficienciaGeral").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_GERAL.toString())))
+            .andExpect(jsonPath("$.[*].nivelEficienciaProcedimento").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PROCEDIMENTO.toString())))
+            .andExpect(jsonPath("$.[*].nivelEficienciaPessoa").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PESSOA.toString())))
+            .andExpect(jsonPath("$.[*].nivelEficienciaProcesso").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString())))
+            .andExpect(jsonPath("$.[*].nivelEficienciaProduto").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString())))
+            .andExpect(jsonPath("$.[*].canceladoEm").value(hasItem(DEFAULT_CANCELADO_EM.toString())))
+            .andExpect(jsonPath("$.[*].motivoCancelamento").value(hasItem(DEFAULT_MOTIVO_CANCELAMENTO.toString())));
     }
     
     @Test
@@ -316,7 +370,15 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.latitudeSubmissaoAvaliacao").value(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.longitudeSubmissaoAvaliacao").value(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.observacaoSubmissaoEnviadaForaDaLoja").value(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.criticidadePainel").value(DEFAULT_CRITICIDADE_PAINEL.toString()))
+            .andExpect(jsonPath("$.nivelEficienciaGeral").value(DEFAULT_NIVEL_EFICIENCIA_GERAL.toString()))
+            .andExpect(jsonPath("$.nivelEficienciaProcedimento").value(DEFAULT_NIVEL_EFICIENCIA_PROCEDIMENTO.toString()))
+            .andExpect(jsonPath("$.nivelEficienciaPessoa").value(DEFAULT_NIVEL_EFICIENCIA_PESSOA.toString()))
+            .andExpect(jsonPath("$.nivelEficienciaProcesso").value(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString()))
+            .andExpect(jsonPath("$.nivelEficienciaProduto").value(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString()))
+            .andExpect(jsonPath("$.canceladoEm").value(DEFAULT_CANCELADO_EM.toString()))
+            .andExpect(jsonPath("$.motivoCancelamento").value(DEFAULT_MOTIVO_CANCELAMENTO.toString()));
     }
 
     @Test
@@ -349,7 +411,15 @@ public class AvaliacaoResourceIntTest {
             .latitudeSubmissaoAvaliacao(UPDATED_LATITUDE_SUBMISSAO_AVALIACAO)
             .longitudeSubmissaoAvaliacao(UPDATED_LONGITUDE_SUBMISSAO_AVALIACAO)
             .observacaoSubmissaoEnviadaForaDaLoja(UPDATED_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .criticidadePainel(UPDATED_CRITICIDADE_PAINEL)
+            .nivelEficienciaGeral(UPDATED_NIVEL_EFICIENCIA_GERAL)
+            .nivelEficienciaProcedimento(UPDATED_NIVEL_EFICIENCIA_PROCEDIMENTO)
+            .nivelEficienciaPessoa(UPDATED_NIVEL_EFICIENCIA_PESSOA)
+            .nivelEficienciaProcesso(UPDATED_NIVEL_EFICIENCIA_PROCESSO)
+            .nivelEficienciaProduto(UPDATED_NIVEL_EFICIENCIA_PRODUTO)
+            .canceladoEm(UPDATED_CANCELADO_EM)
+            .motivoCancelamento(UPDATED_MOTIVO_CANCELAMENTO);
         AvaliacaoDTO avaliacaoDTO = avaliacaoMapper.toDto(updatedAvaliacao);
 
         restAvaliacaoMockMvc.perform(put("/api/avaliacaos")
@@ -371,6 +441,14 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getLongitudeSubmissaoAvaliacao()).isEqualTo(UPDATED_LONGITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getObservacaoSubmissaoEnviadaForaDaLoja()).isEqualTo(UPDATED_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA);
         assertThat(testAvaliacao.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAvaliacao.getCriticidadePainel()).isEqualTo(UPDATED_CRITICIDADE_PAINEL);
+        assertThat(testAvaliacao.getNivelEficienciaGeral()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_GERAL);
+        assertThat(testAvaliacao.getNivelEficienciaProcedimento()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PROCEDIMENTO);
+        assertThat(testAvaliacao.getNivelEficienciaPessoa()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PESSOA);
+        assertThat(testAvaliacao.getNivelEficienciaProcesso()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PROCESSO);
+        assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PRODUTO);
+        assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(UPDATED_CANCELADO_EM);
+        assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(UPDATED_MOTIVO_CANCELAMENTO);
     }
 
     @Test

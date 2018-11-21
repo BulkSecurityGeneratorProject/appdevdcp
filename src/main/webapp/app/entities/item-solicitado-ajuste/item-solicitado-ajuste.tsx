@@ -47,7 +47,7 @@ export class ItemSolicitadoAjuste extends React.Component<IItemSolicitadoAjusteP
                   <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.ultimaAtualizacaoEm">Ultima Atualizacao Em</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.departamento">Departamento</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.codigoDepartamento">Codigo Departamento</Translate>
                 </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.codigoSap">Codigo Sap</Translate>
@@ -92,7 +92,7 @@ export class ItemSolicitadoAjuste extends React.Component<IItemSolicitadoAjusteP
                   <td>
                     <TextFormat type="date" value={itemSolicitadoAjuste.ultimaAtualizacaoEm} format={APP_DATE_FORMAT} />
                   </td>
-                  <td>{itemSolicitadoAjuste.departamento}</td>
+                  <td>{itemSolicitadoAjuste.codigoDepartamento}</td>
                   <td>{itemSolicitadoAjuste.codigoSap}</td>
                   <td>{itemSolicitadoAjuste.descricaoItem}</td>
                   <td>{itemSolicitadoAjuste.saldoSap}</td>

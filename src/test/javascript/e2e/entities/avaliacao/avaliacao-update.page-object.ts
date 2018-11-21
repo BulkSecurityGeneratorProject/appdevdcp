@@ -14,6 +14,14 @@ export default class AvaliacaoUpdatePage {
   longitudeSubmissaoAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-longitudeSubmissaoAvaliacao'));
   observacaoSubmissaoEnviadaForaDaLojaInput: ElementFinder = element(by.css('input#avaliacao-observacaoSubmissaoEnviadaForaDaLoja'));
   statusSelect: ElementFinder = element(by.css('select#avaliacao-status'));
+  criticidadePainelSelect: ElementFinder = element(by.css('select#avaliacao-criticidadePainel'));
+  nivelEficienciaGeralSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaGeral'));
+  nivelEficienciaProcedimentoSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaProcedimento'));
+  nivelEficienciaPessoaSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaPessoa'));
+  nivelEficienciaProcessoSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaProcesso'));
+  nivelEficienciaProdutoSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaProduto'));
+  canceladoEmInput: ElementFinder = element(by.css('input#avaliacao-canceladoEm'));
+  motivoCancelamentoInput: ElementFinder = element(by.css('input#avaliacao-motivoCancelamento'));
   questionarioSelect: ElementFinder = element(by.css('select#avaliacao-questionario'));
   avaliadorSelect: ElementFinder = element(by.css('select#avaliacao-avaliador'));
 
@@ -107,6 +115,106 @@ export default class AvaliacaoUpdatePage {
       .last()
       .click();
   }
+  async setCriticidadePainelSelect(criticidadePainel) {
+    await this.criticidadePainelSelect.sendKeys(criticidadePainel);
+  }
+
+  async getCriticidadePainelSelect() {
+    return this.criticidadePainelSelect.element(by.css('option:checked')).getText();
+  }
+
+  async criticidadePainelSelectLastOption() {
+    await this.criticidadePainelSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setNivelEficienciaGeralSelect(nivelEficienciaGeral) {
+    await this.nivelEficienciaGeralSelect.sendKeys(nivelEficienciaGeral);
+  }
+
+  async getNivelEficienciaGeralSelect() {
+    return this.nivelEficienciaGeralSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nivelEficienciaGeralSelectLastOption() {
+    await this.nivelEficienciaGeralSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setNivelEficienciaProcedimentoSelect(nivelEficienciaProcedimento) {
+    await this.nivelEficienciaProcedimentoSelect.sendKeys(nivelEficienciaProcedimento);
+  }
+
+  async getNivelEficienciaProcedimentoSelect() {
+    return this.nivelEficienciaProcedimentoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nivelEficienciaProcedimentoSelectLastOption() {
+    await this.nivelEficienciaProcedimentoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setNivelEficienciaPessoaSelect(nivelEficienciaPessoa) {
+    await this.nivelEficienciaPessoaSelect.sendKeys(nivelEficienciaPessoa);
+  }
+
+  async getNivelEficienciaPessoaSelect() {
+    return this.nivelEficienciaPessoaSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nivelEficienciaPessoaSelectLastOption() {
+    await this.nivelEficienciaPessoaSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setNivelEficienciaProcessoSelect(nivelEficienciaProcesso) {
+    await this.nivelEficienciaProcessoSelect.sendKeys(nivelEficienciaProcesso);
+  }
+
+  async getNivelEficienciaProcessoSelect() {
+    return this.nivelEficienciaProcessoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nivelEficienciaProcessoSelectLastOption() {
+    await this.nivelEficienciaProcessoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setNivelEficienciaProdutoSelect(nivelEficienciaProduto) {
+    await this.nivelEficienciaProdutoSelect.sendKeys(nivelEficienciaProduto);
+  }
+
+  async getNivelEficienciaProdutoSelect() {
+    return this.nivelEficienciaProdutoSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nivelEficienciaProdutoSelectLastOption() {
+    await this.nivelEficienciaProdutoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setCanceladoEmInput(canceladoEm) {
+    await this.canceladoEmInput.sendKeys(canceladoEm);
+  }
+
+  async getCanceladoEmInput() {
+    return this.canceladoEmInput.getAttribute('value');
+  }
+
+  async setMotivoCancelamentoInput(motivoCancelamento) {
+    await this.motivoCancelamentoInput.sendKeys(motivoCancelamento);
+  }
+
+  async getMotivoCancelamentoInput() {
+    return this.motivoCancelamentoInput.getAttribute('value');
+  }
+
   async questionarioSelectLastOption() {
     await this.questionarioSelect
       .all(by.tagName('option'))

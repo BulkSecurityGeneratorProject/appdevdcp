@@ -48,8 +48,8 @@ public class ItemSolicitadoAjusteResourceIntTest {
     private static final Instant DEFAULT_ULTIMA_ATUALIZACAO_EM = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_ULTIMA_ATUALIZACAO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_DEPARTAMENTO = 1;
-    private static final Integer UPDATED_DEPARTAMENTO = 2;
+    private static final Integer DEFAULT_CODIGO_DEPARTAMENTO = 1;
+    private static final Integer UPDATED_CODIGO_DEPARTAMENTO = 2;
 
     private static final Integer DEFAULT_CODIGO_SAP = 1;
     private static final Integer UPDATED_CODIGO_SAP = 2;
@@ -112,7 +112,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
         ItemSolicitadoAjuste itemSolicitadoAjuste = new ItemSolicitadoAjuste()
             .respondidoEm(DEFAULT_RESPONDIDO_EM)
             .ultimaAtualizacaoEm(DEFAULT_ULTIMA_ATUALIZACAO_EM)
-            .departamento(DEFAULT_DEPARTAMENTO)
+            .codigoDepartamento(DEFAULT_CODIGO_DEPARTAMENTO)
             .codigoSap(DEFAULT_CODIGO_SAP)
             .descricaoItem(DEFAULT_DESCRICAO_ITEM)
             .saldoSap(DEFAULT_SALDO_SAP)
@@ -150,7 +150,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
         ItemSolicitadoAjuste testItemSolicitadoAjuste = itemSolicitadoAjusteList.get(itemSolicitadoAjusteList.size() - 1);
         assertThat(testItemSolicitadoAjuste.getRespondidoEm()).isEqualTo(DEFAULT_RESPONDIDO_EM);
         assertThat(testItemSolicitadoAjuste.getUltimaAtualizacaoEm()).isEqualTo(DEFAULT_ULTIMA_ATUALIZACAO_EM);
-        assertThat(testItemSolicitadoAjuste.getDepartamento()).isEqualTo(DEFAULT_DEPARTAMENTO);
+        assertThat(testItemSolicitadoAjuste.getCodigoDepartamento()).isEqualTo(DEFAULT_CODIGO_DEPARTAMENTO);
         assertThat(testItemSolicitadoAjuste.getCodigoSap()).isEqualTo(DEFAULT_CODIGO_SAP);
         assertThat(testItemSolicitadoAjuste.getDescricaoItem()).isEqualTo(DEFAULT_DESCRICAO_ITEM);
         assertThat(testItemSolicitadoAjuste.getSaldoSap()).isEqualTo(DEFAULT_SALDO_SAP);
@@ -199,10 +199,10 @@ public class ItemSolicitadoAjusteResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDepartamentoIsRequired() throws Exception {
+    public void checkCodigoDepartamentoIsRequired() throws Exception {
         int databaseSizeBeforeTest = itemSolicitadoAjusteRepository.findAll().size();
         // set the field null
-        itemSolicitadoAjuste.setDepartamento(null);
+        itemSolicitadoAjuste.setCodigoDepartamento(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
 
@@ -300,7 +300,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(itemSolicitadoAjuste.getId().intValue())))
             .andExpect(jsonPath("$.[*].respondidoEm").value(hasItem(DEFAULT_RESPONDIDO_EM.toString())))
             .andExpect(jsonPath("$.[*].ultimaAtualizacaoEm").value(hasItem(DEFAULT_ULTIMA_ATUALIZACAO_EM.toString())))
-            .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
+            .andExpect(jsonPath("$.[*].codigoDepartamento").value(hasItem(DEFAULT_CODIGO_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].codigoSap").value(hasItem(DEFAULT_CODIGO_SAP)))
             .andExpect(jsonPath("$.[*].descricaoItem").value(hasItem(DEFAULT_DESCRICAO_ITEM.toString())))
             .andExpect(jsonPath("$.[*].saldoSap").value(hasItem(DEFAULT_SALDO_SAP)))
@@ -323,7 +323,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
             .andExpect(jsonPath("$.id").value(itemSolicitadoAjuste.getId().intValue()))
             .andExpect(jsonPath("$.respondidoEm").value(DEFAULT_RESPONDIDO_EM.toString()))
             .andExpect(jsonPath("$.ultimaAtualizacaoEm").value(DEFAULT_ULTIMA_ATUALIZACAO_EM.toString()))
-            .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
+            .andExpect(jsonPath("$.codigoDepartamento").value(DEFAULT_CODIGO_DEPARTAMENTO))
             .andExpect(jsonPath("$.codigoSap").value(DEFAULT_CODIGO_SAP))
             .andExpect(jsonPath("$.descricaoItem").value(DEFAULT_DESCRICAO_ITEM.toString()))
             .andExpect(jsonPath("$.saldoSap").value(DEFAULT_SALDO_SAP))
@@ -356,7 +356,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
         updatedItemSolicitadoAjuste
             .respondidoEm(UPDATED_RESPONDIDO_EM)
             .ultimaAtualizacaoEm(UPDATED_ULTIMA_ATUALIZACAO_EM)
-            .departamento(UPDATED_DEPARTAMENTO)
+            .codigoDepartamento(UPDATED_CODIGO_DEPARTAMENTO)
             .codigoSap(UPDATED_CODIGO_SAP)
             .descricaoItem(UPDATED_DESCRICAO_ITEM)
             .saldoSap(UPDATED_SALDO_SAP)
@@ -376,7 +376,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
         ItemSolicitadoAjuste testItemSolicitadoAjuste = itemSolicitadoAjusteList.get(itemSolicitadoAjusteList.size() - 1);
         assertThat(testItemSolicitadoAjuste.getRespondidoEm()).isEqualTo(UPDATED_RESPONDIDO_EM);
         assertThat(testItemSolicitadoAjuste.getUltimaAtualizacaoEm()).isEqualTo(UPDATED_ULTIMA_ATUALIZACAO_EM);
-        assertThat(testItemSolicitadoAjuste.getDepartamento()).isEqualTo(UPDATED_DEPARTAMENTO);
+        assertThat(testItemSolicitadoAjuste.getCodigoDepartamento()).isEqualTo(UPDATED_CODIGO_DEPARTAMENTO);
         assertThat(testItemSolicitadoAjuste.getCodigoSap()).isEqualTo(UPDATED_CODIGO_SAP);
         assertThat(testItemSolicitadoAjuste.getDescricaoItem()).isEqualTo(UPDATED_DESCRICAO_ITEM);
         assertThat(testItemSolicitadoAjuste.getSaldoSap()).isEqualTo(UPDATED_SALDO_SAP);

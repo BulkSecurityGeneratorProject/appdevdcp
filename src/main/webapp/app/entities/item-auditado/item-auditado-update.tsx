@@ -148,14 +148,14 @@ export class ItemAuditadoUpdate extends React.Component<IItemAuditadoUpdateProps
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label id="departamentoLabel" for="departamento">
-                    <Translate contentKey="dcpdesconformidadesApp.itemAuditado.departamento">Departamento</Translate>
+                  <Label id="codigoDepartamentoLabel" for="codigoDepartamento">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAuditado.codigoDepartamento">Codigo Departamento</Translate>
                   </Label>
                   <AvField
-                    id="item-auditado-departamento"
+                    id="item-auditado-codigoDepartamento"
                     type="string"
                     className="form-control"
-                    name="departamento"
+                    name="codigoDepartamento"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }

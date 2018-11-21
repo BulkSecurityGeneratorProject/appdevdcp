@@ -62,6 +62,38 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="criticidade_painel" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nivel_eficiencia_geral" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nivel_eficiencia_procedimento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nivel_eficiencia_pessoa" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nivel_eficiencia_processo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nivel_eficiencia_produto" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="cancelado_em" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="motivo_cancelamento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="questionario_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -74,6 +106,7 @@
         </createTable>
         <dropDefaultValue tableName="avaliacao" columnName="data_inicio" columnDataType="datetime"/>
         <dropDefaultValue tableName="avaliacao" columnName="submetido_em" columnDataType="datetime"/>
+        <dropDefaultValue tableName="avaliacao" columnName="cancelado_em" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

@@ -12,7 +12,7 @@ export interface IItemAuditado {
   respondidoEm?: Moment;
   ultimaAtualizacaoEm?: Moment;
   tipo?: TipoItemAuditado;
-  departamento?: number;
+  codigoDepartamento?: number;
   codigoSap?: number;
   descricaoItem?: string;
   saldoSap?: number;

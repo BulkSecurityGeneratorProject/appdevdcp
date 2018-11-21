@@ -60,6 +60,14 @@ describe('ItemAvaliacao e2e test', () => {
     }
     await itemAvaliacaoUpdatePage.setCriadoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await itemAvaliacaoUpdatePage.getCriadoEmInput()).to.contain('2001-01-01T02:30');
+    await itemAvaliacaoUpdatePage.setPontosProcedimentoInput('5');
+    expect(await itemAvaliacaoUpdatePage.getPontosProcedimentoInput()).to.eq('5');
+    await itemAvaliacaoUpdatePage.setPontosPessoaInput('5');
+    expect(await itemAvaliacaoUpdatePage.getPontosPessoaInput()).to.eq('5');
+    await itemAvaliacaoUpdatePage.setPontosProcessoInput('5');
+    expect(await itemAvaliacaoUpdatePage.getPontosProcessoInput()).to.eq('5');
+    await itemAvaliacaoUpdatePage.setPontosProdutoInput('5');
+    expect(await itemAvaliacaoUpdatePage.getPontosProdutoInput()).to.eq('5');
     await waitUntilDisplayed(itemAvaliacaoUpdatePage.getSaveButton());
     await itemAvaliacaoUpdatePage.save();
     await waitUntilHidden(itemAvaliacaoUpdatePage.getSaveButton());

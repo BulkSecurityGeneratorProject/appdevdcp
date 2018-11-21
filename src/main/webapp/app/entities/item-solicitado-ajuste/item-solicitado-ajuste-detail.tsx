@@ -46,11 +46,11 @@ export class ItemSolicitadoAjusteDetail extends React.Component<IItemSolicitadoA
               <TextFormat value={itemSolicitadoAjusteEntity.ultimaAtualizacaoEm} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <span id="departamento">
-                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.departamento">Departamento</Translate>
+              <span id="codigoDepartamento">
+                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.codigoDepartamento">Codigo Departamento</Translate>
               </span>
             </dt>
-            <dd>{itemSolicitadoAjusteEntity.departamento}</dd>
+            <dd>{itemSolicitadoAjusteEntity.codigoDepartamento}</dd>
             <dt>
               <span id="codigoSap">
                 <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.codigoSap">Codigo Sap</Translate>

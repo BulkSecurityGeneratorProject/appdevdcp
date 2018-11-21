@@ -7,6 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "questionario": "Questionario",
+        "avaliador": "Avaliador",
+        "loja": "Loja",
+        "avaliacao": "Avaliacao",
+        "itemAvaliacao": "Item Avaliacao",
+        "itemAvaliado": "Item Avaliado",
+        "itemAvaliadoPerdaQuebraAcumulados": "Item Avaliado Perda Quebra Acumulados",
+        "grupoItens": "Grupo Itens",
+        "anexoItem": "Anexo Item",
+        "itemAuditado": "Item Auditado",
+        "itemSolicitadoAjuste": "Item Solicitado Ajuste",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

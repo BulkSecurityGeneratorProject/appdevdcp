@@ -6,7 +6,7 @@ export default class ItemSolicitadoAjusteUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   respondidoEmInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-respondidoEm'));
   ultimaAtualizacaoEmInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-ultimaAtualizacaoEm'));
-  departamentoInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-departamento'));
+  codigoDepartamentoInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-codigoDepartamento'));
   codigoSapInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-codigoSap'));
   descricaoItemInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-descricaoItem'));
   saldoSapInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoSap'));
@@ -36,12 +36,12 @@ export default class ItemSolicitadoAjusteUpdatePage {
     return this.ultimaAtualizacaoEmInput.getAttribute('value');
   }
 
-  async setDepartamentoInput(departamento) {
-    await this.departamentoInput.sendKeys(departamento);
+  async setCodigoDepartamentoInput(codigoDepartamento) {
+    await this.codigoDepartamentoInput.sendKeys(codigoDepartamento);
   }
 
-  async getDepartamentoInput() {
-    return this.departamentoInput.getAttribute('value');
+  async getCodigoDepartamentoInput() {
+    return this.codigoDepartamentoInput.getAttribute('value');
   }
 
   async setCodigoSapInput(codigoSap) {

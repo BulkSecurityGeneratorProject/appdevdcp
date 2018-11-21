@@ -73,6 +73,12 @@ export class ItemAvaliadoPerdaQuebraAcumulados extends React.Component<IItemAval
                   </Translate>
                 </th>
                 <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.classificacao">Classificacao</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.categorizacao">Categorizacao</Translate>
+                </th>
+                <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.avaliacao">Avaliacao</Translate>
                 </th>
                 <th />
@@ -102,6 +108,16 @@ export class ItemAvaliadoPerdaQuebraAcumulados extends React.Component<IItemAval
                   <td>{itemAvaliadoPerdaQuebraAcumulados.pontuacao}</td>
                   <td>{itemAvaliadoPerdaQuebraAcumulados.latitudeLocalResposta}</td>
                   <td>{itemAvaliadoPerdaQuebraAcumulados.longitudeLocalResposta}</td>
+                  <td>
+                    <Translate
+                      contentKey={`dcpdesconformidadesApp.ClassificacaoPerdaQuebra.${itemAvaliadoPerdaQuebraAcumulados.classificacao}`}
+                    />
+                  </td>
+                  <td>
+                    <Translate
+                      contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${itemAvaliadoPerdaQuebraAcumulados.categorizacao}`}
+                    />
+                  </td>
                   <td>
                     {itemAvaliadoPerdaQuebraAcumulados.avaliacao ? (
                       <Link to={`avaliacao/${itemAvaliadoPerdaQuebraAcumulados.avaliacao.id}`}>

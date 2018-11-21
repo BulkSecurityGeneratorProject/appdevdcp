@@ -23,6 +23,8 @@
       "pontuacao": "Pontuacao",
       "latitudeLocalResposta": "Latitude Local Resposta",
       "longitudeLocalResposta": "Longitude Local Resposta",
+      "classificacao": "Classificacao",
+      "categorizacao": "Categorizacao",
       "avaliacao": "Avaliacao"
     }
   }

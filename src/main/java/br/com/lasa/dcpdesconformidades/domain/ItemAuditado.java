@@ -40,8 +40,8 @@ public class ItemAuditado implements Serializable {
     private TipoItemAuditado tipo;
 
     @NotNull
-    @Column(name = "departamento", nullable = false)
-    private Integer departamento;
+    @Column(name = "codigo_departamento", nullable = false)
+    private Integer codigoDepartamento;
 
     @NotNull
     @Column(name = "codigo_sap", nullable = false)
@@ -115,17 +115,17 @@ public class ItemAuditado implements Serializable {
         this.tipo = tipo;
     }
 
-    public Integer getDepartamento() {
-        return departamento;
+    public Integer getCodigoDepartamento() {
+        return codigoDepartamento;
     }
 
-    public ItemAuditado departamento(Integer departamento) {
-        this.departamento = departamento;
+    public ItemAuditado codigoDepartamento(Integer codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
         return this;
     }
 
-    public void setDepartamento(Integer departamento) {
-        this.departamento = departamento;
+    public void setCodigoDepartamento(Integer codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
     }
 
     public Integer getCodigoSap() {
@@ -234,7 +234,7 @@ public class ItemAuditado implements Serializable {
             ", respondidoEm='" + getRespondidoEm() + "'" +
             ", ultimaAtualizacaoEm='" + getUltimaAtualizacaoEm() + "'" +
             ", tipo='" + getTipo() + "'" +
-            ", departamento=" + getDepartamento() +
+            ", codigoDepartamento=" + getCodigoDepartamento() +
             ", codigoSap=" + getCodigoSap() +
             ", descricaoItem='" + getDescricaoItem() + "'" +
             ", saldoSap=" + getSaldoSap() +

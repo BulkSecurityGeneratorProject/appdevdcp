@@ -128,13 +128,7 @@ export class AnexoItemUpdate extends React.Component<IAnexoItemUpdateProps, IAne
                   <Label for="itemAvaliado.id">
                     <Translate contentKey="dcpdesconformidadesApp.anexoItem.itemAvaliado">Item Avaliado</Translate>
                   </Label>
-                  <AvInput
-                    id="anexo-item-itemAvaliado"
-                    type="select"
-                    className="form-control"
-                    name="itemAvaliado.id"
-                    value={isNew ? itemAvaliados[0] && itemAvaliados[0].id : anexoItemEntity.itemAvaliado.id}
-                  >
+                  <AvInput id="anexo-item-itemAvaliado" type="select" className="form-control" name="itemAvaliadoId">
                     {itemAvaliados
                       ? itemAvaliados.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

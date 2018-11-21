@@ -21,6 +21,18 @@ public class ItemAvaliacaoDTO implements Serializable {
     @NotNull
     private Instant criadoEm;
 
+    @NotNull
+    private Integer pontosProcedimento;
+
+    @NotNull
+    private Integer pontosPessoa;
+
+    @NotNull
+    private Integer pontosProcesso;
+
+    @NotNull
+    private Integer pontosProduto;
+
     public Long getId() {
         return id;
     }
@@ -53,6 +65,38 @@ public class ItemAvaliacaoDTO implements Serializable {
         this.criadoEm = criadoEm;
     }
 
+    public Integer getPontosProcedimento() {
+        return pontosProcedimento;
+    }
+
+    public void setPontosProcedimento(Integer pontosProcedimento) {
+        this.pontosProcedimento = pontosProcedimento;
+    }
+
+    public Integer getPontosPessoa() {
+        return pontosPessoa;
+    }
+
+    public void setPontosPessoa(Integer pontosPessoa) {
+        this.pontosPessoa = pontosPessoa;
+    }
+
+    public Integer getPontosProcesso() {
+        return pontosProcesso;
+    }
+
+    public void setPontosProcesso(Integer pontosProcesso) {
+        this.pontosProcesso = pontosProcesso;
+    }
+
+    public Integer getPontosProduto() {
+        return pontosProduto;
+    }
+
+    public void setPontosProduto(Integer pontosProduto) {
+        this.pontosProduto = pontosProduto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -81,6 +125,10 @@ public class ItemAvaliacaoDTO implements Serializable {
             ", descricao='" + getDescricao() + "'" +
             ", anexoObrigatorio='" + isAnexoObrigatorio() + "'" +
             ", criadoEm='" + getCriadoEm() + "'" +
+            ", pontosProcedimento=" + getPontosProcedimento() +
+            ", pontosPessoa=" + getPontosPessoa() +
+            ", pontosProcesso=" + getPontosProcesso() +
+            ", pontosProduto=" + getPontosProduto() +
             "}";
     }
 }

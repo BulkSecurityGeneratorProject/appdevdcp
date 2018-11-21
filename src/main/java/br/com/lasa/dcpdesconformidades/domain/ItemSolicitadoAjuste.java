@@ -33,8 +33,8 @@ public class ItemSolicitadoAjuste implements Serializable {
     private Instant ultimaAtualizacaoEm;
 
     @NotNull
-    @Column(name = "departamento", nullable = false)
-    private Integer departamento;
+    @Column(name = "codigo_departamento", nullable = false)
+    private Integer codigoDepartamento;
 
     @NotNull
     @Column(name = "codigo_sap", nullable = false)
@@ -101,17 +101,17 @@ public class ItemSolicitadoAjuste implements Serializable {
         this.ultimaAtualizacaoEm = ultimaAtualizacaoEm;
     }
 
-    public Integer getDepartamento() {
-        return departamento;
+    public Integer getCodigoDepartamento() {
+        return codigoDepartamento;
     }
 
-    public ItemSolicitadoAjuste departamento(Integer departamento) {
-        this.departamento = departamento;
+    public ItemSolicitadoAjuste codigoDepartamento(Integer codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
         return this;
     }
 
-    public void setDepartamento(Integer departamento) {
-        this.departamento = departamento;
+    public void setCodigoDepartamento(Integer codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
     }
 
     public Integer getCodigoSap() {
@@ -245,7 +245,7 @@ public class ItemSolicitadoAjuste implements Serializable {
             "id=" + getId() +
             ", respondidoEm='" + getRespondidoEm() + "'" +
             ", ultimaAtualizacaoEm='" + getUltimaAtualizacaoEm() + "'" +
-            ", departamento=" + getDepartamento() +
+            ", codigoDepartamento=" + getCodigoDepartamento() +
             ", codigoSap=" + getCodigoSap() +
             ", descricaoItem='" + getDescricaoItem() + "'" +
             ", saldoSap=" + getSaldoSap() +

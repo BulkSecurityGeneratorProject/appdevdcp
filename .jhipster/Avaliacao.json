@@ -53,6 +53,44 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "criticidadePainel",
+            "fieldType": "CriticidadePainel",
+            "fieldValues": "INADMISSIVEL,CONTROLE,VALOR_ELEVADO,CRITICO,ATENCAO"
+        },
+        {
+            "fieldName": "nivelEficienciaGeral",
+            "fieldType": "NivelEficiencia",
+            "fieldValues": "A,B,C,D,E"
+        },
+        {
+            "fieldName": "nivelEficienciaProcedimento",
+            "fieldType": "NivelEficiencia",
+            "fieldValues": "A,B,C,D,E"
+        },
+        {
+            "fieldName": "nivelEficienciaPessoa",
+            "fieldType": "NivelEficiencia",
+            "fieldValues": "A,B,C,D,E"
+        },
+        {
+            "fieldName": "nivelEficienciaProcesso",
+            "fieldType": "NivelEficiencia",
+            "fieldValues": "A,B,C,D,E"
+        },
+        {
+            "fieldName": "nivelEficienciaProduto",
+            "fieldType": "NivelEficiencia",
+            "fieldValues": "A,B,C,D,E"
+        },
+        {
+            "fieldName": "canceladoEm",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "motivoCancelamento",
+            "fieldType": "String"
         }
     ],
     "relationships": [

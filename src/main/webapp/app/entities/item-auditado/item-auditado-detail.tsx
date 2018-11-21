@@ -52,11 +52,11 @@ export class ItemAuditadoDetail extends React.Component<IItemAuditadoDetailProps
             </dt>
             <dd>{itemAuditadoEntity.tipo}</dd>
             <dt>
-              <span id="departamento">
-                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.departamento">Departamento</Translate>
+              <span id="codigoDepartamento">
+                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.codigoDepartamento">Codigo Departamento</Translate>
               </span>
             </dt>
-            <dd>{itemAuditadoEntity.departamento}</dd>
+            <dd>{itemAuditadoEntity.codigoDepartamento}</dd>
             <dt>
               <span id="codigoSap">
                 <Translate contentKey="dcpdesconformidadesApp.itemAuditado.codigoSap">Codigo Sap</Translate>

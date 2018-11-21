@@ -189,16 +189,132 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="pontosProcedimentoLabel" for="pontosProcedimento">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcedimento">Pontos Procedimento</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosProcedimento"
+                    type="string"
+                    className="form-control"
+                    name="pontosProcedimento"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosPessoaLabel" for="pontosPessoa">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosPessoa">Pontos Pessoa</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosPessoa"
+                    type="string"
+                    className="form-control"
+                    name="pontosPessoa"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosProcessoLabel" for="pontosProcesso">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProcesso">Pontos Processo</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosProcesso"
+                    type="string"
+                    className="form-control"
+                    name="pontosProcesso"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosProdutoLabel" for="pontosProduto">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosProduto">Pontos Produto</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosProduto"
+                    type="string"
+                    className="form-control"
+                    name="pontosProduto"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosObtidosProcedimentoLabel" for="pontosObtidosProcedimento">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcedimento">
+                      Pontos Obtidos Procedimento
+                    </Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosObtidosProcedimento"
+                    type="string"
+                    className="form-control"
+                    name="pontosObtidosProcedimento"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosObtidosPessoaLabel" for="pontosObtidosPessoa">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosPessoa">Pontos Obtidos Pessoa</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosObtidosPessoa"
+                    type="string"
+                    className="form-control"
+                    name="pontosObtidosPessoa"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosObtidosProcessoLabel" for="pontosObtidosProcesso">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProcesso">Pontos Obtidos Processo</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosObtidosProcesso"
+                    type="string"
+                    className="form-control"
+                    name="pontosObtidosProcesso"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontosObtidosProdutoLabel" for="pontosObtidosProduto">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.pontosObtidosProduto">Pontos Obtidos Produto</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliado-pontosObtidosProduto"
+                    type="string"
+                    className="form-control"
+                    name="pontosObtidosProduto"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
                   <Label for="itemAvaliacao.descricao">
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.itemAvaliacao">Item Avaliacao</Translate>
                   </Label>
-                  <AvInput
-                    id="item-avaliado-itemAvaliacao"
-                    type="select"
-                    className="form-control"
-                    name="itemAvaliacao.id"
-                    value={isNew ? itemAvaliacaos[0] && itemAvaliacaos[0].id : itemAvaliadoEntity.itemAvaliacao.id}
-                  >
+                  <AvInput id="item-avaliado-itemAvaliacao" type="select" className="form-control" name="itemAvaliacaoId">
                     {itemAvaliacaos
                       ? itemAvaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
@@ -212,13 +328,7 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
                   <Label for="avaliacao.id">
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliado.avaliacao">Avaliacao</Translate>
                   </Label>
-                  <AvInput
-                    id="item-avaliado-avaliacao"
-                    type="select"
-                    className="form-control"
-                    name="avaliacao.id"
-                    value={isNew ? avaliacaos[0] && avaliacaos[0].id : itemAvaliadoEntity.avaliacao.id}
-                  >
+                  <AvInput id="item-avaliado-avaliacao" type="select" className="form-control" name="avaliacaoId">
                     {avaliacaos
                       ? avaliacaos.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

@@ -21,7 +21,7 @@
             ]
         },
         {
-            "fieldName": "departamento",
+            "fieldName": "codigoDepartamento",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
