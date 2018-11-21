@@ -5,26 +5,6 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155651_added_entity_Questionario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155652_added_entity_Avaliador.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155653_added_entity_Loja.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155654_added_entity_Avaliacao.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155655_added_entity_ItemAvaliacao.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155656_added_entity_ItemAvaliado.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155657_added_entity_ItemAvaliadoPerdaQuebraAcumulados.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155658_added_entity_GrupoItens.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155659_added_entity_AnexoItem.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155700_added_entity_ItemAuditado.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155701_added_entity_ItemSolicitadoAjuste.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20181111155651_added_entity_constraints_Questionario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155653_added_entity_constraints_Loja.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155654_added_entity_constraints_Avaliacao.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155656_added_entity_constraints_ItemAvaliado.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155657_added_entity_constraints_ItemAvaliadoPerdaQuebraAcumulados.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155658_added_entity_constraints_GrupoItens.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155659_added_entity_constraints_AnexoItem.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155700_added_entity_constraints_ItemAuditado.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155701_added_entity_constraints_ItemSolicitadoAjuste.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
