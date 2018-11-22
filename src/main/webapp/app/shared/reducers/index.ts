@@ -17,10 +17,6 @@ import questionario, {
   QuestionarioState
 } from 'app/entities/questionario/questionario.reducer';
 // prettier-ignore
-import avaliador, {
-  AvaliadorState
-} from 'app/entities/avaliador/avaliador.reducer';
-// prettier-ignore
 import loja, {
   LojaState
 } from 'app/entities/loja/loja.reducer';
@@ -70,7 +66,6 @@ export interface IRootState {
   readonly password: PasswordState;
   readonly settings: SettingsState;
   readonly questionario: QuestionarioState;
-  readonly avaliador: AvaliadorState;
   readonly loja: LojaState;
   readonly avaliacao: AvaliacaoState;
   readonly itemAvaliacao: ItemAvaliacaoState;
@@ -96,7 +91,6 @@ const rootReducer = combineReducers<IRootState>({
   password,
   settings,
   questionario,
-  avaliador,
   loja,
   avaliacao,
   itemAvaliacao,

@@ -1,62 +1,38 @@
-package br.com.lasa.dcpdesconformidades.domain;
+package br.com.lasa.dcpdesconformidades.service.dto;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Loja.
+ * A DTO for the Loja entity.
  */
-@Entity
-@Table(name = "loja")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Loja implements Serializable {
+public class LojaDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name = "codigo", nullable = false)
     private String codigo;
 
     @NotNull
-    @Column(name = "nome", nullable = false)
     private String nome;
 
     @NotNull
-    @Column(name = "nome_responsavel", nullable = false)
     private String nomeResponsavel;
 
     @NotNull
-    @Column(name = "prontuario_responsavel", nullable = false)
     private Integer prontuarioResponsavel;
 
     @NotNull
-    @Column(name = "latitude", nullable = false)
     private Double latitude;
 
     @NotNull
-    @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "loja_user",
-               joinColumns = @JoinColumn(name = "lojas_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
-    private Set<User> avaliadores = new HashSet<>();
+    private Set<UserDTO> avaliadores = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -69,22 +45,12 @@ public class Loja implements Serializable {
         return codigo;
     }
 
-    public Loja codigo(String codigo) {
-        this.codigo = codigo;
-        return this;
-    }
-
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public Loja nome(String nome) {
-        this.nome = nome;
-        return this;
     }
 
     public void setNome(String nome) {
@@ -95,22 +61,12 @@ public class Loja implements Serializable {
         return nomeResponsavel;
     }
 
-    public Loja nomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-        return this;
-    }
-
     public void setNomeResponsavel(String nomeResponsavel) {
         this.nomeResponsavel = nomeResponsavel;
     }
 
     public Integer getProntuarioResponsavel() {
         return prontuarioResponsavel;
-    }
-
-    public Loja prontuarioResponsavel(Integer prontuarioResponsavel) {
-        this.prontuarioResponsavel = prontuarioResponsavel;
-        return this;
     }
 
     public void setProntuarioResponsavel(Integer prontuarioResponsavel) {
@@ -121,11 +77,6 @@ public class Loja implements Serializable {
         return latitude;
     }
 
-    public Loja latitude(Double latitude) {
-        this.latitude = latitude;
-        return this;
-    }
-
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
@@ -134,23 +85,17 @@ public class Loja implements Serializable {
         return longitude;
     }
 
-    public Loja longitude(Double longitude) {
-        this.longitude = longitude;
-        return this;
-    }
-
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Set<User> getAvaliadores() {
+    public Set<UserDTO> getAvaliadores() {
         return avaliadores;
     }
 
-    public void setAvaliadores(Set<User> avaliadores) {
+    public void setAvaliadores(Set<UserDTO> avaliadores) {
         this.avaliadores = avaliadores;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -160,11 +105,12 @@ public class Loja implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Loja loja = (Loja) o;
-        if (loja.getId() == null || getId() == null) {
+
+        LojaDTO lojaDTO = (LojaDTO) o;
+        if (lojaDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), loja.getId());
+        return Objects.equals(getId(), lojaDTO.getId());
     }
 
     @Override
@@ -174,7 +120,7 @@ public class Loja implements Serializable {
 
     @Override
     public String toString() {
-        return "Loja{" +
+        return "LojaDTO{" +
             "id=" + getId() +
             ", codigo='" + getCodigo() + "'" +
             ", nome='" + getNome() + "'" +

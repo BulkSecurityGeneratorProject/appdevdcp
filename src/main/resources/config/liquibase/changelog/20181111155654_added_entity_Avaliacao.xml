@@ -22,7 +22,7 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="data_inicio" type="datetime">
+            <column name="iniciada_em" type="datetime">
                 <constraints nullable="false" />
             </column>
 
@@ -94,17 +94,17 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="questionario_id" type="bigint">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
-            <column name="avaliador_id" type="bigint">
+            <column name="questionario_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="avaliacao" columnName="data_inicio" columnDataType="datetime"/>
+        <dropDefaultValue tableName="avaliacao" columnName="iniciada_em" columnDataType="datetime"/>
         <dropDefaultValue tableName="avaliacao" columnName="submetido_em" columnDataType="datetime"/>
         <dropDefaultValue tableName="avaliacao" columnName="cancelado_em" columnDataType="datetime"/>
         

@@ -6,7 +6,6 @@
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181111155651_added_entity_Questionario.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181111155652_added_entity_Avaliador.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181111155653_added_entity_Loja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181111155654_added_entity_Avaliacao.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181111155655_added_entity_ItemAvaliacao.xml" relativeToChangelogFile="false"/>

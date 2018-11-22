@@ -9,15 +9,15 @@
     <changeSet id="20181111155653-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="lojas_id"
-                                 baseTableName="loja_avaliador"
-                                 constraintName="fk_loja_avaliador_lojas_id"
+                                 baseTableName="loja_user"
+                                 constraintName="fk_loja_user_lojas_id"
                                  referencedColumnNames="id"
                                  referencedTableName="loja"/>
-        <addForeignKeyConstraint baseColumnNames="avaliadors_id"
-                                 baseTableName="loja_avaliador"
-                                 constraintName="fk_loja_avaliador_avaliadors_id"
+        <addForeignKeyConstraint baseColumnNames="users_id"
+                                 baseTableName="loja_user"
+                                 constraintName="fk_loja_user_users_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="avaliador"/>
+                                 referencedTableName="app_user"/>
         
     </changeSet>
 </databaseChangeLog>

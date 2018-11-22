@@ -29,12 +29,12 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="dataInicio">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.dataInicio">Data Inicio</Translate>
+              <span id="iniciadaEm">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={avaliacaoEntity.dataInicio} type="date" format={APP_DATE_FORMAT} />
+              <TextFormat value={avaliacaoEntity.iniciadaEm} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="latitudeInicioAvaliacao">
@@ -149,13 +149,13 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps> {
             </dt>
             <dd>{avaliacaoEntity.motivoCancelamento}</dd>
             <dt>
+              <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate>
+            </dt>
+            <dd>{avaliacaoEntity.userName ? avaliacaoEntity.userName : ''}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
             </dt>
             <dd>{avaliacaoEntity.questionarioNome ? avaliacaoEntity.questionarioNome : ''}</dd>
-            <dt>
-              <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate>
-            </dt>
-            <dd>{avaliacaoEntity.avaliadorNome ? avaliacaoEntity.avaliadorNome : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/avaliacao" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

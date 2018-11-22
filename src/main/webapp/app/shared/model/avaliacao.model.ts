@@ -30,7 +30,7 @@ export const enum NivelEficiencia {
 
 export interface IAvaliacao {
   id?: number;
-  dataInicio?: Moment;
+  iniciadaEm?: Moment;
   latitudeInicioAvaliacao?: number;
   longitudeInicioAvaliacao?: number;
   nomeResponsavelLoja?: string;
@@ -52,10 +52,10 @@ export interface IAvaliacao {
   itensPerdaEQuebraAcumulados?: IItemAvaliadoPerdaQuebraAcumulados[];
   itensAuditados?: IItemAuditado[];
   itensComAjusteSolicitados?: IItemSolicitadoAjuste[];
+  userName?: string;
+  userId?: number;
   questionarioNome?: string;
   questionarioId?: number;
-  avaliadorNome?: string;
-  avaliadorId?: number;
 }
 
 export const defaultValue: Readonly<IAvaliacao> = {};

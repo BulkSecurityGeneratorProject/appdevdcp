@@ -43,13 +43,9 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
               )}
             </dd>
             <dt>
-              <Translate contentKey="userManagement.firstName">First Name</Translate>
+              <Translate contentKey="userManagement.name">Name</Translate>
             </dt>
-            <dd>{user.firstName}</dd>
-            <dt>
-              <Translate contentKey="userManagement.lastName">Last Name</Translate>
-            </dt>
-            <dd>{user.lastName}</dd>
+            <dd>{user.name}</dd>
             <dt>
               <Translate contentKey="userManagement.email">Email</Translate>
             </dt>

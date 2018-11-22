@@ -13,11 +13,6 @@ export const EntitiesMenu = props => (
       &nbsp;
       <Translate contentKey="global.menu.entities.questionario" />
     </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/avaliador">
-      <FontAwesomeIcon icon="asterisk" fixedWidth />
-      &nbsp;
-      <Translate contentKey="global.menu.entities.avaliador" />
-    </DropdownItem>
     <DropdownItem tag={Link} to="/entity/loja">
       <FontAwesomeIcon icon="asterisk" fixedWidth />
       &nbsp;

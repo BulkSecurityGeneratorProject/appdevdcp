@@ -46,6 +46,8 @@ describe('Loja e2e test', () => {
   it('should create and save Lojas', async () => {
     const nbButtonsBeforeCreate = await lojaComponentsPage.countDeleteButtons();
 
+    await lojaUpdatePage.setCodigoInput('codigo');
+    expect(await lojaUpdatePage.getCodigoInput()).to.match(/codigo/);
     await lojaUpdatePage.setNomeInput('nome');
     expect(await lojaUpdatePage.getNomeInput()).to.match(/nome/);
     await lojaUpdatePage.setNomeResponsavelInput('nomeResponsavel');
@@ -56,7 +58,7 @@ describe('Loja e2e test', () => {
     expect(await lojaUpdatePage.getLatitudeInput()).to.eq('5');
     await lojaUpdatePage.setLongitudeInput('5');
     expect(await lojaUpdatePage.getLongitudeInput()).to.eq('5');
-    // lojaUpdatePage.avaliadorSelectLastOption();
+    // lojaUpdatePage.userSelectLastOption();
     await waitUntilDisplayed(lojaUpdatePage.getSaveButton());
     await lojaUpdatePage.save();
     await waitUntilHidden(lojaUpdatePage.getSaveButton());

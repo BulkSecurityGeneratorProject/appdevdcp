@@ -124,7 +124,7 @@ public class AvaliacaoResource {
         avaliacaoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-    
+        
     @GetMapping("/avaliacaos/{codigoLoja}/iniciar")
     @Timed
     public AvaliacaoDTO iniciarAvaliacaoPara(@PathVariable String codigoLoja) {

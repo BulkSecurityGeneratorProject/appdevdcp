@@ -4,15 +4,24 @@ export default class LojaUpdatePage {
   pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.loja.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
+  codigoInput: ElementFinder = element(by.css('input#loja-codigo'));
   nomeInput: ElementFinder = element(by.css('input#loja-nome'));
   nomeResponsavelInput: ElementFinder = element(by.css('input#loja-nomeResponsavel'));
   prontuarioResponsavelInput: ElementFinder = element(by.css('input#loja-prontuarioResponsavel'));
   latitudeInput: ElementFinder = element(by.css('input#loja-latitude'));
   longitudeInput: ElementFinder = element(by.css('input#loja-longitude'));
-  avaliadorSelect: ElementFinder = element(by.css('select#loja-avaliador'));
+  userSelect: ElementFinder = element(by.css('select#loja-user'));
 
   getPageTitle() {
     return this.pageTitle;
+  }
+
+  async setCodigoInput(codigo) {
+    await this.codigoInput.sendKeys(codigo);
+  }
+
+  async getCodigoInput() {
+    return this.codigoInput.getAttribute('value');
   }
 
   async setNomeInput(nome) {
@@ -55,23 +64,23 @@ export default class LojaUpdatePage {
     return this.longitudeInput.getAttribute('value');
   }
 
-  async avaliadorSelectLastOption() {
-    await this.avaliadorSelect
+  async userSelectLastOption() {
+    await this.userSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async avaliadorSelectOption(option) {
-    await this.avaliadorSelect.sendKeys(option);
+  async userSelectOption(option) {
+    await this.userSelect.sendKeys(option);
   }
 
-  getAvaliadorSelect() {
-    return this.avaliadorSelect;
+  getUserSelect() {
+    return this.userSelect;
   }
 
-  async getAvaliadorSelectedOption() {
-    return this.avaliadorSelect.element(by.css('option:checked')).getText();
+  async getUserSelectedOption() {
+    return this.userSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

@@ -227,8 +227,7 @@ describe('Account', () => {
     settingsPage = await navBarPage.getSettingsPage();
     expect(await settingsPage.getTitle()).to.eq(settingsPageTitle);
 
-    await settingsPage.firstName.sendKeys('jhipster');
-    await settingsPage.lastName.sendKeys('retspihj');
+    await settingsPage.name.sendKeys('jhipster');
     await settingsPage.saveButton.click();
 
     const toast = getToastByInnerText('Settings saved!');

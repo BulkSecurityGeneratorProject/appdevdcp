@@ -6,8 +6,7 @@ import BasePage from './base-component';
 const selector: ElementFinder = $('#settings-form');
 export default class SettingsPage extends BasePage {
   selector: ElementFinder;
-  firstName: ElementFinder = this.selector.$('#firstName');
-  lastName: ElementFinder = this.selector.$('#lastName');
+  name: ElementFinder = this.selector.$('#name');
   email: ElementFinder = this.selector.$('#email');
   saveButton: ElementFinder = this.selector.$('button[type=submit]');
   title: ElementFinder = $('#settings-title');
@@ -26,12 +25,8 @@ export default class SettingsPage extends BasePage {
     return this.title.getAttribute('id');
   }
 
-  async setFirstName(firstName) {
-    await this.firstName.sendKeys(firstName);
-  }
-
-  async setLastName(lastName) {
-    await this.lastName.sendKeys(lastName);
+  async setName(name) {
+    await this.name.sendKeys(name);
   }
 
   async setEmail(email) {

@@ -61,8 +61,7 @@ public class UserServiceIntTest {
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail("johndoe@localhost");
-        user.setFirstName("john");
-        user.setLastName("doe");
+        user.setName("john");
         user.setImageUrl("http://placehold.it/50x50");
         user.setLangKey("en");
 

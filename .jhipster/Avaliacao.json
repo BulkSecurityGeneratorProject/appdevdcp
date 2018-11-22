@@ -2,7 +2,7 @@
     "name": "Avaliacao",
     "fields": [
         {
-            "fieldName": "dataInicio",
+            "fieldName": "iniciadaEm",
             "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
@@ -121,15 +121,15 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "questionario",
-            "otherEntityName": "questionario",
-            "otherEntityField": "nome"
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "avaliador",
-            "otherEntityName": "avaliador",
+            "relationshipName": "questionario",
+            "otherEntityName": "questionario",
             "otherEntityField": "nome"
         }
     ],

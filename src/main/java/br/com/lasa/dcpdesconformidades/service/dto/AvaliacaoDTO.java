@@ -1,14 +1,16 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Objects;
-
-import javax.validation.constraints.NotNull;
-
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 
 /**
  * A DTO for the Avaliacao entity.
@@ -18,7 +20,7 @@ public class AvaliacaoDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Instant dataInicio;
+    private Instant iniciadaEm;
 
     @NotNull
     private Double latitudeInicioAvaliacao;
@@ -57,13 +59,13 @@ public class AvaliacaoDTO implements Serializable {
 
     private String motivoCancelamento;
 
+    private Long avaliadorId;
+
+    private String avaliadorName;
+
     private Long questionarioId;
 
     private String questionarioNome;
-
-    private Long avaliadorId;
-
-    private String avaliadorNome;
 
     public Long getId() {
         return id;
@@ -73,12 +75,12 @@ public class AvaliacaoDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getDataInicio() {
-        return dataInicio;
+    public Instant getIniciadaEm() {
+        return iniciadaEm;
     }
 
-    public void setDataInicio(Instant dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setIniciadaEm(Instant iniciadaEm) {
+        this.iniciadaEm = iniciadaEm;
     }
 
     public Double getLatitudeInicioAvaliacao() {
@@ -217,6 +219,22 @@ public class AvaliacaoDTO implements Serializable {
         this.motivoCancelamento = motivoCancelamento;
     }
 
+    public Long getAvaliadorId() {
+        return avaliadorId;
+    }
+
+    public void setAvaliadorId(Long avaliadorId) {
+        this.avaliadorId = avaliadorId;
+    }
+
+    public String getAvaliadorName() {
+        return avaliadorName;
+    }
+
+    public void setAvaliadorName(String avaliadorName) {
+        this.avaliadorName = avaliadorName;
+    }
+
     public Long getQuestionarioId() {
         return questionarioId;
     }
@@ -231,22 +249,6 @@ public class AvaliacaoDTO implements Serializable {
 
     public void setQuestionarioNome(String questionarioNome) {
         this.questionarioNome = questionarioNome;
-    }
-
-    public Long getAvaliadorId() {
-        return avaliadorId;
-    }
-
-    public void setAvaliadorId(Long avaliadorId) {
-        this.avaliadorId = avaliadorId;
-    }
-
-    public String getAvaliadorNome() {
-        return avaliadorNome;
-    }
-
-    public void setAvaliadorNome(String avaliadorNome) {
-        this.avaliadorNome = avaliadorNome;
     }
 
     @Override
@@ -274,7 +276,7 @@ public class AvaliacaoDTO implements Serializable {
     public String toString() {
         return "AvaliacaoDTO{" +
             "id=" + getId() +
-            ", dataInicio='" + getDataInicio() + "'" +
+            ", iniciadaEm='" + getIniciadaEm() + "'" +
             ", latitudeInicioAvaliacao=" + getLatitudeInicioAvaliacao() +
             ", longitudeInicioAvaliacao=" + getLongitudeInicioAvaliacao() +
             ", nomeResponsavelLoja='" + getNomeResponsavelLoja() + "'" +
@@ -292,10 +294,10 @@ public class AvaliacaoDTO implements Serializable {
             ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
             ", canceladoEm='" + getCanceladoEm() + "'" +
             ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
+            ", user=" + getAvaliadorId() +
+            ", user='" + getAvaliadorName() + "'" +
             ", questionario=" + getQuestionarioId() +
             ", questionario='" + getQuestionarioNome() + "'" +
-            ", avaliador=" + getAvaliadorId() +
-            ", avaliador='" + getAvaliadorNome() + "'" +
             "}";
     }
 }

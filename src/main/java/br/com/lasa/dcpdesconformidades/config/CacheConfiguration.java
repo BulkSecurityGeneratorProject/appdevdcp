@@ -38,14 +38,13 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".avaliacoes", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".lojas", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Questionario.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Questionario.class.getName() + ".avaliacoesRealizadas", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Questionario.class.getName() + ".grupos", jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliador.class.getName(), jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliador.class.getName() + ".avaliacoes", jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliador.class.getName() + ".lojas", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName(), jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliadors", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliadores", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName() + ".itensAvaliados", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName() + ".itensPerdaEQuebraAcumulados", jcacheConfiguration);
@@ -63,6 +62,7 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.AnexoItem.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAuditado.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste.class.getName(), jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".users", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

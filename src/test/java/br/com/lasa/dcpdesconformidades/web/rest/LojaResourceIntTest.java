@@ -41,6 +41,8 @@ import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
 import br.com.lasa.dcpdesconformidades.service.LojaService;
 import br.com.lasa.dcpdesconformidades.service.UserService;
+import br.com.lasa.dcpdesconformidades.service.dto.LojaDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.LojaMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 /**
@@ -51,6 +53,9 @@ import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DcpdesconformidadesApp.class)
 public class LojaResourceIntTest {
+
+    private static final String DEFAULT_CODIGO = "AAAAAAAAAA";
+    private static final String UPDATED_CODIGO = "BBBBBBBBBB";
 
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
@@ -73,12 +78,15 @@ public class LojaResourceIntTest {
     @Mock
     private LojaRepository lojaRepositoryMock;
 
+    @Autowired
+    private LojaMapper lojaMapper;
+
     @Mock
     private LojaService lojaServiceMock;
 
     @Autowired
     private LojaService lojaService;
-    
+
     @Autowired
     private UserService userService;
 
@@ -117,6 +125,7 @@ public class LojaResourceIntTest {
      */
     public static Loja createEntity(EntityManager em) {
         Loja loja = new Loja()
+            .codigo(DEFAULT_CODIGO)
             .nome(DEFAULT_NOME)
             .nomeResponsavel(DEFAULT_NOME_RESPONSAVEL)
             .prontuarioResponsavel(DEFAULT_PRONTUARIO_RESPONSAVEL)
@@ -136,15 +145,17 @@ public class LojaResourceIntTest {
         int databaseSizeBeforeCreate = lojaRepository.findAll().size();
 
         // Create the Loja
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Loja in the database
         List<Loja> lojaList = lojaRepository.findAll();
         assertThat(lojaList).hasSize(databaseSizeBeforeCreate + 1);
         Loja testLoja = lojaList.get(lojaList.size() - 1);
+        assertThat(testLoja.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testLoja.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testLoja.getNomeResponsavel()).isEqualTo(DEFAULT_NOME_RESPONSAVEL);
         assertThat(testLoja.getProntuarioResponsavel()).isEqualTo(DEFAULT_PRONTUARIO_RESPONSAVEL);
@@ -159,16 +170,36 @@ public class LojaResourceIntTest {
 
         // Create the Loja with an existing ID
         loja.setId(1L);
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Loja in the database
         List<Loja> lojaList = lojaRepository.findAll();
         assertThat(lojaList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkCodigoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lojaRepository.findAll().size();
+        // set the field null
+        loja.setCodigo(null);
+
+        // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
+
+        restLojaMockMvc.perform(post("/api/lojas")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Loja> lojaList = lojaRepository.findAll();
+        assertThat(lojaList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -179,10 +210,11 @@ public class LojaResourceIntTest {
         loja.setNome(null);
 
         // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -197,10 +229,11 @@ public class LojaResourceIntTest {
         loja.setNomeResponsavel(null);
 
         // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -215,10 +248,11 @@ public class LojaResourceIntTest {
         loja.setProntuarioResponsavel(null);
 
         // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -233,10 +267,11 @@ public class LojaResourceIntTest {
         loja.setLatitude(null);
 
         // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -251,10 +286,11 @@ public class LojaResourceIntTest {
         loja.setLongitude(null);
 
         // Create the Loja, which fails.
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -272,6 +308,7 @@ public class LojaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(loja.getId().intValue())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
             .andExpect(jsonPath("$.[*].nomeResponsavel").value(hasItem(DEFAULT_NOME_RESPONSAVEL.toString())))
             .andExpect(jsonPath("$.[*].prontuarioResponsavel").value(hasItem(DEFAULT_PRONTUARIO_RESPONSAVEL)))
@@ -323,6 +360,7 @@ public class LojaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(loja.getId().intValue()))
+            .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
             .andExpect(jsonPath("$.nomeResponsavel").value(DEFAULT_NOME_RESPONSAVEL.toString()))
             .andExpect(jsonPath("$.prontuarioResponsavel").value(DEFAULT_PRONTUARIO_RESPONSAVEL))
@@ -342,7 +380,7 @@ public class LojaResourceIntTest {
     @Transactional
     public void updateLoja() throws Exception {
         // Initialize the database
-        lojaService.save(loja);
+        lojaRepository.saveAndFlush(loja);
 
         int databaseSizeBeforeUpdate = lojaRepository.findAll().size();
 
@@ -351,21 +389,24 @@ public class LojaResourceIntTest {
         // Disconnect from session so that the updates on updatedLoja are not directly saved in db
         em.detach(updatedLoja);
         updatedLoja
+            .codigo(UPDATED_CODIGO)
             .nome(UPDATED_NOME)
             .nomeResponsavel(UPDATED_NOME_RESPONSAVEL)
             .prontuarioResponsavel(UPDATED_PRONTUARIO_RESPONSAVEL)
             .latitude(UPDATED_LATITUDE)
             .longitude(UPDATED_LONGITUDE);
+        LojaDTO lojaDTO = lojaMapper.toDto(updatedLoja);
 
         restLojaMockMvc.perform(put("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLoja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isOk());
 
         // Validate the Loja in the database
         List<Loja> lojaList = lojaRepository.findAll();
         assertThat(lojaList).hasSize(databaseSizeBeforeUpdate);
         Loja testLoja = lojaList.get(lojaList.size() - 1);
+        assertThat(testLoja.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testLoja.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testLoja.getNomeResponsavel()).isEqualTo(UPDATED_NOME_RESPONSAVEL);
         assertThat(testLoja.getProntuarioResponsavel()).isEqualTo(UPDATED_PRONTUARIO_RESPONSAVEL);
@@ -379,11 +420,12 @@ public class LojaResourceIntTest {
         int databaseSizeBeforeUpdate = lojaRepository.findAll().size();
 
         // Create the Loja
+        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLojaMockMvc.perform(put("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
+            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Loja in the database
@@ -395,7 +437,7 @@ public class LojaResourceIntTest {
     @Transactional
     public void deleteLoja() throws Exception {
         // Initialize the database
-        lojaService.save(loja);
+        lojaRepository.saveAndFlush(loja);
 
         int databaseSizeBeforeDelete = lojaRepository.findAll().size();
 
@@ -422,5 +464,28 @@ public class LojaResourceIntTest {
         assertThat(loja1).isNotEqualTo(loja2);
         loja1.setId(null);
         assertThat(loja1).isNotEqualTo(loja2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(LojaDTO.class);
+        LojaDTO lojaDTO1 = new LojaDTO();
+        lojaDTO1.setId(1L);
+        LojaDTO lojaDTO2 = new LojaDTO();
+        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
+        lojaDTO2.setId(lojaDTO1.getId());
+        assertThat(lojaDTO1).isEqualTo(lojaDTO2);
+        lojaDTO2.setId(2L);
+        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
+        lojaDTO1.setId(null);
+        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(lojaMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(lojaMapper.fromId(null)).isNull();
     }
 }

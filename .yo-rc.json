@@ -38,7 +38,6 @@
   },
   "entities": [
     "Questionario",
-    "Avaliador",
     "Loja",
     "Avaliacao",
     "ItemAvaliacao",

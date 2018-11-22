@@ -82,7 +82,7 @@ public class AvaliacaoService {
         log.debug("Request to delete Avaliacao : {}", id);
         avaliacaoRepository.deleteById(id);
     }
-    
+        
     public AvaliacaoDTO iniciarAvaliacaoPara(String codigoLoja){
         return null;
         

@@ -17,14 +17,14 @@ import java.util.Optional;
 @Repository
 public interface LojaRepository extends JpaRepository<Loja, Long> {
 
-    @Query(value = "select distinct loja from Loja loja left join fetch loja.avaliadors",
+    @Query(value = "select distinct loja from Loja loja left join fetch loja.avaliadores",
         countQuery = "select count(distinct loja) from Loja loja")
     Page<Loja> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(value = "select distinct loja from Loja loja left join fetch loja.avaliadors")
+    @Query(value = "select distinct loja from Loja loja left join fetch loja.avaliadores")
     List<Loja> findAllWithEagerRelationships();
 
-    @Query("select loja from Loja loja left join fetch loja.avaliadors where loja.id =:id")
+    @Query("select loja from Loja loja left join fetch loja.avaliadores where loja.id =:id")
     Optional<Loja> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

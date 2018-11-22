@@ -87,10 +87,6 @@ entity Questionario {
     criadoEm Instant required
 }
 
-entity Avaliador {
-    prontuario Integer required
-}
-
 entity Loja {
     codigo String required
     nome String required
@@ -208,19 +204,22 @@ relationship OneToMany {
 	Questionario{avaliacoesRealizadas} to Avaliacao{questionario(nome) required}
     ItemAvaliacao{itensAvaliados} to ItemAvaliado{itemAvaliacao(descricao) required}
     ItemAvaliado{anexos} to AnexoItem{itemAvaliado required}
-    Avaliador{avaliacoes} to Avaliacao{avaliador(nome) required}
     Avaliacao{itensAvaliados} to ItemAvaliado{avaliacao required}
     Avaliacao{itensPerdaEQuebraAcumulados(tipo)} to ItemAvaliadoPerdaQuebraAcumulados{avaliacao required}
     Avaliacao{itensAuditados(descricaoItem)} to ItemAuditado{avaliacao required}
     Avaliacao{itensComAjusteSolicitado(descricaoItem)} to ItemSolicitadoAjuste{avaliacao required}
 }
 
+relationship ManyToOne {
+    Avaliacao{user(name) required} to User{avaliacoes}
+}
+
 relationship ManyToMany {
     GrupoItens{itens(descricao)} to ItemAvaliacao{grupo(nome)}
 	Questionario{grupo(nome)} to GrupoItens{questionario(nome)}
-    Loja{avaliador(nome)} to Avaliador{loja(nome)}
+    Loja{user(name)} to User{loja(nome)}
 }
 
-service Questionario, Avaliacao, AnexoItem, Loja, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
-paginate Avaliador, Loja, Avaliacao with pagination
-dto Avaliacao, Questionario, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem, Loja with mapstruct
+service Questionario, Avaliacao, AnexoItem, Loja, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
+paginate Loja, Avaliacao with pagination
+dto Avaliacao, Questionario, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem, Loja with mapstruct

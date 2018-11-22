@@ -1,18 +1,20 @@
 package br.com.lasa.dcpdesconformidades.service;
 
-import br.com.lasa.dcpdesconformidades.domain.Loja;
-import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
+import br.com.lasa.dcpdesconformidades.service.dto.LojaDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.LojaMapper;
 
 /**
  * Service Implementation for managing Loja.
@@ -25,19 +27,25 @@ public class LojaService {
 
     private final LojaRepository lojaRepository;
 
-    public LojaService(LojaRepository lojaRepository) {
+    private final LojaMapper lojaMapper;
+
+    public LojaService(LojaRepository lojaRepository, LojaMapper lojaMapper) {
         this.lojaRepository = lojaRepository;
+        this.lojaMapper = lojaMapper;
     }
 
     /**
      * Save a loja.
      *
-     * @param loja the entity to save
+     * @param lojaDTO the entity to save
      * @return the persisted entity
      */
-    public Loja save(Loja loja) {
-        log.debug("Request to save Loja : {}", loja);
-        return lojaRepository.save(loja);
+    public LojaDTO save(LojaDTO lojaDTO) {
+        log.debug("Request to save Loja : {}", lojaDTO);
+
+        Loja loja = lojaMapper.toEntity(lojaDTO);
+        loja = lojaRepository.save(loja);
+        return lojaMapper.toDto(loja);
     }
 
     /**
@@ -47,9 +55,10 @@ public class LojaService {
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Loja> findAll(Pageable pageable) {
+    public Page<LojaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Lojas");
-        return lojaRepository.findAll(pageable);
+        return lojaRepository.findAll(pageable)
+            .map(lojaMapper::toDto);
     }
 
     /**
@@ -57,8 +66,8 @@ public class LojaService {
      *
      * @return the list of entities
      */
-    public Page<Loja> findAllWithEagerRelationships(Pageable pageable) {
-        return lojaRepository.findAllWithEagerRelationships(pageable);
+    public Page<LojaDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return lojaRepository.findAllWithEagerRelationships(pageable).map(lojaMapper::toDto);
     }
     
 
@@ -69,9 +78,10 @@ public class LojaService {
      * @return the entity
      */
     @Transactional(readOnly = true)
-    public Optional<Loja> findOne(Long id) {
+    public Optional<LojaDTO> findOne(Long id) {
         log.debug("Request to get Loja : {}", id);
-        return lojaRepository.findOneWithEagerRelationships(id);
+        return lojaRepository.findOneWithEagerRelationships(id)
+            .map(lojaMapper::toDto);
     }
 
     /**
@@ -84,7 +94,7 @@ public class LojaService {
         lojaRepository.deleteById(id);
     }
 
-    public List<Loja> getLojasPermitidasPara(User user) {
+    public List<LojaDTO> getLojasPermitidasPara(User user) {
         // TODO Auto-generated method stub
         return null;
     }

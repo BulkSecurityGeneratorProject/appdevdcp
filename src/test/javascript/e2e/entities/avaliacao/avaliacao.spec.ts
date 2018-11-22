@@ -46,8 +46,8 @@ describe('Avaliacao e2e test', () => {
   /* it('should create and save Avaliacaos', async () => {
         const nbButtonsBeforeCreate = await avaliacaoComponentsPage.countDeleteButtons();
 
-        await avaliacaoUpdatePage.setDataInicioInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-        expect(await avaliacaoUpdatePage.getDataInicioInput()).to.contain('2001-01-01T02:30');
+        await avaliacaoUpdatePage.setIniciadaEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await avaliacaoUpdatePage.getIniciadaEmInput()).to.contain('2001-01-01T02:30');
         await avaliacaoUpdatePage.setLatitudeInicioAvaliacaoInput('5');
         expect(await avaliacaoUpdatePage.getLatitudeInicioAvaliacaoInput()).to.eq('5');
         await avaliacaoUpdatePage.setLongitudeInicioAvaliacaoInput('5');
@@ -75,8 +75,8 @@ describe('Avaliacao e2e test', () => {
         expect(await avaliacaoUpdatePage.getCanceladoEmInput()).to.contain('2001-01-01T02:30');
         await avaliacaoUpdatePage.setMotivoCancelamentoInput('motivoCancelamento');
         expect(await avaliacaoUpdatePage.getMotivoCancelamentoInput()).to.match(/motivoCancelamento/);
+        await avaliacaoUpdatePage.userSelectLastOption();
         await avaliacaoUpdatePage.questionarioSelectLastOption();
-        await avaliacaoUpdatePage.avaliadorSelectLastOption();
         await waitUntilDisplayed(avaliacaoUpdatePage.getSaveButton());
         await avaliacaoUpdatePage.save();
         await waitUntilHidden(avaliacaoUpdatePage.getSaveButton());

@@ -5,7 +5,6 @@ import { Switch } from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 
 import Questionario from './questionario';
-import Avaliador from './avaliador';
 import Loja from './loja';
 import Avaliacao from './avaliacao';
 import ItemAvaliacao from './item-avaliacao';
@@ -22,7 +21,6 @@ const Routes = ({ match }) => (
     <Switch>
       {/* prettier-ignore */}
       <ErrorBoundaryRoute path={`${match.url}/questionario`} component={Questionario} />
-      <ErrorBoundaryRoute path={`${match.url}/avaliador`} component={Avaliador} />
       <ErrorBoundaryRoute path={`${match.url}/loja`} component={Loja} />
       <ErrorBoundaryRoute path={`${match.url}/avaliacao`} component={Avaliacao} />
       <ErrorBoundaryRoute path={`${match.url}/item-avaliacao`} component={ItemAvaliacao} />

@@ -29,6 +29,12 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
+              <span id="codigo">
+                <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate>
+              </span>
+            </dt>
+            <dd>{lojaEntity.codigo}</dd>
+            <dt>
               <span id="nome">
                 <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
               </span>
@@ -59,17 +65,17 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
             </dt>
             <dd>{lojaEntity.longitude}</dd>
             <dt>
-              <Translate contentKey="dcpdesconformidadesApp.loja.avaliador">Avaliador</Translate>
+              <Translate contentKey="dcpdesconformidadesApp.loja.user">User</Translate>
             </dt>
             <dd>
-              {lojaEntity.avaliadors
-                ? lojaEntity.avaliadors.map((val, i) => (
+              {lojaEntity.avaliadores
+                ? lojaEntity.avaliadores.map((val, i) => (
                     <span key={val.id}>
-                      <a>{val.nome}</a>
-                      {i === lojaEntity.avaliadors.length - 1 ? '' : ', '}
+                      <a>{val.name}</a>
+                      {i === lojaEntity.avaliadores.length - 1 ? '' : ', '}
                     </span>
                   ))
-                : null}
+                : null}{' '}
             </dd>
           </dl>
           <Button tag={Link} to="/entity/loja" replace color="info">

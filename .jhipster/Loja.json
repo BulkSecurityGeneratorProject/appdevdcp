@@ -2,6 +2,13 @@
     "name": "Loja",
     "fields": [
         {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "nome",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -41,15 +48,15 @@
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "loja",
-            "relationshipName": "avaliador",
-            "otherEntityName": "avaliador",
-            "otherEntityField": "nome",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "name",
             "ownerSide": true
         }
     ],
     "changelogDate": "20181111155653",
     "entityTableName": "loja",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceClass",
     "jpaMetamodelFiltering": false,

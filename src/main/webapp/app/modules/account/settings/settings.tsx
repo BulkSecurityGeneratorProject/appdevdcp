@@ -50,30 +50,16 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
               {/* First name */}
               <AvField
                 className="form-control"
-                name="firstName"
-                label={translate('settings.form.firstname')}
-                id="firstName"
-                placeholder={translate('settings.form.firstname.placeholder')}
+                name="name"
+                label={translate('settings.form.name')}
+                id="name"
+                placeholder={translate('settings.form.name.placeholder')}
                 validate={{
-                  required: { value: true, errorMessage: translate('settings.messages.validate.firstname.required') },
-                  minLength: { value: 1, errorMessage: translate('settings.messages.validate.firstname.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('settings.messages.validate.firstname.maxlength') }
+                  required: { value: true, errorMessage: translate('settings.messages.validate.name.required') },
+                  minLength: { value: 1, errorMessage: translate('settings.messages.validate.name.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('settings.messages.validate.name.maxlength') }
                 }}
-                value={account.firstName}
-              />
-              {/* Last name */}
-              <AvField
-                className="form-control"
-                name="lastName"
-                label={translate('settings.form.lastname')}
-                id="lastName"
-                placeholder={translate('settings.form.lastname.placeholder')}
-                validate={{
-                  required: { value: true, errorMessage: translate('settings.messages.validate.lastname.required') },
-                  minLength: { value: 1, errorMessage: translate('settings.messages.validate.lastname.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('settings.messages.validate.lastname.maxlength') }
-                }}
-                value={account.lastName}
+                value={account.name}
               />
               {/* Email */}
               <AvField

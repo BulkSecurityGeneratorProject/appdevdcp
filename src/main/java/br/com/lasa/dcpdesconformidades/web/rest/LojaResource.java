@@ -1,15 +1,15 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import br.com.lasa.dcpdesconformidades.domain.Loja;
+
 import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.security.SecurityUtils;
 import br.com.lasa.dcpdesconformidades.service.LojaService;
 import br.com.lasa.dcpdesconformidades.service.UserService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
 import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
+import br.com.lasa.dcpdesconformidades.service.dto.LojaDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class LojaResource {
     private static final String ENTITY_NAME = "loja";
 
     private final LojaService lojaService;
-    
+
     private final UserService userService;
 
     public LojaResource(LojaService lojaService, UserService userService) {
@@ -50,18 +50,18 @@ public class LojaResource {
     /**
      * POST  /lojas : Create a new loja.
      *
-     * @param loja the loja to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new loja, or with status 400 (Bad Request) if the loja has already an ID
+     * @param lojaDTO the lojaDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new lojaDTO, or with status 400 (Bad Request) if the loja has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/lojas")
     @Timed
-    public ResponseEntity<Loja> createLoja(@Valid @RequestBody Loja loja) throws URISyntaxException {
-        log.debug("REST request to save Loja : {}", loja);
-        if (loja.getId() != null) {
+    public ResponseEntity<LojaDTO> createLoja(@Valid @RequestBody LojaDTO lojaDTO) throws URISyntaxException {
+        log.debug("REST request to save Loja : {}", lojaDTO);
+        if (lojaDTO.getId() != null) {
             throw new BadRequestAlertException("A new loja cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Loja result = lojaService.save(loja);
+        LojaDTO result = lojaService.save(lojaDTO);
         return ResponseEntity.created(new URI("/api/lojas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -70,22 +70,22 @@ public class LojaResource {
     /**
      * PUT  /lojas : Updates an existing loja.
      *
-     * @param loja the loja to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated loja,
-     * or with status 400 (Bad Request) if the loja is not valid,
-     * or with status 500 (Internal Server Error) if the loja couldn't be updated
+     * @param lojaDTO the lojaDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated lojaDTO,
+     * or with status 400 (Bad Request) if the lojaDTO is not valid,
+     * or with status 500 (Internal Server Error) if the lojaDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/lojas")
     @Timed
-    public ResponseEntity<Loja> updateLoja(@Valid @RequestBody Loja loja) throws URISyntaxException {
-        log.debug("REST request to update Loja : {}", loja);
-        if (loja.getId() == null) {
+    public ResponseEntity<LojaDTO> updateLoja(@Valid @RequestBody LojaDTO lojaDTO) throws URISyntaxException {
+        log.debug("REST request to update Loja : {}", lojaDTO);
+        if (lojaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Loja result = lojaService.save(loja);
+        LojaDTO result = lojaService.save(lojaDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, loja.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lojaDTO.getId().toString()))
             .body(result);
     }
 
@@ -98,9 +98,9 @@ public class LojaResource {
      */
     @GetMapping("/lojas")
     @Timed
-    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<LojaDTO>> getAllLojas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Lojas");
-        Page<Loja> page;
+        Page<LojaDTO> page;
         if (eagerload) {
             page = lojaService.findAllWithEagerRelationships(pageable);
         } else {
@@ -113,21 +113,21 @@ public class LojaResource {
     /**
      * GET  /lojas/:id : get the "id" loja.
      *
-     * @param id the id of the loja to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the loja, or with status 404 (Not Found)
+     * @param id the id of the lojaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the lojaDTO, or with status 404 (Not Found)
      */
     @GetMapping("/lojas/{id}")
     @Timed
-    public ResponseEntity<Loja> getLoja(@PathVariable Long id) {
+    public ResponseEntity<LojaDTO> getLoja(@PathVariable Long id) {
         log.debug("REST request to get Loja : {}", id);
-        Optional<Loja> loja = lojaService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(loja);
+        Optional<LojaDTO> lojaDTO = lojaService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(lojaDTO);
     }
 
     /**
      * DELETE  /lojas/:id : delete the "id" loja.
      *
-     * @param id the id of the loja to delete
+     * @param id the id of the lojaDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/lojas/{id}")
@@ -137,10 +137,10 @@ public class LojaResource {
         lojaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-    
+        
     @GetMapping("/lojas/permitidas")
     @Timed
-    public List<Loja> getLojasPermitidasParaUsuarioLogado() {
+    public List<LojaDTO> getLojasPermitidasParaUsuarioLogado() {
         log.debug("REST request to get a page of Lojas");
         
         final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

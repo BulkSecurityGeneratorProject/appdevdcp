@@ -15,12 +15,13 @@
       "detail": {
         "title": "Loja"
       },
+      "codigo": "Codigo",
       "nome": "Nome",
       "nomeResponsavel": "Nome Responsavel",
       "prontuarioResponsavel": "Prontuario Responsavel",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "avaliador": "Avaliador"
+      "user": "User"
     }
   }
 }

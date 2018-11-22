@@ -15,7 +15,7 @@
       "detail": {
         "title": "Avaliacao"
       },
-      "dataInicio": "Data Inicio",
+      "iniciadaEm": "Iniciada Em",
       "latitudeInicioAvaliacao": "Latitude Inicio Avaliacao",
       "longitudeInicioAvaliacao": "Longitude Inicio Avaliacao",
       "nomeResponsavelLoja": "Nome Responsavel Loja",
@@ -37,8 +37,8 @@
       "itensPerdaEQuebraAcumulados": "Itens Perda E Quebra Acumulados",
       "itensAuditados": "Itens Auditados",
       "itensComAjusteSolicitado": "Itens Com Ajuste Solicitado",
-      "questionario": "Questionario",
-      "avaliador": "Avaliador"
+      "user": "User",
+      "questionario": "Questionario"
     }
   }
 }

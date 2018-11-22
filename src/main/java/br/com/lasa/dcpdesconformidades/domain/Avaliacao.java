@@ -35,8 +35,8 @@ public class Avaliacao implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "data_inicio", nullable = false)
-    private Instant dataInicio;
+    @Column(name = "iniciada_em", nullable = false)
+    private Instant iniciadaEm;
 
     @NotNull
     @Column(name = "latitude_inicio_avaliacao", nullable = false)
@@ -113,13 +113,14 @@ public class Avaliacao implements Serializable {
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("avaliacoesRealizadas")
-    private Questionario questionario;
+    @JsonIgnoreProperties("avaliacoes")
+    @JoinColumn(name = "user_id")
+    private User avaliador;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("avaliacoes")
-    private Avaliador avaliador;
+    @JsonIgnoreProperties("avaliacoesRealizadas")
+    private Questionario questionario;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -130,17 +131,17 @@ public class Avaliacao implements Serializable {
         this.id = id;
     }
 
-    public Instant getDataInicio() {
-        return dataInicio;
+    public Instant getIniciadaEm() {
+        return iniciadaEm;
     }
 
-    public Avaliacao dataInicio(Instant dataInicio) {
-        this.dataInicio = dataInicio;
+    public Avaliacao iniciadaEm(Instant iniciadaEm) {
+        this.iniciadaEm = iniciadaEm;
         return this;
     }
 
-    public void setDataInicio(Instant dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setIniciadaEm(Instant iniciadaEm) {
+        this.iniciadaEm = iniciadaEm;
     }
 
     public Double getLatitudeInicioAvaliacao() {
@@ -464,6 +465,14 @@ public class Avaliacao implements Serializable {
         this.itensComAjusteSolicitados = itemSolicitadoAjustes;
     }
 
+    public User getAvaliador() {
+        return avaliador;
+    }
+
+    public void setAvaliador(User avaliador) {
+        this.avaliador = avaliador;
+    }
+
     public Questionario getQuestionario() {
         return questionario;
     }
@@ -475,19 +484,6 @@ public class Avaliacao implements Serializable {
 
     public void setQuestionario(Questionario questionario) {
         this.questionario = questionario;
-    }
-
-    public Avaliador getAvaliador() {
-        return avaliador;
-    }
-
-    public Avaliacao avaliador(Avaliador avaliador) {
-        this.avaliador = avaliador;
-        return this;
-    }
-
-    public void setAvaliador(Avaliador avaliador) {
-        this.avaliador = avaliador;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -515,7 +511,7 @@ public class Avaliacao implements Serializable {
     public String toString() {
         return "Avaliacao{" +
             "id=" + getId() +
-            ", dataInicio='" + getDataInicio() + "'" +
+            ", iniciadaEm='" + getIniciadaEm() + "'" +
             ", latitudeInicioAvaliacao=" + getLatitudeInicioAvaliacao() +
             ", longitudeInicioAvaliacao=" + getLongitudeInicioAvaliacao() +
             ", nomeResponsavelLoja='" + getNomeResponsavelLoja() + "'" +

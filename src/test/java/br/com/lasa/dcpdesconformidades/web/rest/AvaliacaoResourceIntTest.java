@@ -3,8 +3,8 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
+import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.Questionario;
-import br.com.lasa.dcpdesconformidades.domain.Avaliador;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.AvaliacaoService;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
@@ -53,8 +53,8 @@ import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 @SpringBootTest(classes = DcpdesconformidadesApp.class)
 public class AvaliacaoResourceIntTest {
 
-    private static final Instant DEFAULT_DATA_INICIO = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_DATA_INICIO = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_INICIADA_EM = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_INICIADA_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Double DEFAULT_LATITUDE_INICIO_AVALIACAO = 1D;
     private static final Double UPDATED_LATITUDE_INICIO_AVALIACAO = 2D;
@@ -151,7 +151,7 @@ public class AvaliacaoResourceIntTest {
      */
     public static Avaliacao createEntity(EntityManager em) {
         Avaliacao avaliacao = new Avaliacao()
-            .dataInicio(DEFAULT_DATA_INICIO)
+            .iniciadaEm(DEFAULT_INICIADA_EM)
             .latitudeInicioAvaliacao(DEFAULT_LATITUDE_INICIO_AVALIACAO)
             .longitudeInicioAvaliacao(DEFAULT_LONGITUDE_INICIO_AVALIACAO)
             .nomeResponsavelLoja(DEFAULT_NOME_RESPONSAVEL_LOJA)
@@ -170,15 +170,15 @@ public class AvaliacaoResourceIntTest {
             .canceladoEm(DEFAULT_CANCELADO_EM)
             .motivoCancelamento(DEFAULT_MOTIVO_CANCELAMENTO);
         // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        avaliacao.setAvaliador(user);
+        // Add required entity
         Questionario questionario = QuestionarioResourceIntTest.createEntity(em);
         em.persist(questionario);
         em.flush();
         avaliacao.setQuestionario(questionario);
-        // Add required entity
-        Avaliador avaliador = AvaliadorResourceIntTest.createEntity(em);
-        em.persist(avaliador);
-        em.flush();
-        avaliacao.setAvaliador(avaliador);
         return avaliacao;
     }
 
@@ -203,7 +203,7 @@ public class AvaliacaoResourceIntTest {
         List<Avaliacao> avaliacaoList = avaliacaoRepository.findAll();
         assertThat(avaliacaoList).hasSize(databaseSizeBeforeCreate + 1);
         Avaliacao testAvaliacao = avaliacaoList.get(avaliacaoList.size() - 1);
-        assertThat(testAvaliacao.getDataInicio()).isEqualTo(DEFAULT_DATA_INICIO);
+        assertThat(testAvaliacao.getIniciadaEm()).isEqualTo(DEFAULT_INICIADA_EM);
         assertThat(testAvaliacao.getLatitudeInicioAvaliacao()).isEqualTo(DEFAULT_LATITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getLongitudeInicioAvaliacao()).isEqualTo(DEFAULT_LONGITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getNomeResponsavelLoja()).isEqualTo(DEFAULT_NOME_RESPONSAVEL_LOJA);
@@ -245,10 +245,10 @@ public class AvaliacaoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDataInicioIsRequired() throws Exception {
+    public void checkIniciadaEmIsRequired() throws Exception {
         int databaseSizeBeforeTest = avaliacaoRepository.findAll().size();
         // set the field null
-        avaliacao.setDataInicio(null);
+        avaliacao.setIniciadaEm(null);
 
         // Create the Avaliacao, which fails.
         AvaliacaoDTO avaliacaoDTO = avaliacaoMapper.toDto(avaliacao);
@@ -330,7 +330,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(avaliacao.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dataInicio").value(hasItem(DEFAULT_DATA_INICIO.toString())))
+            .andExpect(jsonPath("$.[*].iniciadaEm").value(hasItem(DEFAULT_INICIADA_EM.toString())))
             .andExpect(jsonPath("$.[*].latitudeInicioAvaliacao").value(hasItem(DEFAULT_LATITUDE_INICIO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].longitudeInicioAvaliacao").value(hasItem(DEFAULT_LONGITUDE_INICIO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].nomeResponsavelLoja").value(hasItem(DEFAULT_NOME_RESPONSAVEL_LOJA.toString())))
@@ -361,7 +361,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(avaliacao.getId().intValue()))
-            .andExpect(jsonPath("$.dataInicio").value(DEFAULT_DATA_INICIO.toString()))
+            .andExpect(jsonPath("$.iniciadaEm").value(DEFAULT_INICIADA_EM.toString()))
             .andExpect(jsonPath("$.latitudeInicioAvaliacao").value(DEFAULT_LATITUDE_INICIO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.longitudeInicioAvaliacao").value(DEFAULT_LONGITUDE_INICIO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.nomeResponsavelLoja").value(DEFAULT_NOME_RESPONSAVEL_LOJA.toString()))
@@ -402,7 +402,7 @@ public class AvaliacaoResourceIntTest {
         // Disconnect from session so that the updates on updatedAvaliacao are not directly saved in db
         em.detach(updatedAvaliacao);
         updatedAvaliacao
-            .dataInicio(UPDATED_DATA_INICIO)
+            .iniciadaEm(UPDATED_INICIADA_EM)
             .latitudeInicioAvaliacao(UPDATED_LATITUDE_INICIO_AVALIACAO)
             .longitudeInicioAvaliacao(UPDATED_LONGITUDE_INICIO_AVALIACAO)
             .nomeResponsavelLoja(UPDATED_NOME_RESPONSAVEL_LOJA)
@@ -431,7 +431,7 @@ public class AvaliacaoResourceIntTest {
         List<Avaliacao> avaliacaoList = avaliacaoRepository.findAll();
         assertThat(avaliacaoList).hasSize(databaseSizeBeforeUpdate);
         Avaliacao testAvaliacao = avaliacaoList.get(avaliacaoList.size() - 1);
-        assertThat(testAvaliacao.getDataInicio()).isEqualTo(UPDATED_DATA_INICIO);
+        assertThat(testAvaliacao.getIniciadaEm()).isEqualTo(UPDATED_INICIADA_EM);
         assertThat(testAvaliacao.getLatitudeInicioAvaliacao()).isEqualTo(UPDATED_LATITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getLongitudeInicioAvaliacao()).isEqualTo(UPDATED_LONGITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getNomeResponsavelLoja()).isEqualTo(UPDATED_NOME_RESPONSAVEL_LOJA);

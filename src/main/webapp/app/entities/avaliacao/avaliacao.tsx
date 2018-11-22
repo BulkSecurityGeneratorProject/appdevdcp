@@ -75,8 +75,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                 <th className="hand" onClick={this.sort('id')}>
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('dataInicio')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.dataInicio">Data Inicio</Translate>{' '}
+                <th className="hand" onClick={this.sort('iniciadaEm')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('latitudeInicioAvaliacao')}>
@@ -155,11 +155,11 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -173,7 +173,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                     </Button>
                   </td>
                   <td>
-                    <TextFormat type="date" value={avaliacao.dataInicio} format={APP_DATE_FORMAT} />
+                    <TextFormat type="date" value={avaliacao.iniciadaEm} format={APP_DATE_FORMAT} />
                   </td>
                   <td>{avaliacao.latitudeInicioAvaliacao}</td>
                   <td>{avaliacao.longitudeInicioAvaliacao}</td>
@@ -210,6 +210,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                     <TextFormat type="date" value={avaliacao.canceladoEm} format={APP_DATE_FORMAT} />
                   </td>
                   <td>{avaliacao.motivoCancelamento}</td>
+                  <td>{avaliacao.userName ? avaliacao.userName : ''}</td>
                   <td>
                     {avaliacao.questionarioNome ? (
                       <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>
@@ -217,7 +218,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                       ''
                     )}
                   </td>
-                  <td>{avaliacao.avaliadorNome ? <Link to={`avaliador/${avaliacao.avaliadorId}`}>{avaliacao.avaliadorNome}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${avaliacao.id}`} color="info" size="sm">

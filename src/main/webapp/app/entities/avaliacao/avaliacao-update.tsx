@@ -8,10 +8,10 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IQuestionario } from 'app/shared/model/questionario.model';
 import { getEntities as getQuestionarios } from 'app/entities/questionario/questionario.reducer';
-import { IAvaliador } from 'app/shared/model/avaliador.model';
-import { getEntities as getAvaliadors } from 'app/entities/avaliador/avaliador.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './avaliacao.reducer';
 import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 // tslint:disable-next-line:no-unused-variable
@@ -22,16 +22,16 @@ export interface IAvaliacaoUpdateProps extends StateProps, DispatchProps, RouteC
 
 export interface IAvaliacaoUpdateState {
   isNew: boolean;
+  userId: string;
   questionarioId: string;
-  avaliadorId: string;
 }
 
 export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAvaliacaoUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '0',
       questionarioId: '0',
-      avaliadorId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -49,12 +49,12 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
       this.props.getEntity(this.props.match.params.id);
     }
 
+    this.props.getUsers();
     this.props.getQuestionarios();
-    this.props.getAvaliadors();
   }
 
   saveEntity = (event, errors, values) => {
-    values.dataInicio = new Date(values.dataInicio);
+    values.iniciadaEm = new Date(values.iniciadaEm);
     values.submetidoEm = new Date(values.submetidoEm);
     values.canceladoEm = new Date(values.canceladoEm);
 
@@ -78,7 +78,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
   };
 
   render() {
-    const { avaliacaoEntity, questionarios, avaliadors, loading, updating } = this.props;
+    const { avaliacaoEntity, users, questionarios, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -105,15 +105,15 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="dataInicioLabel" for="dataInicio">
-                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.dataInicio">Data Inicio</Translate>
+                  <Label id="iniciadaEmLabel" for="iniciadaEm">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>
                   </Label>
                   <AvInput
-                    id="avaliacao-dataInicio"
+                    id="avaliacao-iniciadaEm"
                     type="datetime-local"
                     className="form-control"
-                    name="dataInicio"
-                    value={isNew ? null : convertDateTimeFromServer(this.props.avaliacaoEntity.dataInicio)}
+                    name="iniciadaEm"
+                    value={isNew ? null : convertDateTimeFromServer(this.props.avaliacaoEntity.iniciadaEm)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}
@@ -431,26 +431,26 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                   <AvField id="avaliacao-motivoCancelamento" type="text" name="motivoCancelamento" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="questionario.nome">
-                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
+                  <Label for="user.name">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate>
                   </Label>
-                  <AvInput id="avaliacao-questionario" type="select" className="form-control" name="questionarioId">
-                    {questionarios
-                      ? questionarios.map(otherEntity => (
+                  <AvInput id="avaliacao-user" type="select" className="form-control" name="userId">
+                    {users
+                      ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nome}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="avaliador.nome">
-                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate>
+                  <Label for="questionario.nome">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
                   </Label>
-                  <AvInput id="avaliacao-avaliador" type="select" className="form-control" name="avaliadorId">
-                    {avaliadors
-                      ? avaliadors.map(otherEntity => (
+                  <AvInput id="avaliacao-questionario" type="select" className="form-control" name="questionarioId">
+                    {questionarios
+                      ? questionarios.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.nome}
                           </option>
@@ -481,8 +481,8 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
+  users: storeState.userManagement.users,
   questionarios: storeState.questionario.entities,
-  avaliadors: storeState.avaliador.entities,
   avaliacaoEntity: storeState.avaliacao.entity,
   loading: storeState.avaliacao.loading,
   updating: storeState.avaliacao.updating,
@@ -490,8 +490,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getUsers,
   getQuestionarios,
-  getAvaliadors,
   getEntity,
   updateEntity,
   createEntity,

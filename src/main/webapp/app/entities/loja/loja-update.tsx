@@ -8,8 +8,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IAvaliador } from 'app/shared/model/avaliador.model';
-import { getEntities as getAvaliadors } from 'app/entities/avaliador/avaliador.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './loja.reducer';
 import { ILoja } from 'app/shared/model/loja.model';
 // tslint:disable-next-line:no-unused-variable
@@ -20,14 +20,14 @@ export interface ILojaUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface ILojaUpdateState {
   isNew: boolean;
-  idsavaliador: any[];
+  idsuser: any[];
 }
 
 export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      idsavaliador: [],
+      idsuser: [],
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -45,7 +45,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getAvaliadors();
+    this.props.getUsers();
   }
 
   saveEntity = (event, errors, values) => {
@@ -54,7 +54,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
       const entity = {
         ...lojaEntity,
         ...values,
-        avaliadors: mapIdList(values.avaliadors)
+        users: mapIdList(values.users)
       };
 
       if (this.state.isNew) {
@@ -70,7 +70,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
   };
 
   render() {
-    const { lojaEntity, avaliadors, loading, updating } = this.props;
+    const { lojaEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -96,6 +96,19 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                     <AvInput id="loja-id" type="text" className="form-control" name="id" required readOnly />
                   </AvGroup>
                 ) : null}
+                <AvGroup>
+                  <Label id="codigoLabel" for="codigo">
+                    <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate>
+                  </Label>
+                  <AvField
+                    id="loja-codigo"
+                    type="text"
+                    name="codigo"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
                 <AvGroup>
                   <Label id="nomeLabel" for="nome">
                     <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
@@ -168,22 +181,22 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="avaliadors">
-                    <Translate contentKey="dcpdesconformidadesApp.loja.avaliador">Avaliador</Translate>
+                  <Label for="users">
+                    <Translate contentKey="dcpdesconformidadesApp.loja.user">User</Translate>
                   </Label>
                   <AvInput
-                    id="loja-avaliador"
+                    id="loja-user"
                     type="select"
                     multiple
                     className="form-control"
-                    name="avaliadors"
-                    value={lojaEntity.avaliadors && lojaEntity.avaliadors.map(e => e.id)}
+                    name="users"
+                    value={lojaEntity.avaliadores && lojaEntity.avaliadores.map(e => e.id)}
                   >
                     <option value="" key="0" />
-                    {avaliadors
-                      ? avaliadors.map(otherEntity => (
+                    {users
+                      ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nome}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
@@ -212,7 +225,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  avaliadors: storeState.avaliador.entities,
+  users: storeState.userManagement.users,
   lojaEntity: storeState.loja.entity,
   loading: storeState.loja.loading,
   updating: storeState.loja.updating,
@@ -220,7 +233,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getAvaliadors,
+  getUsers,
   getEntity,
   updateEntity,
   createEntity,

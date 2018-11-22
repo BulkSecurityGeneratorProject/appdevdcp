@@ -67,6 +67,9 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                 <th className="hand" onClick={this.sort('id')}>
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('codigo')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={this.sort('nome')}>
                   <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -95,6 +98,7 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                       {loja.id}
                     </Button>
                   </td>
+                  <td>{loja.codigo}</td>
                   <td>{loja.nome}</td>
                   <td>{loja.nomeResponsavel}</td>
                   <td>{loja.prontuarioResponsavel}</td>

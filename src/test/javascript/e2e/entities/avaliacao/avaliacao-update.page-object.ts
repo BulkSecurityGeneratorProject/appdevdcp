@@ -4,7 +4,7 @@ export default class AvaliacaoUpdatePage {
   pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.avaliacao.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  dataInicioInput: ElementFinder = element(by.css('input#avaliacao-dataInicio'));
+  iniciadaEmInput: ElementFinder = element(by.css('input#avaliacao-iniciadaEm'));
   latitudeInicioAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-latitudeInicioAvaliacao'));
   longitudeInicioAvaliacaoInput: ElementFinder = element(by.css('input#avaliacao-longitudeInicioAvaliacao'));
   nomeResponsavelLojaInput: ElementFinder = element(by.css('input#avaliacao-nomeResponsavelLoja'));
@@ -22,19 +22,19 @@ export default class AvaliacaoUpdatePage {
   nivelEficienciaProdutoSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaProduto'));
   canceladoEmInput: ElementFinder = element(by.css('input#avaliacao-canceladoEm'));
   motivoCancelamentoInput: ElementFinder = element(by.css('input#avaliacao-motivoCancelamento'));
+  userSelect: ElementFinder = element(by.css('select#avaliacao-user'));
   questionarioSelect: ElementFinder = element(by.css('select#avaliacao-questionario'));
-  avaliadorSelect: ElementFinder = element(by.css('select#avaliacao-avaliador'));
 
   getPageTitle() {
     return this.pageTitle;
   }
 
-  async setDataInicioInput(dataInicio) {
-    await this.dataInicioInput.sendKeys(dataInicio);
+  async setIniciadaEmInput(iniciadaEm) {
+    await this.iniciadaEmInput.sendKeys(iniciadaEm);
   }
 
-  async getDataInicioInput() {
-    return this.dataInicioInput.getAttribute('value');
+  async getIniciadaEmInput() {
+    return this.iniciadaEmInput.getAttribute('value');
   }
 
   async setLatitudeInicioAvaliacaoInput(latitudeInicioAvaliacao) {
@@ -215,6 +215,25 @@ export default class AvaliacaoUpdatePage {
     return this.motivoCancelamentoInput.getAttribute('value');
   }
 
+  async userSelectLastOption() {
+    await this.userSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async userSelectOption(option) {
+    await this.userSelect.sendKeys(option);
+  }
+
+  getUserSelect() {
+    return this.userSelect;
+  }
+
+  async getUserSelectedOption() {
+    return this.userSelect.element(by.css('option:checked')).getText();
+  }
+
   async questionarioSelectLastOption() {
     await this.questionarioSelect
       .all(by.tagName('option'))
@@ -232,25 +251,6 @@ export default class AvaliacaoUpdatePage {
 
   async getQuestionarioSelectedOption() {
     return this.questionarioSelect.element(by.css('option:checked')).getText();
-  }
-
-  async avaliadorSelectLastOption() {
-    await this.avaliadorSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async avaliadorSelectOption(option) {
-    await this.avaliadorSelect.sendKeys(option);
-  }
-
-  getAvaliadorSelect() {
-    return this.avaliadorSelect;
-  }
-
-  async getAvaliadorSelectedOption() {
-    return this.avaliadorSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {
