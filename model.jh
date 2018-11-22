@@ -88,12 +88,11 @@ entity Questionario {
 }
 
 entity Avaliador {
-	nome String required
-    login String required
     prontuario Integer required
 }
 
 entity Loja {
+    codigo String required
     nome String required
     nomeResponsavel String required
     prontuarioResponsavel Integer required
@@ -102,7 +101,7 @@ entity Loja {
 }
 
 entity Avaliacao {
-	dataInicio Instant required
+	iniciadaEm Instant required
     latitudeInicioAvaliacao Double required
     longitudeInicioAvaliacao Double required
     nomeResponsavelLoja String // Caso ele precise sobrescrever e também pra não permitir mudanças
@@ -224,4 +223,4 @@ relationship ManyToMany {
 
 service Questionario, Avaliacao, AnexoItem, Loja, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
 paginate Avaliador, Loja, Avaliacao with pagination
-dto Avaliacao, Questionario, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem with mapstruct
+dto Avaliacao, Questionario, Avaliador, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem, Loja with mapstruct
