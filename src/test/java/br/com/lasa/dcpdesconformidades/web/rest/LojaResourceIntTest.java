@@ -1,11 +1,24 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
-import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
+import static br.com.lasa.dcpdesconformidades.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import br.com.lasa.dcpdesconformidades.domain.Loja;
-import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
-import br.com.lasa.dcpdesconformidades.service.LojaService;
-import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +28,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -24,17 +36,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.List;
-
-
-import static br.com.lasa.dcpdesconformidades.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
+import br.com.lasa.dcpdesconformidades.service.LojaService;
+import br.com.lasa.dcpdesconformidades.service.UserService;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 /**
  * Test class for the LojaResource REST controller.
@@ -71,6 +78,9 @@ public class LojaResourceIntTest {
 
     @Autowired
     private LojaService lojaService;
+    
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -91,7 +101,7 @@ public class LojaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LojaResource lojaResource = new LojaResource(lojaService);
+        final LojaResource lojaResource = new LojaResource(lojaService, userService);
         this.restLojaMockMvc = MockMvcBuilders.standaloneSetup(lojaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -271,7 +281,7 @@ public class LojaResourceIntTest {
     
     @SuppressWarnings({"unchecked"})
     public void getAllLojasWithEagerRelationshipsIsEnabled() throws Exception {
-        LojaResource lojaResource = new LojaResource(lojaServiceMock);
+        LojaResource lojaResource = new LojaResource(lojaServiceMock, userService);
         when(lojaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restLojaMockMvc = MockMvcBuilders.standaloneSetup(lojaResource)
@@ -288,7 +298,7 @@ public class LojaResourceIntTest {
 
     @SuppressWarnings({"unchecked"})
     public void getAllLojasWithEagerRelationshipsIsNotEnabled() throws Exception {
-        LojaResource lojaResource = new LojaResource(lojaServiceMock);
+        LojaResource lojaResource = new LojaResource(lojaServiceMock, userService);
             when(lojaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restLojaMockMvc = MockMvcBuilders.standaloneSetup(lojaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

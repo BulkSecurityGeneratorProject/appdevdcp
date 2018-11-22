@@ -82,4 +82,14 @@ public class AvaliacaoService {
         log.debug("Request to delete Avaliacao : {}", id);
         avaliacaoRepository.deleteById(id);
     }
+    
+    public AvaliacaoDTO iniciarAvaliacaoPara(String codigoLoja){
+        return null;
+        
+    }
+
+    public AvaliacaoDTO submeterAvaliacao(AvaliacaoDTO avaliacaoDTO) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

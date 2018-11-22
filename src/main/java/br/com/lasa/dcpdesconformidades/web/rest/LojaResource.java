@@ -2,8 +2,12 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.security.SecurityUtils;
 import br.com.lasa.dcpdesconformidades.service.LojaService;
+import br.com.lasa.dcpdesconformidades.service.UserService;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
 import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -35,9 +39,12 @@ public class LojaResource {
     private static final String ENTITY_NAME = "loja";
 
     private final LojaService lojaService;
+    
+    private final UserService userService;
 
-    public LojaResource(LojaService lojaService) {
+    public LojaResource(LojaService lojaService, UserService userService) {
         this.lojaService = lojaService;
+        this.userService = userService;
     }
 
     /**
@@ -129,5 +136,15 @@ public class LojaResource {
         log.debug("REST request to delete Loja : {}", id);
         lojaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    
+    @GetMapping("/lojas/permitidas")
+    @Timed
+    public List<Loja> getLojasPermitidasParaUsuarioLogado() {
+        log.debug("REST request to get a page of Lojas");
+        
+        final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        
+        return lojaService.getLojasPermitidasPara(user);
     }
 }

@@ -1,6 +1,7 @@
 package br.com.lasa.dcpdesconformidades.service;
 
 import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -80,5 +82,10 @@ public class LojaService {
     public void delete(Long id) {
         log.debug("Request to delete Loja : {}", id);
         lojaRepository.deleteById(id);
+    }
+
+    public List<Loja> getLojasPermitidasPara(User user) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

@@ -124,4 +124,19 @@ public class AvaliacaoResource {
         avaliacaoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/avaliacaos/{codigoLoja}/iniciar")
+    @Timed
+    public AvaliacaoDTO iniciarAvaliacaoPara(@PathVariable String codigoLoja) {
+        log.debug("REST request to iniciar Avaliacao : {}", codigoLoja);
+        AvaliacaoDTO avaliacaoDTO = avaliacaoService.iniciarAvaliacaoPara(codigoLoja);
+        return avaliacaoDTO;
+    }
+    
+    @PostMapping("/avaliacaos/{codigoLoja}/iniciar")
+    @Timed
+    public AvaliacaoDTO submeterAvaliacaoPara(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) {
+        log.debug("REST request to submeter Avaliacao : {}", avaliacaoDTO);
+        return avaliacaoService.submeterAvaliacao(avaliacaoDTO);
+    }
 }
