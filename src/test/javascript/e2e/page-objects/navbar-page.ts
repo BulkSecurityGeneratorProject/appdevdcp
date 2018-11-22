@@ -2,7 +2,6 @@ import { $, ElementFinder } from 'protractor';
 
 import BasePage from './base-component';
 import SignInPage from './signin-page';
-import RegisterPage from './register-page';
 import PasswordPage from './password-page';
 import SettingsPage from './settings-page';
 
@@ -28,12 +27,6 @@ export default class NavBarPage extends BasePage {
   async getSettingsPage() {
     await this.clickOnAccountMenuItem('settings');
     return new SettingsPage();
-  }
-
-  async getRegisterPage() {
-    await this.clickOnAccountMenu();
-    await this.clickOnTabMenu('#/register');
-    return new RegisterPage();
   }
 
   async getSignInPage() {

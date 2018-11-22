@@ -3,7 +3,6 @@ import { browser, element, by } from 'protractor';
 
 import SignInPage from '../../page-objects/signin-page';
 import NavBarPage from '../../page-objects/navbar-page';
-import RegisterPage from '../../page-objects/register-page';
 import PasswordPage from '../../page-objects/password-page';
 import SettingsPage from '../../page-objects/settings-page';
 import {
@@ -21,9 +20,7 @@ describe('Account', () => {
   let signInPage: SignInPage;
   let passwordPage: PasswordPage;
   let settingsPage: SettingsPage;
-  let registerPage: RegisterPage;
 
-  const registerPageTitle = 'register-title';
   const passwordPageTitle = 'password-title';
   const settingsPageTitle = 'settings-title';
   const loginPageTitle = 'login-title';
@@ -63,21 +60,6 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should be able to sign up', async () => {
-    await waitUntilDisplayed(navBarPage.accountMenu);
-
-    registerPage = await navBarPage.getRegisterPage();
-    await registerPage.waitUntilDisplayed();
-    expect(await registerPage.getTitle()).to.eq(registerPageTitle);
-
-    await registerPage.autoSignUpUsing('user_test', 'admin@localhost.jh', 'user_test');
-    const toast = getToastByInnerText('Registration saved! Please check your email for confirmation.');
-    await waitUntilDisplayed(toast);
-
-    // Success toast should appear
-    expect(await toast.isPresent()).to.be.true;
-  });
-
   it('should load user management', async () => {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
@@ -111,30 +93,6 @@ describe('Account', () => {
     // Deactivated button should disappear
     expect(await deactivatedButton.isPresent()).to.be.false;
     await navBarPage.autoSignOut();
-  });
-
-  it('should not be able to sign up if login already taken', async () => {
-    await registerPage.get();
-    expect(await registerPage.getTitle()).to.eq(registerPageTitle);
-
-    await registerPage.autoSignUpUsing('user_test', 'admin@localhost.jh', 'user_test');
-    const toast = getToastByInnerText('Login name already used!');
-    await waitUntilDisplayed(toast);
-
-    // Error toast should appear
-    expect(await toast.isPresent()).to.be.true;
-  });
-
-  it('should not be able to sign up if email already taken', async () => {
-    expect(await registerPage.getTitle()).to.eq(registerPageTitle);
-
-    await registerPage.username.sendKeys('_jhi');
-    await registerPage.saveButton.click();
-    const toast = getToastByInnerText('Email is already in use!');
-    await waitUntilDisplayed(toast);
-
-    // Error toast should appear
-    expect(await toast.isPresent()).to.be.true;
   });
 
   it('should be able to log in with new registered account', async () => {
