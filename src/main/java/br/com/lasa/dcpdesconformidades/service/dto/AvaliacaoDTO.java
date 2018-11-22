@@ -1,16 +1,14 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
+
+import javax.validation.constraints.NotNull;
+
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 
 /**
  * A DTO for the Avaliacao entity.
