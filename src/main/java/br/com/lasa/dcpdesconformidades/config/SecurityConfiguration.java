@@ -1,13 +1,17 @@
 package br.com.lasa.dcpdesconformidades.config;
 
-import br.com.lasa.dcpdesconformidades.security.*;
-import br.com.lasa.dcpdesconformidades.security.jwt.*;
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.BeanInitializationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
+import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.filter.AndFilter;
+import org.springframework.ldap.filter.EqualsFilter;
+import org.springframework.ldap.filter.Filter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,7 +27,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
-import javax.annotation.PostConstruct;
+import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
+import br.com.lasa.dcpdesconformidades.security.jwt.JWTConfigurer;
+import br.com.lasa.dcpdesconformidades.security.jwt.TokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -40,13 +46,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CorsFilter corsFilter;
 
     private final SecurityProblemSupport problemSupport;
+    
+    private final ApplicationProperties applicationProperties;
 
-    public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, TokenProvider tokenProvider, CorsFilter corsFilter, SecurityProblemSupport problemSupport) {
+    public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, TokenProvider tokenProvider, CorsFilter corsFilter, SecurityProblemSupport problemSupport, ApplicationProperties applicationProperties) {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDetailsService = userDetailsService;
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;
         this.problemSupport = problemSupport;
+        this.applicationProperties = applicationProperties;
     }
 
     @PostConstruct
@@ -60,11 +69,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         }
     }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -101,11 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()
@@ -117,5 +122,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        Filter userSearchFilter = new AndFilter().and(new EqualsFilter("objectClass", "person")).and(new EqualsFilter("sAMAccountName", "{0}"));
+
+        auth.ldapAuthentication() //
+                .userSearchBase(applicationProperties.getLdap().getUserSearchBase()) //
+                .userSearchFilter(userSearchFilter.toString()) //
+                .contextSource(getContextSource()); //
+    }
+
+    @Bean
+    public LdapContextSource getContextSource() {
+        LdapContextSource contextSource = new LdapContextSource();
+        contextSource.setUrl(applicationProperties.getLdap().getUrl());
+        contextSource.setBase(applicationProperties.getLdap().getUserSearchBase());
+        contextSource.setUserDn(applicationProperties.getLdap().getUserDn());
+        contextSource.setPassword(applicationProperties.getLdap().getUserPassword());
+        contextSource.afterPropertiesSet(); // needed otherwise you will have a NullPointerException in spring
+
+        return contextSource;
     }
 }
