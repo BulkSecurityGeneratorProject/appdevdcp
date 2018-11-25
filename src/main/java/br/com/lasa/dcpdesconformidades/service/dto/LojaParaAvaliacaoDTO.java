@@ -1,15 +1,15 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the Loja entity.
  */
-public class LojaDTO implements Serializable {
+public class LojaParaAvaliacaoDTO implements Serializable {
 
     private Long id;
 
@@ -31,7 +31,8 @@ public class LojaDTO implements Serializable {
     @NotNull
     private Double longitude;
 
-    private Set<UserDTO> avaliadores = new HashSet<>();
+    @NotNull
+    private Instant submissaoUltimaAvaliacao;
 
     public Long getId() {
         return id;
@@ -89,12 +90,12 @@ public class LojaDTO implements Serializable {
         this.longitude = longitude;
     }
 
-    public Set<UserDTO> getAvaliadores() {
-        return avaliadores;
+    public Instant getSubmissaoUltimaAvaliacao() {
+        return submissaoUltimaAvaliacao;
     }
 
-    public void setAvaliadores(Set<UserDTO> avaliadores) {
-        this.avaliadores = avaliadores;
+    public void setSubmissaoUltimaAvaliacao(Instant submissaoUltimaAvaliacao) {
+        this.submissaoUltimaAvaliacao = submissaoUltimaAvaliacao;
     }
 
     @Override
@@ -106,7 +107,7 @@ public class LojaDTO implements Serializable {
             return false;
         }
 
-        LojaDTO lojaDTO = (LojaDTO) o;
+        LojaParaAvaliacaoDTO lojaDTO = (LojaParaAvaliacaoDTO) o;
         if (lojaDTO.getId() == null || getId() == null) {
             return false;
         }
@@ -120,14 +121,8 @@ public class LojaDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "LojaDTO{" +
-            "id=" + getId() +
-            ", codigo='" + getCodigo() + "'" +
-            ", nome='" + getNome() + "'" +
-            ", nomeResponsavel='" + getNomeResponsavel() + "'" +
-            ", prontuarioResponsavel=" + getProntuarioResponsavel() +
-            ", latitude=" + getLatitude() +
-            ", longitude=" + getLongitude() +
-            "}";
+        return "LojaParaAvaliacaoDTO [id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", nomeResponsavel=" + nomeResponsavel + ", prontuarioResponsavel=" + prontuarioResponsavel + ", latitude="
+                + latitude + ", longitude=" + longitude + ", submissaoUltimaAvaliacao=" + submissaoUltimaAvaliacao + "]";
     }
+
 }

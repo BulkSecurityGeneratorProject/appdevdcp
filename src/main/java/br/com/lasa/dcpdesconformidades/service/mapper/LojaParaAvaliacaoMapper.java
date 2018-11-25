@@ -1,15 +1,15 @@
 package br.com.lasa.dcpdesconformidades.service.mapper;
 
-import br.com.lasa.dcpdesconformidades.domain.*;
-import br.com.lasa.dcpdesconformidades.service.dto.LojaDTO;
+import org.mapstruct.Mapper;
 
-import org.mapstruct.*;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.service.dto.LojaParaAvaliacaoDTO;
 
 /**
  * Mapper for the entity Loja and its DTO LojaDTO.
  */
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
-public interface LojaMapper extends EntityMapper<LojaDTO, Loja> {
+public interface LojaParaAvaliacaoMapper extends EntityMapper<LojaParaAvaliacaoDTO, Loja> {
 
 
 

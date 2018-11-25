@@ -41,8 +41,7 @@ import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
 import br.com.lasa.dcpdesconformidades.service.LojaService;
 import br.com.lasa.dcpdesconformidades.service.UserService;
-import br.com.lasa.dcpdesconformidades.service.dto.LojaDTO;
-import br.com.lasa.dcpdesconformidades.service.mapper.LojaMapper;
+import br.com.lasa.dcpdesconformidades.service.mapper.LojaParaAvaliacaoMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 /**
@@ -79,7 +78,7 @@ public class LojaResourceIntTest {
     private LojaRepository lojaRepositoryMock;
 
     @Autowired
-    private LojaMapper lojaMapper;
+    private LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper;
 
     @Mock
     private LojaService lojaServiceMock;
@@ -145,10 +144,9 @@ public class LojaResourceIntTest {
         int databaseSizeBeforeCreate = lojaRepository.findAll().size();
 
         // Create the Loja
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isCreated());
 
         // Validate the Loja in the database
@@ -170,12 +168,11 @@ public class LojaResourceIntTest {
 
         // Create the Loja with an existing ID
         loja.setId(1L);
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         // Validate the Loja in the database
@@ -191,11 +188,10 @@ public class LojaResourceIntTest {
         loja.setCodigo(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -210,11 +206,10 @@ public class LojaResourceIntTest {
         loja.setNome(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -229,11 +224,10 @@ public class LojaResourceIntTest {
         loja.setNomeResponsavel(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -248,11 +242,10 @@ public class LojaResourceIntTest {
         loja.setProntuarioResponsavel(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -267,11 +260,10 @@ public class LojaResourceIntTest {
         loja.setLatitude(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -286,11 +278,10 @@ public class LojaResourceIntTest {
         loja.setLongitude(null);
 
         // Create the Loja, which fails.
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         restLojaMockMvc.perform(post("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         List<Loja> lojaList = lojaRepository.findAll();
@@ -395,11 +386,10 @@ public class LojaResourceIntTest {
             .prontuarioResponsavel(UPDATED_PRONTUARIO_RESPONSAVEL)
             .latitude(UPDATED_LATITUDE)
             .longitude(UPDATED_LONGITUDE);
-        LojaDTO lojaDTO = lojaMapper.toDto(updatedLoja);
 
         restLojaMockMvc.perform(put("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isOk());
 
         // Validate the Loja in the database
@@ -420,12 +410,11 @@ public class LojaResourceIntTest {
         int databaseSizeBeforeUpdate = lojaRepository.findAll().size();
 
         // Create the Loja
-        LojaDTO lojaDTO = lojaMapper.toDto(loja);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLojaMockMvc.perform(put("/api/lojas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lojaDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loja)))
             .andExpect(status().isBadRequest());
 
         // Validate the Loja in the database
@@ -469,23 +458,23 @@ public class LojaResourceIntTest {
     @Test
     @Transactional
     public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LojaDTO.class);
-        LojaDTO lojaDTO1 = new LojaDTO();
-        lojaDTO1.setId(1L);
-        LojaDTO lojaDTO2 = new LojaDTO();
-        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
-        lojaDTO2.setId(lojaDTO1.getId());
-        assertThat(lojaDTO1).isEqualTo(lojaDTO2);
-        lojaDTO2.setId(2L);
-        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
-        lojaDTO1.setId(null);
-        assertThat(lojaDTO1).isNotEqualTo(lojaDTO2);
+        TestUtil.equalsVerifier(Loja.class);
+        Loja loja1 = new Loja();
+        loja1.setId(1L);
+        Loja loja2 = new Loja();
+        assertThat(loja1).isNotEqualTo(loja2);
+        loja2.setId(loja1.getId());
+        assertThat(loja1).isEqualTo(loja2);
+        loja2.setId(2L);
+        assertThat(loja1).isNotEqualTo(loja2);
+        loja1.setId(null);
+        assertThat(loja1).isNotEqualTo(loja2);
     }
 
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(lojaMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(lojaMapper.fromId(null)).isNull();
+        assertThat(lojaParaAvaliacaoMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(lojaParaAvaliacaoMapper.fromId(null)).isNull();
     }
 }
