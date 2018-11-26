@@ -37,9 +37,7 @@ import br.com.lasa.dcpdesconformidades.security.jwt.TokenProvider;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    private final UserDetailsService userDetailsService;
+//    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     private final TokenProvider tokenProvider;
 
@@ -49,25 +47,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     private final ApplicationProperties applicationProperties;
 
-    public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, TokenProvider tokenProvider, CorsFilter corsFilter, SecurityProblemSupport problemSupport, ApplicationProperties applicationProperties) {
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userDetailsService = userDetailsService;
+    public SecurityConfiguration(TokenProvider tokenProvider, CorsFilter corsFilter, SecurityProblemSupport problemSupport, ApplicationProperties applicationProperties) {
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;
         this.problemSupport = problemSupport;
         this.applicationProperties = applicationProperties;
     }
 
-    @PostConstruct
-    public void init() {
-        try {
-            authenticationManagerBuilder
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        } catch (Exception e) {
-            throw new BeanInitializationException("Security configuration failed", e);
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        try {
+//            authenticationManagerBuilder
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder());
+//        } catch (Exception e) {
+//            throw new BeanInitializationException("Security configuration failed", e);
+//        }
+//    }
 
 //    @Override
 //    @Bean
@@ -75,10 +71,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        return super.authenticationManagerBean();
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {

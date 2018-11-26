@@ -1,15 +1,12 @@
 package br.com.lasa.dcpdesconformidades.service;
 
-import br.com.lasa.dcpdesconformidades.config.Constants;
-import br.com.lasa.dcpdesconformidades.domain.Authority;
-import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.repository.AuthorityRepository;
-import br.com.lasa.dcpdesconformidades.repository.UserRepository;
-import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
-import br.com.lasa.dcpdesconformidades.security.SecurityUtils;
-import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
-import br.com.lasa.dcpdesconformidades.service.util.RandomUtil;
-import br.com.lasa.dcpdesconformidades.web.rest.errors.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +14,16 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import br.com.lasa.dcpdesconformidades.config.Constants;
+import br.com.lasa.dcpdesconformidades.domain.Authority;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.repository.AuthorityRepository;
+import br.com.lasa.dcpdesconformidades.repository.UserRepository;
+import br.com.lasa.dcpdesconformidades.security.SecurityUtils;
+import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
 
 /**
  * Service class for managing users.
@@ -37,15 +36,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
@@ -61,10 +57,6 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
-        user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(Instant.now());
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream()

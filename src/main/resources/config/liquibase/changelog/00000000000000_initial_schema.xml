@@ -20,7 +20,6 @@
             <column name="login" type="varchar(50)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
             </column>
-            <column name="password_hash" type="varchar(60)"/>
             <column name="name" type="varchar(255)"/>
             <column name="email" type="varchar(254)">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
@@ -30,15 +29,10 @@
                 <constraints nullable="false" />
             </column>
             <column name="lang_key" type="varchar(6)"/>
-            <column name="activation_key" type="varchar(20)"/>
-            <column name="reset_key" type="varchar(20)"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp"/>
-            <column name="reset_date" type="timestamp">
-                <constraints nullable="true"/>
-            </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
 
@@ -74,9 +68,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="app_user"/>
 
-        <addNotNullConstraint   columnName="password_hash"
-                                columnDataType="varchar(60)"
-                                tableName="app_user"/>
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"

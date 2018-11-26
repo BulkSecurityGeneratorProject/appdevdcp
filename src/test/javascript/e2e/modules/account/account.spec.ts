@@ -3,7 +3,6 @@ import { browser, element, by } from 'protractor';
 
 import SignInPage from '../../page-objects/signin-page';
 import NavBarPage from '../../page-objects/navbar-page';
-import PasswordPage from '../../page-objects/password-page';
 import SettingsPage from '../../page-objects/settings-page';
 import {
   getToastByInnerText,
@@ -18,10 +17,8 @@ const expect = chai.expect;
 describe('Account', () => {
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
-  let passwordPage: PasswordPage;
   let settingsPage: SettingsPage;
 
-  const passwordPageTitle = 'password-title';
   const settingsPageTitle = 'settings-title';
   const loginPageTitle = 'login-title';
 
@@ -119,52 +116,6 @@ describe('Account', () => {
     await signInPage.waitUntilHidden();
 
     expect(await signInPage.isHidden()()).to.be.true;
-  });
-
-  it('should fail to update password when using incorrect current password', async () => {
-    passwordPage = await navBarPage.getPasswordPage();
-    await passwordPage.waitUntilDisplayed();
-    expect(await passwordPage.getTitle()).to.eq(passwordPageTitle);
-
-    await passwordPage.autoChangePassword('bad_password', 'new_password', 'new_password');
-    const toast = getToastByInnerText('An error has occurred! The password could not be changed.');
-    await waitUntilDisplayed(toast);
-
-    // Error toast should appear
-    expect(await toast.isPresent()).to.be.true;
-  });
-
-  it('should be able to update password', async () => {
-    await browser.refresh();
-    await passwordPage.waitUntilDisplayed();
-    expect(await passwordPage.getTitle()).to.eq(passwordPageTitle);
-
-    await passwordPage.autoChangePassword('admin', 'new_password', 'new_password');
-    const toast = getToastByInnerText('Password changed!');
-    await waitUntilDisplayed(toast);
-
-    // Success toast should appear
-    expect(await toast.isPresent()).to.be.true;
-    await navBarPage.autoSignOut();
-  });
-
-  it('should be able to log in with new password', async () => {
-    await signInPage.get();
-    expect(await signInPage.getTitle()).to.eq(loginPageTitle);
-
-    await signInPage.username.sendKeys('admin');
-    await signInPage.password.sendKeys('new_password');
-    await signInPage.loginButton.click();
-    await signInPage.waitUntilHidden();
-    expect(await signInPage.isHidden()()).to.be.true;
-
-    // change back to default
-    await passwordPage.get();
-    expect(await passwordPage.getTitle()).to.eq(passwordPageTitle);
-
-    await passwordPage.autoChangePassword('new_password', 'admin', 'admin');
-
-    await navBarPage.autoSignOut();
   });
 
   it('should login with user_test account', async () => {

@@ -88,7 +88,7 @@ public class MailService {
     @Async
     public void sendCreationEmail(User user) {
         log.debug("Sending creation email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title");
+        sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title"); //TODO alterar o template de conta criada (lembrando de remover o link de ativação) ou removê-lo
     }
 
 }

@@ -45,12 +45,6 @@
     "form": {
       "username": "Usuário",
       "username.placeholder": "Seu usuário",
-      "currentpassword": "Current password",
-      "currentpassword.placeholder": "Current password",
-      "newpassword": "Nova senha",
-      "newpassword.placeholder": "Nova senha",
-      "confirmpassword": "Confirmação de nova senha",
-      "confirmpassword.placeholder": "Confirme a nova senha",
       "email": "Email",
       "email.placeholder": "Seu email"
     },
@@ -70,17 +64,6 @@
         "dontmatch": "A senha e sua confirmação devem ser iguais!"
       },
       "validate": {
-        "newpassword": {
-          "required": "A senha é obrigatória.",
-          "minlength": "A senha deve ter pelo menos 5 caracteres",
-          "maxlength": "A senha não pode ter mais de 50 caracteres",
-          "strength": "Nível de dificuldade da senha:"
-        },
-        "confirmpassword": {
-          "required": "A confirmação da senha é obrigatória.",
-          "minlength": "A confirmação da senha deve ter pelo menos 5 caracteres",
-          "maxlength": "A confirmação da senha não pode ter mais de 50 caracteres"
-        },
         "email": {
           "required": "O email é obrigatório.",
           "invalid": "Email inválido.",

@@ -2,7 +2,6 @@ import { $, ElementFinder } from 'protractor';
 
 import BasePage from './base-component';
 import SignInPage from './signin-page';
-import PasswordPage from './password-page';
 import SettingsPage from './settings-page';
 
 const selector: ElementFinder = $('#app-header');
@@ -17,11 +16,6 @@ export default class NavBarPage extends BasePage {
     super(selector);
     this.selector = selector;
     this.signInPage = new SignInPage();
-  }
-
-  async getPasswordPage() {
-    await this.clickOnAccountMenuItem('password');
-    return new PasswordPage();
   }
 
   async getSettingsPage() {
