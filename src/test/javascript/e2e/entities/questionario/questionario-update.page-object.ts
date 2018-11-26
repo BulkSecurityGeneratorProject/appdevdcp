@@ -7,7 +7,6 @@ export default class QuestionarioUpdatePage {
   nomeInput: ElementFinder = element(by.css('input#questionario-nome'));
   descricaoInput: ElementFinder = element(by.css('input#questionario-descricao'));
   ativoInput: ElementFinder = element(by.css('input#questionario-ativo'));
-  criadoEmInput: ElementFinder = element(by.css('input#questionario-criadoEm'));
   grupoSelect: ElementFinder = element(by.css('select#questionario-grupo'));
 
   getPageTitle() {
@@ -33,14 +32,6 @@ export default class QuestionarioUpdatePage {
   getAtivoInput() {
     return this.ativoInput;
   }
-  async setCriadoEmInput(criadoEm) {
-    await this.criadoEmInput.sendKeys(criadoEm);
-  }
-
-  async getCriadoEmInput() {
-    return this.criadoEmInput.getAttribute('value');
-  }
-
   async grupoSelectLastOption() {
     await this.grupoSelect
       .all(by.tagName('option'))

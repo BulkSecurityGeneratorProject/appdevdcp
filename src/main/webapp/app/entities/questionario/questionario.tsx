@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -48,9 +48,6 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   <Translate contentKey="dcpdesconformidadesApp.questionario.ativo">Ativo</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.questionario.criadoEm">Criado Em</Translate>
-                </th>
-                <th>
                   <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
                 </th>
                 <th />
@@ -67,9 +64,6 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   <td>{questionario.nome}</td>
                   <td>{questionario.descricao}</td>
                   <td>{questionario.ativo ? 'true' : 'false'}</td>
-                  <td>
-                    <TextFormat type="date" value={questionario.criadoEm} format={APP_DATE_FORMAT} />
-                  </td>
                   <td>
                     {questionario.grupos
                       ? questionario.grupos.map((val, j) => (

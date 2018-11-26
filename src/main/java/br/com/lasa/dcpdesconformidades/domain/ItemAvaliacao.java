@@ -19,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "item_avaliacao")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ItemAvaliacao implements Serializable {
+public class ItemAvaliacao extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,10 +34,6 @@ public class ItemAvaliacao implements Serializable {
     @NotNull
     @Column(name = "anexo_obrigatorio", nullable = false)
     private Boolean anexoObrigatorio;
-
-    @NotNull
-    @Column(name = "criado_em", nullable = false)
-    private Instant criadoEm;
 
     @NotNull
     @Column(name = "pontos_procedimento", nullable = false)
@@ -96,19 +92,6 @@ public class ItemAvaliacao implements Serializable {
 
     public void setAnexoObrigatorio(Boolean anexoObrigatorio) {
         this.anexoObrigatorio = anexoObrigatorio;
-    }
-
-    public Instant getCriadoEm() {
-        return criadoEm;
-    }
-
-    public ItemAvaliacao criadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
-        return this;
-    }
-
-    public void setCriadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
     }
 
     public Integer getPontosProcedimento() {
@@ -240,7 +223,6 @@ public class ItemAvaliacao implements Serializable {
             "id=" + getId() +
             ", descricao='" + getDescricao() + "'" +
             ", anexoObrigatorio='" + isAnexoObrigatorio() + "'" +
-            ", criadoEm='" + getCriadoEm() + "'" +
             ", pontosProcedimento=" + getPontosProcedimento() +
             ", pontosPessoa=" + getPontosPessoa() +
             ", pontosProcesso=" + getPontosProcesso() +

@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import { IAvaliacao } from 'app/shared/model//avaliacao.model';
 import { IGrupoItens } from 'app/shared/model//grupo-itens.model';
 
@@ -7,7 +6,6 @@ export interface IQuestionario {
   nome?: string;
   descricao?: string;
   ativo?: boolean;
-  criadoEm?: Moment;
   avaliacoesRealizadas?: IAvaliacao[];
   grupos?: IGrupoItens[];
 }

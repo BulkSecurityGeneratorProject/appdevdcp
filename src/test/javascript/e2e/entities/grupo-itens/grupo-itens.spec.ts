@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -50,8 +50,6 @@ describe('GrupoItens e2e test', () => {
 
     await grupoItensUpdatePage.setNomeInput('nome');
     expect(await grupoItensUpdatePage.getNomeInput()).to.match(/nome/);
-    await grupoItensUpdatePage.setCriadoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await grupoItensUpdatePage.getCriadoEmInput()).to.contain('2001-01-01T02:30');
     // grupoItensUpdatePage.itensSelectLastOption();
     await waitUntilDisplayed(grupoItensUpdatePage.getSaveButton());
     await grupoItensUpdatePage.save();

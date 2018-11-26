@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -45,9 +45,6 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.anexoObrigatorio">Anexo Obrigatorio</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.criadoEm">Criado Em</Translate>
-                </th>
-                <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>
                 </th>
                 <th>
@@ -72,9 +69,6 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                   </td>
                   <td>{itemAvaliacao.descricao}</td>
                   <td>{itemAvaliacao.anexoObrigatorio ? 'true' : 'false'}</td>
-                  <td>
-                    <TextFormat type="date" value={itemAvaliacao.criadoEm} format={APP_DATE_FORMAT} />
-                  </td>
                   <td>{itemAvaliacao.pontosProcedimento}</td>
                   <td>{itemAvaliacao.pontosPessoa}</td>
                   <td>{itemAvaliacao.pontosProcesso}</td>

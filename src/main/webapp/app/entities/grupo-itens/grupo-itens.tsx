@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -42,9 +42,6 @@ export class GrupoItens extends React.Component<IGrupoItensProps> {
                   <Translate contentKey="dcpdesconformidadesApp.grupoItens.nome">Nome</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.grupoItens.criadoEm">Criado Em</Translate>
-                </th>
-                <th>
                   <Translate contentKey="dcpdesconformidadesApp.grupoItens.itens">Itens</Translate>
                 </th>
                 <th />
@@ -59,9 +56,6 @@ export class GrupoItens extends React.Component<IGrupoItensProps> {
                     </Button>
                   </td>
                   <td>{grupoItens.nome}</td>
-                  <td>
-                    <TextFormat type="date" value={grupoItens.criadoEm} format={APP_DATE_FORMAT} />
-                  </td>
                   <td>
                     {grupoItens.itens
                       ? grupoItens.itens.map((val, j) => (

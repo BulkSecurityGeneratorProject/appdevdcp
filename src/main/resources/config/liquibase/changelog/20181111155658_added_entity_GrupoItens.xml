@@ -25,14 +25,16 @@
             <column name="nome" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-
-            <column name="criado_em" type="datetime">
-                <constraints nullable="false" />
+            
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="grupo_itens" columnName="criado_em" columnDataType="datetime"/>
         
         <createTable tableName="grupo_itens_itens">
             <column name="itens_id" type="bigint">
@@ -44,6 +46,18 @@
         </createTable>
 
         <addPrimaryKey columnNames="grupo_itens_id, itens_id" tableName="grupo_itens_itens"/>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/grupos_item.csv"
+                  separator=";"
+                  tableName="grupo_itens">
+            <column name="created_date" type="timestamp"/>
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/grupo_itens_itens.csv"
+                  separator=";"
+                  tableName="grupo_itens_itens"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

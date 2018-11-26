@@ -24,8 +24,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -49,9 +47,6 @@ public class ItemAvaliacaoResourceIntTest {
 
     private static final Boolean DEFAULT_ANEXO_OBRIGATORIO = false;
     private static final Boolean UPDATED_ANEXO_OBRIGATORIO = true;
-
-    private static final Instant DEFAULT_CRIADO_EM = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CRIADO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Integer DEFAULT_PONTOS_PROCEDIMENTO = 1;
     private static final Integer UPDATED_PONTOS_PROCEDIMENTO = 2;
@@ -111,7 +106,6 @@ public class ItemAvaliacaoResourceIntTest {
         ItemAvaliacao itemAvaliacao = new ItemAvaliacao()
             .descricao(DEFAULT_DESCRICAO)
             .anexoObrigatorio(DEFAULT_ANEXO_OBRIGATORIO)
-            .criadoEm(DEFAULT_CRIADO_EM)
             .pontosProcedimento(DEFAULT_PONTOS_PROCEDIMENTO)
             .pontosPessoa(DEFAULT_PONTOS_PESSOA)
             .pontosProcesso(DEFAULT_PONTOS_PROCESSO)
@@ -142,7 +136,6 @@ public class ItemAvaliacaoResourceIntTest {
         ItemAvaliacao testItemAvaliacao = itemAvaliacaoList.get(itemAvaliacaoList.size() - 1);
         assertThat(testItemAvaliacao.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
         assertThat(testItemAvaliacao.isAnexoObrigatorio()).isEqualTo(DEFAULT_ANEXO_OBRIGATORIO);
-        assertThat(testItemAvaliacao.getCriadoEm()).isEqualTo(DEFAULT_CRIADO_EM);
         assertThat(testItemAvaliacao.getPontosProcedimento()).isEqualTo(DEFAULT_PONTOS_PROCEDIMENTO);
         assertThat(testItemAvaliacao.getPontosPessoa()).isEqualTo(DEFAULT_PONTOS_PESSOA);
         assertThat(testItemAvaliacao.getPontosProcesso()).isEqualTo(DEFAULT_PONTOS_PROCESSO);
@@ -194,25 +187,6 @@ public class ItemAvaliacaoResourceIntTest {
         int databaseSizeBeforeTest = itemAvaliacaoRepository.findAll().size();
         // set the field null
         itemAvaliacao.setAnexoObrigatorio(null);
-
-        // Create the ItemAvaliacao, which fails.
-        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
-
-        restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<ItemAvaliacao> itemAvaliacaoList = itemAvaliacaoRepository.findAll();
-        assertThat(itemAvaliacaoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCriadoEmIsRequired() throws Exception {
-        int databaseSizeBeforeTest = itemAvaliacaoRepository.findAll().size();
-        // set the field null
-        itemAvaliacao.setCriadoEm(null);
 
         // Create the ItemAvaliacao, which fails.
         ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
@@ -315,7 +289,6 @@ public class ItemAvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(itemAvaliacao.getId().intValue())))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO.toString())))
             .andExpect(jsonPath("$.[*].anexoObrigatorio").value(hasItem(DEFAULT_ANEXO_OBRIGATORIO.booleanValue())))
-            .andExpect(jsonPath("$.[*].criadoEm").value(hasItem(DEFAULT_CRIADO_EM.toString())))
             .andExpect(jsonPath("$.[*].pontosProcedimento").value(hasItem(DEFAULT_PONTOS_PROCEDIMENTO)))
             .andExpect(jsonPath("$.[*].pontosPessoa").value(hasItem(DEFAULT_PONTOS_PESSOA)))
             .andExpect(jsonPath("$.[*].pontosProcesso").value(hasItem(DEFAULT_PONTOS_PROCESSO)))
@@ -335,7 +308,6 @@ public class ItemAvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.id").value(itemAvaliacao.getId().intValue()))
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO.toString()))
             .andExpect(jsonPath("$.anexoObrigatorio").value(DEFAULT_ANEXO_OBRIGATORIO.booleanValue()))
-            .andExpect(jsonPath("$.criadoEm").value(DEFAULT_CRIADO_EM.toString()))
             .andExpect(jsonPath("$.pontosProcedimento").value(DEFAULT_PONTOS_PROCEDIMENTO))
             .andExpect(jsonPath("$.pontosPessoa").value(DEFAULT_PONTOS_PESSOA))
             .andExpect(jsonPath("$.pontosProcesso").value(DEFAULT_PONTOS_PROCESSO))
@@ -365,7 +337,6 @@ public class ItemAvaliacaoResourceIntTest {
         updatedItemAvaliacao
             .descricao(UPDATED_DESCRICAO)
             .anexoObrigatorio(UPDATED_ANEXO_OBRIGATORIO)
-            .criadoEm(UPDATED_CRIADO_EM)
             .pontosProcedimento(UPDATED_PONTOS_PROCEDIMENTO)
             .pontosPessoa(UPDATED_PONTOS_PESSOA)
             .pontosProcesso(UPDATED_PONTOS_PROCESSO)
@@ -383,7 +354,6 @@ public class ItemAvaliacaoResourceIntTest {
         ItemAvaliacao testItemAvaliacao = itemAvaliacaoList.get(itemAvaliacaoList.size() - 1);
         assertThat(testItemAvaliacao.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testItemAvaliacao.isAnexoObrigatorio()).isEqualTo(UPDATED_ANEXO_OBRIGATORIO);
-        assertThat(testItemAvaliacao.getCriadoEm()).isEqualTo(UPDATED_CRIADO_EM);
         assertThat(testItemAvaliacao.getPontosProcedimento()).isEqualTo(UPDATED_PONTOS_PROCEDIMENTO);
         assertThat(testItemAvaliacao.getPontosPessoa()).isEqualTo(UPDATED_PONTOS_PESSOA);
         assertThat(testItemAvaliacao.getPontosProcesso()).isEqualTo(UPDATED_PONTOS_PROCESSO);

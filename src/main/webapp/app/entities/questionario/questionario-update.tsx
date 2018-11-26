@@ -49,8 +49,6 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
   }
 
   saveEntity = (event, errors, values) => {
-    values.criadoEm = new Date(values.criadoEm);
-
     if (errors.length === 0) {
       const { questionarioEntity } = this.props;
       const entity = {
@@ -122,21 +120,6 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                     <AvInput id="questionario-ativo" type="checkbox" className="form-control" name="ativo" />
                     <Translate contentKey="dcpdesconformidadesApp.questionario.ativo">Ativo</Translate>
                   </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="criadoEmLabel" for="criadoEm">
-                    <Translate contentKey="dcpdesconformidadesApp.questionario.criadoEm">Criado Em</Translate>
-                  </Label>
-                  <AvInput
-                    id="questionario-criadoEm"
-                    type="datetime-local"
-                    className="form-control"
-                    name="criadoEm"
-                    value={isNew ? null : convertDateTimeFromServer(this.props.questionarioEntity.criadoEm)}
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
                 </AvGroup>
                 <AvGroup>
                   <Label for="grupoItens">

@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -60,8 +60,6 @@ describe('Questionario e2e test', () => {
       await questionarioUpdatePage.getAtivoInput().click();
       expect(await questionarioUpdatePage.getAtivoInput().isSelected()).to.be.true;
     }
-    await questionarioUpdatePage.setCriadoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await questionarioUpdatePage.getCriadoEmInput()).to.contain('2001-01-01T02:30');
     // questionarioUpdatePage.grupoSelectLastOption();
     await waitUntilDisplayed(questionarioUpdatePage.getSaveButton());
     await questionarioUpdatePage.save();

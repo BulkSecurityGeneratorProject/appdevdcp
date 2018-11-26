@@ -1,17 +1,25 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A GrupoItens.
@@ -19,7 +27,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "grupo_itens")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class GrupoItens implements Serializable {
+public class GrupoItens extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,10 +38,6 @@ public class GrupoItens implements Serializable {
     @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
-
-    @NotNull
-    @Column(name = "criado_em", nullable = false)
-    private Instant criadoEm;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -67,19 +71,6 @@ public class GrupoItens implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Instant getCriadoEm() {
-        return criadoEm;
-    }
-
-    public GrupoItens criadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
-        return this;
-    }
-
-    public void setCriadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
     }
 
     public Set<ItemAvaliacao> getItens() {
@@ -158,7 +149,6 @@ public class GrupoItens implements Serializable {
         return "GrupoItens{" +
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
-            ", criadoEm='" + getCriadoEm() + "'" +
             "}";
     }
 }

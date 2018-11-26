@@ -84,7 +84,6 @@ entity Questionario {
 	nome String required
     descricao String
     ativo Boolean required
-    criadoEm Instant required
 }
 
 entity Loja {
@@ -120,7 +119,6 @@ entity Avaliacao {
 entity ItemAvaliacao {
 	descricao String required
     anexoObrigatorio Boolean required
-    criadoEm Instant required
     pontosProcedimento Integer required
     pontosPessoa Integer required
     pontosProcesso Integer required
@@ -159,7 +157,6 @@ entity ItemAvaliadoPerdaQuebraAcumulados {
 
 entity GrupoItens {
 	nome String required
-    criadoEm Instant required
 }
 
 enum TipoAnexoItem {

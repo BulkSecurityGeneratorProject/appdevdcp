@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -41,14 +41,6 @@ export class ItemAvaliacaoDetail extends React.Component<IItemAvaliacaoDetailPro
               </span>
             </dt>
             <dd>{itemAvaliacaoEntity.anexoObrigatorio ? 'true' : 'false'}</dd>
-            <dt>
-              <span id="criadoEm">
-                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.criadoEm">Criado Em</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={itemAvaliacaoEntity.criadoEm} type="date" format={APP_DATE_FORMAT} />
-            </dd>
             <dt>
               <span id="pontosProcedimento">
                 <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>

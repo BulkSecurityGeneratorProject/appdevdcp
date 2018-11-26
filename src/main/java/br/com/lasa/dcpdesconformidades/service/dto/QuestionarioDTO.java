@@ -1,11 +1,12 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the Questionario entity.
@@ -21,9 +22,14 @@ public class QuestionarioDTO implements Serializable {
 
     @NotNull
     private Boolean ativo;
+    
+    private String createdBy;
 
-    @NotNull
-    private Instant criadoEm;
+    private Instant createdDate;
+
+    private String lastModifiedBy;
+
+    private Instant lastModifiedDate;
 
     private Set<GrupoItensDTO> grupos = new HashSet<>();
 
@@ -59,14 +65,6 @@ public class QuestionarioDTO implements Serializable {
         this.ativo = ativo;
     }
 
-    public Instant getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
     public Set<GrupoItensDTO> getGrupos() {
         return grupos;
     }
@@ -98,12 +96,8 @@ public class QuestionarioDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "QuestionarioDTO{" +
-            "id=" + getId() +
-            ", nome='" + getNome() + "'" +
-            ", descricao='" + getDescricao() + "'" +
-            ", ativo='" + isAtivo() + "'" +
-            ", criadoEm='" + getCriadoEm() + "'" +
-            "}";
+      return "QuestionarioDTO [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", ativo=" + ativo + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy="
+          + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + ", grupos=" + grupos + "]";
     }
+
 }

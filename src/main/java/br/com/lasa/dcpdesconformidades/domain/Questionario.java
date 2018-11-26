@@ -1,17 +1,24 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Questionario.
@@ -19,7 +26,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "questionario")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Questionario implements Serializable {
+public class Questionario extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,10 +44,6 @@ public class Questionario implements Serializable {
     @NotNull
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
-
-    @NotNull
-    @Column(name = "criado_em", nullable = false)
-    private Instant criadoEm;
 
     @OneToMany(mappedBy = "questionario")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -98,19 +101,6 @@ public class Questionario implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    public Instant getCriadoEm() {
-        return criadoEm;
-    }
-
-    public Questionario criadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
-        return this;
-    }
-
-    public void setCriadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
     }
 
     public Set<Avaliacao> getAvaliacoesRealizadas() {
@@ -191,7 +181,6 @@ public class Questionario implements Serializable {
             ", nome='" + getNome() + "'" +
             ", descricao='" + getDescricao() + "'" +
             ", ativo='" + isAtivo() + "'" +
-            ", criadoEm='" + getCriadoEm() + "'" +
             "}";
     }
 }

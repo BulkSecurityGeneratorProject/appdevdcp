@@ -30,10 +30,6 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="criado_em" type="datetime">
-                <constraints nullable="false" />
-            </column>
-
             <column name="pontos_procedimento" type="integer">
                 <constraints nullable="false" />
             </column>
@@ -49,10 +45,24 @@
             <column name="pontos_produto" type="integer">
                 <constraints nullable="false" />
             </column>
+            
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="item_avaliacao" columnName="criado_em" columnDataType="datetime"/>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/itens_avaliacao.csv"
+                  separator=";"
+                  tableName="item_avaliacao">
+            <column name="anexo_obrigatorio" type="boolean"/>
+            <column name="created_date" type="timestamp"/>
+        </loadData>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

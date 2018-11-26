@@ -54,8 +54,6 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
   }
 
   saveEntity = (event, errors, values) => {
-    values.criadoEm = new Date(values.criadoEm);
-
     if (errors.length === 0) {
       const { grupoItensEntity } = this.props;
       const entity = {
@@ -111,21 +109,6 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                     id="grupo-itens-nome"
                     type="text"
                     name="nome"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="criadoEmLabel" for="criadoEm">
-                    <Translate contentKey="dcpdesconformidadesApp.grupoItens.criadoEm">Criado Em</Translate>
-                  </Label>
-                  <AvInput
-                    id="grupo-itens-criadoEm"
-                    type="datetime-local"
-                    className="form-control"
-                    name="criadoEm"
-                    value={isNew ? null : convertDateTimeFromServer(this.props.grupoItensEntity.criadoEm)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}

@@ -1,9 +1,10 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the ItemAvaliacao entity.
@@ -19,9 +20,6 @@ public class ItemAvaliacaoDTO implements Serializable {
     private Boolean anexoObrigatorio;
 
     @NotNull
-    private Instant criadoEm;
-
-    @NotNull
     private Integer pontosProcedimento;
 
     @NotNull
@@ -32,6 +30,14 @@ public class ItemAvaliacaoDTO implements Serializable {
 
     @NotNull
     private Integer pontosProduto;
+    
+    private String createdBy;
+
+    private Instant createdDate;
+
+    private String lastModifiedBy;
+
+    private Instant lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -55,14 +61,6 @@ public class ItemAvaliacaoDTO implements Serializable {
 
     public void setAnexoObrigatorio(Boolean anexoObrigatorio) {
         this.anexoObrigatorio = anexoObrigatorio;
-    }
-
-    public Instant getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(Instant criadoEm) {
-        this.criadoEm = criadoEm;
     }
 
     public Integer getPontosProcedimento() {
@@ -96,6 +94,38 @@ public class ItemAvaliacaoDTO implements Serializable {
     public void setPontosProduto(Integer pontosProduto) {
         this.pontosProduto = pontosProduto;
     }
+    
+    public String getCreatedBy() {
+      return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+      this.createdBy = createdBy;
+    }
+
+    public Instant getCreatedDate() {
+      return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+      this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+      return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+      this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Instant getLastModifiedDate() {
+      return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+      this.lastModifiedDate = lastModifiedDate;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -120,15 +150,9 @@ public class ItemAvaliacaoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ItemAvaliacaoDTO{" +
-            "id=" + getId() +
-            ", descricao='" + getDescricao() + "'" +
-            ", anexoObrigatorio='" + isAnexoObrigatorio() + "'" +
-            ", criadoEm='" + getCriadoEm() + "'" +
-            ", pontosProcedimento=" + getPontosProcedimento() +
-            ", pontosPessoa=" + getPontosPessoa() +
-            ", pontosProcesso=" + getPontosProcesso() +
-            ", pontosProduto=" + getPontosProduto() +
-            "}";
+      return "ItemAvaliacaoDTO [id=" + id + ", descricao=" + descricao + ", anexoObrigatorio=" + anexoObrigatorio + ", pontosProcedimento=" + pontosProcedimento + ", pontosPessoa=" + pontosPessoa
+          + ", pontosProcesso=" + pontosProcesso + ", pontosProduto=" + pontosProduto + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy
+          + ", lastModifiedDate=" + lastModifiedDate + "]";
     }
+
 }

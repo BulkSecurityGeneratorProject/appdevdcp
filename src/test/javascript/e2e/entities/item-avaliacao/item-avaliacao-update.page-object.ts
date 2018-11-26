@@ -6,7 +6,6 @@ export default class ItemAvaliacaoUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   descricaoInput: ElementFinder = element(by.css('input#item-avaliacao-descricao'));
   anexoObrigatorioInput: ElementFinder = element(by.css('input#item-avaliacao-anexoObrigatorio'));
-  criadoEmInput: ElementFinder = element(by.css('input#item-avaliacao-criadoEm'));
   pontosProcedimentoInput: ElementFinder = element(by.css('input#item-avaliacao-pontosProcedimento'));
   pontosPessoaInput: ElementFinder = element(by.css('input#item-avaliacao-pontosPessoa'));
   pontosProcessoInput: ElementFinder = element(by.css('input#item-avaliacao-pontosProcesso'));
@@ -27,14 +26,6 @@ export default class ItemAvaliacaoUpdatePage {
   getAnexoObrigatorioInput() {
     return this.anexoObrigatorioInput;
   }
-  async setCriadoEmInput(criadoEm) {
-    await this.criadoEmInput.sendKeys(criadoEm);
-  }
-
-  async getCriadoEmInput() {
-    return this.criadoEmInput.getAttribute('value');
-  }
-
   async setPontosProcedimentoInput(pontosProcedimento) {
     await this.pontosProcedimentoInput.sendKeys(pontosProcedimento);
   }

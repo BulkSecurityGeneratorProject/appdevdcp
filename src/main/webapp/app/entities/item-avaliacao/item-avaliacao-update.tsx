@@ -49,8 +49,6 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
   }
 
   saveEntity = (event, errors, values) => {
-    values.criadoEm = new Date(values.criadoEm);
-
     if (errors.length === 0) {
       const { itemAvaliacaoEntity } = this.props;
       const entity = {
@@ -115,21 +113,6 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
                     <AvInput id="item-avaliacao-anexoObrigatorio" type="checkbox" className="form-control" name="anexoObrigatorio" />
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.anexoObrigatorio">Anexo Obrigatorio</Translate>
                   </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="criadoEmLabel" for="criadoEm">
-                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.criadoEm">Criado Em</Translate>
-                  </Label>
-                  <AvInput
-                    id="item-avaliacao-criadoEm"
-                    type="datetime-local"
-                    className="form-control"
-                    name="criadoEm"
-                    value={isNew ? null : convertDateTimeFromServer(this.props.itemAvaliacaoEntity.criadoEm)}
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="pontosProcedimentoLabel" for="pontosProcedimento">

@@ -45,6 +45,13 @@
             <column name="longitude" type="double">
                 <constraints nullable="false" />
             </column>
+            
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
@@ -59,6 +66,18 @@
         </createTable>
 
         <addPrimaryKey columnNames="lojas_id, users_id" tableName="loja_user"/>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/loja.csv"
+                  separator=";"
+                  tableName="loja">
+            <column name="created_date" type="timestamp"/>
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/loja_user.csv"
+                  separator=";"
+                  tableName="loja_user"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

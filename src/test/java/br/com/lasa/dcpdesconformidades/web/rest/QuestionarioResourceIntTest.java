@@ -27,8 +27,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +55,6 @@ public class QuestionarioResourceIntTest {
 
     private static final Boolean DEFAULT_ATIVO = false;
     private static final Boolean UPDATED_ATIVO = true;
-
-    private static final Instant DEFAULT_CRIADO_EM = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CRIADO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private QuestionarioRepository questionarioRepository;
@@ -113,8 +108,7 @@ public class QuestionarioResourceIntTest {
         Questionario questionario = new Questionario()
             .nome(DEFAULT_NOME)
             .descricao(DEFAULT_DESCRICAO)
-            .ativo(DEFAULT_ATIVO)
-            .criadoEm(DEFAULT_CRIADO_EM);
+            .ativo(DEFAULT_ATIVO);
         return questionario;
     }
 
@@ -142,7 +136,6 @@ public class QuestionarioResourceIntTest {
         assertThat(testQuestionario.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testQuestionario.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
         assertThat(testQuestionario.isAtivo()).isEqualTo(DEFAULT_ATIVO);
-        assertThat(testQuestionario.getCriadoEm()).isEqualTo(DEFAULT_CRIADO_EM);
     }
 
     @Test
@@ -205,25 +198,6 @@ public class QuestionarioResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCriadoEmIsRequired() throws Exception {
-        int databaseSizeBeforeTest = questionarioRepository.findAll().size();
-        // set the field null
-        questionario.setCriadoEm(null);
-
-        // Create the Questionario, which fails.
-        QuestionarioDTO questionarioDTO = questionarioMapper.toDto(questionario);
-
-        restQuestionarioMockMvc.perform(post("/api/questionarios")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(questionarioDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Questionario> questionarioList = questionarioRepository.findAll();
-        assertThat(questionarioList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllQuestionarios() throws Exception {
         // Initialize the database
         questionarioRepository.saveAndFlush(questionario);
@@ -235,8 +209,7 @@ public class QuestionarioResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionario.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO.toString())))
-            .andExpect(jsonPath("$.[*].ativo").value(hasItem(DEFAULT_ATIVO.booleanValue())))
-            .andExpect(jsonPath("$.[*].criadoEm").value(hasItem(DEFAULT_CRIADO_EM.toString())));
+            .andExpect(jsonPath("$.[*].ativo").value(hasItem(DEFAULT_ATIVO.booleanValue())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -285,8 +258,7 @@ public class QuestionarioResourceIntTest {
             .andExpect(jsonPath("$.id").value(questionario.getId().intValue()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO.toString()))
-            .andExpect(jsonPath("$.ativo").value(DEFAULT_ATIVO.booleanValue()))
-            .andExpect(jsonPath("$.criadoEm").value(DEFAULT_CRIADO_EM.toString()));
+            .andExpect(jsonPath("$.ativo").value(DEFAULT_ATIVO.booleanValue()));
     }
 
     @Test
@@ -312,8 +284,7 @@ public class QuestionarioResourceIntTest {
         updatedQuestionario
             .nome(UPDATED_NOME)
             .descricao(UPDATED_DESCRICAO)
-            .ativo(UPDATED_ATIVO)
-            .criadoEm(UPDATED_CRIADO_EM);
+            .ativo(UPDATED_ATIVO);
         QuestionarioDTO questionarioDTO = questionarioMapper.toDto(updatedQuestionario);
 
         restQuestionarioMockMvc.perform(put("/api/questionarios")
@@ -328,7 +299,6 @@ public class QuestionarioResourceIntTest {
         assertThat(testQuestionario.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testQuestionario.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testQuestionario.isAtivo()).isEqualTo(UPDATED_ATIVO);
-        assertThat(testQuestionario.getCriadoEm()).isEqualTo(UPDATED_CRIADO_EM);
     }
 
     @Test

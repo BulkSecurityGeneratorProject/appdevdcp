@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -58,8 +58,6 @@ describe('ItemAvaliacao e2e test', () => {
       await itemAvaliacaoUpdatePage.getAnexoObrigatorioInput().click();
       expect(await itemAvaliacaoUpdatePage.getAnexoObrigatorioInput().isSelected()).to.be.true;
     }
-    await itemAvaliacaoUpdatePage.setCriadoEmInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await itemAvaliacaoUpdatePage.getCriadoEmInput()).to.contain('2001-01-01T02:30');
     await itemAvaliacaoUpdatePage.setPontosProcedimentoInput('5');
     expect(await itemAvaliacaoUpdatePage.getPontosProcedimentoInput()).to.eq('5');
     await itemAvaliacaoUpdatePage.setPontosPessoaInput('5');

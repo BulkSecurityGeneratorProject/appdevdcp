@@ -16,13 +16,6 @@
             ]
         },
         {
-            "fieldName": "criadoEm",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "pontosProcedimento",
             "fieldType": "Integer",
             "fieldValidateRules": [
