@@ -17,8 +17,6 @@
       },
       "codigo": "Codigo",
       "nome": "Nome",
-      "nomeResponsavel": "Nome Responsavel",
-      "prontuarioResponsavel": "Prontuario Responsavel",
       "latitude": "Latitude",
       "longitude": "Longitude",
       "user": "User"

@@ -6,8 +6,6 @@ export default class LojaUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   codigoInput: ElementFinder = element(by.css('input#loja-codigo'));
   nomeInput: ElementFinder = element(by.css('input#loja-nome'));
-  nomeResponsavelInput: ElementFinder = element(by.css('input#loja-nomeResponsavel'));
-  prontuarioResponsavelInput: ElementFinder = element(by.css('input#loja-prontuarioResponsavel'));
   latitudeInput: ElementFinder = element(by.css('input#loja-latitude'));
   longitudeInput: ElementFinder = element(by.css('input#loja-longitude'));
   userSelect: ElementFinder = element(by.css('select#loja-user'));
@@ -30,22 +28,6 @@ export default class LojaUpdatePage {
 
   async getNomeInput() {
     return this.nomeInput.getAttribute('value');
-  }
-
-  async setNomeResponsavelInput(nomeResponsavel) {
-    await this.nomeResponsavelInput.sendKeys(nomeResponsavel);
-  }
-
-  async getNomeResponsavelInput() {
-    return this.nomeResponsavelInput.getAttribute('value');
-  }
-
-  async setProntuarioResponsavelInput(prontuarioResponsavel) {
-    await this.prontuarioResponsavelInput.sendKeys(prontuarioResponsavel);
-  }
-
-  async getProntuarioResponsavelInput() {
-    return this.prontuarioResponsavelInput.getAttribute('value');
   }
 
   async setLatitudeInput(latitude) {

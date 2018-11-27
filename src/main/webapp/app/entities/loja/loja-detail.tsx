@@ -41,18 +41,6 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
             </dt>
             <dd>{lojaEntity.nome}</dd>
             <dt>
-              <span id="nomeResponsavel">
-                <Translate contentKey="dcpdesconformidadesApp.loja.nomeResponsavel">Nome Responsavel</Translate>
-              </span>
-            </dt>
-            <dd>{lojaEntity.nomeResponsavel}</dd>
-            <dt>
-              <span id="prontuarioResponsavel">
-                <Translate contentKey="dcpdesconformidadesApp.loja.prontuarioResponsavel">Prontuario Responsavel</Translate>
-              </span>
-            </dt>
-            <dd>{lojaEntity.prontuarioResponsavel}</dd>
-            <dt>
               <span id="latitude">
                 <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>
               </span>

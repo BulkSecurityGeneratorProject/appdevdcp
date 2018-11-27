@@ -4,8 +4,6 @@ export interface ILoja {
   id?: number;
   codigo?: string;
   nome?: string;
-  nomeResponsavel?: string;
-  prontuarioResponsavel?: number;
   latitude?: number;
   longitude?: number;
   avaliadores?: IUser[];

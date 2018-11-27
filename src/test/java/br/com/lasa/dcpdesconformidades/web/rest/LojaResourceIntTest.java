@@ -59,12 +59,6 @@ public class LojaResourceIntTest {
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NOME_RESPONSAVEL = "AAAAAAAAAA";
-    private static final String UPDATED_NOME_RESPONSAVEL = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_PRONTUARIO_RESPONSAVEL = 1;
-    private static final Integer UPDATED_PRONTUARIO_RESPONSAVEL = 2;
-
     private static final Double DEFAULT_LATITUDE = 1D;
     private static final Double UPDATED_LATITUDE = 2D;
 
@@ -126,8 +120,6 @@ public class LojaResourceIntTest {
         Loja loja = new Loja()
             .codigo(DEFAULT_CODIGO)
             .nome(DEFAULT_NOME)
-            .nomeResponsavel(DEFAULT_NOME_RESPONSAVEL)
-            .prontuarioResponsavel(DEFAULT_PRONTUARIO_RESPONSAVEL)
             .latitude(DEFAULT_LATITUDE)
             .longitude(DEFAULT_LONGITUDE);
         return loja;
@@ -155,8 +147,6 @@ public class LojaResourceIntTest {
         Loja testLoja = lojaList.get(lojaList.size() - 1);
         assertThat(testLoja.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testLoja.getNome()).isEqualTo(DEFAULT_NOME);
-        assertThat(testLoja.getNomeResponsavel()).isEqualTo(DEFAULT_NOME_RESPONSAVEL);
-        assertThat(testLoja.getProntuarioResponsavel()).isEqualTo(DEFAULT_PRONTUARIO_RESPONSAVEL);
         assertThat(testLoja.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
         assertThat(testLoja.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
     }
@@ -218,42 +208,6 @@ public class LojaResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNomeResponsavelIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lojaRepository.findAll().size();
-        // set the field null
-        loja.setNomeResponsavel(null);
-
-        // Create the Loja, which fails.
-
-        restLojaMockMvc.perform(post("/api/lojas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
-            .andExpect(status().isBadRequest());
-
-        List<Loja> lojaList = lojaRepository.findAll();
-        assertThat(lojaList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkProntuarioResponsavelIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lojaRepository.findAll().size();
-        // set the field null
-        loja.setProntuarioResponsavel(null);
-
-        // Create the Loja, which fails.
-
-        restLojaMockMvc.perform(post("/api/lojas")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loja)))
-            .andExpect(status().isBadRequest());
-
-        List<Loja> lojaList = lojaRepository.findAll();
-        assertThat(lojaList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkLatitudeIsRequired() throws Exception {
         int databaseSizeBeforeTest = lojaRepository.findAll().size();
         // set the field null
@@ -301,8 +255,6 @@ public class LojaResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(loja.getId().intValue())))
             .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
-            .andExpect(jsonPath("$.[*].nomeResponsavel").value(hasItem(DEFAULT_NOME_RESPONSAVEL.toString())))
-            .andExpect(jsonPath("$.[*].prontuarioResponsavel").value(hasItem(DEFAULT_PRONTUARIO_RESPONSAVEL)))
             .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())));
     }
@@ -353,8 +305,6 @@ public class LojaResourceIntTest {
             .andExpect(jsonPath("$.id").value(loja.getId().intValue()))
             .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
-            .andExpect(jsonPath("$.nomeResponsavel").value(DEFAULT_NOME_RESPONSAVEL.toString()))
-            .andExpect(jsonPath("$.prontuarioResponsavel").value(DEFAULT_PRONTUARIO_RESPONSAVEL))
             .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()));
     }
@@ -382,8 +332,6 @@ public class LojaResourceIntTest {
         updatedLoja
             .codigo(UPDATED_CODIGO)
             .nome(UPDATED_NOME)
-            .nomeResponsavel(UPDATED_NOME_RESPONSAVEL)
-            .prontuarioResponsavel(UPDATED_PRONTUARIO_RESPONSAVEL)
             .latitude(UPDATED_LATITUDE)
             .longitude(UPDATED_LONGITUDE);
 
@@ -398,8 +346,6 @@ public class LojaResourceIntTest {
         Loja testLoja = lojaList.get(lojaList.size() - 1);
         assertThat(testLoja.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testLoja.getNome()).isEqualTo(UPDATED_NOME);
-        assertThat(testLoja.getNomeResponsavel()).isEqualTo(UPDATED_NOME_RESPONSAVEL);
-        assertThat(testLoja.getProntuarioResponsavel()).isEqualTo(UPDATED_PRONTUARIO_RESPONSAVEL);
         assertThat(testLoja.getLatitude()).isEqualTo(UPDATED_LATITUDE);
         assertThat(testLoja.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }

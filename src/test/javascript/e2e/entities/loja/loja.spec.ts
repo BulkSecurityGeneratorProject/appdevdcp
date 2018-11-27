@@ -50,10 +50,6 @@ describe('Loja e2e test', () => {
     expect(await lojaUpdatePage.getCodigoInput()).to.match(/codigo/);
     await lojaUpdatePage.setNomeInput('nome');
     expect(await lojaUpdatePage.getNomeInput()).to.match(/nome/);
-    await lojaUpdatePage.setNomeResponsavelInput('nomeResponsavel');
-    expect(await lojaUpdatePage.getNomeResponsavelInput()).to.match(/nomeResponsavel/);
-    await lojaUpdatePage.setProntuarioResponsavelInput('5');
-    expect(await lojaUpdatePage.getProntuarioResponsavelInput()).to.eq('5');
     await lojaUpdatePage.setLatitudeInput('5');
     expect(await lojaUpdatePage.getLatitudeInput()).to.eq('5');
     await lojaUpdatePage.setLongitudeInput('5');

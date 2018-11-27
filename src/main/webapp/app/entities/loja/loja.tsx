@@ -73,14 +73,6 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                 <th className="hand" onClick={this.sort('nome')}>
                   <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('nomeResponsavel')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.nomeResponsavel">Nome Responsavel</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('prontuarioResponsavel')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.prontuarioResponsavel">Prontuario Responsavel</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('latitude')}>
                   <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -100,8 +92,6 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                   </td>
                   <td>{loja.codigo}</td>
                   <td>{loja.nome}</td>
-                  <td>{loja.nomeResponsavel}</td>
-                  <td>{loja.prontuarioResponsavel}</td>
                   <td>{loja.latitude}</td>
                   <td>{loja.longitude}</td>
                   <td className="text-right">

@@ -34,14 +34,6 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
     private String nome;
 
     @NotNull
-    @Column(name = "nome_responsavel", nullable = false)
-    private String nomeResponsavel;
-
-    @NotNull
-    @Column(name = "prontuario_responsavel", nullable = false)
-    private Integer prontuarioResponsavel;
-
-    @NotNull
     @Column(name = "latitude", nullable = false)
     private Double latitude;
 
@@ -89,32 +81,6 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
-    }
-
-    public Loja nomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-        return this;
-    }
-
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
-
-    public Integer getProntuarioResponsavel() {
-        return prontuarioResponsavel;
-    }
-
-    public Loja prontuarioResponsavel(Integer prontuarioResponsavel) {
-        this.prontuarioResponsavel = prontuarioResponsavel;
-        return this;
-    }
-
-    public void setProntuarioResponsavel(Integer prontuarioResponsavel) {
-        this.prontuarioResponsavel = prontuarioResponsavel;
     }
 
     public Double getLatitude() {
@@ -178,8 +144,6 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
             "id=" + getId() +
             ", codigo='" + getCodigo() + "'" +
             ", nome='" + getNome() + "'" +
-            ", nomeResponsavel='" + getNomeResponsavel() + "'" +
-            ", prontuarioResponsavel=" + getProntuarioResponsavel() +
             ", latitude=" + getLatitude() +
             ", longitude=" + getLongitude() +
             "}";

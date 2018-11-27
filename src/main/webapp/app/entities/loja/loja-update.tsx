@@ -123,34 +123,6 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="nomeResponsavelLabel" for="nomeResponsavel">
-                    <Translate contentKey="dcpdesconformidadesApp.loja.nomeResponsavel">Nome Responsavel</Translate>
-                  </Label>
-                  <AvField
-                    id="loja-nomeResponsavel"
-                    type="text"
-                    name="nomeResponsavel"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="prontuarioResponsavelLabel" for="prontuarioResponsavel">
-                    <Translate contentKey="dcpdesconformidadesApp.loja.prontuarioResponsavel">Prontuario Responsavel</Translate>
-                  </Label>
-                  <AvField
-                    id="loja-prontuarioResponsavel"
-                    type="string"
-                    className="form-control"
-                    name="prontuarioResponsavel"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="latitudeLabel" for="latitude">
                     <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>
                   </Label>

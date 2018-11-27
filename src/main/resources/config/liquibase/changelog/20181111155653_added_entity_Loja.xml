@@ -30,14 +30,6 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="nome_responsavel" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="prontuario_responsavel" type="integer">
-                <constraints nullable="false" />
-            </column>
-
             <column name="latitude" type="double">
                 <constraints nullable="false" />
             </column>
