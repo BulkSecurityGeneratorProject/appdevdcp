@@ -9,8 +9,10 @@ export default class ItemSolicitadoAjusteUpdatePage {
   codigoDepartamentoInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-codigoDepartamento'));
   codigoSapInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-codigoSap'));
   descricaoItemInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-descricaoItem'));
-  saldoSapInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoSap'));
-  saldoFisicoInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoFisico'));
+  saldoSap0001Input: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoSap0001'));
+  saldoFisico0001Input: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoFisico0001'));
+  saldoSap9000Input: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoSap9000'));
+  saldoFisico9000Input: ElementFinder = element(by.css('input#item-solicitado-ajuste-saldoFisico9000'));
   motivoDivergenciaInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-motivoDivergencia'));
   acaoCorretivaOuPreventivaInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-acaoCorretivaOuPreventiva'));
   responsavelInput: ElementFinder = element(by.css('input#item-solicitado-ajuste-responsavel'));
@@ -60,20 +62,36 @@ export default class ItemSolicitadoAjusteUpdatePage {
     return this.descricaoItemInput.getAttribute('value');
   }
 
-  async setSaldoSapInput(saldoSap) {
-    await this.saldoSapInput.sendKeys(saldoSap);
+  async setSaldoSap0001Input(saldoSap0001) {
+    await this.saldoSap0001Input.sendKeys(saldoSap0001);
   }
 
-  async getSaldoSapInput() {
-    return this.saldoSapInput.getAttribute('value');
+  async getSaldoSap0001Input() {
+    return this.saldoSap0001Input.getAttribute('value');
   }
 
-  async setSaldoFisicoInput(saldoFisico) {
-    await this.saldoFisicoInput.sendKeys(saldoFisico);
+  async setSaldoFisico0001Input(saldoFisico0001) {
+    await this.saldoFisico0001Input.sendKeys(saldoFisico0001);
   }
 
-  async getSaldoFisicoInput() {
-    return this.saldoFisicoInput.getAttribute('value');
+  async getSaldoFisico0001Input() {
+    return this.saldoFisico0001Input.getAttribute('value');
+  }
+
+  async setSaldoSap9000Input(saldoSap9000) {
+    await this.saldoSap9000Input.sendKeys(saldoSap9000);
+  }
+
+  async getSaldoSap9000Input() {
+    return this.saldoSap9000Input.getAttribute('value');
+  }
+
+  async setSaldoFisico9000Input(saldoFisico9000) {
+    await this.saldoFisico9000Input.sendKeys(saldoFisico9000);
+  }
+
+  async getSaldoFisico9000Input() {
+    return this.saldoFisico9000Input.getAttribute('value');
   }
 
   async setMotivoDivergenciaInput(motivoDivergencia) {

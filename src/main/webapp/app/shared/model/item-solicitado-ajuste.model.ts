@@ -8,8 +8,10 @@ export interface IItemSolicitadoAjuste {
   codigoDepartamento?: number;
   codigoSap?: number;
   descricaoItem?: string;
-  saldoSap?: number;
-  saldoFisico?: number;
+  saldoSap0001?: number;
+  saldoFisico0001?: number;
+  saldoSap9000?: number;
+  saldoFisico9000?: number;
   motivoDivergencia?: string;
   acaoCorretivaOuPreventiva?: string;
   responsavel?: string;

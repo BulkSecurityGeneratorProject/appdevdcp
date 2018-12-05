@@ -64,17 +64,29 @@ export class ItemSolicitadoAjusteDetail extends React.Component<IItemSolicitadoA
             </dt>
             <dd>{itemSolicitadoAjusteEntity.descricaoItem}</dd>
             <dt>
-              <span id="saldoSap">
-                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap">Saldo Sap</Translate>
+              <span id="saldoSap0001">
+                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap0001">Saldo Sap 0001</Translate>
               </span>
             </dt>
-            <dd>{itemSolicitadoAjusteEntity.saldoSap}</dd>
+            <dd>{itemSolicitadoAjusteEntity.saldoSap0001}</dd>
             <dt>
-              <span id="saldoFisico">
-                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico">Saldo Fisico</Translate>
+              <span id="saldoFisico0001">
+                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico0001">Saldo Fisico 0001</Translate>
               </span>
             </dt>
-            <dd>{itemSolicitadoAjusteEntity.saldoFisico}</dd>
+            <dd>{itemSolicitadoAjusteEntity.saldoFisico0001}</dd>
+            <dt>
+              <span id="saldoSap9000">
+                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap9000">Saldo Sap 9000</Translate>
+              </span>
+            </dt>
+            <dd>{itemSolicitadoAjusteEntity.saldoSap9000}</dd>
+            <dt>
+              <span id="saldoFisico9000">
+                <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico9000">Saldo Fisico 9000</Translate>
+              </span>
+            </dt>
+            <dd>{itemSolicitadoAjusteEntity.saldoFisico9000}</dd>
             <dt>
               <span id="motivoDivergencia">
                 <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.motivoDivergencia">Motivo Divergencia</Translate>

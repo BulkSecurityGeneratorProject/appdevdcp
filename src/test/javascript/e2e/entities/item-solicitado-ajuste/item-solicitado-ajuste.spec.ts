@@ -58,10 +58,14 @@ describe('ItemSolicitadoAjuste e2e test', () => {
         expect(await itemSolicitadoAjusteUpdatePage.getCodigoSapInput()).to.eq('5');
         await itemSolicitadoAjusteUpdatePage.setDescricaoItemInput('descricaoItem');
         expect(await itemSolicitadoAjusteUpdatePage.getDescricaoItemInput()).to.match(/descricaoItem/);
-        await itemSolicitadoAjusteUpdatePage.setSaldoSapInput('5');
-        expect(await itemSolicitadoAjusteUpdatePage.getSaldoSapInput()).to.eq('5');
-        await itemSolicitadoAjusteUpdatePage.setSaldoFisicoInput('5');
-        expect(await itemSolicitadoAjusteUpdatePage.getSaldoFisicoInput()).to.eq('5');
+        await itemSolicitadoAjusteUpdatePage.setSaldoSap0001Input('5');
+        expect(await itemSolicitadoAjusteUpdatePage.getSaldoSap0001Input()).to.eq('5');
+        await itemSolicitadoAjusteUpdatePage.setSaldoFisico0001Input('5');
+        expect(await itemSolicitadoAjusteUpdatePage.getSaldoFisico0001Input()).to.eq('5');
+        await itemSolicitadoAjusteUpdatePage.setSaldoSap9000Input('5');
+        expect(await itemSolicitadoAjusteUpdatePage.getSaldoSap9000Input()).to.eq('5');
+        await itemSolicitadoAjusteUpdatePage.setSaldoFisico9000Input('5');
+        expect(await itemSolicitadoAjusteUpdatePage.getSaldoFisico9000Input()).to.eq('5');
         await itemSolicitadoAjusteUpdatePage.setMotivoDivergenciaInput('motivoDivergencia');
         expect(await itemSolicitadoAjusteUpdatePage.getMotivoDivergenciaInput()).to.match(/motivoDivergencia/);
         await itemSolicitadoAjusteUpdatePage.setAcaoCorretivaOuPreventivaInput('acaoCorretivaOuPreventiva');

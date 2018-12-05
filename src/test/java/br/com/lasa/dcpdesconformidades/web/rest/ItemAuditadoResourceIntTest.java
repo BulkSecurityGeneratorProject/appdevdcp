@@ -61,11 +61,17 @@ public class ItemAuditadoResourceIntTest {
     private static final String DEFAULT_DESCRICAO_ITEM = "AAAAAAAAAA";
     private static final String UPDATED_DESCRICAO_ITEM = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_SALDO_SAP = 1;
-    private static final Integer UPDATED_SALDO_SAP = 2;
+    private static final Integer DEFAULT_SALDO_SAP_0001 = 1;
+    private static final Integer UPDATED_SALDO_SAP_0001 = 2;
 
-    private static final Integer DEFAULT_SALDO_FISICO = 1;
-    private static final Integer UPDATED_SALDO_FISICO = 2;
+    private static final Integer DEFAULT_SALDO_FISICO_0001 = 1;
+    private static final Integer UPDATED_SALDO_FISICO_0001 = 2;
+
+    private static final Integer DEFAULT_SALDO_SAP_9000 = 1;
+    private static final Integer UPDATED_SALDO_SAP_9000 = 2;
+
+    private static final Integer DEFAULT_SALDO_FISICO_9000 = 1;
+    private static final Integer UPDATED_SALDO_FISICO_9000 = 2;
 
     private static final String DEFAULT_MOTIVO_DIVERGENCIA = "AAAAAAAAAA";
     private static final String UPDATED_MOTIVO_DIVERGENCIA = "BBBBBBBBBB";
@@ -114,8 +120,10 @@ public class ItemAuditadoResourceIntTest {
             .codigoDepartamento(DEFAULT_CODIGO_DEPARTAMENTO)
             .codigoSap(DEFAULT_CODIGO_SAP)
             .descricaoItem(DEFAULT_DESCRICAO_ITEM)
-            .saldoSap(DEFAULT_SALDO_SAP)
-            .saldoFisico(DEFAULT_SALDO_FISICO)
+            .saldoSap0001(DEFAULT_SALDO_SAP_0001)
+            .saldoFisico0001(DEFAULT_SALDO_FISICO_0001)
+            .saldoSap9000(DEFAULT_SALDO_SAP_9000)
+            .saldoFisico9000(DEFAULT_SALDO_FISICO_9000)
             .motivoDivergencia(DEFAULT_MOTIVO_DIVERGENCIA);
         // Add required entity
         Avaliacao avaliacao = AvaliacaoResourceIntTest.createEntity(em);
@@ -151,8 +159,10 @@ public class ItemAuditadoResourceIntTest {
         assertThat(testItemAuditado.getCodigoDepartamento()).isEqualTo(DEFAULT_CODIGO_DEPARTAMENTO);
         assertThat(testItemAuditado.getCodigoSap()).isEqualTo(DEFAULT_CODIGO_SAP);
         assertThat(testItemAuditado.getDescricaoItem()).isEqualTo(DEFAULT_DESCRICAO_ITEM);
-        assertThat(testItemAuditado.getSaldoSap()).isEqualTo(DEFAULT_SALDO_SAP);
-        assertThat(testItemAuditado.getSaldoFisico()).isEqualTo(DEFAULT_SALDO_FISICO);
+        assertThat(testItemAuditado.getSaldoSap0001()).isEqualTo(DEFAULT_SALDO_SAP_0001);
+        assertThat(testItemAuditado.getSaldoFisico0001()).isEqualTo(DEFAULT_SALDO_FISICO_0001);
+        assertThat(testItemAuditado.getSaldoSap9000()).isEqualTo(DEFAULT_SALDO_SAP_9000);
+        assertThat(testItemAuditado.getSaldoFisico9000()).isEqualTo(DEFAULT_SALDO_FISICO_9000);
         assertThat(testItemAuditado.getMotivoDivergencia()).isEqualTo(DEFAULT_MOTIVO_DIVERGENCIA);
     }
 
@@ -267,10 +277,10 @@ public class ItemAuditadoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkSaldoSapIsRequired() throws Exception {
+    public void checkSaldoSap0001IsRequired() throws Exception {
         int databaseSizeBeforeTest = itemAuditadoRepository.findAll().size();
         // set the field null
-        itemAuditado.setSaldoSap(null);
+        itemAuditado.setSaldoSap0001(null);
 
         // Create the ItemAuditado, which fails.
 
@@ -285,10 +295,10 @@ public class ItemAuditadoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkSaldoFisicoIsRequired() throws Exception {
+    public void checkSaldoFisico0001IsRequired() throws Exception {
         int databaseSizeBeforeTest = itemAuditadoRepository.findAll().size();
         // set the field null
-        itemAuditado.setSaldoFisico(null);
+        itemAuditado.setSaldoFisico0001(null);
 
         // Create the ItemAuditado, which fails.
 
@@ -318,8 +328,10 @@ public class ItemAuditadoResourceIntTest {
             .andExpect(jsonPath("$.[*].codigoDepartamento").value(hasItem(DEFAULT_CODIGO_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].codigoSap").value(hasItem(DEFAULT_CODIGO_SAP)))
             .andExpect(jsonPath("$.[*].descricaoItem").value(hasItem(DEFAULT_DESCRICAO_ITEM.toString())))
-            .andExpect(jsonPath("$.[*].saldoSap").value(hasItem(DEFAULT_SALDO_SAP)))
-            .andExpect(jsonPath("$.[*].saldoFisico").value(hasItem(DEFAULT_SALDO_FISICO)))
+            .andExpect(jsonPath("$.[*].saldoSap0001").value(hasItem(DEFAULT_SALDO_SAP_0001)))
+            .andExpect(jsonPath("$.[*].saldoFisico0001").value(hasItem(DEFAULT_SALDO_FISICO_0001)))
+            .andExpect(jsonPath("$.[*].saldoSap9000").value(hasItem(DEFAULT_SALDO_SAP_9000)))
+            .andExpect(jsonPath("$.[*].saldoFisico9000").value(hasItem(DEFAULT_SALDO_FISICO_9000)))
             .andExpect(jsonPath("$.[*].motivoDivergencia").value(hasItem(DEFAULT_MOTIVO_DIVERGENCIA.toString())));
     }
     
@@ -340,8 +352,10 @@ public class ItemAuditadoResourceIntTest {
             .andExpect(jsonPath("$.codigoDepartamento").value(DEFAULT_CODIGO_DEPARTAMENTO))
             .andExpect(jsonPath("$.codigoSap").value(DEFAULT_CODIGO_SAP))
             .andExpect(jsonPath("$.descricaoItem").value(DEFAULT_DESCRICAO_ITEM.toString()))
-            .andExpect(jsonPath("$.saldoSap").value(DEFAULT_SALDO_SAP))
-            .andExpect(jsonPath("$.saldoFisico").value(DEFAULT_SALDO_FISICO))
+            .andExpect(jsonPath("$.saldoSap0001").value(DEFAULT_SALDO_SAP_0001))
+            .andExpect(jsonPath("$.saldoFisico0001").value(DEFAULT_SALDO_FISICO_0001))
+            .andExpect(jsonPath("$.saldoSap9000").value(DEFAULT_SALDO_SAP_9000))
+            .andExpect(jsonPath("$.saldoFisico9000").value(DEFAULT_SALDO_FISICO_9000))
             .andExpect(jsonPath("$.motivoDivergencia").value(DEFAULT_MOTIVO_DIVERGENCIA.toString()));
     }
 
@@ -372,8 +386,10 @@ public class ItemAuditadoResourceIntTest {
             .codigoDepartamento(UPDATED_CODIGO_DEPARTAMENTO)
             .codigoSap(UPDATED_CODIGO_SAP)
             .descricaoItem(UPDATED_DESCRICAO_ITEM)
-            .saldoSap(UPDATED_SALDO_SAP)
-            .saldoFisico(UPDATED_SALDO_FISICO)
+            .saldoSap0001(UPDATED_SALDO_SAP_0001)
+            .saldoFisico0001(UPDATED_SALDO_FISICO_0001)
+            .saldoSap9000(UPDATED_SALDO_SAP_9000)
+            .saldoFisico9000(UPDATED_SALDO_FISICO_9000)
             .motivoDivergencia(UPDATED_MOTIVO_DIVERGENCIA);
 
         restItemAuditadoMockMvc.perform(put("/api/item-auditados")
@@ -391,8 +407,10 @@ public class ItemAuditadoResourceIntTest {
         assertThat(testItemAuditado.getCodigoDepartamento()).isEqualTo(UPDATED_CODIGO_DEPARTAMENTO);
         assertThat(testItemAuditado.getCodigoSap()).isEqualTo(UPDATED_CODIGO_SAP);
         assertThat(testItemAuditado.getDescricaoItem()).isEqualTo(UPDATED_DESCRICAO_ITEM);
-        assertThat(testItemAuditado.getSaldoSap()).isEqualTo(UPDATED_SALDO_SAP);
-        assertThat(testItemAuditado.getSaldoFisico()).isEqualTo(UPDATED_SALDO_FISICO);
+        assertThat(testItemAuditado.getSaldoSap0001()).isEqualTo(UPDATED_SALDO_SAP_0001);
+        assertThat(testItemAuditado.getSaldoFisico0001()).isEqualTo(UPDATED_SALDO_FISICO_0001);
+        assertThat(testItemAuditado.getSaldoSap9000()).isEqualTo(UPDATED_SALDO_SAP_9000);
+        assertThat(testItemAuditado.getSaldoFisico9000()).isEqualTo(UPDATED_SALDO_FISICO_9000);
         assertThat(testItemAuditado.getMotivoDivergencia()).isEqualTo(UPDATED_MOTIVO_DIVERGENCIA);
     }
 

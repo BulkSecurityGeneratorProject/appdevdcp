@@ -52,12 +52,18 @@ public class ItemAuditado implements Serializable {
     private String descricaoItem;
 
     @NotNull
-    @Column(name = "saldo_sap", nullable = false)
-    private Integer saldoSap;
+    @Column(name = "saldo_sap_0001", nullable = false)
+    private Integer saldoSap0001;
 
     @NotNull
-    @Column(name = "saldo_fisico", nullable = false)
-    private Integer saldoFisico;
+    @Column(name = "saldo_fisico_0001", nullable = false)
+    private Integer saldoFisico0001;
+
+    @Column(name = "saldo_sap_9000")
+    private Integer saldoSap9000;
+
+    @Column(name = "saldo_fisico_9000")
+    private Integer saldoFisico9000;
 
     @Column(name = "motivo_divergencia")
     private String motivoDivergencia;
@@ -154,30 +160,56 @@ public class ItemAuditado implements Serializable {
         this.descricaoItem = descricaoItem;
     }
 
-    public Integer getSaldoSap() {
-        return saldoSap;
+    public Integer getSaldoSap0001() {
+        return saldoSap0001;
     }
 
-    public ItemAuditado saldoSap(Integer saldoSap) {
-        this.saldoSap = saldoSap;
+    public ItemAuditado saldoSap0001(Integer saldoSap0001) {
+        this.saldoSap0001 = saldoSap0001;
         return this;
     }
 
-    public void setSaldoSap(Integer saldoSap) {
-        this.saldoSap = saldoSap;
+    public void setSaldoSap0001(Integer saldoSap0001) {
+        this.saldoSap0001 = saldoSap0001;
     }
 
-    public Integer getSaldoFisico() {
-        return saldoFisico;
+    public Integer getSaldoFisico0001() {
+        return saldoFisico0001;
     }
 
-    public ItemAuditado saldoFisico(Integer saldoFisico) {
-        this.saldoFisico = saldoFisico;
+    public ItemAuditado saldoFisico0001(Integer saldoFisico0001) {
+        this.saldoFisico0001 = saldoFisico0001;
         return this;
     }
 
-    public void setSaldoFisico(Integer saldoFisico) {
-        this.saldoFisico = saldoFisico;
+    public void setSaldoFisico0001(Integer saldoFisico0001) {
+        this.saldoFisico0001 = saldoFisico0001;
+    }
+
+    public Integer getSaldoSap9000() {
+        return saldoSap9000;
+    }
+
+    public ItemAuditado saldoSap9000(Integer saldoSap9000) {
+        this.saldoSap9000 = saldoSap9000;
+        return this;
+    }
+
+    public void setSaldoSap9000(Integer saldoSap9000) {
+        this.saldoSap9000 = saldoSap9000;
+    }
+
+    public Integer getSaldoFisico9000() {
+        return saldoFisico9000;
+    }
+
+    public ItemAuditado saldoFisico9000(Integer saldoFisico9000) {
+        this.saldoFisico9000 = saldoFisico9000;
+        return this;
+    }
+
+    public void setSaldoFisico9000(Integer saldoFisico9000) {
+        this.saldoFisico9000 = saldoFisico9000;
     }
 
     public String getMotivoDivergencia() {
@@ -237,8 +269,10 @@ public class ItemAuditado implements Serializable {
             ", codigoDepartamento=" + getCodigoDepartamento() +
             ", codigoSap=" + getCodigoSap() +
             ", descricaoItem='" + getDescricaoItem() + "'" +
-            ", saldoSap=" + getSaldoSap() +
-            ", saldoFisico=" + getSaldoFisico() +
+            ", saldoSap0001=" + getSaldoSap0001() +
+            ", saldoFisico0001=" + getSaldoFisico0001() +
+            ", saldoSap9000=" + getSaldoSap9000() +
+            ", saldoFisico9000=" + getSaldoFisico9000() +
             ", motivoDivergencia='" + getMotivoDivergencia() + "'" +
             "}";
     }

@@ -42,18 +42,26 @@
             ]
         },
         {
-            "fieldName": "saldoSap",
+            "fieldName": "saldoSap0001",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "saldoFisico",
+            "fieldName": "saldoFisico0001",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "saldoSap9000",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "saldoFisico9000",
+            "fieldType": "Integer"
         },
         {
             "fieldName": "motivoDivergencia",

@@ -42,12 +42,20 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="saldo_sap" type="integer">
+            <column name="saldo_sap_0001" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="saldo_fisico" type="integer">
+            <column name="saldo_fisico_0001" type="integer">
                 <constraints nullable="false" />
+            </column>
+
+            <column name="saldo_sap_9000" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="saldo_fisico_9000" type="integer">
+                <constraints nullable="true" />
             </column>
 
             <column name="motivo_divergencia" type="varchar(255)">

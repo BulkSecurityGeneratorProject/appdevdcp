@@ -70,17 +70,29 @@ export class ItemAuditadoDetail extends React.Component<IItemAuditadoDetailProps
             </dt>
             <dd>{itemAuditadoEntity.descricaoItem}</dd>
             <dt>
-              <span id="saldoSap">
-                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap">Saldo Sap</Translate>
+              <span id="saldoSap0001">
+                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap0001">Saldo Sap 0001</Translate>
               </span>
             </dt>
-            <dd>{itemAuditadoEntity.saldoSap}</dd>
+            <dd>{itemAuditadoEntity.saldoSap0001}</dd>
             <dt>
-              <span id="saldoFisico">
-                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico">Saldo Fisico</Translate>
+              <span id="saldoFisico0001">
+                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico0001">Saldo Fisico 0001</Translate>
               </span>
             </dt>
-            <dd>{itemAuditadoEntity.saldoFisico}</dd>
+            <dd>{itemAuditadoEntity.saldoFisico0001}</dd>
+            <dt>
+              <span id="saldoSap9000">
+                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap9000">Saldo Sap 9000</Translate>
+              </span>
+            </dt>
+            <dd>{itemAuditadoEntity.saldoSap9000}</dd>
+            <dt>
+              <span id="saldoFisico9000">
+                <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico9000">Saldo Fisico 9000</Translate>
+              </span>
+            </dt>
+            <dd>{itemAuditadoEntity.saldoFisico9000}</dd>
             <dt>
               <span id="motivoDivergencia">
                 <Translate contentKey="dcpdesconformidadesApp.itemAuditado.motivoDivergencia">Motivo Divergencia</Translate>

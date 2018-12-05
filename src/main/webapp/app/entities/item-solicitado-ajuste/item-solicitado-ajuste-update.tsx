@@ -173,14 +173,14 @@ export class ItemSolicitadoAjusteUpdate extends React.Component<IItemSolicitadoA
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="saldoSapLabel" for="saldoSap">
-                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap">Saldo Sap</Translate>
+                  <Label id="saldoSap0001Label" for="saldoSap0001">
+                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap0001">Saldo Sap 0001</Translate>
                   </Label>
                   <AvField
-                    id="item-solicitado-ajuste-saldoSap"
+                    id="item-solicitado-ajuste-saldoSap0001"
                     type="string"
                     className="form-control"
-                    name="saldoSap"
+                    name="saldoSap0001"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }
@@ -188,19 +188,31 @@ export class ItemSolicitadoAjusteUpdate extends React.Component<IItemSolicitadoA
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="saldoFisicoLabel" for="saldoFisico">
-                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico">Saldo Fisico</Translate>
+                  <Label id="saldoFisico0001Label" for="saldoFisico0001">
+                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico0001">Saldo Fisico 0001</Translate>
                   </Label>
                   <AvField
-                    id="item-solicitado-ajuste-saldoFisico"
+                    id="item-solicitado-ajuste-saldoFisico0001"
                     type="string"
                     className="form-control"
-                    name="saldoFisico"
+                    name="saldoFisico0001"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }
                     }}
                   />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="saldoSap9000Label" for="saldoSap9000">
+                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap9000">Saldo Sap 9000</Translate>
+                  </Label>
+                  <AvField id="item-solicitado-ajuste-saldoSap9000" type="string" className="form-control" name="saldoSap9000" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="saldoFisico9000Label" for="saldoFisico9000">
+                    <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico9000">Saldo Fisico 9000</Translate>
+                  </Label>
+                  <AvField id="item-solicitado-ajuste-saldoFisico9000" type="string" className="form-control" name="saldoFisico9000" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="motivoDivergenciaLabel" for="motivoDivergencia">

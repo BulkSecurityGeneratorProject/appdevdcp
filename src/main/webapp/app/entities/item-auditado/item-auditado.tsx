@@ -57,10 +57,16 @@ export class ItemAuditado extends React.Component<IItemAuditadoProps> {
                   <Translate contentKey="dcpdesconformidadesApp.itemAuditado.descricaoItem">Descricao Item</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap">Saldo Sap</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap0001">Saldo Sap 0001</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico">Saldo Fisico</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico0001">Saldo Fisico 0001</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoSap9000">Saldo Sap 9000</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAuditado.saldoFisico9000">Saldo Fisico 9000</Translate>
                 </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAuditado.motivoDivergencia">Motivo Divergencia</Translate>
@@ -91,8 +97,10 @@ export class ItemAuditado extends React.Component<IItemAuditadoProps> {
                   <td>{itemAuditado.codigoDepartamento}</td>
                   <td>{itemAuditado.codigoSap}</td>
                   <td>{itemAuditado.descricaoItem}</td>
-                  <td>{itemAuditado.saldoSap}</td>
-                  <td>{itemAuditado.saldoFisico}</td>
+                  <td>{itemAuditado.saldoSap0001}</td>
+                  <td>{itemAuditado.saldoFisico0001}</td>
+                  <td>{itemAuditado.saldoSap9000}</td>
+                  <td>{itemAuditado.saldoFisico9000}</td>
                   <td>{itemAuditado.motivoDivergencia}</td>
                   <td>
                     {itemAuditado.avaliacao ? <Link to={`avaliacao/${itemAuditado.avaliacao.id}`}>{itemAuditado.avaliacao.id}</Link> : ''}

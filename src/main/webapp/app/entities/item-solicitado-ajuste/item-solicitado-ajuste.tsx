@@ -56,10 +56,16 @@ export class ItemSolicitadoAjuste extends React.Component<IItemSolicitadoAjusteP
                   <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.descricaoItem">Descricao Item</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap">Saldo Sap</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap0001">Saldo Sap 0001</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico">Saldo Fisico</Translate>
+                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico0001">Saldo Fisico 0001</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoSap9000">Saldo Sap 9000</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.saldoFisico9000">Saldo Fisico 9000</Translate>
                 </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.motivoDivergencia">Motivo Divergencia</Translate>
@@ -95,8 +101,10 @@ export class ItemSolicitadoAjuste extends React.Component<IItemSolicitadoAjusteP
                   <td>{itemSolicitadoAjuste.codigoDepartamento}</td>
                   <td>{itemSolicitadoAjuste.codigoSap}</td>
                   <td>{itemSolicitadoAjuste.descricaoItem}</td>
-                  <td>{itemSolicitadoAjuste.saldoSap}</td>
-                  <td>{itemSolicitadoAjuste.saldoFisico}</td>
+                  <td>{itemSolicitadoAjuste.saldoSap0001}</td>
+                  <td>{itemSolicitadoAjuste.saldoFisico0001}</td>
+                  <td>{itemSolicitadoAjuste.saldoSap9000}</td>
+                  <td>{itemSolicitadoAjuste.saldoFisico9000}</td>
                   <td>{itemSolicitadoAjuste.motivoDivergencia}</td>
                   <td>{itemSolicitadoAjuste.acaoCorretivaOuPreventiva}</td>
                   <td>{itemSolicitadoAjuste.responsavel}</td>

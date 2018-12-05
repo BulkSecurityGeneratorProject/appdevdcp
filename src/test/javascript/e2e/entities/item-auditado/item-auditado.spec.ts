@@ -59,10 +59,14 @@ describe('ItemAuditado e2e test', () => {
         expect(await itemAuditadoUpdatePage.getCodigoSapInput()).to.eq('5');
         await itemAuditadoUpdatePage.setDescricaoItemInput('descricaoItem');
         expect(await itemAuditadoUpdatePage.getDescricaoItemInput()).to.match(/descricaoItem/);
-        await itemAuditadoUpdatePage.setSaldoSapInput('5');
-        expect(await itemAuditadoUpdatePage.getSaldoSapInput()).to.eq('5');
-        await itemAuditadoUpdatePage.setSaldoFisicoInput('5');
-        expect(await itemAuditadoUpdatePage.getSaldoFisicoInput()).to.eq('5');
+        await itemAuditadoUpdatePage.setSaldoSap0001Input('5');
+        expect(await itemAuditadoUpdatePage.getSaldoSap0001Input()).to.eq('5');
+        await itemAuditadoUpdatePage.setSaldoFisico0001Input('5');
+        expect(await itemAuditadoUpdatePage.getSaldoFisico0001Input()).to.eq('5');
+        await itemAuditadoUpdatePage.setSaldoSap9000Input('5');
+        expect(await itemAuditadoUpdatePage.getSaldoSap9000Input()).to.eq('5');
+        await itemAuditadoUpdatePage.setSaldoFisico9000Input('5');
+        expect(await itemAuditadoUpdatePage.getSaldoFisico9000Input()).to.eq('5');
         await itemAuditadoUpdatePage.setMotivoDivergenciaInput('motivoDivergencia');
         expect(await itemAuditadoUpdatePage.getMotivoDivergenciaInput()).to.match(/motivoDivergencia/);
         await itemAuditadoUpdatePage.avaliacaoSelectLastOption();
