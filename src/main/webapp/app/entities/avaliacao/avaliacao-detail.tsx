@@ -149,13 +149,89 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps> {
             </dt>
             <dd>{avaliacaoEntity.motivoCancelamento}</dd>
             <dt>
-              <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate>
+              <span id="percentualPerda">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerda">Percentual Perda</Translate>
+              </span>
             </dt>
-            <dd>{avaliacaoEntity.userName ? avaliacaoEntity.userName : ''}</dd>
+            <dd>{avaliacaoEntity.percentualPerda}</dd>
+            <dt>
+              <span id="financeiroPerda">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerda">Financeiro Perda</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.financeiroPerda}</dd>
+            <dt>
+              <span id="pontuacaoPerda">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerda">Pontuacao Perda</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.pontuacaoPerda}</dd>
+            <dt>
+              <span id="statusPerda">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusPerda">Status Perda</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.statusPerda}</dd>
+            <dt>
+              <span id="categorizacaoPerda">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerda">Categorizacao Perda</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.categorizacaoPerda}</dd>
+            <dt>
+              <span id="percentualQuebra">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualQuebra">Percentual Quebra</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.percentualQuebra}</dd>
+            <dt>
+              <span id="financeiroQuebra">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroQuebra">Financeiro Quebra</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.financeiroQuebra}</dd>
+            <dt>
+              <span id="pontuacaoQuebra">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoQuebra">Pontuacao Quebra</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.pontuacaoQuebra}</dd>
+            <dt>
+              <span id="statusQuebra">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusQuebra">Status Quebra</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.statusQuebra}</dd>
+            <dt>
+              <span id="categorizacaoQuebra">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoQuebra">Categorizacao Quebra</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.categorizacaoQuebra}</dd>
+            <dt>
+              <span id="importadoViaPlanilha">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.importadoViaPlanilha ? 'true' : 'false'}</dd>
+            <dt>
+              <span id="caminhoArquivoPlanilha">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>
+              </span>
+            </dt>
+            <dd>{avaliacaoEntity.caminhoArquivoPlanilha}</dd>
+            <dt>
+              <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate>
+            </dt>
+            <dd>{avaliacaoEntity.avaliadorName ? avaliacaoEntity.avaliadorName : ''}</dd>
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
             </dt>
             <dd>{avaliacaoEntity.questionarioNome ? avaliacaoEntity.questionarioNome : ''}</dd>
+            <dt>
+              <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate>
+            </dt>
+            <dd>{avaliacaoEntity.lojaNome ? avaliacaoEntity.lojaNome : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/avaliacao" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

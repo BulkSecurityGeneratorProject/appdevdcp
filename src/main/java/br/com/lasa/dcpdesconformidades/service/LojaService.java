@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.repository.LojaRaioxRepository;
+import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
 import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.service.dto.LojaParaAvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.LojaParaAvaliacaoMapper;
@@ -28,6 +29,8 @@ public class LojaService {
 
   private final Logger log = LoggerFactory.getLogger(LojaService.class);
 
+  private final LojaRepository lojaRepository;
+
   private final LojaRaioxRepository lojaRaioxRepository;
 
   private final LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper;
@@ -36,13 +39,15 @@ public class LojaService {
 
   private final UserRepository userRepository;
 
-  public LojaService(LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper, UserRepository userRepository) {
+  public LojaService(LojaRepository lojaRepository, LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper,
+      UserRepository userRepository) {
+    this.lojaRepository = lojaRepository;
     this.lojaRaioxRepository = lojaRaioxRepository;
     this.lojaParaAvaliacaoMapper = lojaParaAvaliacaoMapper;
     this.lojaRaioxMapper = lojaRaioxMapper;
     this.userRepository = userRepository;
   }
-  
+
   /**
    * Save a loja.
    *
@@ -50,10 +55,8 @@ public class LojaService {
    * @return the persisted entity
    */
   public Loja save(Loja loja) {
-      log.debug("Request to save Loja : {}", loja);
-
-//      return lojaRepository.save(loja);
-      return null;
+    log.debug("Request to save Loja : {}", loja);
+    return lojaRepository.save(loja);
   }
 
   /**
@@ -64,6 +67,27 @@ public class LojaService {
    */
   @Transactional(readOnly = true)
   public Page<Loja> findAll(Pageable pageable) {
+    log.debug("Request to get all Lojas");
+    return lojaRepository.findAll(pageable);
+  }
+
+  /**
+   * Get all the Loja with eager load of many-to-many relationships.
+   *
+   * @return the list of entities
+   */
+  public Page<Loja> findAllWithEagerRelationships(Pageable pageable) {
+    return lojaRepository.findAllWithEagerRelationships(pageable);
+  }
+
+  /**
+   * Get all the lojas.
+   *
+   * @param pageable the pagination information
+   * @return the list of entities
+   */
+  @Transactional(readOnly = true)
+  public Page<Loja> findAllInRaiox(Pageable pageable) {
     log.debug("Request to get all Lojas");
     return lojaRaioxRepository.findAll(pageable) //
         .map(lojaRaioxMapper::toEntity);
@@ -76,13 +100,25 @@ public class LojaService {
    * @return the entity
    */
   @Transactional(readOnly = true)
-  public Optional<Loja> findOne(Long id) {
+  public Optional<Loja> findOneInRaiox(Long id) {
     log.debug("Request to get Loja : {}", id);
     return lojaRaioxRepository.findOne(id) //
         .map(lojaRaioxMapper::toEntity).map(loja -> {
           loja.setAvaliadores(userRepository.findAllByIdLoja(id));
           return loja;
         });
+  }
+
+  /**
+   * Get one loja by id.
+   *
+   * @param id the id of the entity
+   * @return the entity
+   */
+  @Transactional(readOnly = true)
+  public Optional<Loja> findOne(Long id) {
+    log.debug("Request to get Loja : {}", id);
+    return lojaRepository.findOneWithEagerRelationships(id);
   }
 
   @Transactional(readOnly = true)

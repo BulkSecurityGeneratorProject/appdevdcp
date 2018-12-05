@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -81,14 +82,20 @@ public class LojaResource {
      * GET  /lojas : get all the lojas.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of lojas in body
      */
     @GetMapping("/lojas")
     @Timed
-    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable) {
+    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Lojas");
-        Page<Loja> page = lojaService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/lojas");
+        Page<Loja> page;
+        if (eagerload) {
+            page = lojaService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = lojaService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/lojas?eagerload=%b", eagerload));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

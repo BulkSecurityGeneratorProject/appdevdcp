@@ -1,70 +1,81 @@
 {
-    "name": "ItemAvaliadoPerdaQuebraAcumulados",
+    "name": "PerdaQuebraAcumuladosAnoLoja",
     "fields": [
         {
-            "fieldName": "tipo",
-            "fieldType": "TipoItemAvaliadoPerdaQuebra",
-            "fieldValues": "PERDA,QUEBRA",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "respondidoEm",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "ultimaAtualizacaoEm",
-            "fieldType": "Instant"
-        },
-        {
-            "fieldName": "percentual",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "financeiro",
-            "fieldType": "BigDecimal",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "pontuacao",
+            "fieldName": "ano",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "latitudeLocalResposta",
+            "fieldName": "percentualPerda",
             "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "longitudeLocalResposta",
+            "fieldName": "financeiroPerda",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pontuacaoPerda",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "statusPerda",
+            "fieldType": "StatusItemAvaliado",
+            "fieldValues": "OK,NAO_OK,N_A",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "categorizacaoPerda",
+            "fieldType": "CategorizacaoPerdaQuebra",
+            "fieldValues": "INADMISSIVEL,CRITICO,VALOR_ELEVADO,ATENCAO,CONTROLE,SOBRA_DESCONTROLE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "percentualQuebra",
             "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "classificacao",
-            "fieldType": "ClassificacaoPerdaQuebra",
-            "fieldValues": "CONFORMIDADE,DESCONFORMIDADE",
+            "fieldName": "financeiroQuebra",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "categorizacao",
+            "fieldName": "pontuacaoQuebra",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "statusQuebra",
+            "fieldType": "StatusItemAvaliado",
+            "fieldValues": "OK,NAO_OK,N_A",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "categorizacaoQuebra",
             "fieldType": "CategorizacaoPerdaQuebra",
             "fieldValues": "INADMISSIVEL,CRITICO,VALOR_ELEVADO,ATENCAO,CONTROLE,SOBRA_DESCONTROLE",
             "fieldValidateRules": [
@@ -76,13 +87,13 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "avaliacao",
-            "otherEntityName": "avaliacao",
-            "otherEntityField": "id"
+            "relationshipName": "loja",
+            "otherEntityName": "loja",
+            "otherEntityField": "nome"
         }
     ],
-    "changelogDate": "20181111155657",
-    "entityTableName": "item_avaliado_perda_quebra_acumulados",
+    "changelogDate": "20181205142630",
+    "entityTableName": "perda_quebra_acumulados_ano_loja",
     "dto": "no",
     "pagination": "no",
     "service": "no",

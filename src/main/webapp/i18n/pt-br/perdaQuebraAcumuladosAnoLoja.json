@@ -1,0 +1,32 @@
+{
+  "dcpdesconformidadesApp": {
+    "perdaQuebraAcumuladosAnoLoja": {
+      "home": {
+        "title": "Perda Quebra Acumulados Ano Lojas",
+        "createLabel": "Criar novo Perda Quebra Acumulados Ano Loja",
+        "createOrEditLabel": "Criar ou editar Perda Quebra Acumulados Ano Loja"
+      },
+      "created": "Um novo Perda Quebra Acumulados Ano Loja foi criado com o identificador {{ param }}",
+      "updated": "Um Perda Quebra Acumulados Ano Loja foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Perda Quebra Acumulados Ano Loja foi deletado com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Perda Quebra Acumulados Ano Loja {{ id }}?"
+      },
+      "detail": {
+        "title": "Perda Quebra Acumulados Ano Loja"
+      },
+      "ano": "Ano",
+      "percentualPerda": "Percentual Perda",
+      "financeiroPerda": "Financeiro Perda",
+      "pontuacaoPerda": "Pontuacao Perda",
+      "statusPerda": "Status Perda",
+      "categorizacaoPerda": "Categorizacao Perda",
+      "percentualQuebra": "Percentual Quebra",
+      "financeiroQuebra": "Financeiro Quebra",
+      "pontuacaoQuebra": "Pontuacao Quebra",
+      "statusQuebra": "Status Quebra",
+      "categorizacaoQuebra": "Categorizacao Quebra",
+      "loja": "Loja"
+    }
+  }
+}

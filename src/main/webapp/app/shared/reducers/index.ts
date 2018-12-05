@@ -29,10 +29,6 @@ import itemAvaliado, {
   ItemAvaliadoState
 } from 'app/entities/item-avaliado/item-avaliado.reducer';
 // prettier-ignore
-import itemAvaliadoPerdaQuebraAcumulados, {
-  ItemAvaliadoPerdaQuebraAcumuladosState
-} from 'app/entities/item-avaliado-perda-quebra-acumulados/item-avaliado-perda-quebra-acumulados.reducer';
-// prettier-ignore
 import grupoItens, {
   GrupoItensState
 } from 'app/entities/grupo-itens/grupo-itens.reducer';
@@ -48,6 +44,10 @@ import itemAuditado, {
 import itemSolicitadoAjuste, {
   ItemSolicitadoAjusteState
 } from 'app/entities/item-solicitado-ajuste/item-solicitado-ajuste.reducer';
+// prettier-ignore
+import perdaQuebraAcumuladosAnoLoja, {
+  PerdaQuebraAcumuladosAnoLojaState
+} from 'app/entities/perda-quebra-acumulados-ano-loja/perda-quebra-acumulados-ano-loja.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -62,11 +62,11 @@ export interface IRootState {
   readonly avaliacao: AvaliacaoState;
   readonly itemAvaliacao: ItemAvaliacaoState;
   readonly itemAvaliado: ItemAvaliadoState;
-  readonly itemAvaliadoPerdaQuebraAcumulados: ItemAvaliadoPerdaQuebraAcumuladosState;
   readonly grupoItens: GrupoItensState;
   readonly anexoItem: AnexoItemState;
   readonly itemAuditado: ItemAuditadoState;
   readonly itemSolicitadoAjuste: ItemSolicitadoAjusteState;
+  readonly perdaQuebraAcumuladosAnoLoja: PerdaQuebraAcumuladosAnoLojaState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -83,11 +83,11 @@ const rootReducer = combineReducers<IRootState>({
   avaliacao,
   itemAvaliacao,
   itemAvaliado,
-  itemAvaliadoPerdaQuebraAcumulados,
   grupoItens,
   anexoItem,
   itemAuditado,
   itemSolicitadoAjuste,
+  perdaQuebraAcumuladosAnoLoja,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

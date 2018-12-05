@@ -94,11 +94,63 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="user_id" type="bigint">
+            <column name="percentual_perda" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="financeiro_perda" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pontuacao_perda" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="status_perda" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="categorizacao_perda" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="percentual_quebra" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="financeiro_quebra" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pontuacao_quebra" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="status_quebra" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="categorizacao_quebra" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="importado_via_planilha" type="bit">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="caminho_arquivo_planilha" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="avaliador_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <column name="questionario_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="loja_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 

@@ -22,8 +22,21 @@ export default class AvaliacaoUpdatePage {
   nivelEficienciaProdutoSelect: ElementFinder = element(by.css('select#avaliacao-nivelEficienciaProduto'));
   canceladoEmInput: ElementFinder = element(by.css('input#avaliacao-canceladoEm'));
   motivoCancelamentoInput: ElementFinder = element(by.css('input#avaliacao-motivoCancelamento'));
-  userSelect: ElementFinder = element(by.css('select#avaliacao-user'));
+  percentualPerdaInput: ElementFinder = element(by.css('input#avaliacao-percentualPerda'));
+  financeiroPerdaInput: ElementFinder = element(by.css('input#avaliacao-financeiroPerda'));
+  pontuacaoPerdaInput: ElementFinder = element(by.css('input#avaliacao-pontuacaoPerda'));
+  statusPerdaSelect: ElementFinder = element(by.css('select#avaliacao-statusPerda'));
+  categorizacaoPerdaSelect: ElementFinder = element(by.css('select#avaliacao-categorizacaoPerda'));
+  percentualQuebraInput: ElementFinder = element(by.css('input#avaliacao-percentualQuebra'));
+  financeiroQuebraInput: ElementFinder = element(by.css('input#avaliacao-financeiroQuebra'));
+  pontuacaoQuebraInput: ElementFinder = element(by.css('input#avaliacao-pontuacaoQuebra'));
+  statusQuebraSelect: ElementFinder = element(by.css('select#avaliacao-statusQuebra'));
+  categorizacaoQuebraSelect: ElementFinder = element(by.css('select#avaliacao-categorizacaoQuebra'));
+  importadoViaPlanilhaInput: ElementFinder = element(by.css('input#avaliacao-importadoViaPlanilha'));
+  caminhoArquivoPlanilhaInput: ElementFinder = element(by.css('input#avaliacao-caminhoArquivoPlanilha'));
+  avaliadorSelect: ElementFinder = element(by.css('select#avaliacao-avaliador'));
   questionarioSelect: ElementFinder = element(by.css('select#avaliacao-questionario'));
+  lojaSelect: ElementFinder = element(by.css('select#avaliacao-loja'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -215,23 +228,138 @@ export default class AvaliacaoUpdatePage {
     return this.motivoCancelamentoInput.getAttribute('value');
   }
 
-  async userSelectLastOption() {
-    await this.userSelect
+  async setPercentualPerdaInput(percentualPerda) {
+    await this.percentualPerdaInput.sendKeys(percentualPerda);
+  }
+
+  async getPercentualPerdaInput() {
+    return this.percentualPerdaInput.getAttribute('value');
+  }
+
+  async setFinanceiroPerdaInput(financeiroPerda) {
+    await this.financeiroPerdaInput.sendKeys(financeiroPerda);
+  }
+
+  async getFinanceiroPerdaInput() {
+    return this.financeiroPerdaInput.getAttribute('value');
+  }
+
+  async setPontuacaoPerdaInput(pontuacaoPerda) {
+    await this.pontuacaoPerdaInput.sendKeys(pontuacaoPerda);
+  }
+
+  async getPontuacaoPerdaInput() {
+    return this.pontuacaoPerdaInput.getAttribute('value');
+  }
+
+  async setStatusPerdaSelect(statusPerda) {
+    await this.statusPerdaSelect.sendKeys(statusPerda);
+  }
+
+  async getStatusPerdaSelect() {
+    return this.statusPerdaSelect.element(by.css('option:checked')).getText();
+  }
+
+  async statusPerdaSelectLastOption() {
+    await this.statusPerdaSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setCategorizacaoPerdaSelect(categorizacaoPerda) {
+    await this.categorizacaoPerdaSelect.sendKeys(categorizacaoPerda);
+  }
+
+  async getCategorizacaoPerdaSelect() {
+    return this.categorizacaoPerdaSelect.element(by.css('option:checked')).getText();
+  }
+
+  async categorizacaoPerdaSelectLastOption() {
+    await this.categorizacaoPerdaSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setPercentualQuebraInput(percentualQuebra) {
+    await this.percentualQuebraInput.sendKeys(percentualQuebra);
+  }
+
+  async getPercentualQuebraInput() {
+    return this.percentualQuebraInput.getAttribute('value');
+  }
+
+  async setFinanceiroQuebraInput(financeiroQuebra) {
+    await this.financeiroQuebraInput.sendKeys(financeiroQuebra);
+  }
+
+  async getFinanceiroQuebraInput() {
+    return this.financeiroQuebraInput.getAttribute('value');
+  }
+
+  async setPontuacaoQuebraInput(pontuacaoQuebra) {
+    await this.pontuacaoQuebraInput.sendKeys(pontuacaoQuebra);
+  }
+
+  async getPontuacaoQuebraInput() {
+    return this.pontuacaoQuebraInput.getAttribute('value');
+  }
+
+  async setStatusQuebraSelect(statusQuebra) {
+    await this.statusQuebraSelect.sendKeys(statusQuebra);
+  }
+
+  async getStatusQuebraSelect() {
+    return this.statusQuebraSelect.element(by.css('option:checked')).getText();
+  }
+
+  async statusQuebraSelectLastOption() {
+    await this.statusQuebraSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  async setCategorizacaoQuebraSelect(categorizacaoQuebra) {
+    await this.categorizacaoQuebraSelect.sendKeys(categorizacaoQuebra);
+  }
+
+  async getCategorizacaoQuebraSelect() {
+    return this.categorizacaoQuebraSelect.element(by.css('option:checked')).getText();
+  }
+
+  async categorizacaoQuebraSelectLastOption() {
+    await this.categorizacaoQuebraSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+  getImportadoViaPlanilhaInput() {
+    return this.importadoViaPlanilhaInput;
+  }
+  async setCaminhoArquivoPlanilhaInput(caminhoArquivoPlanilha) {
+    await this.caminhoArquivoPlanilhaInput.sendKeys(caminhoArquivoPlanilha);
+  }
+
+  async getCaminhoArquivoPlanilhaInput() {
+    return this.caminhoArquivoPlanilhaInput.getAttribute('value');
+  }
+
+  async avaliadorSelectLastOption() {
+    await this.avaliadorSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async userSelectOption(option) {
-    await this.userSelect.sendKeys(option);
+  async avaliadorSelectOption(option) {
+    await this.avaliadorSelect.sendKeys(option);
   }
 
-  getUserSelect() {
-    return this.userSelect;
+  getAvaliadorSelect() {
+    return this.avaliadorSelect;
   }
 
-  async getUserSelectedOption() {
-    return this.userSelect.element(by.css('option:checked')).getText();
+  async getAvaliadorSelectedOption() {
+    return this.avaliadorSelect.element(by.css('option:checked')).getText();
   }
 
   async questionarioSelectLastOption() {
@@ -251,6 +379,25 @@ export default class AvaliacaoUpdatePage {
 
   async getQuestionarioSelectedOption() {
     return this.questionarioSelect.element(by.css('option:checked')).getText();
+  }
+
+  async lojaSelectLastOption() {
+    await this.lojaSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async lojaSelectOption(option) {
+    await this.lojaSelect.sendKeys(option);
+  }
+
+  getLojaSelect() {
+    return this.lojaSelect;
+  }
+
+  async getLojaSelectedOption() {
+    return this.lojaSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

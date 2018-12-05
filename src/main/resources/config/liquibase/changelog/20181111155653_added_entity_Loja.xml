@@ -50,8 +50,8 @@
 <!--             jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove -->
         </createTable>
         
-        <createTable tableName="loja_user">
-            <column name="users_id" type="bigint">
+        <createTable tableName="loja_avaliadores">
+            <column name="avaliadores_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="lojas_id" type="bigint">
@@ -59,8 +59,8 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="lojas_id, users_id" tableName="loja_user"/>
-        
+        <addPrimaryKey columnNames="lojas_id, avaliadores_id" tableName="loja_avaliadores"/>
+                
         <loadData encoding="UTF-8"
                   file="config/liquibase/loja.csv"
                   separator=";"
@@ -69,9 +69,9 @@
         </loadData>
         
         <loadData encoding="UTF-8"
-                  file="config/liquibase/loja_user.csv"
+                  file="config/liquibase/loja_avaliadores.csv"
                   separator=";"
-                  tableName="loja_user"/>
+                  tableName="loja_avaliadores"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

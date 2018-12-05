@@ -9,11 +9,11 @@ import Loja from './loja';
 import Avaliacao from './avaliacao';
 import ItemAvaliacao from './item-avaliacao';
 import ItemAvaliado from './item-avaliado';
-import ItemAvaliadoPerdaQuebraAcumulados from './item-avaliado-perda-quebra-acumulados';
 import GrupoItens from './grupo-itens';
 import AnexoItem from './anexo-item';
 import ItemAuditado from './item-auditado';
 import ItemSolicitadoAjuste from './item-solicitado-ajuste';
+import PerdaQuebraAcumuladosAnoLoja from './perda-quebra-acumulados-ano-loja';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -25,11 +25,11 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/avaliacao`} component={Avaliacao} />
       <ErrorBoundaryRoute path={`${match.url}/item-avaliacao`} component={ItemAvaliacao} />
       <ErrorBoundaryRoute path={`${match.url}/item-avaliado`} component={ItemAvaliado} />
-      <ErrorBoundaryRoute path={`${match.url}/item-avaliado-perda-quebra-acumulados`} component={ItemAvaliadoPerdaQuebraAcumulados} />
       <ErrorBoundaryRoute path={`${match.url}/grupo-itens`} component={GrupoItens} />
       <ErrorBoundaryRoute path={`${match.url}/anexo-item`} component={AnexoItem} />
       <ErrorBoundaryRoute path={`${match.url}/item-auditado`} component={ItemAuditado} />
       <ErrorBoundaryRoute path={`${match.url}/item-solicitado-ajuste`} component={ItemSolicitadoAjuste} />
+      <ErrorBoundaryRoute path={`${match.url}/perda-quebra-acumulados-ano-loja`} component={PerdaQuebraAcumuladosAnoLoja} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

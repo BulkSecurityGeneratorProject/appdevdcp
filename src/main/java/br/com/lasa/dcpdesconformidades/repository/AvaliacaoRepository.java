@@ -14,6 +14,6 @@ import java.util.List;
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
 
     @Query("select avaliacao from Avaliacao avaliacao where avaliacao.avaliador.login = ?#{principal.username}")
-    List<Avaliacao> findByUserIsCurrentUser();
+    List<Avaliacao> findByAvaliadorIsCurrentUser();
 
 }

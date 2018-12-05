@@ -10,7 +10,7 @@ export default class LojaUpdatePage {
   cepInput: ElementFinder = element(by.css('input#loja-cep'));
   latitudeInput: ElementFinder = element(by.css('input#loja-latitude'));
   longitudeInput: ElementFinder = element(by.css('input#loja-longitude'));
-  userSelect: ElementFinder = element(by.css('select#loja-user'));
+  avaliadoresSelect: ElementFinder = element(by.css('select#loja-avaliadores'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -64,23 +64,23 @@ export default class LojaUpdatePage {
     return this.longitudeInput.getAttribute('value');
   }
 
-  async userSelectLastOption() {
-    await this.userSelect
+  async avaliadoresSelectLastOption() {
+    await this.avaliadoresSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async userSelectOption(option) {
-    await this.userSelect.sendKeys(option);
+  async avaliadoresSelectOption(option) {
+    await this.avaliadoresSelect.sendKeys(option);
   }
 
-  getUserSelect() {
-    return this.userSelect;
+  getAvaliadoresSelect() {
+    return this.avaliadoresSelect;
   }
 
-  async getUserSelectedOption() {
-    return this.userSelect.element(by.css('option:checked')).getText();
+  async getAvaliadoresSelectedOption() {
+    return this.avaliadoresSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

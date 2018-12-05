@@ -55,7 +55,6 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAvaliacao.class.getName() + ".grupos", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAvaliado.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAvaliado.class.getName() + ".anexos", jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAvaliadoPerdaQuebraAcumulados.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.GrupoItens.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.GrupoItens.class.getName() + ".itens", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.GrupoItens.class.getName() + ".questionarios", jcacheConfiguration);
@@ -63,6 +62,9 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAuditado.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".users", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliacoes", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".perdaQuebraAcumuladosAnos", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.PerdaQuebraAcumuladosAnoLoja.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

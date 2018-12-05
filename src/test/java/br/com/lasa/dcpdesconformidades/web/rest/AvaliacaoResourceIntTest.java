@@ -5,6 +5,7 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.Questionario;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.AvaliacaoService;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
@@ -26,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -44,6 +46,10 @@ import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 /**
  * Test class for the AvaliacaoResource REST controller.
  *
@@ -81,7 +87,7 @@ public class AvaliacaoResourceIntTest {
     private static final String UPDATED_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA = "BBBBBBBBBB";
 
     private static final StatusAvaliacao DEFAULT_STATUS = StatusAvaliacao.INICIADA;
-    private static final StatusAvaliacao UPDATED_STATUS = StatusAvaliacao.RELATORIO_FINALIZADO;
+    private static final StatusAvaliacao UPDATED_STATUS = StatusAvaliacao.CHECKLIST_FINALIZADO;
 
     private static final CriticidadePainel DEFAULT_CRITICIDADE_PAINEL = CriticidadePainel.INADMISSIVEL;
     private static final CriticidadePainel UPDATED_CRITICIDADE_PAINEL = CriticidadePainel.CONTROLE;
@@ -106,6 +112,42 @@ public class AvaliacaoResourceIntTest {
 
     private static final String DEFAULT_MOTIVO_CANCELAMENTO = "AAAAAAAAAA";
     private static final String UPDATED_MOTIVO_CANCELAMENTO = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_PERCENTUAL_PERDA = 1D;
+    private static final Double UPDATED_PERCENTUAL_PERDA = 2D;
+
+    private static final BigDecimal DEFAULT_FINANCEIRO_PERDA = new BigDecimal(1);
+    private static final BigDecimal UPDATED_FINANCEIRO_PERDA = new BigDecimal(2);
+
+    private static final Integer DEFAULT_PONTUACAO_PERDA = 1;
+    private static final Integer UPDATED_PONTUACAO_PERDA = 2;
+
+    private static final StatusItemAvaliado DEFAULT_STATUS_PERDA = StatusItemAvaliado.OK;
+    private static final StatusItemAvaliado UPDATED_STATUS_PERDA = StatusItemAvaliado.NAO_OK;
+
+    private static final CategorizacaoPerdaQuebra DEFAULT_CATEGORIZACAO_PERDA = CategorizacaoPerdaQuebra.INADMISSIVEL;
+    private static final CategorizacaoPerdaQuebra UPDATED_CATEGORIZACAO_PERDA = CategorizacaoPerdaQuebra.CRITICO;
+
+    private static final Double DEFAULT_PERCENTUAL_QUEBRA = 1D;
+    private static final Double UPDATED_PERCENTUAL_QUEBRA = 2D;
+
+    private static final BigDecimal DEFAULT_FINANCEIRO_QUEBRA = new BigDecimal(1);
+    private static final BigDecimal UPDATED_FINANCEIRO_QUEBRA = new BigDecimal(2);
+
+    private static final Integer DEFAULT_PONTUACAO_QUEBRA = 1;
+    private static final Integer UPDATED_PONTUACAO_QUEBRA = 2;
+
+    private static final StatusItemAvaliado DEFAULT_STATUS_QUEBRA = StatusItemAvaliado.OK;
+    private static final StatusItemAvaliado UPDATED_STATUS_QUEBRA = StatusItemAvaliado.NAO_OK;
+
+    private static final CategorizacaoPerdaQuebra DEFAULT_CATEGORIZACAO_QUEBRA = CategorizacaoPerdaQuebra.INADMISSIVEL;
+    private static final CategorizacaoPerdaQuebra UPDATED_CATEGORIZACAO_QUEBRA = CategorizacaoPerdaQuebra.CRITICO;
+
+    private static final Boolean DEFAULT_IMPORTADO_VIA_PLANILHA = false;
+    private static final Boolean UPDATED_IMPORTADO_VIA_PLANILHA = true;
+
+    private static final String DEFAULT_CAMINHO_ARQUIVO_PLANILHA = "AAAAAAAAAA";
+    private static final String UPDATED_CAMINHO_ARQUIVO_PLANILHA = "BBBBBBBBBB";
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
@@ -168,7 +210,19 @@ public class AvaliacaoResourceIntTest {
             .nivelEficienciaProcesso(DEFAULT_NIVEL_EFICIENCIA_PROCESSO)
             .nivelEficienciaProduto(DEFAULT_NIVEL_EFICIENCIA_PRODUTO)
             .canceladoEm(DEFAULT_CANCELADO_EM)
-            .motivoCancelamento(DEFAULT_MOTIVO_CANCELAMENTO);
+            .motivoCancelamento(DEFAULT_MOTIVO_CANCELAMENTO)
+            .percentualPerda(DEFAULT_PERCENTUAL_PERDA)
+            .financeiroPerda(DEFAULT_FINANCEIRO_PERDA)
+            .pontuacaoPerda(DEFAULT_PONTUACAO_PERDA)
+            .statusPerda(DEFAULT_STATUS_PERDA)
+            .categorizacaoPerda(DEFAULT_CATEGORIZACAO_PERDA)
+            .percentualQuebra(DEFAULT_PERCENTUAL_QUEBRA)
+            .financeiroQuebra(DEFAULT_FINANCEIRO_QUEBRA)
+            .pontuacaoQuebra(DEFAULT_PONTUACAO_QUEBRA)
+            .statusQuebra(DEFAULT_STATUS_QUEBRA)
+            .categorizacaoQuebra(DEFAULT_CATEGORIZACAO_QUEBRA)
+            .importadoViaPlanilha(DEFAULT_IMPORTADO_VIA_PLANILHA)
+            .caminhoArquivoPlanilha(DEFAULT_CAMINHO_ARQUIVO_PLANILHA);
         // Add required entity
         User user = UserResourceIntTest.createEntity(em);
         em.persist(user);
@@ -179,6 +233,11 @@ public class AvaliacaoResourceIntTest {
         em.persist(questionario);
         em.flush();
         avaliacao.setQuestionario(questionario);
+        // Add required entity
+        Loja loja = LojaResourceIntTest.createEntity(em);
+        em.persist(loja);
+        em.flush();
+        avaliacao.setLoja(loja);
         return avaliacao;
     }
 
@@ -221,6 +280,18 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PRODUTO);
         assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(DEFAULT_CANCELADO_EM);
         assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(DEFAULT_MOTIVO_CANCELAMENTO);
+        assertThat(testAvaliacao.getPercentualPerda()).isEqualTo(DEFAULT_PERCENTUAL_PERDA);
+        assertThat(testAvaliacao.getFinanceiroPerda()).isEqualTo(DEFAULT_FINANCEIRO_PERDA);
+        assertThat(testAvaliacao.getPontuacaoPerda()).isEqualTo(DEFAULT_PONTUACAO_PERDA);
+        assertThat(testAvaliacao.getStatusPerda()).isEqualTo(DEFAULT_STATUS_PERDA);
+        assertThat(testAvaliacao.getCategorizacaoPerda()).isEqualTo(DEFAULT_CATEGORIZACAO_PERDA);
+        assertThat(testAvaliacao.getPercentualQuebra()).isEqualTo(DEFAULT_PERCENTUAL_QUEBRA);
+        assertThat(testAvaliacao.getFinanceiroQuebra()).isEqualTo(DEFAULT_FINANCEIRO_QUEBRA);
+        assertThat(testAvaliacao.getPontuacaoQuebra()).isEqualTo(DEFAULT_PONTUACAO_QUEBRA);
+        assertThat(testAvaliacao.getStatusQuebra()).isEqualTo(DEFAULT_STATUS_QUEBRA);
+        assertThat(testAvaliacao.getCategorizacaoQuebra()).isEqualTo(DEFAULT_CATEGORIZACAO_QUEBRA);
+        assertThat(testAvaliacao.isImportadoViaPlanilha()).isEqualTo(DEFAULT_IMPORTADO_VIA_PLANILHA);
+        assertThat(testAvaliacao.getCaminhoArquivoPlanilha()).isEqualTo(DEFAULT_CAMINHO_ARQUIVO_PLANILHA);
     }
 
     @Test
@@ -321,6 +392,25 @@ public class AvaliacaoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkImportadoViaPlanilhaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = avaliacaoRepository.findAll().size();
+        // set the field null
+        avaliacao.setImportadoViaPlanilha(null);
+
+        // Create the Avaliacao, which fails.
+        AvaliacaoDTO avaliacaoDTO = avaliacaoMapper.toDto(avaliacao);
+
+        restAvaliacaoMockMvc.perform(post("/api/avaliacaos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(avaliacaoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Avaliacao> avaliacaoList = avaliacaoRepository.findAll();
+        assertThat(avaliacaoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllAvaliacaos() throws Exception {
         // Initialize the database
         avaliacaoRepository.saveAndFlush(avaliacao);
@@ -347,7 +437,19 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].nivelEficienciaProcesso").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString())))
             .andExpect(jsonPath("$.[*].nivelEficienciaProduto").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString())))
             .andExpect(jsonPath("$.[*].canceladoEm").value(hasItem(DEFAULT_CANCELADO_EM.toString())))
-            .andExpect(jsonPath("$.[*].motivoCancelamento").value(hasItem(DEFAULT_MOTIVO_CANCELAMENTO.toString())));
+            .andExpect(jsonPath("$.[*].motivoCancelamento").value(hasItem(DEFAULT_MOTIVO_CANCELAMENTO.toString())))
+            .andExpect(jsonPath("$.[*].percentualPerda").value(hasItem(DEFAULT_PERCENTUAL_PERDA.doubleValue())))
+            .andExpect(jsonPath("$.[*].financeiroPerda").value(hasItem(DEFAULT_FINANCEIRO_PERDA.intValue())))
+            .andExpect(jsonPath("$.[*].pontuacaoPerda").value(hasItem(DEFAULT_PONTUACAO_PERDA)))
+            .andExpect(jsonPath("$.[*].statusPerda").value(hasItem(DEFAULT_STATUS_PERDA.toString())))
+            .andExpect(jsonPath("$.[*].categorizacaoPerda").value(hasItem(DEFAULT_CATEGORIZACAO_PERDA.toString())))
+            .andExpect(jsonPath("$.[*].percentualQuebra").value(hasItem(DEFAULT_PERCENTUAL_QUEBRA.doubleValue())))
+            .andExpect(jsonPath("$.[*].financeiroQuebra").value(hasItem(DEFAULT_FINANCEIRO_QUEBRA.intValue())))
+            .andExpect(jsonPath("$.[*].pontuacaoQuebra").value(hasItem(DEFAULT_PONTUACAO_QUEBRA)))
+            .andExpect(jsonPath("$.[*].statusQuebra").value(hasItem(DEFAULT_STATUS_QUEBRA.toString())))
+            .andExpect(jsonPath("$.[*].categorizacaoQuebra").value(hasItem(DEFAULT_CATEGORIZACAO_QUEBRA.toString())))
+            .andExpect(jsonPath("$.[*].importadoViaPlanilha").value(hasItem(DEFAULT_IMPORTADO_VIA_PLANILHA.booleanValue())))
+            .andExpect(jsonPath("$.[*].caminhoArquivoPlanilha").value(hasItem(DEFAULT_CAMINHO_ARQUIVO_PLANILHA.toString())));
     }
     
     @Test
@@ -378,7 +480,19 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.nivelEficienciaProcesso").value(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString()))
             .andExpect(jsonPath("$.nivelEficienciaProduto").value(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString()))
             .andExpect(jsonPath("$.canceladoEm").value(DEFAULT_CANCELADO_EM.toString()))
-            .andExpect(jsonPath("$.motivoCancelamento").value(DEFAULT_MOTIVO_CANCELAMENTO.toString()));
+            .andExpect(jsonPath("$.motivoCancelamento").value(DEFAULT_MOTIVO_CANCELAMENTO.toString()))
+            .andExpect(jsonPath("$.percentualPerda").value(DEFAULT_PERCENTUAL_PERDA.doubleValue()))
+            .andExpect(jsonPath("$.financeiroPerda").value(DEFAULT_FINANCEIRO_PERDA.intValue()))
+            .andExpect(jsonPath("$.pontuacaoPerda").value(DEFAULT_PONTUACAO_PERDA))
+            .andExpect(jsonPath("$.statusPerda").value(DEFAULT_STATUS_PERDA.toString()))
+            .andExpect(jsonPath("$.categorizacaoPerda").value(DEFAULT_CATEGORIZACAO_PERDA.toString()))
+            .andExpect(jsonPath("$.percentualQuebra").value(DEFAULT_PERCENTUAL_QUEBRA.doubleValue()))
+            .andExpect(jsonPath("$.financeiroQuebra").value(DEFAULT_FINANCEIRO_QUEBRA.intValue()))
+            .andExpect(jsonPath("$.pontuacaoQuebra").value(DEFAULT_PONTUACAO_QUEBRA))
+            .andExpect(jsonPath("$.statusQuebra").value(DEFAULT_STATUS_QUEBRA.toString()))
+            .andExpect(jsonPath("$.categorizacaoQuebra").value(DEFAULT_CATEGORIZACAO_QUEBRA.toString()))
+            .andExpect(jsonPath("$.importadoViaPlanilha").value(DEFAULT_IMPORTADO_VIA_PLANILHA.booleanValue()))
+            .andExpect(jsonPath("$.caminhoArquivoPlanilha").value(DEFAULT_CAMINHO_ARQUIVO_PLANILHA.toString()));
     }
 
     @Test
@@ -419,7 +533,19 @@ public class AvaliacaoResourceIntTest {
             .nivelEficienciaProcesso(UPDATED_NIVEL_EFICIENCIA_PROCESSO)
             .nivelEficienciaProduto(UPDATED_NIVEL_EFICIENCIA_PRODUTO)
             .canceladoEm(UPDATED_CANCELADO_EM)
-            .motivoCancelamento(UPDATED_MOTIVO_CANCELAMENTO);
+            .motivoCancelamento(UPDATED_MOTIVO_CANCELAMENTO)
+            .percentualPerda(UPDATED_PERCENTUAL_PERDA)
+            .financeiroPerda(UPDATED_FINANCEIRO_PERDA)
+            .pontuacaoPerda(UPDATED_PONTUACAO_PERDA)
+            .statusPerda(UPDATED_STATUS_PERDA)
+            .categorizacaoPerda(UPDATED_CATEGORIZACAO_PERDA)
+            .percentualQuebra(UPDATED_PERCENTUAL_QUEBRA)
+            .financeiroQuebra(UPDATED_FINANCEIRO_QUEBRA)
+            .pontuacaoQuebra(UPDATED_PONTUACAO_QUEBRA)
+            .statusQuebra(UPDATED_STATUS_QUEBRA)
+            .categorizacaoQuebra(UPDATED_CATEGORIZACAO_QUEBRA)
+            .importadoViaPlanilha(UPDATED_IMPORTADO_VIA_PLANILHA)
+            .caminhoArquivoPlanilha(UPDATED_CAMINHO_ARQUIVO_PLANILHA);
         AvaliacaoDTO avaliacaoDTO = avaliacaoMapper.toDto(updatedAvaliacao);
 
         restAvaliacaoMockMvc.perform(put("/api/avaliacaos")
@@ -449,6 +575,18 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PRODUTO);
         assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(UPDATED_CANCELADO_EM);
         assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(UPDATED_MOTIVO_CANCELAMENTO);
+        assertThat(testAvaliacao.getPercentualPerda()).isEqualTo(UPDATED_PERCENTUAL_PERDA);
+        assertThat(testAvaliacao.getFinanceiroPerda()).isEqualTo(UPDATED_FINANCEIRO_PERDA);
+        assertThat(testAvaliacao.getPontuacaoPerda()).isEqualTo(UPDATED_PONTUACAO_PERDA);
+        assertThat(testAvaliacao.getStatusPerda()).isEqualTo(UPDATED_STATUS_PERDA);
+        assertThat(testAvaliacao.getCategorizacaoPerda()).isEqualTo(UPDATED_CATEGORIZACAO_PERDA);
+        assertThat(testAvaliacao.getPercentualQuebra()).isEqualTo(UPDATED_PERCENTUAL_QUEBRA);
+        assertThat(testAvaliacao.getFinanceiroQuebra()).isEqualTo(UPDATED_FINANCEIRO_QUEBRA);
+        assertThat(testAvaliacao.getPontuacaoQuebra()).isEqualTo(UPDATED_PONTUACAO_QUEBRA);
+        assertThat(testAvaliacao.getStatusQuebra()).isEqualTo(UPDATED_STATUS_QUEBRA);
+        assertThat(testAvaliacao.getCategorizacaoQuebra()).isEqualTo(UPDATED_CATEGORIZACAO_QUEBRA);
+        assertThat(testAvaliacao.isImportadoViaPlanilha()).isEqualTo(UPDATED_IMPORTADO_VIA_PLANILHA);
+        assertThat(testAvaliacao.getCaminhoArquivoPlanilha()).isEqualTo(UPDATED_CAMINHO_ARQUIVO_PLANILHA);
     }
 
     @Test

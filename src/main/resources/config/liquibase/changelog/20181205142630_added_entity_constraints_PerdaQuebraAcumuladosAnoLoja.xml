@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity PerdaQuebraAcumuladosAnoLoja.
+    -->
+    <changeSet id="20181205142630-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="loja_id"
+                                 baseTableName="perda_quebra_acumulados_loja"
+                                 constraintName="fk_perda_quebra_acumulados_ano_loja_loja_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="loja"/>
+
+    </changeSet>
+</databaseChangeLog>

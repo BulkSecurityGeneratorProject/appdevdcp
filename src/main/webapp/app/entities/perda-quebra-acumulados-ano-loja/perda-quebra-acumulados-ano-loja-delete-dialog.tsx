@@ -5,22 +5,19 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { Translate, ICrudGetAction, ICrudDeleteAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IItemAvaliadoPerdaQuebraAcumulados } from 'app/shared/model/item-avaliado-perda-quebra-acumulados.model';
+import { IPerdaQuebraAcumuladosAnoLoja } from 'app/shared/model/perda-quebra-acumulados-ano-loja.model';
 import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './item-avaliado-perda-quebra-acumulados.reducer';
+import { getEntity, deleteEntity } from './perda-quebra-acumulados-ano-loja.reducer';
 
-export interface IItemAvaliadoPerdaQuebraAcumuladosDeleteDialogProps
-  extends StateProps,
-    DispatchProps,
-    RouteComponentProps<{ id: string }> {}
+export interface IPerdaQuebraAcumuladosAnoLojaDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export class ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog extends React.Component<IItemAvaliadoPerdaQuebraAcumuladosDeleteDialogProps> {
+export class PerdaQuebraAcumuladosAnoLojaDeleteDialog extends React.Component<IPerdaQuebraAcumuladosAnoLojaDeleteDialogProps> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.itemAvaliadoPerdaQuebraAcumuladosEntity.id);
+    this.props.deleteEntity(this.props.perdaQuebraAcumuladosAnoLojaEntity.id);
     this.handleClose(event);
   };
 
@@ -30,18 +27,18 @@ export class ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog extends React.Compone
   };
 
   render() {
-    const { itemAvaliadoPerdaQuebraAcumuladosEntity } = this.props;
+    const { perdaQuebraAcumuladosAnoLojaEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.delete.question">
+        <ModalBody id="dcpdesconformidadesApp.perdaQuebraAcumuladosAnoLoja.delete.question">
           <Translate
-            contentKey="dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.delete.question"
-            interpolate={{ id: itemAvaliadoPerdaQuebraAcumuladosEntity.id }}
+            contentKey="dcpdesconformidadesApp.perdaQuebraAcumuladosAnoLoja.delete.question"
+            interpolate={{ id: perdaQuebraAcumuladosAnoLojaEntity.id }}
           >
-            Are you sure you want to delete this ItemAvaliadoPerdaQuebraAcumulados?
+            Are you sure you want to delete this PerdaQuebraAcumuladosAnoLoja?
           </Translate>
         </ModalBody>
         <ModalFooter>
@@ -50,7 +47,7 @@ export class ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog extends React.Compone
             &nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
-          <Button id="app-confirm-delete-itemAvaliadoPerdaQuebraAcumulados" color="danger" onClick={this.confirmDelete}>
+          <Button id="app-confirm-delete-perdaQuebraAcumuladosAnoLoja" color="danger" onClick={this.confirmDelete}>
             <FontAwesomeIcon icon="trash" />
             &nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -61,8 +58,8 @@ export class ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog extends React.Compone
   }
 }
 
-const mapStateToProps = ({ itemAvaliadoPerdaQuebraAcumulados }: IRootState) => ({
-  itemAvaliadoPerdaQuebraAcumuladosEntity: itemAvaliadoPerdaQuebraAcumulados.entity
+const mapStateToProps = ({ perdaQuebraAcumuladosAnoLoja }: IRootState) => ({
+  perdaQuebraAcumuladosAnoLojaEntity: perdaQuebraAcumuladosAnoLoja.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };
@@ -73,4 +70,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog);
+)(PerdaQuebraAcumuladosAnoLojaDeleteDialog);

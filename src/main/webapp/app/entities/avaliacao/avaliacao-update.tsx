@@ -12,6 +12,8 @@ import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IQuestionario } from 'app/shared/model/questionario.model';
 import { getEntities as getQuestionarios } from 'app/entities/questionario/questionario.reducer';
+import { ILoja } from 'app/shared/model/loja.model';
+import { getEntities as getLojas } from 'app/entities/loja/loja.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './avaliacao.reducer';
 import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 // tslint:disable-next-line:no-unused-variable
@@ -22,16 +24,18 @@ export interface IAvaliacaoUpdateProps extends StateProps, DispatchProps, RouteC
 
 export interface IAvaliacaoUpdateState {
   isNew: boolean;
-  userId: string;
+  avaliadorId: string;
   questionarioId: string;
+  lojaId: string;
 }
 
 export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAvaliacaoUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      userId: '0',
+      avaliadorId: '0',
       questionarioId: '0',
+      lojaId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -51,6 +55,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
 
     this.props.getUsers();
     this.props.getQuestionarios();
+    this.props.getLojas();
   }
 
   saveEntity = (event, errors, values) => {
@@ -78,7 +83,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
   };
 
   render() {
-    const { avaliacaoEntity, users, questionarios, loading, updating } = this.props;
+    const { avaliacaoEntity, users, questionarios, lojas, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -228,8 +233,8 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                     <option value="INICIADA">
                       <Translate contentKey="dcpdesconformidadesApp.StatusAvaliacao.INICIADA" />
                     </option>
-                    <option value="RELATORIO_FINALIZADO">
-                      <Translate contentKey="dcpdesconformidadesApp.StatusAvaliacao.RELATORIO_FINALIZADO" />
+                    <option value="CHECKLIST_FINALIZADO">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusAvaliacao.CHECKLIST_FINALIZADO" />
                     </option>
                     <option value="ANEXO_AUDITORIA_FINALIZADO">
                       <Translate contentKey="dcpdesconformidadesApp.StatusAvaliacao.ANEXO_AUDITORIA_FINALIZADO" />
@@ -431,10 +436,164 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                   <AvField id="avaliacao-motivoCancelamento" type="text" name="motivoCancelamento" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="user.name">
-                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate>
+                  <Label id="percentualPerdaLabel" for="percentualPerda">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerda">Percentual Perda</Translate>
                   </Label>
-                  <AvInput id="avaliacao-user" type="select" className="form-control" name="userId">
+                  <AvField id="avaliacao-percentualPerda" type="string" className="form-control" name="percentualPerda" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="financeiroPerdaLabel" for="financeiroPerda">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerda">Financeiro Perda</Translate>
+                  </Label>
+                  <AvField id="avaliacao-financeiroPerda" type="text" name="financeiroPerda" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontuacaoPerdaLabel" for="pontuacaoPerda">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerda">Pontuacao Perda</Translate>
+                  </Label>
+                  <AvField id="avaliacao-pontuacaoPerda" type="string" className="form-control" name="pontuacaoPerda" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="statusPerdaLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusPerda">Status Perda</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-statusPerda"
+                    type="select"
+                    className="form-control"
+                    name="statusPerda"
+                    value={(!isNew && avaliacaoEntity.statusPerda) || 'OK'}
+                  >
+                    <option value="OK">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.OK" />
+                    </option>
+                    <option value="NAO_OK">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.NAO_OK" />
+                    </option>
+                    <option value="N_A">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.N_A" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="categorizacaoPerdaLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerda">Categorizacao Perda</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-categorizacaoPerda"
+                    type="select"
+                    className="form-control"
+                    name="categorizacaoPerda"
+                    value={(!isNew && avaliacaoEntity.categorizacaoPerda) || 'INADMISSIVEL'}
+                  >
+                    <option value="INADMISSIVEL">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.INADMISSIVEL" />
+                    </option>
+                    <option value="CRITICO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CRITICO" />
+                    </option>
+                    <option value="VALOR_ELEVADO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.VALOR_ELEVADO" />
+                    </option>
+                    <option value="ATENCAO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.ATENCAO" />
+                    </option>
+                    <option value="CONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CONTROLE" />
+                    </option>
+                    <option value="SOBRA_DESCONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.SOBRA_DESCONTROLE" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="percentualQuebraLabel" for="percentualQuebra">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualQuebra">Percentual Quebra</Translate>
+                  </Label>
+                  <AvField id="avaliacao-percentualQuebra" type="string" className="form-control" name="percentualQuebra" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="financeiroQuebraLabel" for="financeiroQuebra">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroQuebra">Financeiro Quebra</Translate>
+                  </Label>
+                  <AvField id="avaliacao-financeiroQuebra" type="text" name="financeiroQuebra" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pontuacaoQuebraLabel" for="pontuacaoQuebra">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoQuebra">Pontuacao Quebra</Translate>
+                  </Label>
+                  <AvField id="avaliacao-pontuacaoQuebra" type="string" className="form-control" name="pontuacaoQuebra" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="statusQuebraLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusQuebra">Status Quebra</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-statusQuebra"
+                    type="select"
+                    className="form-control"
+                    name="statusQuebra"
+                    value={(!isNew && avaliacaoEntity.statusQuebra) || 'OK'}
+                  >
+                    <option value="OK">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.OK" />
+                    </option>
+                    <option value="NAO_OK">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.NAO_OK" />
+                    </option>
+                    <option value="N_A">
+                      <Translate contentKey="dcpdesconformidadesApp.StatusItemAvaliado.N_A" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="categorizacaoQuebraLabel">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoQuebra">Categorizacao Quebra</Translate>
+                  </Label>
+                  <AvInput
+                    id="avaliacao-categorizacaoQuebra"
+                    type="select"
+                    className="form-control"
+                    name="categorizacaoQuebra"
+                    value={(!isNew && avaliacaoEntity.categorizacaoQuebra) || 'INADMISSIVEL'}
+                  >
+                    <option value="INADMISSIVEL">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.INADMISSIVEL" />
+                    </option>
+                    <option value="CRITICO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CRITICO" />
+                    </option>
+                    <option value="VALOR_ELEVADO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.VALOR_ELEVADO" />
+                    </option>
+                    <option value="ATENCAO">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.ATENCAO" />
+                    </option>
+                    <option value="CONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.CONTROLE" />
+                    </option>
+                    <option value="SOBRA_DESCONTROLE">
+                      <Translate contentKey="dcpdesconformidadesApp.CategorizacaoPerdaQuebra.SOBRA_DESCONTROLE" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="importadoViaPlanilhaLabel" check>
+                    <AvInput id="avaliacao-importadoViaPlanilha" type="checkbox" className="form-control" name="importadoViaPlanilha" />
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="caminhoArquivoPlanilhaLabel" for="caminhoArquivoPlanilha">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>
+                  </Label>
+                  <AvField id="avaliacao-caminhoArquivoPlanilha" type="text" name="caminhoArquivoPlanilha" />
+                </AvGroup>
+                <AvGroup>
+                  <Label for="avaliador.name">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate>
+                  </Label>
+                  <AvInput id="avaliacao-avaliador" type="select" className="form-control" name="avaliadorId">
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
@@ -451,6 +610,20 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                   <AvInput id="avaliacao-questionario" type="select" className="form-control" name="questionarioId">
                     {questionarios
                       ? questionarios.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nome}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="loja.nome">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate>
+                  </Label>
+                  <AvInput id="avaliacao-loja" type="select" className="form-control" name="lojaId">
+                    {lojas
+                      ? lojas.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.nome}
                           </option>
@@ -483,6 +656,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   questionarios: storeState.questionario.entities,
+  lojas: storeState.loja.entities,
   avaliacaoEntity: storeState.avaliacao.entity,
   loading: storeState.avaliacao.loading,
   updating: storeState.avaliacao.updating,
@@ -492,6 +666,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getUsers,
   getQuestionarios,
+  getLojas,
   getEntity,
   updateEntity,
   createEntity,

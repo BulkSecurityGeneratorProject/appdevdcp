@@ -49,7 +49,7 @@
         {
             "fieldName": "status",
             "fieldType": "StatusAvaliacao",
-            "fieldValues": "INICIADA,RELATORIO_FINALIZADO,ANEXO_AUDITORIA_FINALIZADO,ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,SUBMETIDO",
+            "fieldValues": "INICIADA,CHECKLIST_FINALIZADO,ANEXO_AUDITORIA_FINALIZADO,ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,SUBMETIDO",
             "fieldValidateRules": [
                 "required"
             ]
@@ -91,6 +91,61 @@
         {
             "fieldName": "motivoCancelamento",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "percentualPerda",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "financeiroPerda",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "pontuacaoPerda",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "statusPerda",
+            "fieldType": "StatusItemAvaliado",
+            "fieldValues": "OK,NAO_OK,N_A"
+        },
+        {
+            "fieldName": "categorizacaoPerda",
+            "fieldType": "CategorizacaoPerdaQuebra",
+            "fieldValues": "INADMISSIVEL,CRITICO,VALOR_ELEVADO,ATENCAO,CONTROLE,SOBRA_DESCONTROLE"
+        },
+        {
+            "fieldName": "percentualQuebra",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "financeiroQuebra",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "pontuacaoQuebra",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "statusQuebra",
+            "fieldType": "StatusItemAvaliado",
+            "fieldValues": "OK,NAO_OK,N_A"
+        },
+        {
+            "fieldName": "categorizacaoQuebra",
+            "fieldType": "CategorizacaoPerdaQuebra",
+            "fieldValues": "INADMISSIVEL,CRITICO,VALOR_ELEVADO,ATENCAO,CONTROLE,SOBRA_DESCONTROLE"
+        },
+        {
+            "fieldName": "importadoViaPlanilha",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "caminhoArquivoPlanilha",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -98,12 +153,6 @@
             "relationshipType": "one-to-many",
             "relationshipName": "itensAvaliados",
             "otherEntityName": "itemAvaliado",
-            "otherEntityRelationshipName": "avaliacao"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "itensPerdaEQuebraAcumulados",
-            "otherEntityName": "itemAvaliadoPerdaQuebraAcumulados",
             "otherEntityRelationshipName": "avaliacao"
         },
         {
@@ -121,7 +170,7 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "user",
+            "relationshipName": "avaliador",
             "otherEntityName": "user",
             "otherEntityField": "name"
         },
@@ -130,6 +179,13 @@
             "relationshipValidateRules": "required",
             "relationshipName": "questionario",
             "otherEntityName": "questionario",
+            "otherEntityField": "nome"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "loja",
+            "otherEntityName": "loja",
             "otherEntityField": "nome"
         }
     ],

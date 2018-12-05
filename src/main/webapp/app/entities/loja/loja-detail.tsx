@@ -65,7 +65,7 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
             </dt>
             <dd>{lojaEntity.longitude}</dd>
             <dt>
-              <Translate contentKey="dcpdesconformidadesApp.loja.user">User</Translate>
+              <Translate contentKey="dcpdesconformidadesApp.loja.avaliadores">Avaliadores</Translate>
             </dt>
             <dd>
               {lojaEntity.avaliadores

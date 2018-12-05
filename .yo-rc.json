@@ -42,10 +42,10 @@
     "Avaliacao",
     "ItemAvaliacao",
     "ItemAvaliado",
-    "ItemAvaliadoPerdaQuebraAcumulados",
     "GrupoItens",
     "AnexoItem",
     "ItemAuditado",
-    "ItemSolicitadoAjuste"
+    "ItemSolicitadoAjuste",
+    "PerdaQuebraAcumuladosAnoLoja"
   ]
 }

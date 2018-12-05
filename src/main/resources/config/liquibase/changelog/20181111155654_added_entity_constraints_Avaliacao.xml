@@ -8,9 +8,9 @@
     -->
     <changeSet id="20181111155654-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="user_id"
+        <addForeignKeyConstraint baseColumnNames="avaliador_id"
                                  baseTableName="avaliacao"
-                                 constraintName="fk_avaliacao_user_id"
+                                 constraintName="fk_avaliacao_avaliador_id"
                                  referencedColumnNames="id"
                                  referencedTableName="app_user"/>
 
@@ -19,6 +19,12 @@
                                  constraintName="fk_avaliacao_questionario_id"
                                  referencedColumnNames="id"
                                  referencedTableName="questionario"/>
+
+        <addForeignKeyConstraint baseColumnNames="loja_id"
+                                 baseTableName="avaliacao"
+                                 constraintName="fk_avaliacao_loja_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="loja"/>
 
     </changeSet>
 </databaseChangeLog>

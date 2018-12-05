@@ -59,26 +59,26 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
           <Table responsive>
             <thead>
               <tr>
-                <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
+                <th className="hand" onClick={this.sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
+                <th className="hand" onClick={this.sort('nome')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.endereco">Endereco</Translate>
+                <th className="hand" onClick={this.sort('endereco')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.endereco">Endereco</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.cidade">Cidade</Translate>
+                <th className="hand" onClick={this.sort('cidade')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.cidade">Cidade</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate>
+                <th className="hand" onClick={this.sort('cep')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>
+                <th className="hand" onClick={this.sort('latitude')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate>
+                <th className="hand" onClick={this.sort('longitude')}>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>

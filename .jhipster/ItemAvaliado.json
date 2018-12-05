@@ -68,31 +68,19 @@
         },
         {
             "fieldName": "pontosObtidosProcedimento",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         },
         {
             "fieldName": "pontosObtidosPessoa",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         },
         {
             "fieldName": "pontosObtidosProcesso",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         },
         {
             "fieldName": "pontosObtidosProduto",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         }
     ],
     "relationships": [

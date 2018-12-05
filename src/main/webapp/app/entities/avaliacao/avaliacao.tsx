@@ -154,12 +154,63 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('percentualPerda')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerda">Percentual Perda</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('financeiroPerda')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerda">Financeiro Perda</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('pontuacaoPerda')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerda">Pontuacao Perda</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('statusPerda')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusPerda">Status Perda</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('categorizacaoPerda')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerda">Categorizacao Perda</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('percentualQuebra')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualQuebra">Percentual Quebra</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('financeiroQuebra')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroQuebra">Financeiro Quebra</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('pontuacaoQuebra')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoQuebra">Pontuacao Quebra</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('statusQuebra')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusQuebra">Status Quebra</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('categorizacaoQuebra')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoQuebra">Categorizacao Quebra</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('importadoViaPlanilha')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('caminhoArquivoPlanilha')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.user">User</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -210,7 +261,27 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                     <TextFormat type="date" value={avaliacao.canceladoEm} format={APP_DATE_FORMAT} />
                   </td>
                   <td>{avaliacao.motivoCancelamento}</td>
-                  <td>{avaliacao.userName ? avaliacao.userName : ''}</td>
+                  <td>{avaliacao.percentualPerda}</td>
+                  <td>{avaliacao.financeiroPerda}</td>
+                  <td>{avaliacao.pontuacaoPerda}</td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacao.statusPerda}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacao.categorizacaoPerda}`} />
+                  </td>
+                  <td>{avaliacao.percentualQuebra}</td>
+                  <td>{avaliacao.financeiroQuebra}</td>
+                  <td>{avaliacao.pontuacaoQuebra}</td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacao.statusQuebra}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacao.categorizacaoQuebra}`} />
+                  </td>
+                  <td>{avaliacao.importadoViaPlanilha ? 'true' : 'false'}</td>
+                  <td>{avaliacao.caminhoArquivoPlanilha}</td>
+                  <td>{avaliacao.avaliadorName ? avaliacao.avaliadorName : ''}</td>
                   <td>
                     {avaliacao.questionarioNome ? (
                       <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>
@@ -218,6 +289,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                       ''
                     )}
                   </td>
+                  <td>{avaliacao.lojaNome ? <Link to={`loja/${avaliacao.lojaId}`}>{avaliacao.lojaNome}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${avaliacao.id}`} color="info" size="sm">

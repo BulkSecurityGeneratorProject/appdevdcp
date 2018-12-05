@@ -33,12 +33,24 @@
       "nivelEficienciaProduto": "Nivel Eficiencia Produto",
       "canceladoEm": "Cancelado Em",
       "motivoCancelamento": "Motivo Cancelamento",
+      "percentualPerda": "Percentual Perda",
+      "financeiroPerda": "Financeiro Perda",
+      "pontuacaoPerda": "Pontuacao Perda",
+      "statusPerda": "Status Perda",
+      "categorizacaoPerda": "Categorizacao Perda",
+      "percentualQuebra": "Percentual Quebra",
+      "financeiroQuebra": "Financeiro Quebra",
+      "pontuacaoQuebra": "Pontuacao Quebra",
+      "statusQuebra": "Status Quebra",
+      "categorizacaoQuebra": "Categorizacao Quebra",
+      "importadoViaPlanilha": "Importado Via Planilha",
+      "caminhoArquivoPlanilha": "Caminho Arquivo Planilha",
       "itensAvaliados": "Itens Avaliados",
-      "itensPerdaEQuebraAcumulados": "Itens Perda E Quebra Acumulados",
       "itensAuditados": "Itens Auditados",
       "itensComAjusteSolicitado": "Itens Com Ajuste Solicitado",
-      "user": "User",
-      "questionario": "Questionario"
+      "avaliador": "Avaliador",
+      "questionario": "Questionario",
+      "loja": "Loja"
     }
   }
 }

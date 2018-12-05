@@ -21,7 +21,9 @@
       "cep": "Cep",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "user": "Avaliadores"
+      "avaliacoes": "Avaliacoes",
+      "perdaQuebraAcumuladosAno": "Perda Quebra Acumulados Ano",
+      "avaliadores": "Avaliadores"
     }
   }
 }

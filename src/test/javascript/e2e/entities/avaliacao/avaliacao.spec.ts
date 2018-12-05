@@ -75,8 +75,35 @@ describe('Avaliacao e2e test', () => {
         expect(await avaliacaoUpdatePage.getCanceladoEmInput()).to.contain('2001-01-01T02:30');
         await avaliacaoUpdatePage.setMotivoCancelamentoInput('motivoCancelamento');
         expect(await avaliacaoUpdatePage.getMotivoCancelamentoInput()).to.match(/motivoCancelamento/);
-        await avaliacaoUpdatePage.userSelectLastOption();
+        await avaliacaoUpdatePage.setPercentualPerdaInput('5');
+        expect(await avaliacaoUpdatePage.getPercentualPerdaInput()).to.eq('5');
+        await avaliacaoUpdatePage.setFinanceiroPerdaInput('5');
+        expect(await avaliacaoUpdatePage.getFinanceiroPerdaInput()).to.eq('5');
+        await avaliacaoUpdatePage.setPontuacaoPerdaInput('5');
+        expect(await avaliacaoUpdatePage.getPontuacaoPerdaInput()).to.eq('5');
+        await avaliacaoUpdatePage.statusPerdaSelectLastOption();
+        await avaliacaoUpdatePage.categorizacaoPerdaSelectLastOption();
+        await avaliacaoUpdatePage.setPercentualQuebraInput('5');
+        expect(await avaliacaoUpdatePage.getPercentualQuebraInput()).to.eq('5');
+        await avaliacaoUpdatePage.setFinanceiroQuebraInput('5');
+        expect(await avaliacaoUpdatePage.getFinanceiroQuebraInput()).to.eq('5');
+        await avaliacaoUpdatePage.setPontuacaoQuebraInput('5');
+        expect(await avaliacaoUpdatePage.getPontuacaoQuebraInput()).to.eq('5');
+        await avaliacaoUpdatePage.statusQuebraSelectLastOption();
+        await avaliacaoUpdatePage.categorizacaoQuebraSelectLastOption();
+        const selectedImportadoViaPlanilha = await avaliacaoUpdatePage.getImportadoViaPlanilhaInput().isSelected();
+        if (selectedImportadoViaPlanilha) {
+            await avaliacaoUpdatePage.getImportadoViaPlanilhaInput().click();
+            expect(await avaliacaoUpdatePage.getImportadoViaPlanilhaInput().isSelected()).to.be.false;
+        } else {
+            await avaliacaoUpdatePage.getImportadoViaPlanilhaInput().click();
+            expect(await avaliacaoUpdatePage.getImportadoViaPlanilhaInput().isSelected()).to.be.true;
+        }
+        await avaliacaoUpdatePage.setCaminhoArquivoPlanilhaInput('caminhoArquivoPlanilha');
+        expect(await avaliacaoUpdatePage.getCaminhoArquivoPlanilhaInput()).to.match(/caminhoArquivoPlanilha/);
+        await avaliacaoUpdatePage.avaliadorSelectLastOption();
         await avaliacaoUpdatePage.questionarioSelectLastOption();
+        await avaliacaoUpdatePage.lojaSelectLastOption();
         await waitUntilDisplayed(avaliacaoUpdatePage.getSaveButton());
         await avaliacaoUpdatePage.save();
         await waitUntilHidden(avaliacaoUpdatePage.getSaveButton());

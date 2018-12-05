@@ -3,6 +3,7 @@ package br.com.lasa.dcpdesconformidades.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
@@ -11,6 +12,10 @@ import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 
 /**
  * A DTO for the Avaliacao entity.
@@ -59,6 +64,31 @@ public class AvaliacaoDTO implements Serializable {
 
     private String motivoCancelamento;
 
+    private Double percentualPerda;
+
+    private BigDecimal financeiroPerda;
+
+    private Integer pontuacaoPerda;
+
+    private StatusItemAvaliado statusPerda;
+
+    private CategorizacaoPerdaQuebra categorizacaoPerda;
+
+    private Double percentualQuebra;
+
+    private BigDecimal financeiroQuebra;
+
+    private Integer pontuacaoQuebra;
+
+    private StatusItemAvaliado statusQuebra;
+
+    private CategorizacaoPerdaQuebra categorizacaoQuebra;
+
+    @NotNull
+    private Boolean importadoViaPlanilha;
+
+    private String caminhoArquivoPlanilha;
+
     private Long avaliadorId;
 
     private String avaliadorName;
@@ -66,6 +96,10 @@ public class AvaliacaoDTO implements Serializable {
     private Long questionarioId;
 
     private String questionarioNome;
+
+    private Long lojaId;
+
+    private String lojaNome;
 
     public Long getId() {
         return id;
@@ -219,20 +253,116 @@ public class AvaliacaoDTO implements Serializable {
         this.motivoCancelamento = motivoCancelamento;
     }
 
+    public Double getPercentualPerda() {
+        return percentualPerda;
+    }
+
+    public void setPercentualPerda(Double percentualPerda) {
+        this.percentualPerda = percentualPerda;
+    }
+
+    public BigDecimal getFinanceiroPerda() {
+        return financeiroPerda;
+    }
+
+    public void setFinanceiroPerda(BigDecimal financeiroPerda) {
+        this.financeiroPerda = financeiroPerda;
+    }
+
+    public Integer getPontuacaoPerda() {
+        return pontuacaoPerda;
+    }
+
+    public void setPontuacaoPerda(Integer pontuacaoPerda) {
+        this.pontuacaoPerda = pontuacaoPerda;
+    }
+
+    public StatusItemAvaliado getStatusPerda() {
+        return statusPerda;
+    }
+
+    public void setStatusPerda(StatusItemAvaliado statusPerda) {
+        this.statusPerda = statusPerda;
+    }
+
+    public CategorizacaoPerdaQuebra getCategorizacaoPerda() {
+        return categorizacaoPerda;
+    }
+
+    public void setCategorizacaoPerda(CategorizacaoPerdaQuebra categorizacaoPerda) {
+        this.categorizacaoPerda = categorizacaoPerda;
+    }
+
+    public Double getPercentualQuebra() {
+        return percentualQuebra;
+    }
+
+    public void setPercentualQuebra(Double percentualQuebra) {
+        this.percentualQuebra = percentualQuebra;
+    }
+
+    public BigDecimal getFinanceiroQuebra() {
+        return financeiroQuebra;
+    }
+
+    public void setFinanceiroQuebra(BigDecimal financeiroQuebra) {
+        this.financeiroQuebra = financeiroQuebra;
+    }
+
+    public Integer getPontuacaoQuebra() {
+        return pontuacaoQuebra;
+    }
+
+    public void setPontuacaoQuebra(Integer pontuacaoQuebra) {
+        this.pontuacaoQuebra = pontuacaoQuebra;
+    }
+
+    public StatusItemAvaliado getStatusQuebra() {
+        return statusQuebra;
+    }
+
+    public void setStatusQuebra(StatusItemAvaliado statusQuebra) {
+        this.statusQuebra = statusQuebra;
+    }
+
+    public CategorizacaoPerdaQuebra getCategorizacaoQuebra() {
+        return categorizacaoQuebra;
+    }
+
+    public void setCategorizacaoQuebra(CategorizacaoPerdaQuebra categorizacaoQuebra) {
+        this.categorizacaoQuebra = categorizacaoQuebra;
+    }
+
+    public Boolean isImportadoViaPlanilha() {
+        return importadoViaPlanilha;
+    }
+
+    public void setImportadoViaPlanilha(Boolean importadoViaPlanilha) {
+        this.importadoViaPlanilha = importadoViaPlanilha;
+    }
+
+    public String getCaminhoArquivoPlanilha() {
+        return caminhoArquivoPlanilha;
+    }
+
+    public void setCaminhoArquivoPlanilha(String caminhoArquivoPlanilha) {
+        this.caminhoArquivoPlanilha = caminhoArquivoPlanilha;
+    }
+
     public Long getAvaliadorId() {
         return avaliadorId;
     }
 
-    public void setAvaliadorId(Long avaliadorId) {
-        this.avaliadorId = avaliadorId;
+    public void setAvaliadorId(Long userId) {
+        this.avaliadorId = userId;
     }
 
     public String getAvaliadorName() {
         return avaliadorName;
     }
 
-    public void setAvaliadorName(String avaliadorName) {
-        this.avaliadorName = avaliadorName;
+    public void setAvaliadorName(String userName) {
+        this.avaliadorName = userName;
     }
 
     public Long getQuestionarioId() {
@@ -249,6 +379,22 @@ public class AvaliacaoDTO implements Serializable {
 
     public void setQuestionarioNome(String questionarioNome) {
         this.questionarioNome = questionarioNome;
+    }
+
+    public Long getLojaId() {
+        return lojaId;
+    }
+
+    public void setLojaId(Long lojaId) {
+        this.lojaId = lojaId;
+    }
+
+    public String getLojaNome() {
+        return lojaNome;
+    }
+
+    public void setLojaNome(String lojaNome) {
+        this.lojaNome = lojaNome;
     }
 
     @Override
@@ -294,10 +440,24 @@ public class AvaliacaoDTO implements Serializable {
             ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
             ", canceladoEm='" + getCanceladoEm() + "'" +
             ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
-            ", user=" + getAvaliadorId() +
-            ", user='" + getAvaliadorName() + "'" +
+            ", percentualPerda=" + getPercentualPerda() +
+            ", financeiroPerda=" + getFinanceiroPerda() +
+            ", pontuacaoPerda=" + getPontuacaoPerda() +
+            ", statusPerda='" + getStatusPerda() + "'" +
+            ", categorizacaoPerda='" + getCategorizacaoPerda() + "'" +
+            ", percentualQuebra=" + getPercentualQuebra() +
+            ", financeiroQuebra=" + getFinanceiroQuebra() +
+            ", pontuacaoQuebra=" + getPontuacaoQuebra() +
+            ", statusQuebra='" + getStatusQuebra() + "'" +
+            ", categorizacaoQuebra='" + getCategorizacaoQuebra() + "'" +
+            ", importadoViaPlanilha='" + isImportadoViaPlanilha() + "'" +
+            ", caminhoArquivoPlanilha='" + getCaminhoArquivoPlanilha() + "'" +
+            ", avaliador=" + getAvaliadorId() +
+            ", avaliador='" + getAvaliadorName() + "'" +
             ", questionario=" + getQuestionarioId() +
             ", questionario='" + getQuestionarioNome() + "'" +
+            ", loja=" + getLojaId() +
+            ", loja='" + getLojaNome() + "'" +
             "}";
     }
 }

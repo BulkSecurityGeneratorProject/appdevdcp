@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +20,10 @@ import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
+
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 
 /**
  * A Avaliacao.
@@ -99,12 +104,50 @@ public class Avaliacao implements Serializable {
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
 
+    @Column(name = "percentual_perda")
+    private Double percentualPerda;
+
+    @Column(name = "financeiro_perda", precision = 10, scale = 2)
+    private BigDecimal financeiroPerda;
+
+    @Column(name = "pontuacao_perda")
+    private Integer pontuacaoPerda;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_perda")
+    private StatusItemAvaliado statusPerda;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categorizacao_perda")
+    private CategorizacaoPerdaQuebra categorizacaoPerda;
+
+    @Column(name = "percentual_quebra")
+    private Double percentualQuebra;
+
+    @Column(name = "financeiro_quebra", precision = 10, scale = 2)
+    private BigDecimal financeiroQuebra;
+
+    @Column(name = "pontuacao_quebra")
+    private Integer pontuacaoQuebra;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_quebra")
+    private StatusItemAvaliado statusQuebra;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categorizacao_quebra")
+    private CategorizacaoPerdaQuebra categorizacaoQuebra;
+
+    @NotNull
+    @Column(name = "importado_via_planilha", nullable = false)
+    private Boolean importadoViaPlanilha;
+
+    @Column(name = "caminho_arquivo_planilha")
+    private String caminhoArquivoPlanilha;
+
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
-    @OneToMany(mappedBy = "avaliacao")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ItemAvaliadoPerdaQuebraAcumulados> itensPerdaEQuebraAcumulados = new HashSet<>();
     @OneToMany(mappedBy = "avaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAuditado> itensAuditados = new HashSet<>();
@@ -113,14 +156,18 @@ public class Avaliacao implements Serializable {
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("avaliacoes")
-    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("")
     private User avaliador;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("avaliacoesRealizadas")
     private Questionario questionario;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("avaliacoes")
+    private Loja loja;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -365,6 +412,162 @@ public class Avaliacao implements Serializable {
         this.motivoCancelamento = motivoCancelamento;
     }
 
+    public Double getPercentualPerda() {
+        return percentualPerda;
+    }
+
+    public Avaliacao percentualPerda(Double percentualPerda) {
+        this.percentualPerda = percentualPerda;
+        return this;
+    }
+
+    public void setPercentualPerda(Double percentualPerda) {
+        this.percentualPerda = percentualPerda;
+    }
+
+    public BigDecimal getFinanceiroPerda() {
+        return financeiroPerda;
+    }
+
+    public Avaliacao financeiroPerda(BigDecimal financeiroPerda) {
+        this.financeiroPerda = financeiroPerda;
+        return this;
+    }
+
+    public void setFinanceiroPerda(BigDecimal financeiroPerda) {
+        this.financeiroPerda = financeiroPerda;
+    }
+
+    public Integer getPontuacaoPerda() {
+        return pontuacaoPerda;
+    }
+
+    public Avaliacao pontuacaoPerda(Integer pontuacaoPerda) {
+        this.pontuacaoPerda = pontuacaoPerda;
+        return this;
+    }
+
+    public void setPontuacaoPerda(Integer pontuacaoPerda) {
+        this.pontuacaoPerda = pontuacaoPerda;
+    }
+
+    public StatusItemAvaliado getStatusPerda() {
+        return statusPerda;
+    }
+
+    public Avaliacao statusPerda(StatusItemAvaliado statusPerda) {
+        this.statusPerda = statusPerda;
+        return this;
+    }
+
+    public void setStatusPerda(StatusItemAvaliado statusPerda) {
+        this.statusPerda = statusPerda;
+    }
+
+    public CategorizacaoPerdaQuebra getCategorizacaoPerda() {
+        return categorizacaoPerda;
+    }
+
+    public Avaliacao categorizacaoPerda(CategorizacaoPerdaQuebra categorizacaoPerda) {
+        this.categorizacaoPerda = categorizacaoPerda;
+        return this;
+    }
+
+    public void setCategorizacaoPerda(CategorizacaoPerdaQuebra categorizacaoPerda) {
+        this.categorizacaoPerda = categorizacaoPerda;
+    }
+
+    public Double getPercentualQuebra() {
+        return percentualQuebra;
+    }
+
+    public Avaliacao percentualQuebra(Double percentualQuebra) {
+        this.percentualQuebra = percentualQuebra;
+        return this;
+    }
+
+    public void setPercentualQuebra(Double percentualQuebra) {
+        this.percentualQuebra = percentualQuebra;
+    }
+
+    public BigDecimal getFinanceiroQuebra() {
+        return financeiroQuebra;
+    }
+
+    public Avaliacao financeiroQuebra(BigDecimal financeiroQuebra) {
+        this.financeiroQuebra = financeiroQuebra;
+        return this;
+    }
+
+    public void setFinanceiroQuebra(BigDecimal financeiroQuebra) {
+        this.financeiroQuebra = financeiroQuebra;
+    }
+
+    public Integer getPontuacaoQuebra() {
+        return pontuacaoQuebra;
+    }
+
+    public Avaliacao pontuacaoQuebra(Integer pontuacaoQuebra) {
+        this.pontuacaoQuebra = pontuacaoQuebra;
+        return this;
+    }
+
+    public void setPontuacaoQuebra(Integer pontuacaoQuebra) {
+        this.pontuacaoQuebra = pontuacaoQuebra;
+    }
+
+    public StatusItemAvaliado getStatusQuebra() {
+        return statusQuebra;
+    }
+
+    public Avaliacao statusQuebra(StatusItemAvaliado statusQuebra) {
+        this.statusQuebra = statusQuebra;
+        return this;
+    }
+
+    public void setStatusQuebra(StatusItemAvaliado statusQuebra) {
+        this.statusQuebra = statusQuebra;
+    }
+
+    public CategorizacaoPerdaQuebra getCategorizacaoQuebra() {
+        return categorizacaoQuebra;
+    }
+
+    public Avaliacao categorizacaoQuebra(CategorizacaoPerdaQuebra categorizacaoQuebra) {
+        this.categorizacaoQuebra = categorizacaoQuebra;
+        return this;
+    }
+
+    public void setCategorizacaoQuebra(CategorizacaoPerdaQuebra categorizacaoQuebra) {
+        this.categorizacaoQuebra = categorizacaoQuebra;
+    }
+
+    public Boolean isImportadoViaPlanilha() {
+        return importadoViaPlanilha;
+    }
+
+    public Avaliacao importadoViaPlanilha(Boolean importadoViaPlanilha) {
+        this.importadoViaPlanilha = importadoViaPlanilha;
+        return this;
+    }
+
+    public void setImportadoViaPlanilha(Boolean importadoViaPlanilha) {
+        this.importadoViaPlanilha = importadoViaPlanilha;
+    }
+
+    public String getCaminhoArquivoPlanilha() {
+        return caminhoArquivoPlanilha;
+    }
+
+    public Avaliacao caminhoArquivoPlanilha(String caminhoArquivoPlanilha) {
+        this.caminhoArquivoPlanilha = caminhoArquivoPlanilha;
+        return this;
+    }
+
+    public void setCaminhoArquivoPlanilha(String caminhoArquivoPlanilha) {
+        this.caminhoArquivoPlanilha = caminhoArquivoPlanilha;
+    }
+
     public Set<ItemAvaliado> getItensAvaliados() {
         return itensAvaliados;
     }
@@ -388,31 +591,6 @@ public class Avaliacao implements Serializable {
 
     public void setItensAvaliados(Set<ItemAvaliado> itemAvaliados) {
         this.itensAvaliados = itemAvaliados;
-    }
-
-    public Set<ItemAvaliadoPerdaQuebraAcumulados> getItensPerdaEQuebraAcumulados() {
-        return itensPerdaEQuebraAcumulados;
-    }
-
-    public Avaliacao itensPerdaEQuebraAcumulados(Set<ItemAvaliadoPerdaQuebraAcumulados> itemAvaliadoPerdaQuebraAcumulados) {
-        this.itensPerdaEQuebraAcumulados = itemAvaliadoPerdaQuebraAcumulados;
-        return this;
-    }
-
-    public Avaliacao addItensPerdaEQuebraAcumulados(ItemAvaliadoPerdaQuebraAcumulados itemAvaliadoPerdaQuebraAcumulados) {
-        this.itensPerdaEQuebraAcumulados.add(itemAvaliadoPerdaQuebraAcumulados);
-        itemAvaliadoPerdaQuebraAcumulados.setAvaliacao(this);
-        return this;
-    }
-
-    public Avaliacao removeItensPerdaEQuebraAcumulados(ItemAvaliadoPerdaQuebraAcumulados itemAvaliadoPerdaQuebraAcumulados) {
-        this.itensPerdaEQuebraAcumulados.remove(itemAvaliadoPerdaQuebraAcumulados);
-        itemAvaliadoPerdaQuebraAcumulados.setAvaliacao(null);
-        return this;
-    }
-
-    public void setItensPerdaEQuebraAcumulados(Set<ItemAvaliadoPerdaQuebraAcumulados> itemAvaliadoPerdaQuebraAcumulados) {
-        this.itensPerdaEQuebraAcumulados = itemAvaliadoPerdaQuebraAcumulados;
     }
 
     public Set<ItemAuditado> getItensAuditados() {
@@ -469,8 +647,13 @@ public class Avaliacao implements Serializable {
         return avaliador;
     }
 
-    public void setAvaliador(User avaliador) {
-        this.avaliador = avaliador;
+    public Avaliacao avaliador(User user) {
+        this.avaliador = user;
+        return this;
+    }
+
+    public void setAvaliador(User user) {
+        this.avaliador = user;
     }
 
     public Questionario getQuestionario() {
@@ -484,6 +667,19 @@ public class Avaliacao implements Serializable {
 
     public void setQuestionario(Questionario questionario) {
         this.questionario = questionario;
+    }
+
+    public Loja getLoja() {
+        return loja;
+    }
+
+    public Avaliacao loja(Loja loja) {
+        this.loja = loja;
+        return this;
+    }
+
+    public void setLoja(Loja loja) {
+        this.loja = loja;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -529,6 +725,18 @@ public class Avaliacao implements Serializable {
             ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
             ", canceladoEm='" + getCanceladoEm() + "'" +
             ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
+            ", percentualPerda=" + getPercentualPerda() +
+            ", financeiroPerda=" + getFinanceiroPerda() +
+            ", pontuacaoPerda=" + getPontuacaoPerda() +
+            ", statusPerda='" + getStatusPerda() + "'" +
+            ", categorizacaoPerda='" + getCategorizacaoPerda() + "'" +
+            ", percentualQuebra=" + getPercentualQuebra() +
+            ", financeiroQuebra=" + getFinanceiroQuebra() +
+            ", pontuacaoQuebra=" + getPontuacaoQuebra() +
+            ", statusQuebra='" + getStatusQuebra() + "'" +
+            ", categorizacaoQuebra='" + getCategorizacaoQuebra() + "'" +
+            ", importadoViaPlanilha='" + isImportadoViaPlanilha() + "'" +
+            ", caminhoArquivoPlanilha='" + getCaminhoArquivoPlanilha() + "'" +
             "}";
     }
 }

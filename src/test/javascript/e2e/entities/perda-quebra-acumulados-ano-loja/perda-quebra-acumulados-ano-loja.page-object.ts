@@ -2,10 +2,10 @@ import { element, by, ElementFinder } from 'protractor';
 
 import { waitUntilCount, waitUntilDisplayed } from '../../util/utils';
 
-export default class ItemAvaliadoPerdaQuebraAcumuladosComponentsPage {
+export default class PerdaQuebraAcumuladosAnoLojaComponentsPage {
   createButton: ElementFinder = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('div table .btn-danger'));
-  title: ElementFinder = element(by.id('item-avaliado-perda-quebra-acumulados-heading'));
+  title: ElementFinder = element(by.id('perda-quebra-acumulados-ano-loja-heading'));
 
   async clickOnCreateButton() {
     await this.createButton.click();
@@ -32,9 +32,9 @@ export default class ItemAvaliadoPerdaQuebraAcumuladosComponentsPage {
   }
 }
 
-export class ItemAvaliadoPerdaQuebraAcumuladosDeleteDialog {
-  private dialogTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.itemAvaliadoPerdaQuebraAcumulados.delete.question'));
-  private confirmButton = element(by.id('app-confirm-delete-itemAvaliadoPerdaQuebraAcumulados'));
+export class PerdaQuebraAcumuladosAnoLojaDeleteDialog {
+  private dialogTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.perdaQuebraAcumuladosAnoLoja.delete.question'));
+  private confirmButton = element(by.id('app-confirm-delete-perdaQuebraAcumuladosAnoLoja'));
 
   getDialogTitle() {
     return this.dialogTitle;

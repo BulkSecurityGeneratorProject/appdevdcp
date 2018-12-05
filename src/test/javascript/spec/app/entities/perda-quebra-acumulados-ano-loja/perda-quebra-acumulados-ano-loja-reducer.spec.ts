@@ -13,9 +13,9 @@ import reducer, {
   getEntity,
   updateEntity,
   reset
-} from 'app/entities/item-avaliado-perda-quebra-acumulados/item-avaliado-perda-quebra-acumulados.reducer';
+} from 'app/entities/perda-quebra-acumulados-ano-loja/perda-quebra-acumulados-ano-loja.reducer';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IItemAvaliadoPerdaQuebraAcumulados, defaultValue } from 'app/shared/model/item-avaliado-perda-quebra-acumulados.model';
+import { IPerdaQuebraAcumuladosAnoLoja, defaultValue } from 'app/shared/model/perda-quebra-acumulados-ano-loja.model';
 
 // tslint:disable no-invalid-template-strings
 describe('Entities reducer tests', () => {
@@ -30,7 +30,7 @@ describe('Entities reducer tests', () => {
   const initialState = {
     loading: false,
     errorMessage: null,
-    entities: [] as ReadonlyArray<IItemAvaliadoPerdaQuebraAcumulados>,
+    entities: [] as ReadonlyArray<IPerdaQuebraAcumuladosAnoLoja>,
     entity: defaultValue,
     updating: false,
     updateSuccess: false
@@ -62,7 +62,7 @@ describe('Entities reducer tests', () => {
   describe('Requests', () => {
     it('should set state to loading', () => {
       testMultipleTypes(
-        [REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST), REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS)],
+        [REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST), REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA)],
         {},
         state => {
           expect(state).toMatchObject({
@@ -77,9 +77,9 @@ describe('Entities reducer tests', () => {
     it('should set state to updating', () => {
       testMultipleTypes(
         [
-          REQUEST(ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
-          REQUEST(ACTION_TYPES.UPDATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
-          REQUEST(ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          REQUEST(ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA),
+          REQUEST(ACTION_TYPES.UPDATE_PERDAQUEBRAACUMULADOSANOLOJA),
+          REQUEST(ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA)
         ],
         {},
         state => {
@@ -110,11 +110,11 @@ describe('Entities reducer tests', () => {
     it('should set a message in errorMessage', () => {
       testMultipleTypes(
         [
-          FAILURE(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
-          FAILURE(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
-          FAILURE(ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
-          FAILURE(ACTION_TYPES.UPDATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
-          FAILURE(ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          FAILURE(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
+          FAILURE(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA),
+          FAILURE(ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA),
+          FAILURE(ACTION_TYPES.UPDATE_PERDAQUEBRAACUMULADOSANOLOJA),
+          FAILURE(ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA)
         ],
         'error message',
         state => {
@@ -133,7 +133,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }] };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
           payload
         })
       ).toEqual({
@@ -147,7 +147,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: { 1: 'fake1' } };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA),
           payload
         })
       ).toEqual({
@@ -161,7 +161,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: 'fake payload' };
       expect(
         reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA),
           payload
         })
       ).toEqual({
@@ -175,7 +175,7 @@ describe('Entities reducer tests', () => {
     it('should delete entity', () => {
       const payload = 'fake payload';
       const toTest = reducer(undefined, {
-        type: SUCCESS(ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+        type: SUCCESS(ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA),
         payload
       });
       expect(toTest).toMatchObject({
@@ -198,86 +198,86 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          type: REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA),
           payload: resolvedObject
         }
       ];
       await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS actions', async () => {
+    it('dispatches ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          type: REQUEST(ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA)
         },
         {
-          type: SUCCESS(ACTION_TYPES.CREATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.CREATE_PERDAQUEBRAACUMULADOSANOLOJA),
           payload: resolvedObject
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.UPDATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS actions', async () => {
+    it('dispatches ACTION_TYPES.UPDATE_PERDAQUEBRAACUMULADOSANOLOJA actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.UPDATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          type: REQUEST(ACTION_TYPES.UPDATE_PERDAQUEBRAACUMULADOSANOLOJA)
         },
         {
-          type: SUCCESS(ACTION_TYPES.UPDATE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.UPDATE_PERDAQUEBRAACUMULADOSANOLOJA),
           payload: resolvedObject
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
           payload: resolvedObject
         }
       ];
       await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS actions', async () => {
+    it('dispatches ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS)
+          type: REQUEST(ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA)
         },
         {
-          type: SUCCESS(ACTION_TYPES.DELETE_ITEMAVALIADOPERDAQUEBRAACUMULADOS),
+          type: SUCCESS(ACTION_TYPES.DELETE_PERDAQUEBRAACUMULADOSANOLOJA),
           payload: resolvedObject
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_ITEMAVALIADOPERDAQUEBRAACUMULADOS_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_PERDAQUEBRAACUMULADOSANOLOJA_LIST),
           payload: resolvedObject
         }
       ];

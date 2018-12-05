@@ -20,14 +20,14 @@ export interface ILojaUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface ILojaUpdateState {
   isNew: boolean;
-  idsuser: any[];
+  idsavaliadores: any[];
 }
 
 export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      idsuser: [],
+      idsavaliadores: [],
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -54,7 +54,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
       const entity = {
         ...lojaEntity,
         ...values,
-        users: mapIdList(values.users)
+        avaliadores: mapIdList(values.avaliadores)
       };
 
       if (this.state.isNew) {
@@ -134,14 +134,14 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                 </AvGroup>
                 <AvGroup>
                   <Label for="users">
-                    <Translate contentKey="dcpdesconformidadesApp.loja.user">User</Translate>
+                    <Translate contentKey="dcpdesconformidadesApp.loja.avaliadores">Avaliadores</Translate>
                   </Label>
                   <AvInput
-                    id="loja-user"
+                    id="loja-avaliadores"
                     type="select"
                     multiple
                     className="form-control"
-                    name="users"
+                    name="avaliadores"
                     value={lojaEntity.avaliadores && lojaEntity.avaliadores.map(e => e.id)}
                   >
                     <option value="" key="0" />

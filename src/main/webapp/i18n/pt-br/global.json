@@ -12,11 +12,11 @@
         "avaliacao": "Avaliacao",
         "itemAvaliacao": "Item Avaliacao",
         "itemAvaliado": "Item Avaliado",
-        "itemAvaliadoPerdaQuebraAcumulados": "Item Avaliado Perda Quebra Acumulados",
         "grupoItens": "Grupo Itens",
         "anexoItem": "Anexo Item",
         "itemAuditado": "Item Auditado",
         "itemSolicitadoAjuste": "Item Solicitado Ajuste",
+        "perdaQuebraAcumuladosAnoLoja": "Perda Quebra Acumulados Ano Loja",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

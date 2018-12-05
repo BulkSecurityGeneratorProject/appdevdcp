@@ -15,61 +15,63 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity ItemAvaliadoPerdaQuebraAcumulados.
+        Added the entity PerdaQuebraAcumuladosAnoLoja.
     -->
-    <changeSet id="20181111155657-1" author="jhipster">
-        <createTable tableName="item_perda_quebra_acumulados">
+    <changeSet id="20181205142630-1" author="jhipster">
+        <createTable tableName="perda_quebra_acumulados_loja">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="tipo" type="varchar(255)">
+            <column name="ano" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="respondido_em" type="datetime">
+            <column name="percentual_perda" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="ultima_atualizacao_em" type="datetime">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="percentual" type="double">
+            <column name="financeiro_perda" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="financeiro" type="decimal(10,2)">
+            <column name="pontuacao_perda" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="pontuacao" type="integer">
+            <column name="status_perda" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="latitude_local_resposta" type="double">
+            <column name="categorizacao_perda" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="longitude_local_resposta" type="double">
+            <column name="percentual_quebra" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="classificacao" type="varchar(255)">
+            <column name="financeiro_quebra" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="categorizacao" type="varchar(255)">
+            <column name="pontuacao_quebra" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="avaliacao_id" type="bigint">
+            <column name="status_quebra" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="categorizacao_quebra" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="loja_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="item_perda_quebra_acumulados" columnName="respondido_em" columnDataType="datetime"/>
-        <dropDefaultValue tableName="item_perda_quebra_acumulados" columnName="ultima_atualizacao_em" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

@@ -1,12 +1,11 @@
 import { Moment } from 'moment';
 import { IItemAvaliado } from 'app/shared/model//item-avaliado.model';
-import { IItemAvaliadoPerdaQuebraAcumulados } from 'app/shared/model//item-avaliado-perda-quebra-acumulados.model';
 import { IItemAuditado } from 'app/shared/model//item-auditado.model';
 import { IItemSolicitadoAjuste } from 'app/shared/model//item-solicitado-ajuste.model';
 
 export const enum StatusAvaliacao {
   INICIADA = 'INICIADA',
-  RELATORIO_FINALIZADO = 'RELATORIO_FINALIZADO',
+  CHECKLIST_FINALIZADO = 'CHECKLIST_FINALIZADO',
   ANEXO_AUDITORIA_FINALIZADO = 'ANEXO_AUDITORIA_FINALIZADO',
   ANEXO_SOLICITACAO_AJUSTE_FINALIZADO = 'ANEXO_SOLICITACAO_AJUSTE_FINALIZADO',
   SUBMETIDO = 'SUBMETIDO'
@@ -26,6 +25,21 @@ export const enum NivelEficiencia {
   C = 'C',
   D = 'D',
   E = 'E'
+}
+
+export const enum StatusItemAvaliado {
+  OK = 'OK',
+  NAO_OK = 'NAO_OK',
+  N_A = 'N_A'
+}
+
+export const enum CategorizacaoPerdaQuebra {
+  INADMISSIVEL = 'INADMISSIVEL',
+  CRITICO = 'CRITICO',
+  VALOR_ELEVADO = 'VALOR_ELEVADO',
+  ATENCAO = 'ATENCAO',
+  CONTROLE = 'CONTROLE',
+  SOBRA_DESCONTROLE = 'SOBRA_DESCONTROLE'
 }
 
 export interface IAvaliacao {
@@ -48,14 +62,29 @@ export interface IAvaliacao {
   nivelEficienciaProduto?: NivelEficiencia;
   canceladoEm?: Moment;
   motivoCancelamento?: string;
+  percentualPerda?: number;
+  financeiroPerda?: number;
+  pontuacaoPerda?: number;
+  statusPerda?: StatusItemAvaliado;
+  categorizacaoPerda?: CategorizacaoPerdaQuebra;
+  percentualQuebra?: number;
+  financeiroQuebra?: number;
+  pontuacaoQuebra?: number;
+  statusQuebra?: StatusItemAvaliado;
+  categorizacaoQuebra?: CategorizacaoPerdaQuebra;
+  importadoViaPlanilha?: boolean;
+  caminhoArquivoPlanilha?: string;
   itensAvaliados?: IItemAvaliado[];
-  itensPerdaEQuebraAcumulados?: IItemAvaliadoPerdaQuebraAcumulados[];
   itensAuditados?: IItemAuditado[];
   itensComAjusteSolicitados?: IItemSolicitadoAjuste[];
-  userName?: string;
-  userId?: number;
+  avaliadorName?: string;
+  avaliadorId?: number;
   questionarioNome?: string;
   questionarioId?: number;
+  lojaNome?: string;
+  lojaId?: number;
 }
 
-export const defaultValue: Readonly<IAvaliacao> = {};
+export const defaultValue: Readonly<IAvaliacao> = {
+  importadoViaPlanilha: false
+};

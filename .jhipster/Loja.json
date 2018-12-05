@@ -10,15 +10,24 @@
         },
         {
             "fieldName": "endereco",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "cidade",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "cep",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "latitude",
@@ -37,9 +46,21 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "avaliacoes",
+            "otherEntityName": "avaliacao",
+            "otherEntityRelationshipName": "loja"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "perdaQuebraAcumuladosAno",
+            "otherEntityName": "perdaQuebraAcumuladosAnoLoja",
+            "otherEntityRelationshipName": "loja"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "loja",
-            "relationshipName": "user",
+            "relationshipName": "avaliadores",
             "otherEntityName": "user",
             "otherEntityField": "name",
             "ownerSide": true
@@ -47,7 +68,7 @@
     ],
     "changelogDate": "20181111155653",
     "entityTableName": "loja",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pagination",
     "service": "serviceClass",
     "jpaMetamodelFiltering": false,
