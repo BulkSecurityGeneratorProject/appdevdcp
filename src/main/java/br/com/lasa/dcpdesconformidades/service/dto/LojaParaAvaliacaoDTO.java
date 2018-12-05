@@ -20,12 +20,6 @@ public class LojaParaAvaliacaoDTO implements Serializable {
     private String nome;
 
     @NotNull
-    private String nomeResponsavel;
-
-    @NotNull
-    private Integer prontuarioResponsavel;
-
-    @NotNull
     private Double latitude;
 
     @NotNull
@@ -56,22 +50,6 @@ public class LojaParaAvaliacaoDTO implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
-    }
-
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
-
-    public Integer getProntuarioResponsavel() {
-        return prontuarioResponsavel;
-    }
-
-    public void setProntuarioResponsavel(Integer prontuarioResponsavel) {
-        this.prontuarioResponsavel = prontuarioResponsavel;
     }
 
     public Double getLatitude() {
@@ -121,7 +99,7 @@ public class LojaParaAvaliacaoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "LojaParaAvaliacaoDTO [id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", nomeResponsavel=" + nomeResponsavel + ", prontuarioResponsavel=" + prontuarioResponsavel + ", latitude="
+        return "LojaParaAvaliacaoDTO [id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", latitude="
                 + latitude + ", longitude=" + longitude + ", submissaoUltimaAvaliacao=" + submissaoUltimaAvaliacao + "]";
     }
 

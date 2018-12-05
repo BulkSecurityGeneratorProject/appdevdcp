@@ -15,11 +15,13 @@
       "detail": {
         "title": "Loja"
       },
-      "codigo": "Codigo",
       "nome": "Nome",
+      "endereco": "Endereco",
+      "cidade": "Cidade",
+      "cep": "Cep",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "user": "User"
+      "user": "Avaliadores"
     }
   }
 }

@@ -29,17 +29,29 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="codigo">
-                <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate>
-              </span>
-            </dt>
-            <dd>{lojaEntity.codigo}</dd>
-            <dt>
               <span id="nome">
                 <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
               </span>
             </dt>
             <dd>{lojaEntity.nome}</dd>
+            <dt>
+              <span id="endereco">
+                <Translate contentKey="dcpdesconformidadesApp.loja.endereco">Endereco</Translate>
+              </span>
+            </dt>
+            <dd>{lojaEntity.endereco}</dd>
+            <dt>
+              <span id="cidade">
+                <Translate contentKey="dcpdesconformidadesApp.loja.cidade">Cidade</Translate>
+              </span>
+            </dt>
+            <dd>{lojaEntity.cidade}</dd>
+            <dt>
+              <span id="cep">
+                <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate>
+              </span>
+            </dt>
+            <dd>{lojaEntity.cep}</dd>
             <dt>
               <span id="latitude">
                 <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>

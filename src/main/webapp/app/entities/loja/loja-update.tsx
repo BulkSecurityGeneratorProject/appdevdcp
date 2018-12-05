@@ -97,60 +97,40 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="codigoLabel" for="codigo">
-                    <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate>
-                  </Label>
-                  <AvField
-                    id="loja-codigo"
-                    type="text"
-                    name="codigo"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="nomeLabel" for="nome">
                     <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
                   </Label>
-                  <AvField
-                    id="loja-nome"
-                    type="text"
-                    name="nome"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  />
+                  <AvInput id="loja-nome" type="text" className="form-control" name="nome" readOnly />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="enderecoLabel" for="endereco">
+                    <Translate contentKey="dcpdesconformidadesApp.loja.endereco">Endereco</Translate>
+                  </Label>
+                  <AvInput id="loja-endereco" type="text" className="form-control" name="endereco" readOnly />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="cidadeLabel" for="cidade">
+                    <Translate contentKey="dcpdesconformidadesApp.loja.cidade">Cidade</Translate>
+                  </Label>
+                  <AvInput id="loja-cidade" type="text" className="form-control" name="cidade" readOnly />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="cepLabel" for="cep">
+                    <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate>
+                  </Label>
+                  <AvInput id="loja-cep" type="text" className="form-control" name="cep" readOnly />
                 </AvGroup>
                 <AvGroup>
                   <Label id="latitudeLabel" for="latitude">
                     <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>
                   </Label>
-                  <AvField
-                    id="loja-latitude"
-                    type="string"
-                    className="form-control"
-                    name="latitude"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
+                  <AvInput id="loja-latitude" type="string" className="form-control" name="latitude" readOnly />
                 </AvGroup>
                 <AvGroup>
                   <Label id="longitudeLabel" for="longitude">
                     <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate>
                   </Label>
-                  <AvField
-                    id="loja-longitude"
-                    type="string"
-                    className="form-control"
-                    name="longitude"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
+                  <AvInput id="loja-longitude" type="string" className="form-control" name="longitude" readOnly />
                 </AvGroup>
                 <AvGroup>
                   <Label for="users">

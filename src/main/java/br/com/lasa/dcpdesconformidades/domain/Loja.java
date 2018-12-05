@@ -17,21 +17,25 @@ import java.util.Objects;
 @Entity
 @Table(name = "loja")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Loja extends AbstractAuditingEntity implements Serializable {
+public class Loja implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Column(name = "codigo", nullable = false)
-    private String codigo;
 
     @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "endereco", nullable = false)
+    private String endereco;
+
+    @Column(name = "cidade", nullable = false)
+    private String cidade;
+
+    @Column(name = "cep", nullable = false)
+    private String cep;
 
     @NotNull
     @Column(name = "latitude", nullable = false)
@@ -57,19 +61,6 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public Loja codigo(String codigo) {
-        this.codigo = codigo;
-        return this;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -81,6 +72,45 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public Loja endereco(String endereco) {
+        this.endereco = endereco;
+        return this;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public Loja cidade(String cidade) {
+        this.cidade = cidade;
+        return this;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public Loja cep(String cep) {
+        this.cep = cep;
+        return this;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public Double getLatitude() {
@@ -110,13 +140,12 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<User> getAvaliadores() {
-        return avaliadores;
+      return avaliadores;
     }
 
     public void setAvaliadores(Set<User> avaliadores) {
-        this.avaliadores = avaliadores;
+      this.avaliadores = avaliadores;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -142,8 +171,10 @@ public class Loja extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "Loja{" +
             "id=" + getId() +
-            ", codigo='" + getCodigo() + "'" +
             ", nome='" + getNome() + "'" +
+            ", endereco='" + getEndereco() + "'" +
+            ", cidade='" + getCidade() + "'" +
+            ", cep='" + getCep() + "'" +
             ", latitude=" + getLatitude() +
             ", longitude=" + getLongitude() +
             "}";

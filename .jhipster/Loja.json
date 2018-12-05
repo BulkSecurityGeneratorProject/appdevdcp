@@ -2,18 +2,23 @@
     "name": "Loja",
     "fields": [
         {
-            "fieldName": "codigo",
+            "fieldName": "nome",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "nome",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "endereco",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cidade",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cep",
+            "fieldType": "String"
         },
         {
             "fieldName": "latitude",

@@ -3,12 +3,15 @@ package br.com.lasa.dcpdesconformidades.repository;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.lasa.dcpdesconformidades.domain.User;
@@ -19,26 +22,29 @@ import br.com.lasa.dcpdesconformidades.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    String USERS_BY_LOGIN_CACHE = "usersByLogin";
+  String USERS_BY_LOGIN_CACHE = "usersByLogin";
 
-    String USERS_BY_EMAIL_CACHE = "usersByEmail";
+  String USERS_BY_EMAIL_CACHE = "usersByEmail";
 
-    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Instant dateTime);
+  List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Instant dateTime);
 
-    Optional<User> findOneByEmailIgnoreCase(String email);
+  Optional<User> findOneByEmailIgnoreCase(String email);
 
-    Optional<User> findOneByLogin(String login);
+  Optional<User> findOneByLogin(String login);
 
-    @EntityGraph(attributePaths = "authorities")
-    Optional<User> findOneWithAuthoritiesById(Long id);
+  @EntityGraph(attributePaths = "authorities")
+  Optional<User> findOneWithAuthoritiesById(Long id);
 
-    @EntityGraph(attributePaths = "authorities")
-    @Cacheable(cacheNames = USERS_BY_LOGIN_CACHE)
-    Optional<User> findOneWithAuthoritiesByLogin(String login);
+  @EntityGraph(attributePaths = "authorities")
+  @Cacheable(cacheNames = USERS_BY_LOGIN_CACHE)
+  Optional<User> findOneWithAuthoritiesByLogin(String login);
 
-    @EntityGraph(attributePaths = "authorities")
-    @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
-    Optional<User> findOneWithAuthoritiesByEmail(String email);
+  @EntityGraph(attributePaths = "authorities")
+  @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
+  Optional<User> findOneWithAuthoritiesByEmail(String email);
 
-    Page<User> findAllByLoginNot(Pageable pageable, String login);
+  Page<User> findAllByLoginNot(Pageable pageable, String login);
+
+  @Query(value = "select app_user.* from app_user inner join loja_user on app_user.id = loja_user.users_id where loja_user.lojas_id =:idLoja", nativeQuery = true)
+  Set<User> findAllByIdLoja(@Param("idLoja") Long idLoja);
 }

@@ -1,1 +1,7 @@
-id;codigo;nome;nome_responsavel;prontuario_responsavel;latitude;longitude;created_by;last_modified_by
+id;nome;endereco;cidade;cep;latitude;longitude
+1;Loja 1;Endereço;Cidade;20000000;-20;-20
+2;Loja 2;Endereço;Cidade;20000000;-20;-20
+3;Loja 3;Endereço;Cidade;20000000;-20;-20
+4;Loja 4;Endereço;Cidade;20000000;-20;-20
+5;Loja 5;Endereço;Cidade;20000000;-20;-20
+6;Loja 6;Endereço;Cidade;20000000;-20;-20

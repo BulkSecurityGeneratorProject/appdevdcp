@@ -5,15 +5,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 
-import reducer, {
-  ACTION_TYPES,
-  createEntity,
-  deleteEntity,
-  getEntities,
-  getEntity,
-  updateEntity,
-  reset
-} from 'app/entities/loja/loja.reducer';
+import reducer, { ACTION_TYPES, createEntity, getEntities, getEntity, updateEntity, reset } from 'app/entities/loja/loja.reducer';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { ILoja, defaultValue } from 'app/shared/model/loja.model';
 
@@ -72,17 +64,13 @@ describe('Entities reducer tests', () => {
     });
 
     it('should set state to updating', () => {
-      testMultipleTypes(
-        [REQUEST(ACTION_TYPES.CREATE_LOJA), REQUEST(ACTION_TYPES.UPDATE_LOJA), REQUEST(ACTION_TYPES.DELETE_LOJA)],
-        {},
-        state => {
-          expect(state).toMatchObject({
-            errorMessage: null,
-            updateSuccess: false,
-            updating: true
-          });
-        }
-      );
+      testMultipleTypes([REQUEST(ACTION_TYPES.CREATE_LOJA), REQUEST(ACTION_TYPES.UPDATE_LOJA)], {}, state => {
+        expect(state).toMatchObject({
+          errorMessage: null,
+          updateSuccess: false,
+          updating: true
+        });
+      });
     });
 
     it('should reset the state', () => {
@@ -106,8 +94,7 @@ describe('Entities reducer tests', () => {
           FAILURE(ACTION_TYPES.FETCH_LOJA_LIST),
           FAILURE(ACTION_TYPES.FETCH_LOJA),
           FAILURE(ACTION_TYPES.CREATE_LOJA),
-          FAILURE(ACTION_TYPES.UPDATE_LOJA),
-          FAILURE(ACTION_TYPES.DELETE_LOJA)
+          FAILURE(ACTION_TYPES.UPDATE_LOJA)
         ],
         'error message',
         state => {
@@ -165,20 +152,7 @@ describe('Entities reducer tests', () => {
         entity: payload.data
       });
     });
-
-    it('should delete entity', () => {
-      const payload = 'fake payload';
-      const toTest = reducer(undefined, {
-        type: SUCCESS(ACTION_TYPES.DELETE_LOJA),
-        payload
-      });
-      expect(toTest).toMatchObject({
-        updating: false,
-        updateSuccess: true
-      });
-    });
   });
-
   describe('Actions', () => {
     let store;
 
@@ -189,7 +163,6 @@ describe('Entities reducer tests', () => {
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.put = sinon.stub().returns(Promise.resolve(resolvedObject));
-      axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
     it('dispatches ACTION_TYPES.FETCH_LOJA_LIST actions', async () => {
@@ -256,26 +229,6 @@ describe('Entities reducer tests', () => {
         }
       ];
       await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
-
-    it('dispatches ACTION_TYPES.DELETE_LOJA actions', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.DELETE_LOJA)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.DELETE_LOJA),
-          payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_LOJA_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_LOJA_LIST),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(deleteEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
     it('dispatches ACTION_TYPES.RESET actions', async () => {

@@ -54,30 +54,31 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
       <div>
         <h2 id="loja-heading">
           <Translate contentKey="dcpdesconformidadesApp.loja.home.title">Lojas</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="dcpdesconformidadesApp.loja.home.createLabel">Create new Loja</Translate>
-          </Link>
         </h2>
         <div className="table-responsive">
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="global.field.id">ID</Translate>
                 </th>
-                <th className="hand" onClick={this.sort('codigo')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.codigo">Codigo</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate>
                 </th>
-                <th className="hand" onClick={this.sort('nome')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.nome">Nome</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.endereco">Endereco</Translate>
                 </th>
-                <th className="hand" onClick={this.sort('latitude')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.cidade">Cidade</Translate>
                 </th>
-                <th className="hand" onClick={this.sort('longitude')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate> <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate>
                 </th>
                 <th />
               </tr>
@@ -90,8 +91,10 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                       {loja.id}
                     </Button>
                   </td>
-                  <td>{loja.codigo}</td>
                   <td>{loja.nome}</td>
+                  <td>{loja.endereco}</td>
+                  <td>{loja.cidade}</td>
+                  <td>{loja.cep}</td>
                   <td>{loja.latitude}</td>
                   <td>{loja.longitude}</td>
                   <td className="text-right">
@@ -106,12 +109,6 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${loja.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
                       </Button>
                     </div>

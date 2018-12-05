@@ -11,7 +11,6 @@ export const ACTION_TYPES = {
   FETCH_LOJA: 'loja/FETCH_LOJA',
   CREATE_LOJA: 'loja/CREATE_LOJA',
   UPDATE_LOJA: 'loja/UPDATE_LOJA',
-  DELETE_LOJA: 'loja/DELETE_LOJA',
   RESET: 'loja/RESET'
 };
 
@@ -41,7 +40,6 @@ export default (state: LojaState = initialState, action): LojaState => {
       };
     case REQUEST(ACTION_TYPES.CREATE_LOJA):
     case REQUEST(ACTION_TYPES.UPDATE_LOJA):
-    case REQUEST(ACTION_TYPES.DELETE_LOJA):
       return {
         ...state,
         errorMessage: null,
@@ -52,7 +50,6 @@ export default (state: LojaState = initialState, action): LojaState => {
     case FAILURE(ACTION_TYPES.FETCH_LOJA):
     case FAILURE(ACTION_TYPES.CREATE_LOJA):
     case FAILURE(ACTION_TYPES.UPDATE_LOJA):
-    case FAILURE(ACTION_TYPES.DELETE_LOJA):
       return {
         ...state,
         loading: false,
@@ -80,13 +77,6 @@ export default (state: LojaState = initialState, action): LojaState => {
         updating: false,
         updateSuccess: true,
         entity: action.payload.data
-      };
-    case SUCCESS(ACTION_TYPES.DELETE_LOJA):
-      return {
-        ...state,
-        updating: false,
-        updateSuccess: true,
-        entity: {}
       };
     case ACTION_TYPES.RESET:
       return {
@@ -130,16 +120,6 @@ export const updateEntity: ICrudPutAction<ILoja> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_LOJA,
     payload: axios.put(apiUrl, cleanEntity(entity))
-  });
-  dispatch(getEntities());
-  return result;
-};
-
-export const deleteEntity: ICrudDeleteAction<ILoja> = id => async dispatch => {
-  const requestUrl = `${apiUrl}/${id}`;
-  const result = await dispatch({
-    type: ACTION_TYPES.DELETE_LOJA,
-    payload: axios.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

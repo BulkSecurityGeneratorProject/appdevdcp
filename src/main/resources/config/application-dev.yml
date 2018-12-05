@@ -127,8 +127,8 @@ jhipster:
 # ===================================================================
 
 application:
-    ldap:
-        url: ldap://10.114.241.29:389
-        userDn: "CN=Usr_app_lasa (Usuario Avançado Portal Consultas AD),OU=Aplicativos,OU=Usuarios,OU=_Sede,OU=LASA.COM,DC=lasa,DC=lojasamericanas,DC=com,DC=br"
-        userPassword: "!portal@2014"
-        userSearchBase: dc=lasa,dc=lojasamericanas,dc=com,dc=br
+    urlRaioxObterLojaPorCodigo: http://52.31.153.101/gestao_api/lista_loja_posicao?loja=
+    urlRaioxListarTodasLojas: http://52.31.153.101/gestao_api/lista_loja_posicao
+    usuarioRaiox: painel
+    senhaRaiox: painel_info
+

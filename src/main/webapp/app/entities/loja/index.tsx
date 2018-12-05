@@ -6,7 +6,6 @@ import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import Loja from './loja';
 import LojaDetail from './loja-detail';
 import LojaUpdate from './loja-update';
-import LojaDeleteDialog from './loja-delete-dialog';
 
 const Routes = ({ match }) => (
   <>
@@ -16,7 +15,6 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={LojaDetail} />
       <ErrorBoundaryRoute path={match.url} component={Loja} />
     </Switch>
-    <ErrorBoundaryRoute path={`${match.url}/:id/delete`} component={LojaDeleteDialog} />
   </>
 );
 

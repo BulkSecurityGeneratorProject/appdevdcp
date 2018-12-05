@@ -1,6 +1,5 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
@@ -14,14 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -46,7 +42,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 public class LojaResource {
 
     private final Logger log = LoggerFactory.getLogger(LojaResource.class);
-
+    
     private static final String ENTITY_NAME = "loja";
 
     private final LojaService lojaService;
@@ -57,27 +53,8 @@ public class LojaResource {
         this.lojaService = lojaService;
         this.userService = userService;
     }
-
-    /**
-     * POST  /lojas : Create a new loja.
-     *
-     * @param loja the loja to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new loja, or with status 400 (Bad Request) if the loja has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PostMapping("/lojas")
-    @Timed
-    public ResponseEntity<Loja> createLoja(@Valid @RequestBody Loja loja) throws URISyntaxException {
-        log.debug("REST request to save Loja : {}", loja);
-        if (loja.getId() != null) {
-            throw new BadRequestAlertException("A new loja cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Loja result = lojaService.save(loja);
-        return ResponseEntity.created(new URI("/api/lojas/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
+    
+    
     /**
      * PUT  /lojas : Updates an existing loja.
      *
@@ -104,20 +81,14 @@ public class LojaResource {
      * GET  /lojas : get all the lojas.
      *
      * @param pageable the pagination information
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of lojas in body
      */
     @GetMapping("/lojas")
     @Timed
-    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable) {
         log.debug("REST request to get a page of Lojas");
-        Page<Loja> page;
-        if (eagerload) {
-            page = lojaService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = lojaService.findAll(pageable);
-        }
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/lojas?eagerload=%b", eagerload));
+        Page<Loja> page = lojaService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/lojas");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -134,21 +105,7 @@ public class LojaResource {
         Optional<Loja> loja = lojaService.findOne(id);
         return ResponseUtil.wrapOrNotFound(loja);
     }
-
-    /**
-     * DELETE  /lojas/:id : delete the "id" loja.
-     *
-     * @param id the id of the loja to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/lojas/{id}")
-    @Timed
-    public ResponseEntity<Void> deleteLoja(@PathVariable Long id) {
-        log.debug("REST request to delete Loja : {}", id);
-        lojaService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-        
+    
     @GetMapping("/lojas/permitidas-para-avaliacao")
     @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.AVALIADOR + "\")")

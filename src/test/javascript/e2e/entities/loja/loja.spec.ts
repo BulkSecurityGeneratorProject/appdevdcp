@@ -46,10 +46,14 @@ describe('Loja e2e test', () => {
   it('should create and save Lojas', async () => {
     const nbButtonsBeforeCreate = await lojaComponentsPage.countDeleteButtons();
 
-    await lojaUpdatePage.setCodigoInput('codigo');
-    expect(await lojaUpdatePage.getCodigoInput()).to.match(/codigo/);
     await lojaUpdatePage.setNomeInput('nome');
     expect(await lojaUpdatePage.getNomeInput()).to.match(/nome/);
+    await lojaUpdatePage.setEnderecoInput('endereco');
+    expect(await lojaUpdatePage.getEnderecoInput()).to.match(/endereco/);
+    await lojaUpdatePage.setCidadeInput('cidade');
+    expect(await lojaUpdatePage.getCidadeInput()).to.match(/cidade/);
+    await lojaUpdatePage.setCepInput('cep');
+    expect(await lojaUpdatePage.getCepInput()).to.match(/cep/);
     await lojaUpdatePage.setLatitudeInput('5');
     expect(await lojaUpdatePage.getLatitudeInput()).to.eq('5');
     await lojaUpdatePage.setLongitudeInput('5');

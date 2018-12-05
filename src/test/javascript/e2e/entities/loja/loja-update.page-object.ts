@@ -4,8 +4,10 @@ export default class LojaUpdatePage {
   pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.loja.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  codigoInput: ElementFinder = element(by.css('input#loja-codigo'));
   nomeInput: ElementFinder = element(by.css('input#loja-nome'));
+  enderecoInput: ElementFinder = element(by.css('input#loja-endereco'));
+  cidadeInput: ElementFinder = element(by.css('input#loja-cidade'));
+  cepInput: ElementFinder = element(by.css('input#loja-cep'));
   latitudeInput: ElementFinder = element(by.css('input#loja-latitude'));
   longitudeInput: ElementFinder = element(by.css('input#loja-longitude'));
   userSelect: ElementFinder = element(by.css('select#loja-user'));
@@ -14,20 +16,36 @@ export default class LojaUpdatePage {
     return this.pageTitle;
   }
 
-  async setCodigoInput(codigo) {
-    await this.codigoInput.sendKeys(codigo);
-  }
-
-  async getCodigoInput() {
-    return this.codigoInput.getAttribute('value');
-  }
-
   async setNomeInput(nome) {
     await this.nomeInput.sendKeys(nome);
   }
 
   async getNomeInput() {
     return this.nomeInput.getAttribute('value');
+  }
+
+  async setEnderecoInput(endereco) {
+    await this.enderecoInput.sendKeys(endereco);
+  }
+
+  async getEnderecoInput() {
+    return this.enderecoInput.getAttribute('value');
+  }
+
+  async setCidadeInput(cidade) {
+    await this.cidadeInput.sendKeys(cidade);
+  }
+
+  async getCidadeInput() {
+    return this.cidadeInput.getAttribute('value');
+  }
+
+  async setCepInput(cep) {
+    await this.cepInput.sendKeys(cep);
+  }
+
+  async getCepInput() {
+    return this.cepInput.getAttribute('value');
   }
 
   async setLatitudeInput(latitude) {
