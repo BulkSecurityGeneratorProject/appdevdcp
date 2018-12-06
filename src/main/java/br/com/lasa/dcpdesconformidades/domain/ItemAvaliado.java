@@ -69,23 +69,19 @@ public class ItemAvaliado implements Serializable {
     @Column(name = "pontos_produto", nullable = false)
     private Integer pontosProduto;
 
-    @NotNull
-    @Column(name = "pontos_obtidos_procedimento", nullable = false)
+    @Column(name = "pontos_obtidos_procedimento")
     private Integer pontosObtidosProcedimento;
 
-    @NotNull
-    @Column(name = "pontos_obtidos_pessoa", nullable = false)
+    @Column(name = "pontos_obtidos_pessoa")
     private Integer pontosObtidosPessoa;
 
-    @NotNull
-    @Column(name = "pontos_obtidos_processo", nullable = false)
+    @Column(name = "pontos_obtidos_processo")
     private Integer pontosObtidosProcesso;
 
-    @NotNull
-    @Column(name = "pontos_obtidos_produto", nullable = false)
+    @Column(name = "pontos_obtidos_produto")
     private Integer pontosObtidosProduto;
 
-    @OneToMany(mappedBy = "itemAvaliado")
+    @OneToMany(mappedBy = "itemAvaliado", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AnexoItem> anexos = new HashSet<>();
     @ManyToOne(optional = false)

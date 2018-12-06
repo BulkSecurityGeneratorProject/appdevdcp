@@ -63,19 +63,19 @@
             </column>
 
             <column name="pontos_obtidos_procedimento" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="pontos_obtidos_pessoa" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="pontos_obtidos_processo" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="pontos_obtidos_produto" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="item_avaliacao_id" type="bigint">
