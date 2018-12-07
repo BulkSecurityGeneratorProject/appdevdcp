@@ -30,8 +30,6 @@ import br.com.lasa.dcpdesconformidades.security.jwt.TokenProvider;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
     private final TokenProvider tokenProvider;
 
     private final CorsFilter corsFilter;
@@ -46,28 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.problemSupport = problemSupport;
         this.applicationProperties = applicationProperties;
     }
-
-//    @PostConstruct
-//    public void init() {
-//        try {
-//            authenticationManagerBuilder
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-//        } catch (Exception e) {
-//            throw new BeanInitializationException("Security configuration failed", e);
-//        }
-//    }
-
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {

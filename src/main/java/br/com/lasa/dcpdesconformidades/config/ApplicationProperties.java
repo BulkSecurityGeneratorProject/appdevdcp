@@ -17,6 +17,8 @@ public class ApplicationProperties {
   private String urlRaioxListarTodasLojas;
   private String usuarioRaiox;
   private String senhaRaiox;
+  
+  private String filesBasePath;
 
   public static class Ldap {
     private String url;
@@ -93,4 +95,12 @@ public class ApplicationProperties {
     this.senhaRaiox = senhaRaiox;
   }
 
+  public String getFilesBasePath() {
+    return filesBasePath;
+  }
+
+  public void setFilesBasePath(String filesBasePath) {
+    this.filesBasePath = filesBasePath;
+  }
+  
 }

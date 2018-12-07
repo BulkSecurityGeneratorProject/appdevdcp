@@ -131,4 +131,5 @@ application:
     urlRaioxListarTodasLojas: http://52.31.153.101/gestao_api/lista_loja_posicao
     usuarioRaiox: painel
     senhaRaiox: painel_info
+    filesBasePath: /Users/delta/Projects/coding/temp/dcpdesconformidades/
 

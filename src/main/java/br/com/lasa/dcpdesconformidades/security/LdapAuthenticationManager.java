@@ -35,7 +35,6 @@ public class LdapAuthenticationManager implements AuthenticationManager {
 
   private final UserRepository userRepository;
 
-  @Autowired
   private final LdapContextSource ldapContextSource;
 
   public LdapAuthenticationManager(UserRepository userRepository, LdapContextSource ldapContextSource) {

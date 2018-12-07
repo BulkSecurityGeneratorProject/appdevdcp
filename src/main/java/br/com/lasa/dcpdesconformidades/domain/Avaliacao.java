@@ -145,13 +145,13 @@ public class Avaliacao implements Serializable {
     @Column(name = "caminho_arquivo_planilha")
     private String caminhoArquivoPlanilha;
 
-    @OneToMany(mappedBy = "avaliacao")
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
-    @OneToMany(mappedBy = "avaliacao")
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAuditado> itensAuditados = new HashSet<>();
-    @OneToMany(mappedBy = "avaliacao")
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
     @ManyToOne(optional = false)

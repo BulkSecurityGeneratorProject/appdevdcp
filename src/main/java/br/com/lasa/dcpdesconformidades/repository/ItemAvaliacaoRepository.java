@@ -17,6 +17,6 @@ import br.com.lasa.dcpdesconformidades.domain.ItemAvaliacao;
 @Repository
 public interface ItemAvaliacaoRepository extends JpaRepository<ItemAvaliacao, Long> {
 
-  List<ItemAvaliacao> findByGrupos(Set<GrupoItens> grupos);
+  List<ItemAvaliacao> findByGruposIn(Set<GrupoItens> grupos);
   
 }
