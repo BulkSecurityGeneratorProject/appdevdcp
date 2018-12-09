@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
+import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
@@ -109,5 +110,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         contextSource.afterPropertiesSet(); // needed otherwise you will have a NullPointerException in spring
 
         return contextSource;
+    }
+    
+    @Bean
+    public LdapTemplate ldapTemplate() {
+        LdapTemplate ldapTemplate = new LdapTemplate(getContextSource());
+        ldapTemplate.setIgnorePartialResultException(true); //Para evitar erros ao ir no AD
+        
+        return ldapTemplate;
     }
 }
