@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,6 +108,26 @@ public class LojaService {
           loja.setAvaliadores(userRepository.findAllByIdLoja(id));
           return loja;
         });
+  }
+
+  /**
+   * Adiciona novas lojas caso ainda não tenham sido incluídas no banco local.
+   * <p>
+   * This is scheduled to get fired everyday, at 01:00 (am).
+   */
+  @Scheduled(cron = "0 0 1 * * ?")
+  public void adicionarNovasLojasCasoNãoExistamLocalmente() {
+    List<Long> idsLojasBanco = lojaRepository.findAll() //
+        .stream() //
+        .map(Loja::getId) //
+        .collect(Collectors.toList());
+
+    lojaRaioxRepository.findAll() //
+        .stream() //
+        .map(lojaRaioxMapper::toEntity) //
+        .filter(loja -> !idsLojasBanco.contains(loja.getId())) // Loja nova?
+        .forEach(this::save); // Então insere no banco
+
   }
 
   /**

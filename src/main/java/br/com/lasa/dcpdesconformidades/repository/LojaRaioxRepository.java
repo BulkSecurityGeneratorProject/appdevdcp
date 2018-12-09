@@ -37,6 +37,11 @@ public class LojaRaioxRepository {
     List<LojaRaioxDTO> lojas = response.getBody();
     return new PageImpl<>(lojas, PageRequest.of(0, lojas.size()), lojas.size());
   }
+  
+  public List<LojaRaioxDTO> findAll() {
+    ResponseEntity<List<LojaRaioxDTO>> response = restTemplate.exchange(applicationProperties.getUrlRaioxListarTodasLojas(), HttpMethod.GET, new HttpEntity<List<LojaRaioxDTO>>(createHeaders()), new ParameterizedTypeReference<List<LojaRaioxDTO>>() {});
+    return response.getBody();
+  }
 
   public Optional<LojaRaioxDTO> findOne(Long id) {
     String url = applicationProperties.getUrlRaioxObterLojaPorCodigo() + id;
