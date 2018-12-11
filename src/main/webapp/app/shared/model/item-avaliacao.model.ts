@@ -1,5 +1,5 @@
-import { IItemAvaliado } from 'app/shared/model//item-avaliado.model';
-import { IGrupoItens } from 'app/shared/model//grupo-itens.model';
+import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
+import { IGrupoItens } from 'app/shared/model/grupo-itens.model';
 
 export interface IItemAvaliacao {
   id?: number;

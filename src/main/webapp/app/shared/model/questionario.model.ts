@@ -1,5 +1,5 @@
-import { IAvaliacao } from 'app/shared/model//avaliacao.model';
-import { IGrupoItens } from 'app/shared/model//grupo-itens.model';
+import { IAvaliacao } from 'app/shared/model/avaliacao.model';
+import { IGrupoItens } from 'app/shared/model/grupo-itens.model';
 
 export interface IQuestionario {
   id?: number;

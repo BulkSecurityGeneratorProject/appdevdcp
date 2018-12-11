@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
-import { IItemAvaliado } from 'app/shared/model//item-avaliado.model';
-import { IItemAuditado } from 'app/shared/model//item-auditado.model';
-import { IItemSolicitadoAjuste } from 'app/shared/model//item-solicitado-ajuste.model';
+import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
+import { IItemAuditado } from 'app/shared/model/item-auditado.model';
+import { IItemSolicitadoAjuste } from 'app/shared/model/item-solicitado-ajuste.model';
 
 export const enum StatusAvaliacao {
   INICIADA = 'INICIADA',

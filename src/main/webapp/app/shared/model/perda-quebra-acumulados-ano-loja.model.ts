@@ -1,4 +1,4 @@
-import { ILoja } from 'app/shared/model//loja.model';
+import { ILoja } from 'app/shared/model/loja.model';
 
 export const enum StatusItemAvaliado {
   OK = 'OK',

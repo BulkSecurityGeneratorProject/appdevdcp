@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IAnexoItem } from 'app/shared/model//anexo-item.model';
+import { IAnexoItem } from 'app/shared/model/anexo-item.model';
 
 export const enum StatusItemAvaliado {
   OK = 'OK',

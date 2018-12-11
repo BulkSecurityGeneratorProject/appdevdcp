@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IAvaliacao } from 'app/shared/model//avaliacao.model';
+import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 
 export interface IItemSolicitadoAjuste {
   id?: number;

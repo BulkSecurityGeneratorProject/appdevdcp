@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IAvaliacao } from 'app/shared/model//avaliacao.model';
+import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 
 export const enum TipoItemAuditado {
   TOP_5_PERDAS = 'TOP_5_PERDAS',
