@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,10 +37,13 @@ public class LdapAuthenticationManager implements AuthenticationManager {
   private final UserRepository userRepository;
 
   private final LdapContextSource ldapContextSource;
+  
+  private AuthenticationEventPublisher eventPublisher;
 
-  public LdapAuthenticationManager(UserRepository userRepository, LdapContextSource ldapContextSource) {
+  public LdapAuthenticationManager(UserRepository userRepository, LdapContextSource ldapContextSource, AuthenticationEventPublisher eventPublisher) {
     this.userRepository = userRepository;
     this.ldapContextSource = ldapContextSource;
+    this.eventPublisher = eventPublisher;
   }
 
   @Override
@@ -67,7 +71,17 @@ public class LdapAuthenticationManager implements AuthenticationManager {
 
       }
     });
-    return provider.authenticate(authentication);
+    try {
+      authentication = provider.authenticate(authentication);
+
+      eventPublisher.publishAuthenticationSuccess(authentication);
+
+      return authentication;
+
+    } catch (BadCredentialsException e) {
+      eventPublisher.publishAuthenticationFailure(e, authentication);
+      throw e;
+    }
   }
 
   private UserDetails createSpringSecurityUser(String lowercaseLogin, User user) {
