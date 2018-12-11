@@ -42,7 +42,7 @@ const databaseItem = (
 );
 
 export const AdminMenu = ({ showSwagger, showDatabase }) => (
-  <NavDropdown icon="user-plus" name={translate('global.menu.admin.main')} style={{ width: '140%' }} id="admin-menu">
+  <NavDropdown icon="user-plus" name={translate('global.menu.admin.main')} id="admin-menu">
     {adminMenuItems}
     {showSwagger && swaggerItem}
 
