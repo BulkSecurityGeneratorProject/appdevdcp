@@ -5,6 +5,8 @@ import { TranslatorContext } from 'react-jhipster';
 
 import { PrivateRouteComponent, hasAnyAuthority } from 'app/shared/auth/private-route';
 
+import { IAuthority } from 'app/shared/model/authority.model';
+
 const TestComp = () => <div>Test</div>;
 
 describe('private-route component', () => {
@@ -72,6 +74,9 @@ describe('private-route component', () => {
 });
 
 describe('hasAnyAuthority', () => {
+  const userRoleAuthority: Readonly<IAuthority> = { name: 'ROLE_USER' };
+  const adminRoleAuthority: Readonly<IAuthority> = { name: 'ROLE_ADMIN' };
+
   // All tests will go here
   it('Should return false when authorities is invlaid', () => {
     expect(hasAnyAuthority(undefined, undefined)).toEqual(false);
@@ -81,20 +86,20 @@ describe('hasAnyAuthority', () => {
   });
 
   it('Should return true when authorities is valid and hasAnyAuthorities is empty', () => {
-    expect(hasAnyAuthority(['ROLE_USER'], [])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority], [])).toEqual(true);
   });
 
   it('Should return true when authorities is valid and hasAnyAuthorities contains an authority', () => {
-    expect(hasAnyAuthority(['ROLE_USER'], ['ROLE_USER'])).toEqual(true);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLE_USER'])).toEqual(true);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLE_USER', 'ROLE_ADMIN'])).toEqual(true);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLE_USER', 'ROLEADMIN'])).toEqual(true);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLE_ADMIN'])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority], ['ROLE_USER'])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLE_USER'])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLE_USER', 'ROLE_ADMIN'])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLE_USER', 'ROLEADMIN'])).toEqual(true);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLE_ADMIN'])).toEqual(true);
   });
 
   it('Should return false when authorities is valid and hasAnyAuthorities does not contains an authority', () => {
-    expect(hasAnyAuthority(['ROLE_USER'], ['ROLE_ADMIN'])).toEqual(false);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLE_USERSS'])).toEqual(false);
-    expect(hasAnyAuthority(['ROLE_USER', 'ROLE_ADMIN'], ['ROLEUSER', 'ROLEADMIN'])).toEqual(false);
+    expect(hasAnyAuthority([userRoleAuthority], ['ROLE_ADMIN'])).toEqual(false);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLE_USERSS'])).toEqual(false);
+    expect(hasAnyAuthority([userRoleAuthority, adminRoleAuthority], ['ROLEUSER', 'ROLEADMIN'])).toEqual(false);
   });
 });

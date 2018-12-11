@@ -133,7 +133,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                   {user.authorities
                     ? user.authorities.map((authority, j) => (
                         <div key={`user-auth-${i}-${j}`}>
-                          <Badge color="info">{authority}</Badge>
+                          <Badge color="info">{authority.descricao}</Badge>
                         </div>
                       ))
                     : null}

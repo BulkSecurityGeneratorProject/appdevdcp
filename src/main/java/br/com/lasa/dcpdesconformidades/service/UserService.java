@@ -1,9 +1,9 @@
 package br.com.lasa.dcpdesconformidades.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -15,9 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.lasa.dcpdesconformidades.config.Constants;
-import br.com.lasa.dcpdesconformidades.domain.Authority;
 import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.repository.AuthorityRepository;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.security.SecurityUtils;
 import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
@@ -33,13 +32,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final AuthorityRepository authorityRepository;
-
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
-        this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
 
@@ -55,14 +51,7 @@ public class UserService {
             user.setLangKey(userDTO.getLangKey());
         }
         user.setActivated(true);
-        if (userDTO.getAuthorities() != null) {
-            Set<Authority> authorities = userDTO.getAuthorities().stream()
-                .map(authorityRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toSet());
-            user.setAuthorities(authorities);
-        }
+        user.setAuthorities(userDTO.getAuthorities());
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
@@ -109,13 +98,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
-                Set<Authority> managedAuthorities = user.getAuthorities();
-                managedAuthorities.clear();
-                userDTO.getAuthorities().stream()
-                    .map(authorityRepository::findById)
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .forEach(managedAuthorities::add);
+                user.setAuthorities(userDTO.getAuthorities());
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
@@ -154,8 +137,8 @@ public class UserService {
     /**
      * @return a list of all the authorities
      */
-    public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    public List<Authority> getAuthorities() {
+        return Arrays.asList(Authority.values());
     }
 
     private void clearUserCaches(User user) {

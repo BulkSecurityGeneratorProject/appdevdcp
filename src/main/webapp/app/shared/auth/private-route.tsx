@@ -4,6 +4,8 @@ import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import ErrorBoundary from 'app/shared/error/error-boundary';
+import { IUser } from '../model/user.model';
+import { IAuthority } from '../model/authority.model';
 
 interface IOwnProps extends RouteProps {
   hasAnyAuthorities?: string[];
@@ -55,12 +57,13 @@ export const PrivateRouteComponent = ({
   return <Route {...rest} render={renderRedirect} />;
 };
 
-export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string[]) => {
+export const hasAnyAuthority = (authorities: IAuthority[], hasAnyAuthorities: string[]) => {
   if (authorities && authorities.length !== 0) {
+    const authoritiesNames = authorities.map(a => a.name);
     if (hasAnyAuthorities.length === 0) {
       return true;
     }
-    return hasAnyAuthorities.some(auth => authorities.includes(auth));
+    return hasAnyAuthorities.some(auth => authoritiesNames.includes(auth));
   }
   return false;
 };

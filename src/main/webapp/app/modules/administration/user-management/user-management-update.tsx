@@ -5,20 +5,24 @@ import { Button, Label, Row, Col } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField, AvFeedback } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AvSelect from '@availity/reactstrap-validation-select';
 
 import { locales, languages } from 'app/config/translation';
 import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
+import { IAuthority } from 'app/shared/model/authority.model';
 
 export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
 
 export interface IUserManagementUpdateState {
+  authorities: IAuthority[];
   isNew: boolean;
 }
 
 export class UserManagementUpdate extends React.Component<IUserManagementUpdateProps, IUserManagementUpdateState> {
   state: IUserManagementUpdateState = {
-    isNew: !this.props.match.params || !this.props.match.params.login
+    isNew: !this.props.match.params || !this.props.match.params.login,
+    authorities: []
   };
 
   componentDidMount() {
@@ -28,6 +32,12 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
       this.props.getUser(this.props.match.params.login);
     }
     this.props.getRoles();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isNew && nextProps.user.authorities && nextProps.user.authorities.length) {
+      this.state.authorities = nextProps.user.authorities.map(a => a.name);
+    }
   }
 
   componentWillUnmount() {
@@ -45,6 +55,10 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
 
   handleClose = () => {
     this.props.history.push('/admin/user-management');
+  };
+
+  handleAuthoritiesChange = selectedOption => {
+    this.setState({ authorities: selectedOption });
   };
 
   render() {
@@ -167,13 +181,18 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                   <Label for="authorities">
                     <Translate contentKey="userManagement.profiles">Language Key</Translate>
                   </Label>
-                  <AvInput type="select" className="form-control" name="authorities" value={user.authorities} multiple>
-                    {roles.map(role => (
-                      <option value={role} key={role}>
-                        {role}
-                      </option>
-                    ))}
-                  </AvInput>
+                  <AvSelect
+                    placeholder="Selecione"
+                    name="authorities"
+                    options={roles}
+                    value={this.state.authorities}
+                    onChange={this.handleAuthoritiesChange}
+                    labelKey="descricao"
+                    valueKey="name"
+                    isMulti
+                    isSearchable
+                    required
+                  />
                 </AvGroup>
                 <Button tag={Link} to="/admin/user-management" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />

@@ -1,17 +1,17 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import br.com.lasa.dcpdesconformidades.config.Constants;
-
-import br.com.lasa.dcpdesconformidades.domain.Authority;
-import br.com.lasa.dcpdesconformidades.domain.User;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
-import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import br.com.lasa.dcpdesconformidades.config.Constants;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 
 /**
  * A DTO representing a user, with his authorities.
@@ -48,7 +48,7 @@ public class UserDTO {
 
     private Instant lastModifiedDate;
 
-    private Set<String> authorities;
+    private Set<Authority> authorities;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -66,9 +66,7 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream()
-            .map(Authority::getName)
-            .collect(Collectors.toSet());
+        this.authorities = user.getAuthorities();
     }
 
     public Long getId() {
@@ -159,11 +157,11 @@ public class UserDTO {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public Set<String> getAuthorities() {
+    public Set<Authority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<String> authorities) {
+    public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
 

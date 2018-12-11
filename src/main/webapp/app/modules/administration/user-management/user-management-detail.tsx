@@ -82,7 +82,7 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
                 {user.authorities
                   ? user.authorities.map((authority, i) => (
                       <li key={`user-auth-${i}`}>
-                        <Badge color="info">{authority}</Badge>
+                        <Badge color="info">{authority.descricao}</Badge>
                       </li>
                     ))
                   : null}

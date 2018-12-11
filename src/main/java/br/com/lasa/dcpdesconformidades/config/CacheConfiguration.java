@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
+
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
@@ -36,7 +38,7 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.repository.UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.repository.UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName(), jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Authority.class.getName(), jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.enumeration.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".avaliacoes", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".lojas", jcacheConfiguration);

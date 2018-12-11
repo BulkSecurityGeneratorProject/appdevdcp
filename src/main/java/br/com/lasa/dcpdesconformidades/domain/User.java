@@ -6,13 +6,17 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,13 +26,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.lasa.dcpdesconformidades.config.Constants;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 
 /**
  * A user.
@@ -72,11 +76,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String imageUrl;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "app_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass=Authority.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="app_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    @Column(name="authority_name")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
     @Column(name = "prontuario")

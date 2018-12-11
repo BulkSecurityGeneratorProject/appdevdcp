@@ -1,13 +1,15 @@
 package br.com.lasa.dcpdesconformidades.service.mapper;
 
-import br.com.lasa.dcpdesconformidades.domain.Authority;
-import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
+import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
 
 /**
  * Mapper for the entity User and its DTO called UserDTO.
@@ -41,7 +43,7 @@ public class UserMapper {
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
-            Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
+            Set<Authority> authorities = userDTO.getAuthorities();
             if (authorities != null) {
                 user.setAuthorities(authorities);
             }
@@ -65,11 +67,4 @@ public class UserMapper {
         return user;
     }
 
-    public Set<Authority> authoritiesFromStrings(Set<String> strings) {
-        return strings.stream().map(string -> {
-            Authority auth = new Authority();
-            auth.setName(string);
-            return auth;
-        }).collect(Collectors.toSet());
-    }
 }

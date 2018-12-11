@@ -1,3 +1,4 @@
+import { IAuthority } from 'app/shared/model/authority.model';
 export interface IUser {
   id?: any;
   login?: string;
@@ -5,7 +6,7 @@ export interface IUser {
   email?: string;
   activated?: boolean;
   langKey?: string;
-  authorities?: any[];
+  authorities?: IAuthority[];
   createdBy?: string;
   createdDate?: Date;
   lastModifiedBy?: string;

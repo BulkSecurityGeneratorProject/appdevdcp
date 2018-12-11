@@ -1,16 +1,24 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
-import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
-import br.com.lasa.dcpdesconformidades.domain.Authority;
-import br.com.lasa.dcpdesconformidades.domain.User;
-import br.com.lasa.dcpdesconformidades.repository.UserRepository;
-import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
-import br.com.lasa.dcpdesconformidades.service.MailService;
-import br.com.lasa.dcpdesconformidades.service.UserService;
-import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
-import br.com.lasa.dcpdesconformidades.service.mapper.UserMapper;
-import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
-import br.com.lasa.dcpdesconformidades.web.rest.vm.ManagedUserVM;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +34,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
+import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
+import br.com.lasa.dcpdesconformidades.repository.UserRepository;
+import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
+import br.com.lasa.dcpdesconformidades.service.MailService;
+import br.com.lasa.dcpdesconformidades.service.UserService;
+import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.UserMapper;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.ManagedUserVM;
 
 /**
  * Test class for the UserResource REST controller.
@@ -147,7 +157,7 @@ public class UserResourceIntTest {
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -179,7 +189,7 @@ public class UserResourceIntTest {
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
@@ -207,7 +217,7 @@ public class UserResourceIntTest {
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -235,7 +245,7 @@ public class UserResourceIntTest {
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
         managedUserVM.setLangKey(DEFAULT_LANGKEY);
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -317,7 +327,7 @@ public class UserResourceIntTest {
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -357,7 +367,7 @@ public class UserResourceIntTest {
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -405,7 +415,7 @@ public class UserResourceIntTest {
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -443,7 +453,7 @@ public class UserResourceIntTest {
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -515,7 +525,7 @@ public class UserResourceIntTest {
         userDTO.setLangKey(DEFAULT_LANGKEY);
         userDTO.setCreatedBy(DEFAULT_LOGIN);
         userDTO.setLastModifiedBy(DEFAULT_LOGIN);
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         User user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
@@ -540,9 +550,7 @@ public class UserResourceIntTest {
         user.setLastModifiedBy(DEFAULT_LOGIN);
         user.setLastModifiedDate(Instant.now());
         Set<Authority> authorities = new HashSet<>();
-        Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.USER);
-        authorities.add(authority);
+        authorities.add(Authority.ROLE_USER);
         user.setAuthorities(authorities);
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
@@ -558,30 +566,8 @@ public class UserResourceIntTest {
         assertThat(userDTO.getCreatedDate()).isEqualTo(user.getCreatedDate());
         assertThat(userDTO.getLastModifiedBy()).isEqualTo(DEFAULT_LOGIN);
         assertThat(userDTO.getLastModifiedDate()).isEqualTo(user.getLastModifiedDate());
-        assertThat(userDTO.getAuthorities()).containsExactly(AuthoritiesConstants.USER);
+        assertThat(userDTO.getAuthorities()).containsExactly(Authority.ROLE_USER);
         assertThat(userDTO.toString()).isNotNull();
     }
 
-    @Test
-    public void testAuthorityEquals() {
-        Authority authorityA = new Authority();
-        assertThat(authorityA).isEqualTo(authorityA);
-        assertThat(authorityA).isNotEqualTo(null);
-        assertThat(authorityA).isNotEqualTo(new Object());
-        assertThat(authorityA.hashCode()).isEqualTo(0);
-        assertThat(authorityA.toString()).isNotNull();
-
-        Authority authorityB = new Authority();
-        assertThat(authorityA).isEqualTo(authorityB);
-
-        authorityB.setName(AuthoritiesConstants.ADMIN);
-        assertThat(authorityA).isNotEqualTo(authorityB);
-
-        authorityA.setName(AuthoritiesConstants.USER);
-        assertThat(authorityA).isNotEqualTo(authorityB);
-
-        authorityB.setName(AuthoritiesConstants.USER);
-        assertThat(authorityA).isEqualTo(authorityB);
-        assertThat(authorityA.hashCode()).isEqualTo(authorityB.hashCode());
-    }
 }

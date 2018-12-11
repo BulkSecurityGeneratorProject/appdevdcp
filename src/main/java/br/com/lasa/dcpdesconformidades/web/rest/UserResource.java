@@ -28,6 +28,7 @@ import com.codahale.metrics.annotation.Timed;
 
 import br.com.lasa.dcpdesconformidades.config.Constants;
 import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
 import br.com.lasa.dcpdesconformidades.service.MailService;
@@ -163,7 +164,7 @@ public class UserResource {
     @GetMapping("/users/authorities")
     @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public List<String> getAuthorities() {
+    public List<Authority> getAuthorities() {
         return userService.getAuthorities();
     }
 
