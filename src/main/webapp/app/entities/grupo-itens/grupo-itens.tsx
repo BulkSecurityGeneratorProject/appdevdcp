@@ -59,10 +59,9 @@ export class GrupoItens extends React.Component<IGrupoItensProps> {
                   <td>
                     {grupoItens.itens
                       ? grupoItens.itens.map((val, j) => (
-                          <span key={j}>
+                          <p key={j}>
                             <Link to={`item-avaliacao/${val.id}`}>{val.descricao}</Link>
-                            {j === grupoItens.itens.length - 1 ? '' : ', '}
-                          </span>
+                          </p>
                         ))
                       : null}
                   </td>
