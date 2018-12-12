@@ -26,8 +26,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -80,6 +83,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @ElementCollection(targetClass=Authority.class, fetch = FetchType.EAGER)
     @CollectionTable(name="app_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     @Column(name="authority_name")
+    @BatchSize(size = 20)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
 
@@ -90,8 +94,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Avaliacao> avaliacoes = new HashSet<>();
     
-    @ManyToMany(mappedBy = "avaliadores")
+    @ManyToMany(mappedBy = "avaliadores", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
     private Set<Loja> lojas = new HashSet<>();
 

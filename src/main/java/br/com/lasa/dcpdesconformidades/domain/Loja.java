@@ -61,6 +61,10 @@ public class Loja implements Serializable {
                joinColumns = @JoinColumn(name = "lojas_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "avaliadores_id", referencedColumnName = "id"))
     private Set<User> avaliadores = new HashSet<>();
+    
+    public String getNomeFormatado() {
+        return String.format("%d - %s", this.id, this.nome);
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

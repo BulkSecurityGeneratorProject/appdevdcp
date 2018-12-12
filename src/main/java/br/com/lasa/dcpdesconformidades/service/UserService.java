@@ -51,7 +51,9 @@ public class UserService {
             user.setLangKey(userDTO.getLangKey());
         }
         user.setActivated(true);
+        user.setProntuario(userDTO.getProntuario());
         user.setAuthorities(userDTO.getAuthorities());
+        user.setLojas(userDTO.getLojas());
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
@@ -98,7 +100,9 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setProntuario(userDTO.getProntuario());
                 user.setAuthorities(userDTO.getAuthorities());
+                user.setLojas(userDTO.getLojas());
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;

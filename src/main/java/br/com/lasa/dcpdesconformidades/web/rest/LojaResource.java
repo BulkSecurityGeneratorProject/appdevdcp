@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -83,11 +84,11 @@ public class LojaResource {
      *
      * @param pageable the pagination information
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
-     * @return the ResponseEntity with status 200 (OK) and the list of lojas in body
+     * @return the ResponseEntity with status 200 (OK) and taew he list of lojas in body
      */
     @GetMapping("/lojas")
     @Timed
-    public ResponseEntity<List<Loja>> getAllLojas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Loja>> getAllLojas(@PageableDefault(value = Integer.MAX_VALUE) Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Lojas");
         Page<Loja> page;
         if (eagerload) {

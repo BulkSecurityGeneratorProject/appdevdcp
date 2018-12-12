@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
@@ -42,10 +43,15 @@ public class UserMapper {
             user.setEmail(userDTO.getEmail());
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
+            user.setProntuario(userDTO.getProntuario());
             user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = userDTO.getAuthorities();
             if (authorities != null) {
                 user.setAuthorities(authorities);
+            }
+            Set<Loja> lojas = userDTO.getLojas();
+            if (lojas != null) {
+                user.setLojas(lojas);
             }
             return user;
         }

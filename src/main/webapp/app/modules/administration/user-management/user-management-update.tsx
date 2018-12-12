@@ -9,20 +9,24 @@ import AvSelect from '@availity/reactstrap-validation-select';
 
 import { locales, languages } from 'app/config/translation';
 import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
+import { getEntities as getLojas } from 'app/entities/loja/loja.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { IAuthority } from 'app/shared/model/authority.model';
+import { ILoja } from 'app/shared/model/loja.model';
 
 export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
 
 export interface IUserManagementUpdateState {
-  authorities: IAuthority[];
   isNew: boolean;
+  authorities: IAuthority[];
+  lojasSelecionadas: ILoja[];
 }
 
 export class UserManagementUpdate extends React.Component<IUserManagementUpdateProps, IUserManagementUpdateState> {
   state: IUserManagementUpdateState = {
     isNew: !this.props.match.params || !this.props.match.params.login,
-    authorities: []
+    authorities: [],
+    lojasSelecionadas: []
   };
 
   componentDidMount() {
@@ -32,11 +36,15 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
       this.props.getUser(this.props.match.params.login);
     }
     this.props.getRoles();
+    this.props.getLojas();
   }
 
   componentWillReceiveProps(nextProps) {
     if (!this.state.isNew && nextProps.user.authorities && nextProps.user.authorities.length) {
       this.state.authorities = nextProps.user.authorities.map(a => a.name);
+    }
+    if (!this.state.isNew && nextProps.user.lojas && nextProps.user.lojas.length) {
+      this.state.lojasSelecionadas = nextProps.user.lojas.map(a => a.id);
     }
   }
 
@@ -61,9 +69,13 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
     this.setState({ authorities: selectedOption });
   };
 
+  handleLojasChange = selectedOption => {
+    this.setState({ lojasSelecionadas: selectedOption });
+  };
+
   render() {
     const isInvalid = false;
-    const { user, loading, updating, roles } = this.props;
+    const { user, loading, updating, roles, lojas } = this.props;
     return (
       <div>
         <Row className="justify-content-center">
@@ -179,7 +191,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="authorities">
-                    <Translate contentKey="userManagement.profiles">Language Key</Translate>
+                    <Translate contentKey="userManagement.profiles">Profiles</Translate>
                   </Label>
                   <AvSelect
                     placeholder="Selecione"
@@ -189,6 +201,23 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                     onChange={this.handleAuthoritiesChange}
                     labelKey="descricao"
                     valueKey="name"
+                    isMulti
+                    isSearchable
+                    required
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label for="lojas">
+                    <Translate contentKey="userManagement.lojas">Lojas</Translate>
+                  </Label>
+                  <AvSelect
+                    placeholder="Selecione"
+                    name="lojas"
+                    options={lojas}
+                    value={this.state.lojasSelecionadas}
+                    onChange={this.handleLojasChange}
+                    labelKey="nomeFormatado"
+                    valueKey="id"
                     isMulti
                     isSearchable
                     required
@@ -219,11 +248,12 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
 const mapStateToProps = (storeState: IRootState) => ({
   user: storeState.userManagement.user,
   roles: storeState.userManagement.authorities,
+  lojas: storeState.loja.entities,
   loading: storeState.userManagement.loading,
   updating: storeState.userManagement.updating
 });
 
-const mapDispatchToProps = { getUser, getRoles, updateUser, createUser, reset };
+const mapDispatchToProps = { getUser, getRoles, getLojas, updateUser, createUser, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

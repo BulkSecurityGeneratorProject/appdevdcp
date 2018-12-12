@@ -59,6 +59,11 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
+    data:
+        web:
+            pageable:
+                maxPageSize: 5000
+    
 
 server:
     servlet:

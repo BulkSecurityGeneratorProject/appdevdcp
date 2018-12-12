@@ -80,29 +80,16 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                 <Translate contentKey="userManagement.login">Login</Translate>
                 <FontAwesomeIcon icon="sort" />
               </th>
-              <th className="hand" onClick={this.sort('email')}>
-                <Translate contentKey="userManagement.email">Email</Translate>
+              <th className="hand" onClick={this.sort('name')}>
+                <Translate contentKey="userManagement.name">Name</Translate>
                 <FontAwesomeIcon icon="sort" />
               </th>
               <th />
-              <th className="hand" onClick={this.sort('langKey')}>
-                <Translate contentKey="userManagement.langKey">Lang Key</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
               <th>
                 <Translate contentKey="userManagement.profiles">Profiles</Translate>
               </th>
-              <th className="hand" onClick={this.sort('createdDate')}>
-                <Translate contentKey="userManagement.createdDate">Created Date</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
-              <th className="hand" onClick={this.sort('lastModifiedBy')}>
-                <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
-              <th id="modified-date-sort" className="hand" onClick={this.sort('lastModifiedDate')}>
-                <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
-                <FontAwesomeIcon icon="sort" />
+              <th>
+                <Translate contentKey="userManagement.lojas">Lojas</Translate>
               </th>
               <th />
             </tr>
@@ -116,7 +103,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                   </Button>
                 </td>
                 <td>{user.login}</td>
-                <td>{user.email}</td>
+                <td>{user.name}</td>
                 <td>
                   {user.activated ? (
                     <Button color="success" onClick={this.toggleActive(user)}>
@@ -128,7 +115,6 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                     </Button>
                   )}
                 </td>
-                <td>{user.langKey}</td>
                 <td>
                   {user.authorities
                     ? user.authorities.map((authority, j) => (
@@ -139,11 +125,13 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                     : null}
                 </td>
                 <td>
-                  <TextFormat value={user.createdDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
-                </td>
-                <td>{user.lastModifiedBy}</td>
-                <td>
-                  <TextFormat value={user.lastModifiedDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
+                  {user.lojas
+                    ? user.lojas.map((loja, j) => (
+                        <div key={`user-auth-${i}-${j}`}>
+                          <Badge color="info">{loja.nomeFormatado}</Badge>
+                        </div>
+                      ))
+                    : null}
                 </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">

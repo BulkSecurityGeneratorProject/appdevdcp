@@ -2,7 +2,6 @@ package br.com.lasa.dcpdesconformidades.service.dto;
 
 import java.time.Instant;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import br.com.lasa.dcpdesconformidades.config.Constants;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
 
@@ -47,8 +47,12 @@ public class UserDTO {
     private String lastModifiedBy;
 
     private Instant lastModifiedDate;
+    
+    private Integer prontuario;
 
     private Set<Authority> authorities;
+    
+    private Set<Loja> lojas;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -66,7 +70,9 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.prontuario = user.getProntuario();
         this.authorities = user.getAuthorities();
+        this.lojas = user.getLojas();
     }
 
     public Long getId() {
@@ -163,6 +169,22 @@ public class UserDTO {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+    
+    public Integer getProntuario() {
+      return prontuario;
+    }
+
+    public void setProntuario(Integer prontuario) {
+      this.prontuario = prontuario;
+    }
+    
+    public Set<Loja> getLojas() {
+      return lojas;
+    }
+
+    public void setLojas(Set<Loja> lojas) {
+      this.lojas = lojas;
     }
 
     @Override
