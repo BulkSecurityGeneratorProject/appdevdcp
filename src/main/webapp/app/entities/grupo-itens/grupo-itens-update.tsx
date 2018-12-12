@@ -7,6 +7,7 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import AvSelect from '@availity/reactstrap-validation-select';
 
 import { IItemAvaliacao } from 'app/shared/model/item-avaliacao.model';
 import { getEntities as getItemAvaliacaos } from 'app/entities/item-avaliacao/item-avaliacao.reducer';
@@ -22,19 +23,16 @@ export interface IGrupoItensUpdateProps extends StateProps, DispatchProps, Route
 
 export interface IGrupoItensUpdateState {
   isNew: boolean;
-  idsitens: any[];
   questionarioId: string;
+  itens: IItemAvaliacao[];
 }
 
 export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IGrupoItensUpdateState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      idsitens: [],
-      questionarioId: '0',
-      isNew: !this.props.match.params || !this.props.match.params.id
-    };
-  }
+  state: IGrupoItensUpdateState = {
+    isNew: !this.props.match.params || !this.props.match.params.id,
+    questionarioId: '0',
+    itens: []
+  };
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
@@ -51,6 +49,12 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
 
     this.props.getItemAvaliacaos();
     this.props.getQuestionarios();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isNew && nextProps.grupoItensEntity.itens && nextProps.grupoItensEntity.itens.length) {
+      this.state.itens = nextProps.grupoItensEntity.itens.map(a => a.id);
+    }
   }
 
   saveEntity = (event, errors, values) => {
@@ -72,6 +76,10 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
 
   handleClose = () => {
     this.props.history.push('/entity/grupo-itens');
+  };
+
+  handleItensChange = selectedOption => {
+    this.setState({ itens: selectedOption });
   };
 
   render() {
@@ -118,23 +126,18 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                   <Label for="itemAvaliacaos">
                     <Translate contentKey="dcpdesconformidadesApp.grupoItens.itens">Itens</Translate>
                   </Label>
-                  <AvInput
-                    id="grupo-itens-itens"
-                    type="select"
-                    multiple
-                    className="form-control"
+                  <AvSelect
+                    placeholder="Selecione"
                     name="itens"
-                    value={grupoItensEntity.itens && grupoItensEntity.itens.map(e => e.id)}
-                  >
-                    <option value="" key="0" />
-                    {itemAvaliacaos
-                      ? itemAvaliacaos.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.descricao}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
+                    options={itemAvaliacaos}
+                    value={this.state.itens}
+                    onChange={this.handleItensChange}
+                    labelKey="descricao"
+                    valueKey="id"
+                    isMulti
+                    isSearchable
+                    required
+                  />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/grupo-itens" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />

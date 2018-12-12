@@ -7,6 +7,7 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import AvSelect from '@availity/reactstrap-validation-select';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
@@ -20,17 +21,14 @@ export interface ILojaUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface ILojaUpdateState {
   isNew: boolean;
-  idsavaliadores: any[];
+  avaliadores: IUser[];
 }
 
 export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      idsavaliadores: [],
-      isNew: !this.props.match.params || !this.props.match.params.id
-    };
-  }
+  state: ILojaUpdateState = {
+    isNew: !this.props.match.params || !this.props.match.params.id,
+    avaliadores: []
+  };
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
@@ -46,6 +44,12 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
     }
 
     this.props.getUsers();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isNew && nextProps.lojaEntity.avaliadores && nextProps.lojaEntity.avaliadores.length) {
+      this.state.avaliadores = nextProps.lojaEntity.avaliadores.map(a => a.id);
+    }
   }
 
   saveEntity = (event, errors, values) => {
@@ -67,6 +71,10 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
 
   handleClose = () => {
     this.props.history.push('/entity/loja');
+  };
+
+  handleAvaliadoresChange = selectedOption => {
+    this.setState({ avaliadores: selectedOption });
   };
 
   render() {
@@ -136,23 +144,18 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                   <Label for="users">
                     <Translate contentKey="dcpdesconformidadesApp.loja.avaliadores">Avaliadores</Translate>
                   </Label>
-                  <AvInput
-                    id="loja-avaliadores"
-                    type="select"
-                    multiple
-                    className="form-control"
+                  <AvSelect
+                    placeholder="Selecione"
                     name="avaliadores"
-                    value={lojaEntity.avaliadores && lojaEntity.avaliadores.map(e => e.id)}
-                  >
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
+                    options={users}
+                    value={this.state.avaliadores}
+                    onChange={this.handleAvaliadoresChange}
+                    labelKey="name"
+                    valueKey="id"
+                    isMulti
+                    isSearchable
+                    required
+                  />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/loja" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />

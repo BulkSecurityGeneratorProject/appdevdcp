@@ -7,6 +7,7 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import AvSelect from '@availity/reactstrap-validation-select';
 
 import { IGrupoItens } from 'app/shared/model/grupo-itens.model';
 import { getEntities as getGrupoItens } from 'app/entities/grupo-itens/grupo-itens.reducer';
@@ -20,17 +21,14 @@ export interface IQuestionarioUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface IQuestionarioUpdateState {
   isNew: boolean;
-  idsgrupo: any[];
+  grupos: any[];
 }
 
 export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps, IQuestionarioUpdateState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      idsgrupo: [],
-      isNew: !this.props.match.params || !this.props.match.params.id
-    };
-  }
+  state: IQuestionarioUpdateState = {
+    isNew: !this.props.match.params || !this.props.match.params.id,
+    grupos: []
+  };
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
@@ -46,6 +44,12 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
     }
 
     this.props.getGrupoItens();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isNew && nextProps.questionarioEntity.grupos && nextProps.questionarioEntity.grupos.length) {
+      this.state.grupos = nextProps.questionarioEntity.grupos.map(a => a.id);
+    }
   }
 
   saveEntity = (event, errors, values) => {
@@ -67,6 +71,10 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
 
   handleClose = () => {
     this.props.history.push('/entity/questionario');
+  };
+
+  handleGruposChange = selectedOption => {
+    this.setState({ grupos: selectedOption });
   };
 
   render() {
@@ -125,23 +133,18 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                   <Label for="grupoItens">
                     <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
                   </Label>
-                  <AvInput
-                    id="questionario-grupo"
-                    type="select"
-                    multiple
-                    className="form-control"
+                  <AvSelect
+                    placeholder="Selecione"
                     name="grupos"
-                    value={questionarioEntity.grupos && questionarioEntity.grupos.map(e => e.id)}
-                  >
-                    <option value="" key="0" />
-                    {grupoItens
-                      ? grupoItens.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nome}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
+                    options={grupoItens}
+                    value={this.state.grupos}
+                    onChange={this.handleGruposChange}
+                    labelKey="nome"
+                    valueKey="id"
+                    isMulti
+                    isSearchable
+                    required
+                  />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/questionario" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
