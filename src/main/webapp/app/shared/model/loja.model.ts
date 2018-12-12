@@ -13,6 +13,7 @@ export interface ILoja {
   avaliacoes?: IAvaliacao[];
   perdaQuebraAcumuladosAnos?: IPerdaQuebraAcumuladosAnoLoja[];
   avaliadores?: IUser[];
+  nomeFormatado?: string;
 }
 
 export const defaultValue: Readonly<ILoja> = {};

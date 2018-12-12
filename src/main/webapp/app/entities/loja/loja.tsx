@@ -74,12 +74,6 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                 <th className="hand" onClick={this.sort('cep')}>
                   <Translate contentKey="dcpdesconformidadesApp.loja.cep">Cep</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('latitude')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('longitude')}>
-                  <Translate contentKey="dcpdesconformidadesApp.loja.longitude">Longitude</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -95,8 +89,6 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                   <td>{loja.endereco}</td>
                   <td>{loja.cidade}</td>
                   <td>{loja.cep}</td>
-                  <td>{loja.latitude}</td>
-                  <td>{loja.longitude}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${loja.id}`} color="info" size="sm">
