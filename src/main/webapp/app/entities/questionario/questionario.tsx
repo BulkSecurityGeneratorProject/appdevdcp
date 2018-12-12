@@ -67,9 +67,9 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   <td>
                     {questionario.grupos
                       ? questionario.grupos.map((val, j) => (
-                          <p key={j}>
+                          <div key={j}>
                             <Link to={`grupo-itens/${val.id}`}>{val.nome}</Link>
-                          </p>
+                          </div>
                         ))
                       : null}
                   </td>
