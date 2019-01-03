@@ -129,7 +129,7 @@ jhipster:
 application:
     urlRaioxObterLojaPorCodigo: http://52.31.153.101/gestao_api/lista_loja_posicao?loja=
     urlRaioxListarTodasLojas: http://52.31.153.101/gestao_api/lista_loja_posicao
-    usuarioRaiox: painel
-    senhaRaiox: painel_info
+    raioxUser: painel
+    raioxPassword: painel_info
     filesBasePath: /Users/delta/Projects/coding/temp/dcpdesconformidades/
 

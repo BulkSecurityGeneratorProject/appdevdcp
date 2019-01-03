@@ -15,8 +15,8 @@ public class ApplicationProperties {
 
   private String urlRaioxObterLojaPorCodigo;
   private String urlRaioxListarTodasLojas;
-  private String usuarioRaiox;
-  private String senhaRaiox;
+  private String raioxUser;
+  private String raioxPassword;
   
   private String filesBasePath;
 
@@ -89,20 +89,20 @@ public class ApplicationProperties {
     this.urlRaioxListarTodasLojas = urlRaioxListarTodasLojas;
   }
 
-  public String getUsuarioRaiox() {
-    return usuarioRaiox;
+  public String getRaioxUser() {
+    return raioxUser;
   }
 
-  public void setUsuarioRaiox(String usuarioRaiox) {
-    this.usuarioRaiox = usuarioRaiox;
+  public void setRaioxUser(String usuarioRaiox) {
+    this.raioxUser = usuarioRaiox;
   }
 
-  public String getSenhaRaiox() {
-    return senhaRaiox;
+  public String getRaioxPassword() {
+    return raioxPassword;
   }
 
-  public void setSenhaRaiox(String senhaRaiox) {
-    this.senhaRaiox = senhaRaiox;
+  public void setRaioxPassword(String senhaRaiox) {
+    this.raioxPassword = senhaRaiox;
   }
 
   public String getFilesBasePath() {

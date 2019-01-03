@@ -56,7 +56,7 @@ public class LojaRaioxRepository {
       private static final long serialVersionUID = -6578539131364413332L;
 
       {
-        String auth = applicationProperties.getUsuarioRaiox() + ":" + applicationProperties.getSenhaRaiox();
+        String auth = applicationProperties.getRaioxUser() + ":" + applicationProperties.getRaioxPassword();
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(Charset.forName("UTF-8")));
         String authHeader = "Basic " + new String(encodedAuth);
         set("Authorization", authHeader);
