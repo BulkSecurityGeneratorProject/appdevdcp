@@ -120,7 +120,9 @@ export default (state: AdministrationState = initialState, action): Administrati
 
 export const systemHealth = () => ({
   type: ACTION_TYPES.FETCH_HEALTH,
-  payload: axios.get('management/health')
+  payload: axios.get('management/health', {
+    validateStatus: status => (status >= 200 && status < 300) || status === 503
+  })
 });
 
 export const systemMetrics = () => ({

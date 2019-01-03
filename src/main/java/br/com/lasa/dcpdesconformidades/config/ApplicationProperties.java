@@ -25,6 +25,7 @@ public class ApplicationProperties {
     private String userDn;
     private String userPassword;
     private String userSearchBase;
+    private int connectTimeoutInMilliseconds;
 
     public String getUrl() {
       return url;
@@ -57,6 +58,15 @@ public class ApplicationProperties {
     public void setUserSearchBase(String userSearchBase) {
       this.userSearchBase = userSearchBase;
     }
+
+    public int getConnectTimeoutInMilliseconds() {
+      return connectTimeoutInMilliseconds;
+    }
+
+    public void setConnectTimeoutInMilliseconds(int connectTimeoutInMilliseconds) {
+      this.connectTimeoutInMilliseconds = connectTimeoutInMilliseconds;
+    }
+    
   }
 
   public Ldap getLdap() {

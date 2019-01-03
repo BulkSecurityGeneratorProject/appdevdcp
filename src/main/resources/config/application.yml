@@ -124,3 +124,4 @@ application:
         userDn: "CN=Usr_app_lasa (Usuario Avançado Portal Consultas AD),OU=Aplicativos,OU=Usuarios,OU=_Sede,OU=LASA.COM,DC=lasa,DC=lojasamericanas,DC=com,DC=br"
         userPassword: "!portal@2014"
         userSearchBase: dc=lasa,dc=lojasamericanas,dc=com,dc=br
+        connectTimeoutInMilliseconds: 10000

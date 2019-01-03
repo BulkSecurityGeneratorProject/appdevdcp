@@ -1,5 +1,8 @@
 package br.com.lasa.dcpdesconformidades.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -107,6 +110,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         contextSource.setBase(applicationProperties.getLdap().getUserSearchBase());
         contextSource.setUserDn(applicationProperties.getLdap().getUserDn());
         contextSource.setPassword(applicationProperties.getLdap().getUserPassword());
+        
+        Map<String, Object> environment = new HashMap<>();
+        environment.put("com.sun.jndi.ldap.connect.timeout", String.valueOf(applicationProperties.getLdap().getConnectTimeoutInMilliseconds()));
+        contextSource.setBaseEnvironmentProperties(environment);
+        
         contextSource.afterPropertiesSet(); // needed otherwise you will have a NullPointerException in spring
 
         return contextSource;
