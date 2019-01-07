@@ -87,7 +87,7 @@ export class ItemAuditadoUpdate extends React.Component<IItemAuditadoUpdateProps
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : itemAuditadoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (

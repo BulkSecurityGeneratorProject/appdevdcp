@@ -84,7 +84,7 @@ export class AnexoItemUpdate extends React.Component<IAnexoItemUpdateProps, IAne
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : anexoItemEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (

@@ -92,7 +92,7 @@ export class ItemAvaliadoUpdate extends React.Component<IItemAvaliadoUpdateProps
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : itemAvaliadoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (

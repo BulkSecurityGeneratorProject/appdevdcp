@@ -93,7 +93,7 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : lojaEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (

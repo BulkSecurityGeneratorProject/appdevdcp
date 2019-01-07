@@ -89,7 +89,7 @@ export class PerdaQuebraAcumuladosAnoLojaUpdate extends React.Component<
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : perdaQuebraAcumuladosAnoLojaEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (

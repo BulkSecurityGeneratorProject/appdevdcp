@@ -89,7 +89,7 @@ export class ItemSolicitadoAjusteUpdate extends React.Component<IItemSolicitadoA
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : itemSolicitadoAjusteEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
