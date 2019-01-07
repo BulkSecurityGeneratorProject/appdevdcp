@@ -88,7 +88,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm onValidSubmit={this.saveUser}>
                 {user.id ? (
@@ -126,6 +126,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                       }
                     }}
                     value={user.login}
+                    readOnly={!this.state.isNew}
                   />
                 </AvGroup>
                 <AvGroup>
@@ -143,6 +144,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                       }
                     }}
                     value={user.name}
+                    readOnly={!this.state.isNew}
                   />
                 </AvGroup>
                 <AvGroup>
@@ -171,9 +173,9 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                     value={user.email}
                   />
                 </AvGroup>
-                <AvGroup check>
+                <AvGroup check inline>
                   <Label>
-                    <AvInput type="checkbox" name="activated" value={user.activated} />{' '}
+                    <AvInput type="checkbox" name="activated" value={user.activated} />
                     <Translate contentKey="userManagement.activated">Activated</Translate>
                   </Label>
                 </AvGroup>

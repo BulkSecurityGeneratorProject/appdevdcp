@@ -84,7 +84,7 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : itemAvaliacaoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
@@ -106,11 +106,12 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}
+                    readOnly={!this.state.isNew}
                   />
                 </AvGroup>
-                <AvGroup>
-                  <Label id="anexoObrigatorioLabel" check>
-                    <AvInput id="item-avaliacao-anexoObrigatorio" type="checkbox" className="form-control" name="anexoObrigatorio" />
+                <AvGroup check inline>
+                  <Label>
+                    <AvInput id="item-avaliacao-anexoObrigatorio" type="checkbox" name="anexoObrigatorio" />
                     <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.anexoObrigatorio">Anexo Obrigatorio</Translate>
                   </Label>
                 </AvGroup>

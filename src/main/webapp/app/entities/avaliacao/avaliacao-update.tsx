@@ -98,7 +98,7 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : avaliacaoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
@@ -577,9 +577,9 @@ export class AvaliacaoUpdate extends React.Component<IAvaliacaoUpdateProps, IAva
                     </option>
                   </AvInput>
                 </AvGroup>
-                <AvGroup>
-                  <Label id="importadoViaPlanilhaLabel" check>
-                    <AvInput id="avaliacao-importadoViaPlanilha" type="checkbox" className="form-control" name="importadoViaPlanilha" />
+                <AvGroup check inline>
+                  <Label>
+                    <AvInput id="avaliacao-importadoViaPlanilha" type="checkbox" name="importadoViaPlanilha" />
                     <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
                   </Label>
                 </AvGroup>

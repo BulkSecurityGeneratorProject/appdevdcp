@@ -93,7 +93,7 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : questionarioEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
@@ -123,9 +123,9 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                   </Label>
                   <AvField id="questionario-descricao" type="text" name="descricao" />
                 </AvGroup>
-                <AvGroup>
-                  <Label id="ativoLabel" check>
-                    <AvInput id="questionario-ativo" type="checkbox" className="form-control" name="ativo" />
+                <AvGroup check inline>
+                  <Label>
+                    <AvInput id="questionario-ativo" type="checkbox" name="ativo" />
                     <Translate contentKey="dcpdesconformidadesApp.questionario.ativo">Ativo</Translate>
                   </Label>
                 </AvGroup>

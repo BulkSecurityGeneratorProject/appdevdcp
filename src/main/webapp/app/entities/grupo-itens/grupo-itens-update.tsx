@@ -98,7 +98,7 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
         <Row className="justify-content-center">
           <Col md="8">
             {loading ? (
-              <p>Loading...</p>
+              <p className="loading-message" />
             ) : (
               <AvForm model={isNew ? {} : grupoItensEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
@@ -120,6 +120,7 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}
+                    readOnly={!this.state.isNew}
                   />
                 </AvGroup>
                 <AvGroup>
