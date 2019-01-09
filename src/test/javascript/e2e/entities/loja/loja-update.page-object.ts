@@ -1,7 +1,7 @@
 import { element, by, ElementFinder } from 'protractor';
 
 export default class LojaUpdatePage {
-  pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.loja.home.createOrEditLabel'));
+  pageTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.loja.home.editLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   nomeInput: ElementFinder = element(by.css('input#loja-nome'));

@@ -60,6 +60,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
                   maxLength: { value: 50, errorMessage: translate('settings.messages.validate.name.maxlength') }
                 }}
                 value={account.name}
+                readOnly
               />
               {/* Email */}
               <AvField
@@ -73,6 +74,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
                   maxLength: { value: 254, errorMessage: translate('global.messages.validate.email.maxlength') }
                 }}
                 value={account.email}
+                readOnly
               />
               {/* Language key */}
               <AvField

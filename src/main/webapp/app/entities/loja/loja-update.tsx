@@ -85,8 +85,8 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="dcpdesconformidadesApp.loja.home.createOrEditLabel">
-              <Translate contentKey="dcpdesconformidadesApp.loja.home.createOrEditLabel">Create or edit a Loja</Translate>
+            <h2 id="dcpdesconformidadesApp.loja.home.editLabel">
+              <Translate contentKey="dcpdesconformidadesApp.loja.home.editLabel">Edit Loja</Translate>
             </h2>
           </Col>
         </Row>

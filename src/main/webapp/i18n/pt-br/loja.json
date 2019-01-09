@@ -3,25 +3,19 @@
     "loja": {
       "home": {
         "title": "Lojas",
-        "createLabel": "Criar novo Loja",
-        "createOrEditLabel": "Criar ou editar Loja"
+        "editLabel": "Editar Loja"
       },
-      "created": "Um novo Loja foi criado com o identificador {{ param }}",
-      "updated": "Um Loja foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Loja foi deletado com o identificador {{ param }}",
-      "delete": {
-        "question": "Tem certeza de que deseja excluir Loja {{ id }}?"
-      },
+      "updated": "A Loja {{ param }} foi atualizada",
       "detail": {
         "title": "Loja"
       },
       "nome": "Nome",
-      "endereco": "Endereco",
+      "endereco": "Endereço",
       "cidade": "Cidade",
       "cep": "Cep",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "avaliacoes": "Avaliacoes",
+      "avaliacoes": "Avaliações",
       "perdaQuebraAcumuladosAno": "Perda Quebra Acumulados Ano",
       "avaliadores": "Avaliadores"
     }

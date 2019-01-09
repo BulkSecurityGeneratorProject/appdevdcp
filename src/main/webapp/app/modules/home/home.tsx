@@ -38,56 +38,49 @@ export class Home extends React.Component<IHomeProp> {
           ) : (
             <div>
               <Alert color="warning">
-                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-                <Link to="/login" className="alert-link">
-                  <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-                </Link>
-                <Translate contentKey="global.messages.info.authenticated.suffix">
-                  , you can try the default accounts:
-                  <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                  <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-                </Translate>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Ut tristique et egestas quis ipsum suspendisse
+                ultrices. Mi bibendum neque egestas congue quisque egestas diam in arcu. Cras tincidunt lobortis feugiat vivamus. Id aliquet
+                lectus proin nibh nisl. Purus ut faucibus pulvinar elementum. Duis ultricies lacus sed turpis tincidunt.
               </Alert>
             </div>
           )}
           <p>
-            <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
+            <Translate contentKey="home.links" />
           </p>
 
           <ul>
             <li>
-              <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
+              <a href="https://www.americanas.com.br/" target="_blank" rel="noopener noreferrer">
+                Americanas 1
               </a>
             </li>
             <li>
-              <a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
+              <a href="https://www.americanas.com.br/" target="_blank" rel="noopener noreferrer">
+                Americanas 2
               </a>
             </li>
             <li>
-              <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
+              <a href="https://www.americanas.com.br/" target="_blank" rel="noopener noreferrer">
+                Americanas 3
               </a>
             </li>
             <li>
-              <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
+              <a href="https://www.americanas.com.br/" target="_blank" rel="noopener noreferrer">
+                Americanas 4
               </a>
             </li>
             <li>
-              <a href="https://twitter.com/java_hipster" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.follow">follow @java_hipster on Twitter</Translate>
+              <a href="https://www.americanas.com.br/" target="_blank" rel="noopener noreferrer">
+                Americanas 5
               </a>
             </li>
           </ul>
 
           <p>
-            <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-            <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              Github
-            </a>
-            !
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed
+            enim ut sem viverra aliquet eget sit amet. A iaculis at erat pellentesque adipiscing commodo elit at. Dignissim diam quis enim
+            lobortis scelerisque fermentum. Semper risus in hendrerit gravida.
           </p>
         </Col>
         <Col md="3" className="pad">

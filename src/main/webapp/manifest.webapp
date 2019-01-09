@@ -1,25 +1,25 @@
 {
-  "name": "dcpdesconformidades",
-  "short_name": "dcpdesconformidades",
+  "name": "DCP Desconformidades",
+  "short_name": "DCP Desconformidades",
   "icons": [
       {
-          "src": "./content/images/hipster192.png",
-          "sizes": "192x192",
+          "src": "./content/images/logo187.png",
+          "sizes": "187x187",
           "type": "image/png"
       },
       {
-          "src": "./content/images/hipster256.png",
-          "sizes": "256x256",
+          "src": "./content/images/logo249.png",
+          "sizes": "249x249",
           "type": "image/png"
       },
       {
-          "src": "./content/images/hipster384.png",
-          "sizes": "384x384",
+          "src": "./content/images/logo347.png",
+          "sizes": "347x347",
           "type": "image/png"
       },
       {
-          "src": "./content/images/hipster512.png",
-          "sizes": "512x512",
+          "src": "./content/images/logo498.png",
+          "sizes": "498x498",
           "type": "image/png"
       }
   ],

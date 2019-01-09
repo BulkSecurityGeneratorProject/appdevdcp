@@ -2,11 +2,11 @@
   "dcpdesconformidadesApp": {
     "CriticidadePainel": {
       "null": "",
-      "INADMISSIVEL": "INADMISSIVEL",
-      "CONTROLE": "CONTROLE",
-      "VALOR_ELEVADO": "VALOR_ELEVADO",
-      "CRITICO": "CRITICO",
-      "ATENCAO": "ATENCAO"
+      "INADMISSIVEL": "Inadmissível",
+      "CONTROLE": "Controle",
+      "VALOR_ELEVADO": "Valor Elevado",
+      "CRITICO": "Crítico",
+      "ATENCAO": "Atenção"
     }
   }
 }

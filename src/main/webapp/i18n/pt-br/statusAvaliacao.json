@@ -2,11 +2,12 @@
   "dcpdesconformidadesApp": {
     "StatusAvaliacao": {
       "null": "",
-      "INICIADA": "INICIADA",
-      "CHECKLIST_FINALIZADO": "CHECKLIST_FINALIZADO",
-      "ANEXO_AUDITORIA_FINALIZADO": "ANEXO_AUDITORIA_FINALIZADO",
-      "ANEXO_SOLICITACAO_AJUSTE_FINALIZADO": "ANEXO_SOLICITACAO_AJUSTE_FINALIZADO",
-      "SUBMETIDO": "SUBMETIDO"
+      "INICIADA": "Iniciada",
+      "CHECKLIST_FINALIZADO": "Checklist Finalizado",
+      "ANEXO_AUDITORIA_FINALIZADO": "Auditoria Finalizada",
+      "ANEXO_SOLICITACAO_AJUSTE_FINALIZADO": "Solicitação de Ajuste Finalizada",
+      "SUBMETIDO": "Submetido",
+      "CANCELADO": "Cancelado"
     }
   }
 }

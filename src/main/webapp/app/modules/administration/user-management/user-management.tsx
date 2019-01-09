@@ -107,11 +107,11 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                 <td>
                   {user.activated ? (
                     <Button color="success" onClick={this.toggleActive(user)}>
-                      Activated
+                      <Translate contentKey="userManagement.activated">Activated</Translate>
                     </Button>
                   ) : (
                     <Button color="danger" onClick={this.toggleActive(user)}>
-                      Deactivated
+                      <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
                     </Button>
                   )}
                 </td>

@@ -51,7 +51,7 @@ public class ItemAvaliacaoResource {
         }
         ItemAvaliacaoDTO result = itemAvaliacaoService.save(itemAvaliacaoDTO);
         return ResponseEntity.created(new URI("/api/item-avaliacaos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getDescricao()))
             .body(result);
     }
 
@@ -73,7 +73,7 @@ public class ItemAvaliacaoResource {
         }
         ItemAvaliacaoDTO result = itemAvaliacaoService.save(itemAvaliacaoDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, itemAvaliacaoDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, itemAvaliacaoDTO.getDescricao()))
             .body(result);
     }
 

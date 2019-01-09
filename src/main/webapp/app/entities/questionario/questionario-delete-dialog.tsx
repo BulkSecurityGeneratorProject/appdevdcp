@@ -34,7 +34,7 @@ export class QuestionarioDeleteDialog extends React.Component<IQuestionarioDelet
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody id="dcpdesconformidadesApp.questionario.delete.question">
-          <Translate contentKey="dcpdesconformidadesApp.questionario.delete.question" interpolate={{ id: questionarioEntity.id }}>
+          <Translate contentKey="dcpdesconformidadesApp.questionario.delete.question" interpolate={{ nome: questionarioEntity.nome }}>
             Are you sure you want to delete this Questionario?
           </Translate>
         </ModalBody>

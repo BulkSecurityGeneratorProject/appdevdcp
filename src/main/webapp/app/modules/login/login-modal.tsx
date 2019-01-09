@@ -43,7 +43,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                   label={translate('global.form.username')}
                   placeholder={translate('global.form.username.placeholder')}
                   required
-                  errorMessage="Username cannot be empty!"
+                  errorMessage="Usuário não pode estar vazio!"
                   autoFocus
                 />
                 <AvField
@@ -52,7 +52,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                   label={translate('login.form.password')}
                   placeholder={translate('login.form.password.placeholder')}
                   required
-                  errorMessage="Password cannot be empty!"
+                  errorMessage="Senha não pode estar vazia!"
                 />
                 <AvGroup check inline>
                   <Label className="form-check-label">

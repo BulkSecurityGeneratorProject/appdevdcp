@@ -2,9 +2,9 @@
   "dcpdesconformidadesApp": {
     "TipoItemAuditado": {
       "null": "",
-      "TOP_5_PERDAS": "TOP_5_PERDAS",
-      "ALTO_RISCO": "ALTO_RISCO",
-      "TROCA_CANCELAMENTO_DVC": "TROCA_CANCELAMENTO_DVC"
+      "TOP_5_PERDAS": "Top 5 Perdas",
+      "ALTO_RISCO": "Alto Risco",
+      "TROCA_CANCELAMENTO_DVC": "Troca/Cancelamento/DVC"
     }
   }
 }

@@ -34,7 +34,10 @@ export class ItemAvaliacaoDeleteDialog extends React.Component<IItemAvaliacaoDel
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody id="dcpdesconformidadesApp.itemAvaliacao.delete.question">
-          <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.delete.question" interpolate={{ id: itemAvaliacaoEntity.id }}>
+          <Translate
+            contentKey="dcpdesconformidadesApp.itemAvaliacao.delete.question"
+            interpolate={{ descricao: itemAvaliacaoEntity.descricao }}
+          >
             Are you sure you want to delete this ItemAvaliacao?
           </Translate>
         </ModalBody>

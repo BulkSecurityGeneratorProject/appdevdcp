@@ -2,12 +2,12 @@
   "dcpdesconformidadesApp": {
     "CategorizacaoPerdaQuebra": {
       "null": "",
-      "INADMISSIVEL": "INADMISSIVEL",
-      "CRITICO": "CRITICO",
-      "VALOR_ELEVADO": "VALOR_ELEVADO",
-      "ATENCAO": "ATENCAO",
-      "CONTROLE": "CONTROLE",
-      "SOBRA_DESCONTROLE": "SOBRA_DESCONTROLE"
+      "INADMISSIVEL": "Inadmissível",
+      "CRITICO": "Crítico",
+      "VALOR_ELEVADO": "Valor elevado",
+      "ATENCAO": "Atenção",
+      "CONTROLE": "Controle",
+      "SOBRA_DESCONTROLE": "Sobra, descontrole"
     }
   }
 }

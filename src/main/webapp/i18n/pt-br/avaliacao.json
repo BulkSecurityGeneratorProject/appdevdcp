@@ -9,8 +9,8 @@
       "created": "Um novo Avaliacao foi criado com o identificador {{ param }}",
       "updated": "Um Avaliacao foi atualizado com o identificador {{ param }}",
       "deleted": "Um Avaliacao foi deletado com o identificador {{ param }}",
-      "delete": {
-        "question": "Tem certeza de que deseja excluir Avaliacao {{ id }}?"
+      "cancel": {
+        "question": "Tem certeza de que deseja cancelar a avaliação {{ id }}?"
       },
       "detail": {
         "title": "Avaliacao"

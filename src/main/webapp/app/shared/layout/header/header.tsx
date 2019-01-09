@@ -9,7 +9,7 @@ import { NavLink as Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
 import { Home, Brand } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from './menus';
+import { AdminMenu, EntitiesMenu, AccountMenu } from './menus';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -66,7 +66,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
               <Home />
               {isAuthenticated && <EntitiesMenu />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
-              <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
               <AccountMenu isAuthenticated={isAuthenticated} />
             </Nav>
           </Collapse>

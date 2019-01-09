@@ -51,7 +51,7 @@ public class QuestionarioResource {
         }
         QuestionarioDTO result = questionarioService.save(questionarioDTO);
         return ResponseEntity.created(new URI("/api/questionarios/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getNome()))
             .body(result);
     }
 
@@ -73,7 +73,7 @@ public class QuestionarioResource {
         }
         QuestionarioDTO result = questionarioService.save(questionarioDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, questionarioDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, questionarioDTO.getNome()))
             .body(result);
     }
 

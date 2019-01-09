@@ -34,7 +34,7 @@ export class GrupoItensDeleteDialog extends React.Component<IGrupoItensDeleteDia
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody id="dcpdesconformidadesApp.grupoItens.delete.question">
-          <Translate contentKey="dcpdesconformidadesApp.grupoItens.delete.question" interpolate={{ id: grupoItensEntity.id }}>
+          <Translate contentKey="dcpdesconformidadesApp.grupoItens.delete.question" interpolate={{ nome: grupoItensEntity.nome }}>
             Are you sure you want to delete this GrupoItens?
           </Translate>
         </ModalBody>

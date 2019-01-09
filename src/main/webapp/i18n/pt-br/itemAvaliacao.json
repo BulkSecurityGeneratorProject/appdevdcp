@@ -2,20 +2,20 @@
   "dcpdesconformidadesApp": {
     "itemAvaliacao": {
       "home": {
-        "title": "Item Avaliacaos",
-        "createLabel": "Criar novo Item Avaliacao",
-        "createOrEditLabel": "Criar ou editar Item Avaliacao"
+        "title": "Itens de Avaliação",
+        "createLabel": "Criar novo Item de Avaliação",
+        "createOrEditLabel": "Criar ou editar Item de Avaliação"
       },
-      "created": "Um novo Item Avaliacao foi criado com o identificador {{ param }}",
-      "updated": "Um Item Avaliacao foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Item Avaliacao foi deletado com o identificador {{ param }}",
+      "created": "Um novo Item de Avaliação foi criado com o nome \"{{ param }}\"",
+      "updated": "Um Item de Avaliação foi atualizado com o nome \"{{ param }}\"",
+      "deleted": "O Item de Avaliação foi deletado",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Item Avaliacao {{ id }}?"
+        "question": "Tem certeza de que deseja excluir o item \"{{ descricao }}\"?"
       },
       "detail": {
-        "title": "Item Avaliacao"
+        "title": "Item de Avaliação"
       },
-      "descricao": "Descricao",
+      "descricao": "Descrição",
       "anexoObrigatorio": "Anexo Obrigatorio",
       "pontosProcedimento": "Pontos Procedimento",
       "pontosPessoa": "Pontos Pessoa",
