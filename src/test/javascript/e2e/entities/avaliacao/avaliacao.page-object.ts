@@ -33,7 +33,7 @@ export default class AvaliacaoComponentsPage {
 }
 
 export class AvaliacaoDeleteDialog {
-  private dialogTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.avaliacao.delete.question'));
+  private dialogTitle: ElementFinder = element(by.id('dcpdesconformidadesApp.avaliacao.cancel.question'));
   private confirmButton = element(by.id('app-confirm-delete-avaliacao'));
 
   getDialogTitle() {

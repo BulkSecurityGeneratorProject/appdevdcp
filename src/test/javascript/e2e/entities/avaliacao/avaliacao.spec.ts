@@ -122,7 +122,7 @@ describe('Avaliacao e2e test', () => {
         await waitUntilDisplayed(deleteModal);
 
         avaliacaoDeleteDialog = new AvaliacaoDeleteDialog();
-        expect(await avaliacaoDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/dcpdesconformidadesApp.avaliacao.delete.question/);
+        expect(await avaliacaoDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/dcpdesconformidadesApp.avaliacao.cancel.question/);
         await avaliacaoDeleteDialog.clickOnConfirmButton();
 
         await avaliacaoComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
