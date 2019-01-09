@@ -1,6 +1,7 @@
 package br.com.lasa.dcpdesconformidades.service;
 
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.AvaliacaoMapper;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
 
 /**
@@ -78,9 +80,9 @@ public class AvaliacaoService {
      *
      * @param id the id of the entity
      */
-    public void delete(Long id) {
+    public void cancel(Long id, String motivoCancelamento) {
         log.debug("Request to delete Avaliacao : {}", id);
-        avaliacaoRepository.deleteById(id);
+        avaliacaoRepository.setStatusAsCancelledFor(StatusAvaliacao.CANCELADO, Instant.now(), motivoCancelamento, id);
     }
         
     public AvaliacaoDTO iniciarAvaliacaoPara(String codigoLoja){

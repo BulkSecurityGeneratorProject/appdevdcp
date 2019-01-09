@@ -1,27 +1,34 @@
 package br.com.lasa.dcpdesconformidades.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import br.com.lasa.dcpdesconformidades.service.AvaliacaoService;
-import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
-import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
-import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
-import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.codahale.metrics.annotation.Timed;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.lasa.dcpdesconformidades.service.AvaliacaoService;
+import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
+import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
+import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Avaliacao.
@@ -61,28 +68,6 @@ public class AvaliacaoResource {
     }
 
     /**
-     * PUT  /avaliacaos : Updates an existing avaliacao.
-     *
-     * @param avaliacaoDTO the avaliacaoDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated avaliacaoDTO,
-     * or with status 400 (Bad Request) if the avaliacaoDTO is not valid,
-     * or with status 500 (Internal Server Error) if the avaliacaoDTO couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PutMapping("/avaliacaos")
-    @Timed
-    public ResponseEntity<AvaliacaoDTO> updateAvaliacao(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
-        log.debug("REST request to update Avaliacao : {}", avaliacaoDTO);
-        if (avaliacaoDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        AvaliacaoDTO result = avaliacaoService.save(avaliacaoDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, avaliacaoDTO.getId().toString()))
-            .body(result);
-    }
-
-    /**
      * GET  /avaliacaos : get all the avaliacaos.
      *
      * @param pageable the pagination information
@@ -117,11 +102,11 @@ public class AvaliacaoResource {
      * @param id the id of the avaliacaoDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/avaliacaos/{id}")
+    @PostMapping("/avaliacaos/{id}")
     @Timed
-    public ResponseEntity<Void> deleteAvaliacao(@PathVariable Long id) {
+    public ResponseEntity<Void> cancelAvaliacao(@PathVariable Long id, @RequestBody AvaliacaoDTO avaliacaoDTO) {
         log.debug("REST request to delete Avaliacao : {}", id);
-        avaliacaoService.delete(id);
+        avaliacaoService.cancel(id, avaliacaoDTO.getMotivoCancelamento());
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
         

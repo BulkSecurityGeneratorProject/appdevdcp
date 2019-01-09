@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, IPayload, IPayloadResult } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -11,7 +11,7 @@ export const ACTION_TYPES = {
   FETCH_AVALIACAO: 'avaliacao/FETCH_AVALIACAO',
   CREATE_AVALIACAO: 'avaliacao/CREATE_AVALIACAO',
   UPDATE_AVALIACAO: 'avaliacao/UPDATE_AVALIACAO',
-  DELETE_AVALIACAO: 'avaliacao/DELETE_AVALIACAO',
+  CANCEL_AVALIACAO: 'avaliacao/CANCEL_AVALIACAO',
   RESET: 'avaliacao/RESET'
 };
 
@@ -27,6 +27,8 @@ const initialState = {
 
 export type AvaliacaoState = Readonly<typeof initialState>;
 
+declare type ICrudDeleteAction<T> = (id?: string | number, motivo?: string) => IPayload<T> | IPayloadResult<T>;
+
 // Reducer
 
 export default (state: AvaliacaoState = initialState, action): AvaliacaoState => {
@@ -41,7 +43,7 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
       };
     case REQUEST(ACTION_TYPES.CREATE_AVALIACAO):
     case REQUEST(ACTION_TYPES.UPDATE_AVALIACAO):
-    case REQUEST(ACTION_TYPES.DELETE_AVALIACAO):
+    case REQUEST(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
         ...state,
         errorMessage: null,
@@ -52,7 +54,7 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
     case FAILURE(ACTION_TYPES.FETCH_AVALIACAO):
     case FAILURE(ACTION_TYPES.CREATE_AVALIACAO):
     case FAILURE(ACTION_TYPES.UPDATE_AVALIACAO):
-    case FAILURE(ACTION_TYPES.DELETE_AVALIACAO):
+    case FAILURE(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
         ...state,
         loading: false,
@@ -81,7 +83,7 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
         updateSuccess: true,
         entity: action.payload.data
       };
-    case SUCCESS(ACTION_TYPES.DELETE_AVALIACAO):
+    case SUCCESS(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
         ...state,
         updating: false,
@@ -135,11 +137,11 @@ export const updateEntity: ICrudPutAction<IAvaliacao> = entity => async dispatch
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IAvaliacao> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IAvaliacao> = (id, motivo) => async dispatch => {
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
-    type: ACTION_TYPES.DELETE_AVALIACAO,
-    payload: axios.delete(requestUrl)
+    type: ACTION_TYPES.CANCEL_AVALIACAO,
+    payload: axios.post(requestUrl, { motivoCancelamento: motivo })
   });
   dispatch(getEntities());
   return result;

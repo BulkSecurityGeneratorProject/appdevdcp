@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { Translate, ICrudGetAction, ICrudDeleteAction } from 'react-jhipster';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col, Label } from 'reactstrap';
+import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Translate, ICrudGetAction, ICrudDeleteAction, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IAvaliacao } from 'app/shared/model/avaliacao.model';
@@ -16,8 +17,8 @@ export class AvaliacaoDeleteDialog extends React.Component<IAvaliacaoDeleteDialo
     this.props.getEntity(this.props.match.params.id);
   }
 
-  confirmDelete = event => {
-    this.props.deleteEntity(this.props.avaliacaoEntity.id);
+  handleSubmit = (event, values) => {
+    this.props.deleteEntity(this.props.avaliacaoEntity.id, values.motivoCancelamento);
     this.handleClose(event);
   };
 
@@ -30,26 +31,50 @@ export class AvaliacaoDeleteDialog extends React.Component<IAvaliacaoDeleteDialo
     const { avaliacaoEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
-        <ModalHeader toggle={this.handleClose}>
-          <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
-        </ModalHeader>
-        <ModalBody id="dcpdesconformidadesApp.avaliacao.delete.question">
-          <Translate contentKey="dcpdesconformidadesApp.avaliacao.delete.question" interpolate={{ id: avaliacaoEntity.id }}>
-            Are you sure you want to delete this Avaliacao?
-          </Translate>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="secondary" onClick={this.handleClose}>
-            <FontAwesomeIcon icon="ban" />
-            &nbsp;
-            <Translate contentKey="entity.action.cancel">Cancel</Translate>
-          </Button>
-          <Button id="app-confirm-delete-avaliacao" color="danger" onClick={this.confirmDelete}>
-            <FontAwesomeIcon icon="trash" />
-            &nbsp;
-            <Translate contentKey="entity.action.delete">Delete</Translate>
-          </Button>
-        </ModalFooter>
+        <AvForm onValidSubmit={this.handleSubmit}>
+          <ModalHeader toggle={this.handleClose}>
+            <Translate contentKey="entity.cancel.title">Confirm cancel operation</Translate>
+          </ModalHeader>
+          <ModalBody id="dcpdesconformidadesApp.avaliacao.cancel.question">
+            <Row>
+              <Col md="12">
+                <Translate contentKey="dcpdesconformidadesApp.avaliacao.cancel.question" interpolate={{ id: avaliacaoEntity.id }}>
+                  Are you sure you want to delete this Avaliacao?
+                </Translate>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12">
+                <AvGroup>
+                  <Label id="motivoCancelamentoLabel" for="motivoCancelamento">
+                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>
+                  </Label>
+                  <AvField
+                    id="avaliacao-motivoCancelamento"
+                    type="textarea"
+                    className="form-control"
+                    name="motivoCancelamento"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+              </Col>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.handleClose}>
+              <FontAwesomeIcon icon="ban" />
+              &nbsp;
+              <Translate contentKey="entity.action.back">Back</Translate>
+            </Button>
+            <Button id="app-confirm-delete-avaliacao" type="submit" color="danger">
+              <FontAwesomeIcon icon="trash" />
+              &nbsp;
+              <Translate contentKey="entity.action.cancel">Cancel</Translate>
+            </Button>
+          </ModalFooter>
+        </AvForm>
       </Modal>
     );
   }
