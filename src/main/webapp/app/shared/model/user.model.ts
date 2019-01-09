@@ -13,7 +13,7 @@ export interface IUser {
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
   password?: string;
-  lojas: ILoja[];
+  lojas?: ILoja[];
 }
 
 export const defaultValue: Readonly<IUser> = {
