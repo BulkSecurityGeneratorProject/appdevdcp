@@ -2,24 +2,19 @@
   "dcpdesconformidadesApp": {
     "avaliacao": {
       "home": {
-        "title": "Avaliacaos",
-        "createLabel": "Criar novo Avaliacao",
-        "createOrEditLabel": "Criar ou editar Avaliacao"
+        "title": "Avaliações"
       },
-      "created": "Um novo Avaliacao foi criado com o identificador {{ param }}",
-      "updated": "Um Avaliacao foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Avaliacao foi deletado com o identificador {{ param }}",
       "cancel": {
         "question": "Tem certeza de que deseja cancelar a avaliação {{ id }}?"
       },
       "detail": {
-        "title": "Avaliacao"
+        "title": "Avaliação"
       },
       "iniciadaEm": "Iniciada Em",
       "latitudeInicioAvaliacao": "Latitude Inicio Avaliacao",
       "longitudeInicioAvaliacao": "Longitude Inicio Avaliacao",
-      "nomeResponsavelLoja": "Nome Responsavel Loja",
-      "prontuarioResponsavelLoja": "Prontuario Responsavel Loja",
+      "nomeResponsavelLoja": "Responsável pela loja",
+      "prontuarioResponsavelLoja": "Prontuário",
       "submetidoEm": "Submetido Em",
       "latitudeSubmissaoAvaliacao": "Latitude Submissao Avaliacao",
       "longitudeSubmissaoAvaliacao": "Longitude Submissao Avaliacao",
@@ -27,10 +22,15 @@
       "status": "Status",
       "criticidadePainel": "Criticidade Painel",
       "nivelEficienciaGeral": "Nivel Eficiencia Geral",
+      "nivelEficienciaGeralObservacao": "O nível de eficiência avalia o quanto a loja está em acordo com a política de Prevenção de Perdas da Cia. Este nível será mensurado em quatro pontos Procedimentos, Processos, Produtos e Pessoas, o melhor nível é o \"A\" que sinaliza que a loja está em alinhamento com as oriemntações do DCP da mesma forma quanto mais próximo do nível \"E\" significa que a loja não está alinhada e tem grandes possibilidade de apresentar resultados ruins de perdas contribuindo para baixa performance do Distrito, Região e Cia.",
       "nivelEficienciaProcedimento": "Nivel Eficiencia Procedimento",
+      "nivelEficienciaProcedimentoObservacao": "A eficiência de procedimentos indica o nível de aderência da gestão da loja em relação as orientações do DCP e a política de prevenção de perda das Cia.",
       "nivelEficienciaPessoa": "Nivel Eficiencia Pessoa",
+      "nivelEficienciaPessoaObservacao": "Avaliação sobre a gestão de pessoas em relação a disseminação da cultura de prevenção de perda da Cia.",
       "nivelEficienciaProcesso": "Nivel Eficiencia Processo",
+      "nivelEficienciaProcessoObservacao": "Avaliação sobre a aderência da loja aos processos de prevenção de perdas e suas rotinas.",
       "nivelEficienciaProduto": "Nivel Eficiencia Produto",
+      "nivelEficienciaProdutoObservacao": "Avaliação sobre o controle físico e a rotina de gestão de estoques.",
       "canceladoEm": "Cancelado Em",
       "motivoCancelamento": "Motivo Cancelamento",
       "percentualPerda": "Percentual Perda",
@@ -48,7 +48,8 @@
       "itensAvaliados": "Itens Avaliados",
       "itensAuditados": "Itens Auditados",
       "itensComAjusteSolicitado": "Itens Com Ajuste Solicitado",
-      "avaliador": "Avaliador",
+      "nomeAvaliador": "Avaliador",
+      "prontuarioAvaliador": "Prontuário",
       "questionario": "Questionario",
       "loja": "Loja"
     }
