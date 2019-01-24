@@ -61,12 +61,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
     return (
       <div>
         <h2 id="avaliacao-heading">
-          <Translate contentKey="dcpdesconformidadesApp.avaliacao.home.title">Avaliacaos</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="dcpdesconformidadesApp.avaliacao.home.createLabel">Create new Avaliacao</Translate>
-          </Link>
+          <Translate contentKey="dcpdesconformidadesApp.avaliacao.home.title">Avaliações</Translate>
         </h2>
         <div className="table-responsive">
           <Table responsive>
@@ -75,17 +70,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                 <th className="hand" onClick={this.sort('id')}>
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('iniciadaEm')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('latitudeInicioAvaliacao')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.latitudeInicioAvaliacao">Latitude Inicio Avaliacao</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('longitudeInicioAvaliacao')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.longitudeInicioAvaliacao">Longitude Inicio Avaliacao</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('nomeResponsavelLoja')}>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeResponsavelLoja">Nome Responsavel Loja</Translate>{' '}
@@ -95,30 +81,20 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.prontuarioResponsavelLoja">Prontuario Responsavel Loja</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('submetidoEm')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidoEm">Submetido Em</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('latitudeSubmissaoAvaliacao')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.latitudeSubmissaoAvaliacao">
-                    Latitude Submissao Avaliacao
-                  </Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('longitudeSubmissaoAvaliacao')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.longitudeSubmissaoAvaliacao">
-                    Longitude Submissao Avaliacao
-                  </Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('observacaoSubmissaoEnviadaForaDaLoja')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacaoSubmissaoEnviadaForaDaLoja">
-                    Observacao Submissao Enviada Fora Da Loja
-                  </Translate>{' '}
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeAvaliador">Avaliador</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('status')}>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.status">Status</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('iniciadaEm')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('submetidoEm')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidoEm">Submetido Em</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('criticidadePainel')}>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>{' '}
@@ -126,72 +102,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                 </th>
                 <th className="hand" onClick={this.sort('nivelEficienciaGeral')}>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral">Nivel Eficiencia Geral</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('nivelEficienciaProcedimento')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento">
-                    Nivel Eficiencia Procedimento
-                  </Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('nivelEficienciaPessoa')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa">Nivel Eficiencia Pessoa</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('nivelEficienciaProcesso')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso">Nivel Eficiencia Processo</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('nivelEficienciaProduto')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto">Nivel Eficiencia Produto</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('canceladoEm')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('motivoCancelamento')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('percentualPerda')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerda">Percentual Perda</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('financeiroPerda')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerda">Financeiro Perda</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('pontuacaoPerda')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerda">Pontuacao Perda</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('statusPerda')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusPerda">Status Perda</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('categorizacaoPerda')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerda">Categorizacao Perda</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('percentualQuebra')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualQuebra">Percentual Quebra</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('financeiroQuebra')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroQuebra">Financeiro Quebra</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('pontuacaoQuebra')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoQuebra">Pontuacao Quebra</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('statusQuebra')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusQuebra">Status Quebra</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('categorizacaoQuebra')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoQuebra">Categorizacao Quebra</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('importadoViaPlanilha')}>
@@ -203,14 +113,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.avaliador">Avaliador</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -223,21 +127,18 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                       {avaliacao.id}
                     </Button>
                   </td>
+                  <td>{avaliacao.lojaNome ? <Link to={`loja/${avaliacao.lojaId}`}>{avaliacao.lojaNome}</Link> : ''}</td>
+                  <td>{avaliacao.nomeResponsavelLoja}</td>
+                  <td>{avaliacao.prontuarioResponsavelLoja}</td>
+                  <td>{avaliacao.avaliadorName ? avaliacao.avaliadorName : ''}</td>
+                  <td>
+                    <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacao.status}`} />
+                  </td>
                   <td>
                     <TextFormat type="date" value={avaliacao.iniciadaEm} format={APP_DATE_FORMAT} />
                   </td>
-                  <td>{avaliacao.latitudeInicioAvaliacao}</td>
-                  <td>{avaliacao.longitudeInicioAvaliacao}</td>
-                  <td>{avaliacao.nomeResponsavelLoja}</td>
-                  <td>{avaliacao.prontuarioResponsavelLoja}</td>
                   <td>
                     <TextFormat type="date" value={avaliacao.submetidoEm} format={APP_DATE_FORMAT} />
-                  </td>
-                  <td>{avaliacao.latitudeSubmissaoAvaliacao}</td>
-                  <td>{avaliacao.longitudeSubmissaoAvaliacao}</td>
-                  <td>{avaliacao.observacaoSubmissaoEnviadaForaDaLoja}</td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacao.status}`} />
                   </td>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacao.criticidadePainel}`} />
@@ -245,43 +146,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaGeral}`} />
                   </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProcedimento}`} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaPessoa}`} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProcesso}`} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaProduto}`} />
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={avaliacao.canceladoEm} format={APP_DATE_FORMAT} />
-                  </td>
-                  <td>{avaliacao.motivoCancelamento}</td>
-                  <td>{avaliacao.percentualPerda}</td>
-                  <td>{avaliacao.financeiroPerda}</td>
-                  <td>{avaliacao.pontuacaoPerda}</td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacao.statusPerda}`} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacao.categorizacaoPerda}`} />
-                  </td>
-                  <td>{avaliacao.percentualQuebra}</td>
-                  <td>{avaliacao.financeiroQuebra}</td>
-                  <td>{avaliacao.pontuacaoQuebra}</td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacao.statusQuebra}`} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacao.categorizacaoQuebra}`} />
-                  </td>
                   <td>{avaliacao.importadoViaPlanilha ? 'true' : 'false'}</td>
                   <td>{avaliacao.caminhoArquivoPlanilha}</td>
-                  <td>{avaliacao.avaliadorName ? avaliacao.avaliadorName : ''}</td>
                   <td>
                     {avaliacao.questionarioNome ? (
                       <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>
@@ -289,7 +155,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                       ''
                     )}
                   </td>
-                  <td>{avaliacao.lojaNome ? <Link to={`loja/${avaliacao.lojaId}`}>{avaliacao.lojaNome}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${avaliacao.id}`} color="info" size="sm">
@@ -298,16 +163,10 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${avaliacao.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${avaliacao.id}/delete`} color="danger" size="sm">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                          <Translate contentKey="entity.action.cancel">Cancel</Translate>
                         </span>
                       </Button>
                     </div>

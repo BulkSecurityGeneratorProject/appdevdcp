@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -153,13 +155,19 @@ public class Avaliacao implements Serializable {
 
     @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
+    
     @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ItemAuditado> itensAuditados = new HashSet<>();
+    
     @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
+    
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")

@@ -315,4 +315,97 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   margin-top: -0.5rem;
 }
 
+.tab-checklist table,
+.tab-solicitacao-ajuste table,
+.tab-auditoria table {
+  font-size: 0.8rem;
+}
+
+.tab-checklist {
+  .card + .card {
+    margin-top: 1rem;
+  }
+}
+
+.nivel-eficiencia-card {
+  $etiquetaAColor: rgba(75, 165, 65, 1);
+  $etiquetaBColor: rgba(244, 180, 40, 1);
+  $etiquetaCColor: rgba(216, 85, 37, 1);
+  $etiquetaDColor: rgba(225, 39, 39, 1);
+  $etiquetaEColor: rgba(0, 0, 0, 1);
+
+  .progress {
+    span {
+      position: absolute;
+      right: 0px;
+      color: #000;
+      font-weight: 600;
+    }
+  }
+
+  .progress + .progress {
+    margin-top: 7px;
+  }
+
+  .etiqueta-text-A {
+    color: $etiquetaAColor;
+    text-decoration-color: $etiquetaAColor;
+  }
+
+  .etiqueta-text-B {
+    color: $etiquetaBColor;
+    text-decoration-color: $etiquetaBColor;
+  }
+
+  .etiqueta-text-C {
+    color: $etiquetaCColor;
+    text-decoration-color: $etiquetaCColor;
+  }
+
+  .etiqueta-text-D {
+    color: $etiquetaDColor;
+    text-decoration-color: $etiquetaDColor;
+  }
+
+  .etiqueta-text-E {
+    color: $etiquetaEColor;
+    text-decoration-color: $etiquetaEColor;
+  }
+
+  .progress-etiqueta-A .progress-bar {
+    background-color: $etiquetaAColor;
+  }
+
+  .progress-etiqueta-B .progress-bar {
+    background-color: $etiquetaBColor;
+  }
+
+  .progress-etiqueta-C .progress-bar {
+    background-color: $etiquetaCColor;
+  }
+
+  .progress-etiqueta-D .progress-bar {
+    background-color: $etiquetaDColor;
+  }
+
+  .progress-etiqueta-E .progress-bar {
+    background-color: $etiquetaEColor;
+  }
+
+  .etiqueta-text {
+    @extend .text-center;
+    @extend .align-self-center;
+    font-size: 5rem;
+    line-height: 0;
+    font-weight: 600;
+    text-decoration: underline;
+    // text-decoration-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .card-text {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
 /* jhipster-needle-css-add-main JHipster will add new css style */

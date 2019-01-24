@@ -13,6 +13,7 @@ public interface AvaliacaoMapper extends EntityMapper<AvaliacaoDTO, Avaliacao> {
 
     @Mapping(source = "avaliador.id", target = "avaliadorId")
     @Mapping(source = "avaliador.name", target = "avaliadorName")
+    @Mapping(source = "avaliador.prontuario", target = "avaliadorProntuario")
     @Mapping(source = "questionario.id", target = "questionarioId")
     @Mapping(source = "questionario.nome", target = "questionarioNome")
     @Mapping(source = "loja.id", target = "lojaId")

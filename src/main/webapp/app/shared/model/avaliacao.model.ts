@@ -78,6 +78,7 @@ export interface IAvaliacao {
   itensAuditados?: IItemAuditado[];
   itensComAjusteSolicitados?: IItemSolicitadoAjuste[];
   avaliadorName?: string;
+  avaliadorProntuario?: string;
   avaliadorId?: number;
   questionarioNome?: string;
   questionarioId?: number;

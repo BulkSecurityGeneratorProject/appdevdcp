@@ -92,6 +92,8 @@ public class AvaliacaoDTO implements Serializable {
     private Long avaliadorId;
 
     private String avaliadorName;
+    
+    private String avaliadorProntuario;
 
     private Long questionarioId;
 
@@ -363,6 +365,14 @@ public class AvaliacaoDTO implements Serializable {
 
     public void setAvaliadorName(String userName) {
         this.avaliadorName = userName;
+    }
+    
+    public String getAvaliadorProntuario() {
+      return avaliadorProntuario;
+    }
+
+    public void setAvaliadorProntuario(String avaliadorProntuario) {
+      this.avaliadorProntuario = avaliadorProntuario;
     }
 
     public Long getQuestionarioId() {
