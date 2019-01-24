@@ -33,7 +33,7 @@ export interface IAvaliacaoDetailProps extends StateProps, DispatchProps, RouteC
 
 export interface IAvaliacaoDetailState {
   activeTab: string;
-  rowSpanForItensAuditados: Object;
+  rowSpanForItensAuditados: {};
 }
 export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAvaliacaoDetailState> {
   state: IAvaliacaoDetailState = {
@@ -48,7 +48,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
       [TipoItemAuditado.TROCA_CANCELAMENTO_DVC]: itensAuditados.filter(i => i.tipo === TipoItemAuditado.TROCA_CANCELAMENTO_DVC).length
     };
 
-    //Obtém os primeiros itens de cada tipo e seta os rowspans neles
+    // Obtém os primeiros itens de cada tipo e seta os rowspans neles
     itensAuditados
       .filter((item, index, array) => index === 0 || array[index - 1].tipo !== item.tipo)
       .forEach((item, index) => (this.state.rowSpanForItensAuditados[index] = rowSpansForTipos[item.tipo]));
@@ -85,9 +85,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.activeTab === 'CHECKLIST' })}
-                  onClick={() => {
-                    this.toggle('CHECKLIST');
-                  }}
+                  onClick={() => this.toggle('CHECKLIST')} // tslint:disable-line jsx-no-lambda
                 >
                   Checklist
                 </NavLink>
@@ -95,9 +93,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.activeTab === 'AUDITORIA' })}
-                  onClick={() => {
-                    this.toggle('AUDITORIA');
-                  }}
+                  onClick={() => this.toggle('AUDITORIA')} // tslint:disable-line jsx-no-lambda
                 >
                   Auditoria
                 </NavLink>
@@ -105,9 +101,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.activeTab === 'SOLICITACAO_AJUSTE' })}
-                  onClick={() => {
-                    this.toggle('SOLICITACAO_AJUSTE');
-                  }}
+                  onClick={() => this.toggle('SOLICITACAO_AJUSTE')} // tslint:disable-line jsx-no-lambda
                 >
                   Solicitação de Ajuste
                 </NavLink>
@@ -115,9 +109,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.activeTab === 'ETIQUETA' })}
-                  onClick={() => {
-                    this.toggle('ETIQUETA');
-                  }}
+                  onClick={() => this.toggle('ETIQUETA')} // tslint:disable-line jsx-no-lambda
                 >
                   Etiqueta
                 </NavLink>
@@ -125,9 +117,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               <NavItem>
                 <NavLink
                   className={classnames({ active: this.state.activeTab === 'APOIO_SPP' })}
-                  onClick={() => {
-                    this.toggle('APOIO_SPP');
-                  }}
+                  onClick={() => this.toggle('APOIO_SPP')} // tslint:disable-line jsx-no-lambda
                 >
                   Apoio SPP
                 </NavLink>
