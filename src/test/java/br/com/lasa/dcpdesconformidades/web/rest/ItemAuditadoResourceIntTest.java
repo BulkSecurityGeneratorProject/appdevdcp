@@ -5,6 +5,9 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 import br.com.lasa.dcpdesconformidades.domain.ItemAuditado;
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemAuditadoRepository;
+import br.com.lasa.dcpdesconformidades.service.ItemAuditadoService;
+import br.com.lasa.dcpdesconformidades.service.dto.ItemAuditadoDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemAuditadoMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -80,6 +83,12 @@ public class ItemAuditadoResourceIntTest {
     private ItemAuditadoRepository itemAuditadoRepository;
 
     @Autowired
+    private ItemAuditadoMapper itemAuditadoMapper;
+
+    @Autowired
+    private ItemAuditadoService itemAuditadoService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -98,7 +107,7 @@ public class ItemAuditadoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ItemAuditadoResource itemAuditadoResource = new ItemAuditadoResource(itemAuditadoRepository);
+        final ItemAuditadoResource itemAuditadoResource = new ItemAuditadoResource(itemAuditadoService);
         this.restItemAuditadoMockMvc = MockMvcBuilders.standaloneSetup(itemAuditadoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -144,9 +153,10 @@ public class ItemAuditadoResourceIntTest {
         int databaseSizeBeforeCreate = itemAuditadoRepository.findAll().size();
 
         // Create the ItemAuditado
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the ItemAuditado in the database
@@ -173,11 +183,12 @@ public class ItemAuditadoResourceIntTest {
 
         // Create the ItemAuditado with an existing ID
         itemAuditado.setId(1L);
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemAuditado in the database
@@ -193,10 +204,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setRespondidoEm(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -211,10 +223,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setTipo(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -229,10 +242,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setCodigoDepartamento(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -247,10 +261,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setCodigoSap(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -265,10 +280,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setDescricaoItem(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -283,10 +299,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setSaldoSap0001(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -301,10 +318,11 @@ public class ItemAuditadoResourceIntTest {
         itemAuditado.setSaldoFisico0001(null);
 
         // Create the ItemAuditado, which fails.
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         restItemAuditadoMockMvc.perform(post("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemAuditado> itemAuditadoList = itemAuditadoRepository.findAll();
@@ -391,10 +409,11 @@ public class ItemAuditadoResourceIntTest {
             .saldoSap9000(UPDATED_SALDO_SAP_9000)
             .saldoFisico9000(UPDATED_SALDO_FISICO_9000)
             .motivoDivergencia(UPDATED_MOTIVO_DIVERGENCIA);
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(updatedItemAuditado);
 
         restItemAuditadoMockMvc.perform(put("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedItemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isOk());
 
         // Validate the ItemAuditado in the database
@@ -420,11 +439,12 @@ public class ItemAuditadoResourceIntTest {
         int databaseSizeBeforeUpdate = itemAuditadoRepository.findAll().size();
 
         // Create the ItemAuditado
+        ItemAuditadoDTO itemAuditadoDTO = itemAuditadoMapper.toDto(itemAuditado);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restItemAuditadoMockMvc.perform(put("/api/item-auditados")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemAuditado)))
+            .content(TestUtil.convertObjectToJsonBytes(itemAuditadoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemAuditado in the database
@@ -463,5 +483,28 @@ public class ItemAuditadoResourceIntTest {
         assertThat(itemAuditado1).isNotEqualTo(itemAuditado2);
         itemAuditado1.setId(null);
         assertThat(itemAuditado1).isNotEqualTo(itemAuditado2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(ItemAuditadoDTO.class);
+        ItemAuditadoDTO itemAuditadoDTO1 = new ItemAuditadoDTO();
+        itemAuditadoDTO1.setId(1L);
+        ItemAuditadoDTO itemAuditadoDTO2 = new ItemAuditadoDTO();
+        assertThat(itemAuditadoDTO1).isNotEqualTo(itemAuditadoDTO2);
+        itemAuditadoDTO2.setId(itemAuditadoDTO1.getId());
+        assertThat(itemAuditadoDTO1).isEqualTo(itemAuditadoDTO2);
+        itemAuditadoDTO2.setId(2L);
+        assertThat(itemAuditadoDTO1).isNotEqualTo(itemAuditadoDTO2);
+        itemAuditadoDTO1.setId(null);
+        assertThat(itemAuditadoDTO1).isNotEqualTo(itemAuditadoDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(itemAuditadoMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(itemAuditadoMapper.fromId(null)).isNull();
     }
 }

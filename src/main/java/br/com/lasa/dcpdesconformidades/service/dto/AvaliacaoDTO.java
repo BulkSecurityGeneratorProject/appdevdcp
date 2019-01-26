@@ -96,19 +96,17 @@ public class AvaliacaoDTO implements Serializable {
     
     private String avaliadorProntuario;
 
-    private Long questionarioId;
-
-    private String questionarioNome;
+    private QuestionarioDTO questionario;
 
     private Long lojaId;
 
     private String lojaNome;
     
-    private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
+    private Set<ItemAvaliadoDTO> itensAvaliados = new HashSet<>();
     
-    private Set<ItemAuditado> itensAuditados = new HashSet<>();
+    private Set<ItemAuditadoDTO> itensAuditados = new HashSet<>();
     
-    private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
+    private Set<ItemSolicitadoAjusteDTO> itensComAjusteSolicitados = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -382,20 +380,12 @@ public class AvaliacaoDTO implements Serializable {
       this.avaliadorProntuario = avaliadorProntuario;
     }
 
-    public Long getQuestionarioId() {
-        return questionarioId;
+    public QuestionarioDTO getQuestionario() {
+      return questionario;
     }
 
-    public void setQuestionarioId(Long questionarioId) {
-        this.questionarioId = questionarioId;
-    }
-
-    public String getQuestionarioNome() {
-        return questionarioNome;
-    }
-
-    public void setQuestionarioNome(String questionarioNome) {
-        this.questionarioNome = questionarioNome;
+    public void setQuestionario(QuestionarioDTO questionario) {
+      this.questionario = questionario;
     }
 
     public Long getLojaId() {
@@ -414,27 +404,27 @@ public class AvaliacaoDTO implements Serializable {
         this.lojaNome = lojaNome;
     }
     
-    public Set<ItemAvaliado> getItensAvaliados() {
+    public Set<ItemAvaliadoDTO> getItensAvaliados() {
       return itensAvaliados;
     }
 
-    public void setItensAvaliados(Set<ItemAvaliado> itensAvaliados) {
+    public void setItensAvaliados(Set<ItemAvaliadoDTO> itensAvaliados) {
       this.itensAvaliados = itensAvaliados;
     }
 
-    public Set<ItemAuditado> getItensAuditados() {
+    public Set<ItemAuditadoDTO> getItensAuditados() {
       return itensAuditados;
     }
 
-    public void setItensAuditados(Set<ItemAuditado> itensAuditados) {
+    public void setItensAuditados(Set<ItemAuditadoDTO> itensAuditados) {
       this.itensAuditados = itensAuditados;
     }
 
-    public Set<ItemSolicitadoAjuste> getItensComAjusteSolicitados() {
+    public Set<ItemSolicitadoAjusteDTO> getItensComAjusteSolicitados() {
       return itensComAjusteSolicitados;
     }
 
-    public void setItensComAjusteSolicitados(Set<ItemSolicitadoAjuste> itensComAjusteSolicitados) {
+    public void setItensComAjusteSolicitados(Set<ItemSolicitadoAjusteDTO> itensComAjusteSolicitados) {
       this.itensComAjusteSolicitados = itensComAjusteSolicitados;
     }
 
@@ -495,8 +485,7 @@ public class AvaliacaoDTO implements Serializable {
             ", caminhoArquivoPlanilha='" + getCaminhoArquivoPlanilha() + "'" +
             ", avaliador=" + getAvaliadorId() +
             ", avaliador='" + getAvaliadorName() + "'" +
-            ", questionario=" + getQuestionarioId() +
-            ", questionario='" + getQuestionarioNome() + "'" +
+            ", questionario=" + getQuestionario() +
             ", loja=" + getLojaId() +
             ", loja='" + getLojaNome() + "'" +
             "}";

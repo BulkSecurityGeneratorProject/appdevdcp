@@ -109,8 +109,8 @@ export class ItemSolicitadoAjuste extends React.Component<IItemSolicitadoAjusteP
                   <td>{itemSolicitadoAjuste.acaoCorretivaOuPreventiva}</td>
                   <td>{itemSolicitadoAjuste.responsavel}</td>
                   <td>
-                    {itemSolicitadoAjuste.avaliacao ? (
-                      <Link to={`avaliacao/${itemSolicitadoAjuste.avaliacao.id}`}>{itemSolicitadoAjuste.avaliacao.id}</Link>
+                    {itemSolicitadoAjuste.avaliacaoId ? (
+                      <Link to={`avaliacao/${itemSolicitadoAjuste.avaliacaoId}`}>{itemSolicitadoAjuste.avaliacaoId}</Link>
                     ) : (
                       ''
                     )}

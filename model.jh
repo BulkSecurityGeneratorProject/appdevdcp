@@ -219,6 +219,6 @@ relationship ManyToMany {
     Loja{avaliadores(name)} to User{loja(nome)}
 }
 
-service Questionario, Avaliacao, AnexoItem, Loja, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
+service Questionario, Avaliacao, AnexoItem, Loja, GrupoItens, ItemAvaliacao, ItemAvaliado, ItemAuditado, ItemSolicitadoAjuste with serviceClass
 paginate Loja, Avaliacao with pagination
 dto Avaliacao, Questionario, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem, ItemAuditado, ItemSolicitadoAjuste with mapstruct

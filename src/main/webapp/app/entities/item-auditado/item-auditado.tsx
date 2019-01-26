@@ -103,7 +103,7 @@ export class ItemAuditado extends React.Component<IItemAuditadoProps> {
                   <td>{itemAuditado.saldoFisico9000}</td>
                   <td>{itemAuditado.motivoDivergencia}</td>
                   <td>
-                    {itemAuditado.avaliacao ? <Link to={`avaliacao/${itemAuditado.avaliacao.id}`}>{itemAuditado.avaliacao.id}</Link> : ''}
+                    {itemAuditado.avaliacaoId ? <Link to={`avaliacao/${itemAuditado.avaliacaoId}`}>{itemAuditado.avaliacaoId}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

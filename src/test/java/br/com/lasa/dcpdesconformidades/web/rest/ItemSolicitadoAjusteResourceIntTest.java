@@ -5,6 +5,9 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 import br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste;
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemSolicitadoAjusteRepository;
+import br.com.lasa.dcpdesconformidades.service.ItemSolicitadoAjusteService;
+import br.com.lasa.dcpdesconformidades.service.dto.ItemSolicitadoAjusteDTO;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemSolicitadoAjusteMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -82,6 +85,12 @@ public class ItemSolicitadoAjusteResourceIntTest {
     private ItemSolicitadoAjusteRepository itemSolicitadoAjusteRepository;
 
     @Autowired
+    private ItemSolicitadoAjusteMapper itemSolicitadoAjusteMapper;
+
+    @Autowired
+    private ItemSolicitadoAjusteService itemSolicitadoAjusteService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -100,7 +109,7 @@ public class ItemSolicitadoAjusteResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ItemSolicitadoAjusteResource itemSolicitadoAjusteResource = new ItemSolicitadoAjusteResource(itemSolicitadoAjusteRepository);
+        final ItemSolicitadoAjusteResource itemSolicitadoAjusteResource = new ItemSolicitadoAjusteResource(itemSolicitadoAjusteService);
         this.restItemSolicitadoAjusteMockMvc = MockMvcBuilders.standaloneSetup(itemSolicitadoAjusteResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -147,9 +156,10 @@ public class ItemSolicitadoAjusteResourceIntTest {
         int databaseSizeBeforeCreate = itemSolicitadoAjusteRepository.findAll().size();
 
         // Create the ItemSolicitadoAjuste
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isCreated());
 
         // Validate the ItemSolicitadoAjuste in the database
@@ -177,11 +187,12 @@ public class ItemSolicitadoAjusteResourceIntTest {
 
         // Create the ItemSolicitadoAjuste with an existing ID
         itemSolicitadoAjuste.setId(1L);
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemSolicitadoAjuste in the database
@@ -197,10 +208,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setRespondidoEm(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -215,10 +227,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setCodigoDepartamento(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -233,10 +246,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setCodigoSap(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -251,10 +265,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setDescricaoItem(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -269,10 +284,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setSaldoSap0001(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -287,10 +303,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
         itemSolicitadoAjuste.setSaldoFisico0001(null);
 
         // Create the ItemSolicitadoAjuste, which fails.
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(post("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         List<ItemSolicitadoAjuste> itemSolicitadoAjusteList = itemSolicitadoAjusteRepository.findAll();
@@ -380,10 +397,11 @@ public class ItemSolicitadoAjusteResourceIntTest {
             .motivoDivergencia(UPDATED_MOTIVO_DIVERGENCIA)
             .acaoCorretivaOuPreventiva(UPDATED_ACAO_CORRETIVA_OU_PREVENTIVA)
             .responsavel(UPDATED_RESPONSAVEL);
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(updatedItemSolicitadoAjuste);
 
         restItemSolicitadoAjusteMockMvc.perform(put("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedItemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isOk());
 
         // Validate the ItemSolicitadoAjuste in the database
@@ -410,11 +428,12 @@ public class ItemSolicitadoAjusteResourceIntTest {
         int databaseSizeBeforeUpdate = itemSolicitadoAjusteRepository.findAll().size();
 
         // Create the ItemSolicitadoAjuste
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = itemSolicitadoAjusteMapper.toDto(itemSolicitadoAjuste);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restItemSolicitadoAjusteMockMvc.perform(put("/api/item-solicitado-ajustes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjuste)))
+            .content(TestUtil.convertObjectToJsonBytes(itemSolicitadoAjusteDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ItemSolicitadoAjuste in the database
@@ -453,5 +472,28 @@ public class ItemSolicitadoAjusteResourceIntTest {
         assertThat(itemSolicitadoAjuste1).isNotEqualTo(itemSolicitadoAjuste2);
         itemSolicitadoAjuste1.setId(null);
         assertThat(itemSolicitadoAjuste1).isNotEqualTo(itemSolicitadoAjuste2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(ItemSolicitadoAjusteDTO.class);
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO1 = new ItemSolicitadoAjusteDTO();
+        itemSolicitadoAjusteDTO1.setId(1L);
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO2 = new ItemSolicitadoAjusteDTO();
+        assertThat(itemSolicitadoAjusteDTO1).isNotEqualTo(itemSolicitadoAjusteDTO2);
+        itemSolicitadoAjusteDTO2.setId(itemSolicitadoAjusteDTO1.getId());
+        assertThat(itemSolicitadoAjusteDTO1).isEqualTo(itemSolicitadoAjusteDTO2);
+        itemSolicitadoAjusteDTO2.setId(2L);
+        assertThat(itemSolicitadoAjusteDTO1).isNotEqualTo(itemSolicitadoAjusteDTO2);
+        itemSolicitadoAjusteDTO1.setId(null);
+        assertThat(itemSolicitadoAjusteDTO1).isNotEqualTo(itemSolicitadoAjusteDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(itemSolicitadoAjusteMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(itemSolicitadoAjusteMapper.fromId(null)).isNull();
     }
 }

@@ -102,7 +102,7 @@ export class ItemAuditadoDetail extends React.Component<IItemAuditadoDetailProps
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemAuditado.avaliacao">Avaliacao</Translate>
             </dt>
-            <dd>{itemAuditadoEntity.avaliacao ? itemAuditadoEntity.avaliacao.id : ''}</dd>
+            <dd>{itemAuditadoEntity.avaliacaoId ? itemAuditadoEntity.avaliacaoId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-auditado" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

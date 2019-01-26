@@ -110,7 +110,7 @@ export class ItemSolicitadoAjusteDetail extends React.Component<IItemSolicitadoA
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.itemSolicitadoAjuste.avaliacao">Avaliacao</Translate>
             </dt>
-            <dd>{itemSolicitadoAjusteEntity.avaliacao ? itemSolicitadoAjusteEntity.avaliacao.id : ''}</dd>
+            <dd>{itemSolicitadoAjusteEntity.avaliacaoId ? itemSolicitadoAjusteEntity.avaliacaoId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-solicitado-ajuste" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

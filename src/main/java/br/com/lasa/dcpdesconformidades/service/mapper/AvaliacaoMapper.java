@@ -8,14 +8,12 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Avaliacao and its DTO AvaliacaoDTO.
  */
-@Mapper(componentModel = "spring", uses = {UserMapper.class, QuestionarioMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, QuestionarioMapper.class, ItemAvaliadoMapper.class, ItemAuditadoMapper.class, ItemSolicitadoAjusteMapper.class})
 public interface AvaliacaoMapper extends EntityMapper<AvaliacaoDTO, Avaliacao> {
 
     @Mapping(source = "avaliador.id", target = "avaliadorId")
     @Mapping(source = "avaliador.name", target = "avaliadorName")
     @Mapping(source = "avaliador.prontuario", target = "avaliadorProntuario")
-    @Mapping(source = "questionario.id", target = "questionarioId")
-    @Mapping(source = "questionario.nome", target = "questionarioNome")
     @Mapping(source = "loja.id", target = "lojaId")
     @Mapping(source = "loja.nome", target = "lojaNome")
     AvaliacaoDTO toDto(Avaliacao avaliacao);
@@ -24,7 +22,6 @@ public interface AvaliacaoMapper extends EntityMapper<AvaliacaoDTO, Avaliacao> {
     @Mapping(target = "itensAuditados", ignore = true)
     @Mapping(target = "itensComAjusteSolicitados", ignore = true)
     @Mapping(source = "avaliadorId", target = "avaliador")
-    @Mapping(source = "questionarioId", target = "questionario")
     @Mapping(source = "lojaId", target = "loja.id")
     Avaliacao toEntity(AvaliacaoDTO avaliacaoDTO);
 

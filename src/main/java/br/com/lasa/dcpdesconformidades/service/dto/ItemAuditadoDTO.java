@@ -1,79 +1,49 @@
-package br.com.lasa.dcpdesconformidades.domain;
+package br.com.lasa.dcpdesconformidades.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Objects;
-
 import br.com.lasa.dcpdesconformidades.domain.enumeration.TipoItemAuditado;
 
 /**
- * A ItemAuditado.
+ * A DTO for the ItemAuditado entity.
  */
-@Entity
-@Table(name = "item_auditado")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ItemAuditado implements Serializable {
+public class ItemAuditadoDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name = "respondido_em", nullable = false)
     private Instant respondidoEm;
 
-    @Column(name = "ultima_atualizacao_em")
     private Instant ultimaAtualizacaoEm;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false)
     private TipoItemAuditado tipo;
 
     @NotNull
-    @Column(name = "codigo_departamento", nullable = false)
     private Integer codigoDepartamento;
 
     @NotNull
-    @Column(name = "codigo_sap", nullable = false)
     private Integer codigoSap;
 
     @NotNull
-    @Column(name = "descricao_item", nullable = false)
     private String descricaoItem;
 
     @NotNull
-    @Column(name = "saldo_sap_0001", nullable = false)
     private Integer saldoSap0001;
 
     @NotNull
-    @Column(name = "saldo_fisico_0001", nullable = false)
     private Integer saldoFisico0001;
 
-    @Column(name = "saldo_sap_9000")
     private Integer saldoSap9000;
 
-    @Column(name = "saldo_fisico_9000")
     private Integer saldoFisico9000;
 
-    @Column(name = "motivo_divergencia")
     private String motivoDivergencia;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("itensAuditados")
-    private Avaliacao avaliacao;
+    private Long avaliacaoId;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -86,22 +56,12 @@ public class ItemAuditado implements Serializable {
         return respondidoEm;
     }
 
-    public ItemAuditado respondidoEm(Instant respondidoEm) {
-        this.respondidoEm = respondidoEm;
-        return this;
-    }
-
     public void setRespondidoEm(Instant respondidoEm) {
         this.respondidoEm = respondidoEm;
     }
 
     public Instant getUltimaAtualizacaoEm() {
         return ultimaAtualizacaoEm;
-    }
-
-    public ItemAuditado ultimaAtualizacaoEm(Instant ultimaAtualizacaoEm) {
-        this.ultimaAtualizacaoEm = ultimaAtualizacaoEm;
-        return this;
     }
 
     public void setUltimaAtualizacaoEm(Instant ultimaAtualizacaoEm) {
@@ -112,22 +72,12 @@ public class ItemAuditado implements Serializable {
         return tipo;
     }
 
-    public ItemAuditado tipo(TipoItemAuditado tipo) {
-        this.tipo = tipo;
-        return this;
-    }
-
     public void setTipo(TipoItemAuditado tipo) {
         this.tipo = tipo;
     }
 
     public Integer getCodigoDepartamento() {
         return codigoDepartamento;
-    }
-
-    public ItemAuditado codigoDepartamento(Integer codigoDepartamento) {
-        this.codigoDepartamento = codigoDepartamento;
-        return this;
     }
 
     public void setCodigoDepartamento(Integer codigoDepartamento) {
@@ -138,22 +88,12 @@ public class ItemAuditado implements Serializable {
         return codigoSap;
     }
 
-    public ItemAuditado codigoSap(Integer codigoSap) {
-        this.codigoSap = codigoSap;
-        return this;
-    }
-
     public void setCodigoSap(Integer codigoSap) {
         this.codigoSap = codigoSap;
     }
 
     public String getDescricaoItem() {
         return descricaoItem;
-    }
-
-    public ItemAuditado descricaoItem(String descricaoItem) {
-        this.descricaoItem = descricaoItem;
-        return this;
     }
 
     public void setDescricaoItem(String descricaoItem) {
@@ -164,22 +104,12 @@ public class ItemAuditado implements Serializable {
         return saldoSap0001;
     }
 
-    public ItemAuditado saldoSap0001(Integer saldoSap0001) {
-        this.saldoSap0001 = saldoSap0001;
-        return this;
-    }
-
     public void setSaldoSap0001(Integer saldoSap0001) {
         this.saldoSap0001 = saldoSap0001;
     }
 
     public Integer getSaldoFisico0001() {
         return saldoFisico0001;
-    }
-
-    public ItemAuditado saldoFisico0001(Integer saldoFisico0001) {
-        this.saldoFisico0001 = saldoFisico0001;
-        return this;
     }
 
     public void setSaldoFisico0001(Integer saldoFisico0001) {
@@ -190,22 +120,12 @@ public class ItemAuditado implements Serializable {
         return saldoSap9000;
     }
 
-    public ItemAuditado saldoSap9000(Integer saldoSap9000) {
-        this.saldoSap9000 = saldoSap9000;
-        return this;
-    }
-
     public void setSaldoSap9000(Integer saldoSap9000) {
         this.saldoSap9000 = saldoSap9000;
     }
 
     public Integer getSaldoFisico9000() {
         return saldoFisico9000;
-    }
-
-    public ItemAuditado saldoFisico9000(Integer saldoFisico9000) {
-        this.saldoFisico9000 = saldoFisico9000;
-        return this;
     }
 
     public void setSaldoFisico9000(Integer saldoFisico9000) {
@@ -216,28 +136,17 @@ public class ItemAuditado implements Serializable {
         return motivoDivergencia;
     }
 
-    public ItemAuditado motivoDivergencia(String motivoDivergencia) {
-        this.motivoDivergencia = motivoDivergencia;
-        return this;
-    }
-
     public void setMotivoDivergencia(String motivoDivergencia) {
         this.motivoDivergencia = motivoDivergencia;
     }
 
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
+    public Long getAvaliacaoId() {
+        return avaliacaoId;
     }
 
-    public ItemAuditado avaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-        return this;
+    public void setAvaliacaoId(Long avaliacaoId) {
+        this.avaliacaoId = avaliacaoId;
     }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -247,11 +156,12 @@ public class ItemAuditado implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ItemAuditado itemAuditado = (ItemAuditado) o;
-        if (itemAuditado.getId() == null || getId() == null) {
+
+        ItemAuditadoDTO itemAuditadoDTO = (ItemAuditadoDTO) o;
+        if (itemAuditadoDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), itemAuditado.getId());
+        return Objects.equals(getId(), itemAuditadoDTO.getId());
     }
 
     @Override
@@ -261,7 +171,7 @@ public class ItemAuditado implements Serializable {
 
     @Override
     public String toString() {
-        return "ItemAuditado{" +
+        return "ItemAuditadoDTO{" +
             "id=" + getId() +
             ", respondidoEm='" + getRespondidoEm() + "'" +
             ", ultimaAtualizacaoEm='" + getUltimaAtualizacaoEm() + "'" +
@@ -274,6 +184,7 @@ public class ItemAuditado implements Serializable {
             ", saldoSap9000=" + getSaldoSap9000() +
             ", saldoFisico9000=" + getSaldoFisico9000() +
             ", motivoDivergencia='" + getMotivoDivergencia() + "'" +
+            ", avaliacao=" + getAvaliacaoId() +
             "}";
     }
 }

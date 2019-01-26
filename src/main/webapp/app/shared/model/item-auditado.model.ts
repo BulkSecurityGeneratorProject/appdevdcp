@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 
 export const enum TipoItemAuditado {
   TOP_5_PERDAS = 'TOP_5_PERDAS',
@@ -20,7 +19,7 @@ export interface IItemAuditado {
   saldoSap9000?: number;
   saldoFisico9000?: number;
   motivoDivergencia?: string;
-  avaliacao?: IAvaliacao;
+  avaliacaoId?: number;
 }
 
 export const defaultValue: Readonly<IItemAuditado> = {};

@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 
 export interface IItemSolicitadoAjuste {
   id?: number;
@@ -15,7 +14,7 @@ export interface IItemSolicitadoAjuste {
   motivoDivergencia?: string;
   acaoCorretivaOuPreventiva?: string;
   responsavel?: string;
-  avaliacao?: IAvaliacao;
+  avaliacaoId?: number;
 }
 
 export const defaultValue: Readonly<IItemSolicitadoAjuste> = {};

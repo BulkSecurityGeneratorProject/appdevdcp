@@ -1,78 +1,49 @@
-package br.com.lasa.dcpdesconformidades.domain;
+package br.com.lasa.dcpdesconformidades.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A ItemSolicitadoAjuste.
+ * A DTO for the ItemSolicitadoAjuste entity.
  */
-@Entity
-@Table(name = "item_solicitado_ajuste")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ItemSolicitadoAjuste implements Serializable {
+public class ItemSolicitadoAjusteDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name = "respondido_em", nullable = false)
     private Instant respondidoEm;
 
-    @Column(name = "ultima_atualizacao_em")
     private Instant ultimaAtualizacaoEm;
 
     @NotNull
-    @Column(name = "codigo_departamento", nullable = false)
     private Integer codigoDepartamento;
 
     @NotNull
-    @Column(name = "codigo_sap", nullable = false)
     private Integer codigoSap;
 
     @NotNull
-    @Column(name = "descricao_item", nullable = false)
     private String descricaoItem;
 
     @NotNull
-    @Column(name = "saldo_sap_0001", nullable = false)
     private Integer saldoSap0001;
 
     @NotNull
-    @Column(name = "saldo_fisico_0001", nullable = false)
     private Integer saldoFisico0001;
 
-    @Column(name = "saldo_sap_9000")
     private Integer saldoSap9000;
 
-    @Column(name = "saldo_fisico_9000")
     private Integer saldoFisico9000;
 
-    @Column(name = "motivo_divergencia")
     private String motivoDivergencia;
 
-    @Column(name = "acao_corretiva_ou_preventiva")
     private String acaoCorretivaOuPreventiva;
 
-    @Column(name = "responsavel")
     private String responsavel;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("itensComAjusteSolicitados")
-    private Avaliacao avaliacao;
+    private Long avaliacaoId;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -85,22 +56,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         return respondidoEm;
     }
 
-    public ItemSolicitadoAjuste respondidoEm(Instant respondidoEm) {
-        this.respondidoEm = respondidoEm;
-        return this;
-    }
-
     public void setRespondidoEm(Instant respondidoEm) {
         this.respondidoEm = respondidoEm;
     }
 
     public Instant getUltimaAtualizacaoEm() {
         return ultimaAtualizacaoEm;
-    }
-
-    public ItemSolicitadoAjuste ultimaAtualizacaoEm(Instant ultimaAtualizacaoEm) {
-        this.ultimaAtualizacaoEm = ultimaAtualizacaoEm;
-        return this;
     }
 
     public void setUltimaAtualizacaoEm(Instant ultimaAtualizacaoEm) {
@@ -111,22 +72,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         return codigoDepartamento;
     }
 
-    public ItemSolicitadoAjuste codigoDepartamento(Integer codigoDepartamento) {
-        this.codigoDepartamento = codigoDepartamento;
-        return this;
-    }
-
     public void setCodigoDepartamento(Integer codigoDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
     }
 
     public Integer getCodigoSap() {
         return codigoSap;
-    }
-
-    public ItemSolicitadoAjuste codigoSap(Integer codigoSap) {
-        this.codigoSap = codigoSap;
-        return this;
     }
 
     public void setCodigoSap(Integer codigoSap) {
@@ -137,22 +88,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         return descricaoItem;
     }
 
-    public ItemSolicitadoAjuste descricaoItem(String descricaoItem) {
-        this.descricaoItem = descricaoItem;
-        return this;
-    }
-
     public void setDescricaoItem(String descricaoItem) {
         this.descricaoItem = descricaoItem;
     }
 
     public Integer getSaldoSap0001() {
         return saldoSap0001;
-    }
-
-    public ItemSolicitadoAjuste saldoSap0001(Integer saldoSap0001) {
-        this.saldoSap0001 = saldoSap0001;
-        return this;
     }
 
     public void setSaldoSap0001(Integer saldoSap0001) {
@@ -163,22 +104,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         return saldoFisico0001;
     }
 
-    public ItemSolicitadoAjuste saldoFisico0001(Integer saldoFisico0001) {
-        this.saldoFisico0001 = saldoFisico0001;
-        return this;
-    }
-
     public void setSaldoFisico0001(Integer saldoFisico0001) {
         this.saldoFisico0001 = saldoFisico0001;
     }
 
     public Integer getSaldoSap9000() {
         return saldoSap9000;
-    }
-
-    public ItemSolicitadoAjuste saldoSap9000(Integer saldoSap9000) {
-        this.saldoSap9000 = saldoSap9000;
-        return this;
     }
 
     public void setSaldoSap9000(Integer saldoSap9000) {
@@ -189,22 +120,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         return saldoFisico9000;
     }
 
-    public ItemSolicitadoAjuste saldoFisico9000(Integer saldoFisico9000) {
-        this.saldoFisico9000 = saldoFisico9000;
-        return this;
-    }
-
     public void setSaldoFisico9000(Integer saldoFisico9000) {
         this.saldoFisico9000 = saldoFisico9000;
     }
 
     public String getMotivoDivergencia() {
         return motivoDivergencia;
-    }
-
-    public ItemSolicitadoAjuste motivoDivergencia(String motivoDivergencia) {
-        this.motivoDivergencia = motivoDivergencia;
-        return this;
     }
 
     public void setMotivoDivergencia(String motivoDivergencia) {
@@ -215,11 +136,6 @@ public class ItemSolicitadoAjuste implements Serializable {
         return acaoCorretivaOuPreventiva;
     }
 
-    public ItemSolicitadoAjuste acaoCorretivaOuPreventiva(String acaoCorretivaOuPreventiva) {
-        this.acaoCorretivaOuPreventiva = acaoCorretivaOuPreventiva;
-        return this;
-    }
-
     public void setAcaoCorretivaOuPreventiva(String acaoCorretivaOuPreventiva) {
         this.acaoCorretivaOuPreventiva = acaoCorretivaOuPreventiva;
     }
@@ -228,28 +144,17 @@ public class ItemSolicitadoAjuste implements Serializable {
         return responsavel;
     }
 
-    public ItemSolicitadoAjuste responsavel(String responsavel) {
-        this.responsavel = responsavel;
-        return this;
-    }
-
     public void setResponsavel(String responsavel) {
         this.responsavel = responsavel;
     }
 
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
+    public Long getAvaliacaoId() {
+        return avaliacaoId;
     }
 
-    public ItemSolicitadoAjuste avaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-        return this;
+    public void setAvaliacaoId(Long avaliacaoId) {
+        this.avaliacaoId = avaliacaoId;
     }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -259,11 +164,12 @@ public class ItemSolicitadoAjuste implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ItemSolicitadoAjuste itemSolicitadoAjuste = (ItemSolicitadoAjuste) o;
-        if (itemSolicitadoAjuste.getId() == null || getId() == null) {
+
+        ItemSolicitadoAjusteDTO itemSolicitadoAjusteDTO = (ItemSolicitadoAjusteDTO) o;
+        if (itemSolicitadoAjusteDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), itemSolicitadoAjuste.getId());
+        return Objects.equals(getId(), itemSolicitadoAjusteDTO.getId());
     }
 
     @Override
@@ -273,7 +179,7 @@ public class ItemSolicitadoAjuste implements Serializable {
 
     @Override
     public String toString() {
-        return "ItemSolicitadoAjuste{" +
+        return "ItemSolicitadoAjusteDTO{" +
             "id=" + getId() +
             ", respondidoEm='" + getRespondidoEm() + "'" +
             ", ultimaAtualizacaoEm='" + getUltimaAtualizacaoEm() + "'" +
@@ -287,6 +193,7 @@ public class ItemSolicitadoAjuste implements Serializable {
             ", motivoDivergencia='" + getMotivoDivergencia() + "'" +
             ", acaoCorretivaOuPreventiva='" + getAcaoCorretivaOuPreventiva() + "'" +
             ", responsavel='" + getResponsavel() + "'" +
+            ", avaliacao=" + getAvaliacaoId() +
             "}";
     }
 }
