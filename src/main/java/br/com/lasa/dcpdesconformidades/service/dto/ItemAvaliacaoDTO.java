@@ -38,6 +38,13 @@ public class ItemAvaliacaoDTO implements Serializable {
     private String lastModifiedBy;
 
     private Instant lastModifiedDate;
+    
+    @NotNull
+    private Float ordemExibicao;
+
+    private Long grupoId;
+
+    private String grupoNome;
 
     public Long getId() {
         return id;
@@ -126,6 +133,30 @@ public class ItemAvaliacaoDTO implements Serializable {
     public void setLastModifiedDate(Instant lastModifiedDate) {
       this.lastModifiedDate = lastModifiedDate;
     }
+    
+    public Float getOrdemExibicao() {
+      return ordemExibicao;
+    }
+
+    public void setOrdemExibicao(Float ordemExibicao) {
+      this.ordemExibicao = ordemExibicao;
+    }
+
+    public Long getGrupoId() {
+      return grupoId;
+    }
+
+    public void setGrupoId(Long grupoId) {
+      this.grupoId = grupoId;
+    }
+
+    public String getGrupoNome() {
+      return grupoNome;
+    }
+
+    public void setGrupoNome(String grupoNome) {
+      this.grupoNome = grupoNome;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -150,9 +181,18 @@ public class ItemAvaliacaoDTO implements Serializable {
 
     @Override
     public String toString() {
-      return "ItemAvaliacaoDTO [id=" + id + ", descricao=" + descricao + ", anexoObrigatorio=" + anexoObrigatorio + ", pontosProcedimento=" + pontosProcedimento + ", pontosPessoa=" + pontosPessoa
-          + ", pontosProcesso=" + pontosProcesso + ", pontosProduto=" + pontosProduto + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy
-          + ", lastModifiedDate=" + lastModifiedDate + "]";
+      return "ItemAvaliacaoDTO{" +
+          "id=" + getId() +
+          ", descricao='" + getDescricao() + "'" +
+          ", anexoObrigatorio='" + isAnexoObrigatorio() + "'" +
+          ", pontosProcedimento=" + getPontosProcedimento() +
+          ", pontosPessoa=" + getPontosPessoa() +
+          ", pontosProcesso=" + getPontosProcesso() +
+          ", pontosProduto=" + getPontosProduto() +
+          ", ordemExibicao=" + getOrdemExibicao() +
+          ", grupo=" + getGrupoId() +
+          ", grupo='" + getGrupoNome() + "'" +
+          "}";
     }
 
 }

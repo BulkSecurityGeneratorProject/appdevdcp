@@ -7,8 +7,6 @@ import br.com.lasa.dcpdesconformidades.service.mapper.GrupoItensMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,20 +55,11 @@ public class GrupoItensService {
     @Transactional(readOnly = true)
     public List<GrupoItensDTO> findAll() {
         log.debug("Request to get all GrupoItens");
-        return grupoItensRepository.findAllWithEagerRelationships().stream()
+        return grupoItensRepository.findAll().stream()
             .map(grupoItensMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    /**
-     * Get all the GrupoItens with eager load of many-to-many relationships.
-     *
-     * @return the list of entities
-     */
-    public Page<GrupoItensDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return grupoItensRepository.findAllWithEagerRelationships(pageable).map(grupoItensMapper::toDto);
-    }
-    
 
     /**
      * Get one grupoItens by id.
@@ -81,7 +70,7 @@ public class GrupoItensService {
     @Transactional(readOnly = true)
     public Optional<GrupoItensDTO> findOne(Long id) {
         log.debug("Request to get GrupoItens : {}", id);
-        return grupoItensRepository.findOneWithEagerRelationships(id)
+        return grupoItensRepository.findById(id)
             .map(grupoItensMapper::toDto);
     }
 

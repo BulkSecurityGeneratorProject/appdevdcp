@@ -1,21 +1,22 @@
 package br.com.lasa.dcpdesconformidades.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+
+import br.com.lasa.dcpdesconformidades.domain.ItemAuditado;
+import br.com.lasa.dcpdesconformidades.domain.ItemAvaliado;
+import br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
+import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
-import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 
 /**
  * A DTO for the Avaliacao entity.
@@ -102,6 +103,12 @@ public class AvaliacaoDTO implements Serializable {
     private Long lojaId;
 
     private String lojaNome;
+    
+    private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
+    
+    private Set<ItemAuditado> itensAuditados = new HashSet<>();
+    
+    private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -405,6 +412,30 @@ public class AvaliacaoDTO implements Serializable {
 
     public void setLojaNome(String lojaNome) {
         this.lojaNome = lojaNome;
+    }
+    
+    public Set<ItemAvaliado> getItensAvaliados() {
+      return itensAvaliados;
+    }
+
+    public void setItensAvaliados(Set<ItemAvaliado> itensAvaliados) {
+      this.itensAvaliados = itensAvaliados;
+    }
+
+    public Set<ItemAuditado> getItensAuditados() {
+      return itensAuditados;
+    }
+
+    public void setItensAuditados(Set<ItemAuditado> itensAuditados) {
+      this.itensAuditados = itensAuditados;
+    }
+
+    public Set<ItemSolicitadoAjuste> getItensComAjusteSolicitados() {
+      return itensComAjusteSolicitados;
+    }
+
+    public void setItensComAjusteSolicitados(Set<ItemSolicitadoAjuste> itensComAjusteSolicitados) {
+      this.itensComAjusteSolicitados = itensComAjusteSolicitados;
     }
 
     @Override

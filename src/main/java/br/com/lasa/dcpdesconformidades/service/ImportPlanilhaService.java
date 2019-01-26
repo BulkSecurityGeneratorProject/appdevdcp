@@ -201,8 +201,9 @@ public class ImportPlanilhaService {
     NivelEficiencia nivelEficienciaProduto = NivelEficiencia.valueOf(extractCellValueWithCommentsAsString(sheetEtiqueta, "H28"));
 
     // Considerando que só temos um Questionário
-    Questionario questionario = questionarioRepository.findAllWithEagerRelationships().get(0);
-    List<ItemAvaliacao> itens = itemAvaliacaoRepository.findByGruposIn(questionario.getGrupos());
+    Questionario questionario = questionarioRepository.findAllWithEagerRelationshipsWhereAtivoTrue().orElseThrow(() -> new RuntimeException("Não há questionários ativos."));
+    
+    List<ItemAvaliacao> itens = itemAvaliacaoRepository.findByGrupoIn(questionario.getGrupos());
 
     User avaliador = userRepository.findOneByProntuario(prontuarioAvaliador) //
         .orElseThrow(() -> new RuntimeException("Avaliador de prontuário \"" + prontuarioAvaliador + "\" não encontrado."));

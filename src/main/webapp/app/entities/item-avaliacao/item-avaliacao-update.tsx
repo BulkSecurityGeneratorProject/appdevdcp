@@ -175,6 +175,36 @@ export class ItemAvaliacaoUpdate extends React.Component<IItemAvaliacaoUpdatePro
                     }}
                   />
                 </AvGroup>
+                <AvGroup>
+                  <Label id="ordemExibicaoLabel" for="ordemExibicao">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.ordemExibicao">Ordem Exibição</Translate>
+                  </Label>
+                  <AvField
+                    id="item-avaliacao-ordemExibicao"
+                    type="string"
+                    className="form-control"
+                    name="ordemExibicao"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label for="grupo.nome">
+                    <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.grupo">Grupo</Translate>
+                  </Label>
+                  <AvInput id="item-avaliacao-grupo" type="select" className="form-control" name="grupoId">
+                    <option value="" key="0" />
+                    {grupoItens
+                      ? grupoItens.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nome}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/item-avaliacao" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

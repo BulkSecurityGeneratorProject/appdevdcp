@@ -60,6 +60,9 @@ public class ItemAvaliacaoResourceIntTest {
     private static final Integer DEFAULT_PONTOS_PRODUTO = 1;
     private static final Integer UPDATED_PONTOS_PRODUTO = 2;
 
+    private static final Float DEFAULT_ORDEM_EXIBICAO = 1F;
+    private static final Float UPDATED_ORDEM_EXIBICAO = 2F;
+
     @Autowired
     private ItemAvaliacaoRepository itemAvaliacaoRepository;
 
@@ -109,7 +112,8 @@ public class ItemAvaliacaoResourceIntTest {
             .pontosProcedimento(DEFAULT_PONTOS_PROCEDIMENTO)
             .pontosPessoa(DEFAULT_PONTOS_PESSOA)
             .pontosProcesso(DEFAULT_PONTOS_PROCESSO)
-            .pontosProduto(DEFAULT_PONTOS_PRODUTO);
+            .pontosProduto(DEFAULT_PONTOS_PRODUTO)
+            .ordemExibicao(DEFAULT_ORDEM_EXIBICAO);
         return itemAvaliacao;
     }
 
@@ -140,6 +144,7 @@ public class ItemAvaliacaoResourceIntTest {
         assertThat(testItemAvaliacao.getPontosPessoa()).isEqualTo(DEFAULT_PONTOS_PESSOA);
         assertThat(testItemAvaliacao.getPontosProcesso()).isEqualTo(DEFAULT_PONTOS_PROCESSO);
         assertThat(testItemAvaliacao.getPontosProduto()).isEqualTo(DEFAULT_PONTOS_PRODUTO);
+        assertThat(testItemAvaliacao.getOrdemExibicao()).isEqualTo(DEFAULT_ORDEM_EXIBICAO);
     }
 
     @Test
@@ -278,6 +283,25 @@ public class ItemAvaliacaoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkOrdemExibicaoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = itemAvaliacaoRepository.findAll().size();
+        // set the field null
+        itemAvaliacao.setOrdemExibicao(null);
+
+        // Create the ItemAvaliacao, which fails.
+        ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(itemAvaliacao);
+
+        restItemAvaliacaoMockMvc.perform(post("/api/item-avaliacaos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(itemAvaliacaoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ItemAvaliacao> itemAvaliacaoList = itemAvaliacaoRepository.findAll();
+        assertThat(itemAvaliacaoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllItemAvaliacaos() throws Exception {
         // Initialize the database
         itemAvaliacaoRepository.saveAndFlush(itemAvaliacao);
@@ -292,7 +316,8 @@ public class ItemAvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].pontosProcedimento").value(hasItem(DEFAULT_PONTOS_PROCEDIMENTO)))
             .andExpect(jsonPath("$.[*].pontosPessoa").value(hasItem(DEFAULT_PONTOS_PESSOA)))
             .andExpect(jsonPath("$.[*].pontosProcesso").value(hasItem(DEFAULT_PONTOS_PROCESSO)))
-            .andExpect(jsonPath("$.[*].pontosProduto").value(hasItem(DEFAULT_PONTOS_PRODUTO)));
+            .andExpect(jsonPath("$.[*].pontosProduto").value(hasItem(DEFAULT_PONTOS_PRODUTO)))
+            .andExpect(jsonPath("$.[*].ordemExibicao").value(hasItem(DEFAULT_ORDEM_EXIBICAO.doubleValue())));
     }
     
     @Test
@@ -311,7 +336,8 @@ public class ItemAvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.pontosProcedimento").value(DEFAULT_PONTOS_PROCEDIMENTO))
             .andExpect(jsonPath("$.pontosPessoa").value(DEFAULT_PONTOS_PESSOA))
             .andExpect(jsonPath("$.pontosProcesso").value(DEFAULT_PONTOS_PROCESSO))
-            .andExpect(jsonPath("$.pontosProduto").value(DEFAULT_PONTOS_PRODUTO));
+            .andExpect(jsonPath("$.pontosProduto").value(DEFAULT_PONTOS_PRODUTO))
+            .andExpect(jsonPath("$.ordemExibicao").value(DEFAULT_ORDEM_EXIBICAO.doubleValue()));
     }
 
     @Test
@@ -340,7 +366,8 @@ public class ItemAvaliacaoResourceIntTest {
             .pontosProcedimento(UPDATED_PONTOS_PROCEDIMENTO)
             .pontosPessoa(UPDATED_PONTOS_PESSOA)
             .pontosProcesso(UPDATED_PONTOS_PROCESSO)
-            .pontosProduto(UPDATED_PONTOS_PRODUTO);
+            .pontosProduto(UPDATED_PONTOS_PRODUTO)
+            .ordemExibicao(UPDATED_ORDEM_EXIBICAO);
         ItemAvaliacaoDTO itemAvaliacaoDTO = itemAvaliacaoMapper.toDto(updatedItemAvaliacao);
 
         restItemAvaliacaoMockMvc.perform(put("/api/item-avaliacaos")
@@ -358,6 +385,7 @@ public class ItemAvaliacaoResourceIntTest {
         assertThat(testItemAvaliacao.getPontosPessoa()).isEqualTo(UPDATED_PONTOS_PESSOA);
         assertThat(testItemAvaliacao.getPontosProcesso()).isEqualTo(UPDATED_PONTOS_PROCESSO);
         assertThat(testItemAvaliacao.getPontosProduto()).isEqualTo(UPDATED_PONTOS_PRODUTO);
+        assertThat(testItemAvaliacao.getOrdemExibicao()).isEqualTo(UPDATED_ORDEM_EXIBICAO);
     }
 
     @Test

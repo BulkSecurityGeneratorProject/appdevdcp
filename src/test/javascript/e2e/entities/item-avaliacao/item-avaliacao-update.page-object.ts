@@ -10,6 +10,8 @@ export default class ItemAvaliacaoUpdatePage {
   pontosPessoaInput: ElementFinder = element(by.css('input#item-avaliacao-pontosPessoa'));
   pontosProcessoInput: ElementFinder = element(by.css('input#item-avaliacao-pontosProcesso'));
   pontosProdutoInput: ElementFinder = element(by.css('input#item-avaliacao-pontosProduto'));
+  ordemExibicaoInput: ElementFinder = element(by.css('input#item-avaliacao-ordemExibicao'));
+  grupoSelect: ElementFinder = element(by.css('select#item-avaliacao-grupo'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -56,6 +58,33 @@ export default class ItemAvaliacaoUpdatePage {
 
   async getPontosProdutoInput() {
     return this.pontosProdutoInput.getAttribute('value');
+  }
+
+  async setOrdemExibicaoInput(ordemExibicao) {
+    await this.ordemExibicaoInput.sendKeys(ordemExibicao);
+  }
+
+  async getOrdemExibicaoInput() {
+    return this.ordemExibicaoInput.getAttribute('value');
+  }
+
+  async grupoSelectLastOption() {
+    await this.grupoSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async grupoSelectOption(option) {
+    await this.grupoSelect.sendKeys(option);
+  }
+
+  getGrupoSelect() {
+    return this.grupoSelect;
+  }
+
+  async getGrupoSelectedOption() {
+    return this.grupoSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

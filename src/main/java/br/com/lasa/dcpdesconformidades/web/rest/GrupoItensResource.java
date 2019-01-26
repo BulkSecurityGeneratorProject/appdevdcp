@@ -80,12 +80,11 @@ public class GrupoItensResource {
     /**
      * GET  /grupo-itens : get all the grupoItens.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of grupoItens in body
      */
     @GetMapping("/grupo-itens")
     @Timed
-    public List<GrupoItensDTO> getAllGrupoItens(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<GrupoItensDTO> getAllGrupoItens() {
         log.debug("REST request to get all GrupoItens");
         return grupoItensService.findAll();
     }

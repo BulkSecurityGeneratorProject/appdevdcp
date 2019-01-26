@@ -1,24 +1,18 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Questionario.
@@ -27,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "questionario")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Questionario extends AbstractAuditingEntity implements Serializable {
-
+  
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -45,17 +39,19 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
 
+    @Column(name = "versao")
+    private Integer versao;
+
     @OneToMany(mappedBy = "questionario")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Avaliacao> avaliacoesRealizadas = new HashSet<>();
-    @ManyToMany
+    
+    @OneToMany(mappedBy = "questionario")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "questionario_grupo",
-               joinColumns = @JoinColumn(name = "questionarios_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "grupos_id", referencedColumnName = "id"))
     private Set<GrupoItens> grupos = new HashSet<>();
-
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    
     public Long getId() {
         return id;
     }
@@ -103,6 +99,19 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
         this.ativo = ativo;
     }
 
+    public Integer getVersao() {
+        return versao;
+    }
+
+    public Questionario versao(Integer versao) {
+        this.versao = versao;
+        return this;
+    }
+
+    public void setVersao(Integer versao) {
+        this.versao = versao;
+    }
+
     public Set<Avaliacao> getAvaliacoesRealizadas() {
         return avaliacoesRealizadas;
     }
@@ -137,15 +146,15 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
         return this;
     }
 
-    public Questionario addGrupo(GrupoItens grupoItens) {
+    public Questionario addGrupos(GrupoItens grupoItens) {
         this.grupos.add(grupoItens);
-        grupoItens.getQuestionarios().add(this);
+        grupoItens.setQuestionario(this);
         return this;
     }
 
-    public Questionario removeGrupo(GrupoItens grupoItens) {
+    public Questionario removeGrupos(GrupoItens grupoItens) {
         this.grupos.remove(grupoItens);
-        grupoItens.getQuestionarios().remove(this);
+        grupoItens.setQuestionario(null);
         return this;
     }
 
@@ -181,6 +190,7 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
             ", nome='" + getNome() + "'" +
             ", descricao='" + getDescricao() + "'" +
             ", ativo='" + isAtivo() + "'" +
+            ", versao=" + getVersao() +
             "}";
     }
 }

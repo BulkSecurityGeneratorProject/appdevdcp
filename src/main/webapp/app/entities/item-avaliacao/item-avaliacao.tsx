@@ -56,6 +56,12 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProduto">Pontos Produto</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.ordemExibicao">Ordem Exibição</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.grupo">Grupo</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -73,6 +79,10 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                   <td>{itemAvaliacao.pontosPessoa}</td>
                   <td>{itemAvaliacao.pontosProcesso}</td>
                   <td>{itemAvaliacao.pontosProduto}</td>
+                  <td>{itemAvaliacao.ordemExibicao}</td>
+                  <td>
+                    {itemAvaliacao.grupoNome ? <Link to={`grupo-itens/${itemAvaliacao.grupoId}`}>{itemAvaliacao.grupoNome}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${itemAvaliacao.id}`} color="info" size="sm">

@@ -12,12 +12,9 @@ import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,14 +24,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 
 import static br.com.lasa.dcpdesconformidades.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -56,17 +51,14 @@ public class QuestionarioResourceIntTest {
     private static final Boolean DEFAULT_ATIVO = false;
     private static final Boolean UPDATED_ATIVO = true;
 
+    private static final Integer DEFAULT_VERSAO = 1;
+    private static final Integer UPDATED_VERSAO = 2;
+
     @Autowired
     private QuestionarioRepository questionarioRepository;
 
-    @Mock
-    private QuestionarioRepository questionarioRepositoryMock;
-
     @Autowired
     private QuestionarioMapper questionarioMapper;
-
-    @Mock
-    private QuestionarioService questionarioServiceMock;
 
     @Autowired
     private QuestionarioService questionarioService;
@@ -108,7 +100,8 @@ public class QuestionarioResourceIntTest {
         Questionario questionario = new Questionario()
             .nome(DEFAULT_NOME)
             .descricao(DEFAULT_DESCRICAO)
-            .ativo(DEFAULT_ATIVO);
+            .ativo(DEFAULT_ATIVO)
+            .versao(DEFAULT_VERSAO);
         return questionario;
     }
 
@@ -136,6 +129,7 @@ public class QuestionarioResourceIntTest {
         assertThat(testQuestionario.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testQuestionario.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
         assertThat(testQuestionario.isAtivo()).isEqualTo(DEFAULT_ATIVO);
+        assertThat(testQuestionario.getVersao()).isEqualTo(DEFAULT_VERSAO);
     }
 
     @Test
@@ -209,42 +203,10 @@ public class QuestionarioResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionario.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO.toString())))
-            .andExpect(jsonPath("$.[*].ativo").value(hasItem(DEFAULT_ATIVO.booleanValue())));
+            .andExpect(jsonPath("$.[*].ativo").value(hasItem(DEFAULT_ATIVO.booleanValue())))
+            .andExpect(jsonPath("$.[*].versao").value(hasItem(DEFAULT_VERSAO)));
     }
     
-    @SuppressWarnings({"unchecked"})
-    public void getAllQuestionariosWithEagerRelationshipsIsEnabled() throws Exception {
-        QuestionarioResource questionarioResource = new QuestionarioResource(questionarioServiceMock);
-        when(questionarioServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        MockMvc restQuestionarioMockMvc = MockMvcBuilders.standaloneSetup(questionarioResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restQuestionarioMockMvc.perform(get("/api/questionarios?eagerload=true"))
-        .andExpect(status().isOk());
-
-        verify(questionarioServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public void getAllQuestionariosWithEagerRelationshipsIsNotEnabled() throws Exception {
-        QuestionarioResource questionarioResource = new QuestionarioResource(questionarioServiceMock);
-            when(questionarioServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restQuestionarioMockMvc = MockMvcBuilders.standaloneSetup(questionarioResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restQuestionarioMockMvc.perform(get("/api/questionarios?eagerload=true"))
-        .andExpect(status().isOk());
-
-            verify(questionarioServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
     @Test
     @Transactional
     public void getQuestionario() throws Exception {
@@ -258,7 +220,8 @@ public class QuestionarioResourceIntTest {
             .andExpect(jsonPath("$.id").value(questionario.getId().intValue()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO.toString()))
-            .andExpect(jsonPath("$.ativo").value(DEFAULT_ATIVO.booleanValue()));
+            .andExpect(jsonPath("$.ativo").value(DEFAULT_ATIVO.booleanValue()))
+            .andExpect(jsonPath("$.versao").value(DEFAULT_VERSAO));
     }
 
     @Test
@@ -284,7 +247,8 @@ public class QuestionarioResourceIntTest {
         updatedQuestionario
             .nome(UPDATED_NOME)
             .descricao(UPDATED_DESCRICAO)
-            .ativo(UPDATED_ATIVO);
+            .ativo(UPDATED_ATIVO)
+            .versao(UPDATED_VERSAO);
         QuestionarioDTO questionarioDTO = questionarioMapper.toDto(updatedQuestionario);
 
         restQuestionarioMockMvc.perform(put("/api/questionarios")
@@ -299,6 +263,7 @@ public class QuestionarioResourceIntTest {
         assertThat(testQuestionario.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testQuestionario.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testQuestionario.isAtivo()).isEqualTo(UPDATED_ATIVO);
+        assertThat(testQuestionario.getVersao()).isEqualTo(UPDATED_VERSAO);
     }
 
     @Test

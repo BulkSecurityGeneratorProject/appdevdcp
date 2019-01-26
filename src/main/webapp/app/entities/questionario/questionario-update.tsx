@@ -130,6 +130,12 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                   </Label>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="versaoLabel" for="versao">
+                    <Translate contentKey="dcpdesconformidadesApp.questionario.versao">Versão</Translate>
+                  </Label>
+                  <AvField id="questionario-versao" type="text" name="versao" />
+                </AvGroup>
+                <AvGroup>
                   <Label for="grupoItens">
                     <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
                   </Label>

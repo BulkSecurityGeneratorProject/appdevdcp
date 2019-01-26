@@ -25,6 +25,9 @@
             <column name="nome" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="questionario_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -36,28 +39,12 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
-        <createTable tableName="grupo_itens_itens">
-            <column name="itens_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="grupo_itens_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="grupo_itens_id, itens_id" tableName="grupo_itens_itens"/>
-        
         <loadData encoding="UTF-8"
                   file="config/liquibase/grupos_item.csv"
                   separator=";"
                   tableName="grupo_itens">
             <column name="created_date" type="timestamp"/>
         </loadData>
-        
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/grupo_itens_itens.csv"
-                  separator=";"
-                  tableName="grupo_itens_itens"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

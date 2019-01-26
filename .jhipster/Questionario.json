@@ -18,6 +18,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "versao",
+            "fieldType": "Integer"
         }
     ],
     "relationships": [
@@ -28,12 +32,10 @@
             "otherEntityRelationshipName": "questionario"
         },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "questionario",
-            "relationshipName": "grupo",
+            "relationshipType": "one-to-many",
+            "relationshipName": "grupos",
             "otherEntityName": "grupoItens",
-            "otherEntityField": "nome",
-            "ownerSide": true
+            "otherEntityRelationshipName": "questionario"
         }
     ],
     "changelogDate": "20181111155651",

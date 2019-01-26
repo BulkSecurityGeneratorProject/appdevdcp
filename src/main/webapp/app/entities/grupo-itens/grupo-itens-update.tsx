@@ -124,6 +124,21 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label for="questionario.nome">
+                    <Translate contentKey="dcpdesconformidadesApp.grupoItens.questionario">Questionário</Translate>
+                  </Label>
+                  <AvInput id="grupo-itens-questionario" type="select" className="form-control" name="questionarioId">
+                    <option value="" key="0" />
+                    {questionarios
+                      ? questionarios.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nome}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="itemAvaliacaos">
                     <Translate contentKey="dcpdesconformidadesApp.grupoItens.itens">Itens</Translate>
                   </Label>

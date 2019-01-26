@@ -50,7 +50,7 @@ describe('GrupoItens e2e test', () => {
 
     await grupoItensUpdatePage.setNomeInput('nome');
     expect(await grupoItensUpdatePage.getNomeInput()).to.match(/nome/);
-    // grupoItensUpdatePage.itensSelectLastOption();
+    await grupoItensUpdatePage.questionarioSelectLastOption();
     await waitUntilDisplayed(grupoItensUpdatePage.getSaveButton());
     await grupoItensUpdatePage.save();
     await waitUntilHidden(grupoItensUpdatePage.getSaveButton());

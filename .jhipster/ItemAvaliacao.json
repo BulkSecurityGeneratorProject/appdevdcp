@@ -42,6 +42,13 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "ordemExibicao",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [
@@ -52,11 +59,10 @@
             "otherEntityRelationshipName": "itemAvaliacao"
         },
         {
-            "relationshipType": "many-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "grupo",
             "otherEntityName": "grupoItens",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "itens"
+            "otherEntityField": "nome"
         }
     ],
     "changelogDate": "20181111155655",

@@ -7,8 +7,6 @@ import br.com.lasa.dcpdesconformidades.service.mapper.QuestionarioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,20 +55,11 @@ public class QuestionarioService {
     @Transactional(readOnly = true)
     public List<QuestionarioDTO> findAll() {
         log.debug("Request to get all Questionarios");
-        return questionarioRepository.findAllWithEagerRelationships().stream()
+        return questionarioRepository.findAll().stream()
             .map(questionarioMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    /**
-     * Get all the Questionario with eager load of many-to-many relationships.
-     *
-     * @return the list of entities
-     */
-    public Page<QuestionarioDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return questionarioRepository.findAllWithEagerRelationships(pageable).map(questionarioMapper::toDto);
-    }
-    
 
     /**
      * Get one questionario by id.
@@ -81,7 +70,7 @@ public class QuestionarioService {
     @Transactional(readOnly = true)
     public Optional<QuestionarioDTO> findOne(Long id) {
         log.debug("Request to get Questionario : {}", id);
-        return questionarioRepository.findOneWithEagerRelationships(id)
+        return questionarioRepository.findById(id)
             .map(questionarioMapper::toDto);
     }
 

@@ -1,6 +1,7 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -20,7 +20,7 @@ import java.util.Objects;
 @Table(name = "item_avaliacao")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ItemAvaliacao extends AbstractAuditingEntity implements Serializable {
-
+  
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -51,13 +51,16 @@ public class ItemAvaliacao extends AbstractAuditingEntity implements Serializabl
     @Column(name = "pontos_produto", nullable = false)
     private Integer pontosProduto;
 
+    @NotNull
+    @Column(name = "ordem_exibicao", nullable = false)
+    private Float ordemExibicao;
+
     @OneToMany(mappedBy = "itemAvaliacao")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
-    @ManyToMany(mappedBy = "itens")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<GrupoItens> grupos = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("itens")
+    private GrupoItens grupo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -146,6 +149,19 @@ public class ItemAvaliacao extends AbstractAuditingEntity implements Serializabl
         this.pontosProduto = pontosProduto;
     }
 
+    public Float getOrdemExibicao() {
+        return ordemExibicao;
+    }
+
+    public ItemAvaliacao ordemExibicao(Float ordemExibicao) {
+        this.ordemExibicao = ordemExibicao;
+        return this;
+    }
+
+    public void setOrdemExibicao(Float ordemExibicao) {
+        this.ordemExibicao = ordemExibicao;
+    }
+
     public Set<ItemAvaliado> getItensAvaliados() {
         return itensAvaliados;
     }
@@ -171,29 +187,17 @@ public class ItemAvaliacao extends AbstractAuditingEntity implements Serializabl
         this.itensAvaliados = itemAvaliados;
     }
 
-    public Set<GrupoItens> getGrupos() {
-        return grupos;
+    public GrupoItens getGrupo() {
+        return grupo;
     }
 
-    public ItemAvaliacao grupos(Set<GrupoItens> grupoItens) {
-        this.grupos = grupoItens;
+    public ItemAvaliacao grupo(GrupoItens grupoItens) {
+        this.grupo = grupoItens;
         return this;
     }
 
-    public ItemAvaliacao addGrupo(GrupoItens grupoItens) {
-        this.grupos.add(grupoItens);
-        grupoItens.getItens().add(this);
-        return this;
-    }
-
-    public ItemAvaliacao removeGrupo(GrupoItens grupoItens) {
-        this.grupos.remove(grupoItens);
-        grupoItens.getItens().remove(this);
-        return this;
-    }
-
-    public void setGrupos(Set<GrupoItens> grupoItens) {
-        this.grupos = grupoItens;
+    public void setGrupo(GrupoItens grupoItens) {
+        this.grupo = grupoItens;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -227,6 +231,7 @@ public class ItemAvaliacao extends AbstractAuditingEntity implements Serializabl
             ", pontosPessoa=" + getPontosPessoa() +
             ", pontosProcesso=" + getPontosProcesso() +
             ", pontosProduto=" + getPontosProduto() +
+            ", ordemExibicao=" + getOrdemExibicao() +
             "}";
     }
 }

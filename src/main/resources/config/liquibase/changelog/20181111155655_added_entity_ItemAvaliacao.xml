@@ -46,6 +46,14 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="ordem_exibicao" type="${floatType}">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="grupo_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

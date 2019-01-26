@@ -60,7 +60,8 @@ describe('Questionario e2e test', () => {
       await questionarioUpdatePage.getAtivoInput().click();
       expect(await questionarioUpdatePage.getAtivoInput().isSelected()).to.be.true;
     }
-    // questionarioUpdatePage.grupoSelectLastOption();
+    await questionarioUpdatePage.setVersaoInput('5');
+    expect(await questionarioUpdatePage.getVersaoInput()).to.eq('5');
     await waitUntilDisplayed(questionarioUpdatePage.getSaveButton());
     await questionarioUpdatePage.save();
     await waitUntilHidden(questionarioUpdatePage.getSaveButton());

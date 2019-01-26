@@ -35,15 +35,18 @@ export class GrupoItensDetail extends React.Component<IGrupoItensDetailProps> {
             </dt>
             <dd>{grupoItensEntity.nome}</dd>
             <dt>
+              <Translate contentKey="dcpdesconformidadesApp.grupoItens.questionario">Questionário</Translate>
+            </dt>
+            <dd>{grupoItensEntity.questionarioNome ? grupoItensEntity.questionarioNome : ''}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.grupoItens.itens">Itens</Translate>
             </dt>
             <dd>
               {grupoItensEntity.itens
                 ? grupoItensEntity.itens.map((val, i) => (
-                    <span key={val.id}>
+                    <div key={val.id}>
                       <a>{val.descricao}</a>
-                      {i === grupoItensEntity.itens.length - 1 ? '' : ', '}
-                    </span>
+                    </div>
                   ))
                 : null}
             </dd>

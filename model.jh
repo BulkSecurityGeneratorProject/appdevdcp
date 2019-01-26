@@ -66,6 +66,7 @@ entity Questionario {
 	nome String required
     descricao String
     ativo Boolean required
+    versao Integer
 }
 
 entity Loja {
@@ -117,6 +118,7 @@ entity ItemAvaliacao {
     pontosPessoa Integer required
     pontosProcesso Integer required
     pontosProduto Integer required
+    ordemExibicao Float required
 }
 
 entity ItemAvaliado {
@@ -205,6 +207,8 @@ relationship OneToMany {
     Avaliacao{itensComAjusteSolicitado(descricaoItem)} to ItemSolicitadoAjuste{avaliacao required}
     Loja{avaliacoes} to Avaliacao{loja(nome) required}
     Loja{perdaQuebraAcumuladosAno(ano)} to PerdaQuebraAcumuladosAnoLoja{loja(nome) required}
+    GrupoItens{itens(descricao)} to ItemAvaliacao{grupo(nome)}
+    Questionario{grupos(nome)} to GrupoItens{questionario(nome)}
 }
 
 relationship ManyToOne {
@@ -212,11 +216,9 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-    GrupoItens{itens(descricao)} to ItemAvaliacao{grupo(nome)}
-	Questionario{grupo(nome)} to GrupoItens{questionario(nome)}
     Loja{avaliadores(name)} to User{loja(nome)}
 }
 
 service Questionario, Avaliacao, AnexoItem, Loja, GrupoItens, ItemAvaliacao, ItemAvaliado with serviceClass
 paginate Loja, Avaliacao with pagination
-dto Avaliacao, Questionario, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem with mapstruct
+dto Avaliacao, Questionario, GrupoItens, ItemAvaliacao, ItemAvaliado, AnexoItem, ItemAuditado, ItemSolicitadoAjuste with mapstruct

@@ -48,6 +48,9 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   <Translate contentKey="dcpdesconformidadesApp.questionario.ativo">Ativo</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="dcpdesconformidadesApp.questionario.versao">Versão</Translate>
+                </th>
+                <th>
                   <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
                 </th>
                 <th />
@@ -64,6 +67,7 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   <td>{questionario.nome}</td>
                   <td>{questionario.descricao}</td>
                   <td>{questionario.ativo ? 'true' : 'false'}</td>
+                  <td>{questionario.versao}</td>
                   <td>
                     {questionario.grupos
                       ? questionario.grupos.map((val, j) => (

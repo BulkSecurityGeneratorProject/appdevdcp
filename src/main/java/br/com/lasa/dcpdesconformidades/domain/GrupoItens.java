@@ -1,25 +1,17 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
 
 /**
  * A GrupoItens.
@@ -28,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "grupo_itens")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class GrupoItens extends AbstractAuditingEntity implements Serializable {
-
+  
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -39,17 +31,13 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "grupo")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "grupo_itens_itens",
-               joinColumns = @JoinColumn(name = "grupo_itens_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "itens_id", referencedColumnName = "id"))
     private Set<ItemAvaliacao> itens = new HashSet<>();
-
-    @ManyToMany(mappedBy = "grupos")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<Questionario> questionarios = new HashSet<>();
+    
+    @ManyToOne
+    @JsonIgnoreProperties("grupos")
+    private Questionario questionario;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -84,13 +72,13 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
 
     public GrupoItens addItens(ItemAvaliacao itemAvaliacao) {
         this.itens.add(itemAvaliacao);
-        itemAvaliacao.getGrupos().add(this);
+        itemAvaliacao.setGrupo(this);
         return this;
     }
 
     public GrupoItens removeItens(ItemAvaliacao itemAvaliacao) {
         this.itens.remove(itemAvaliacao);
-        itemAvaliacao.getGrupos().remove(this);
+        itemAvaliacao.setGrupo(null);
         return this;
     }
 
@@ -98,29 +86,17 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
         this.itens = itemAvaliacaos;
     }
 
-    public Set<Questionario> getQuestionarios() {
-        return questionarios;
+    public Questionario getQuestionario() {
+        return questionario;
     }
 
-    public GrupoItens questionarios(Set<Questionario> questionarios) {
-        this.questionarios = questionarios;
+    public GrupoItens questionario(Questionario questionario) {
+        this.questionario = questionario;
         return this;
     }
 
-    public GrupoItens addQuestionario(Questionario questionario) {
-        this.questionarios.add(questionario);
-        questionario.getGrupos().add(this);
-        return this;
-    }
-
-    public GrupoItens removeQuestionario(Questionario questionario) {
-        this.questionarios.remove(questionario);
-        questionario.getGrupos().remove(this);
-        return this;
-    }
-
-    public void setQuestionarios(Set<Questionario> questionarios) {
-        this.questionarios = questionarios;
+    public void setQuestionario(Questionario questionario) {
+        this.questionario = questionario;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

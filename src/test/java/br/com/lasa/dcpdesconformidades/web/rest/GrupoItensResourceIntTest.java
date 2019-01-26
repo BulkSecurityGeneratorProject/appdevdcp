@@ -12,12 +12,9 @@ import br.com.lasa.dcpdesconformidades.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,14 +24,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 
 import static br.com.lasa.dcpdesconformidades.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -53,14 +48,8 @@ public class GrupoItensResourceIntTest {
     @Autowired
     private GrupoItensRepository grupoItensRepository;
 
-    @Mock
-    private GrupoItensRepository grupoItensRepositoryMock;
-
     @Autowired
     private GrupoItensMapper grupoItensMapper;
-
-    @Mock
-    private GrupoItensService grupoItensServiceMock;
 
     @Autowired
     private GrupoItensService grupoItensService;
@@ -181,39 +170,6 @@ public class GrupoItensResourceIntTest {
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())));
     }
     
-    @SuppressWarnings({"unchecked"})
-    public void getAllGrupoItensWithEagerRelationshipsIsEnabled() throws Exception {
-        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensServiceMock);
-        when(grupoItensServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        MockMvc restGrupoItensMockMvc = MockMvcBuilders.standaloneSetup(grupoItensResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restGrupoItensMockMvc.perform(get("/api/grupo-itens?eagerload=true"))
-        .andExpect(status().isOk());
-
-        verify(grupoItensServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public void getAllGrupoItensWithEagerRelationshipsIsNotEnabled() throws Exception {
-        GrupoItensResource grupoItensResource = new GrupoItensResource(grupoItensServiceMock);
-            when(grupoItensServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restGrupoItensMockMvc = MockMvcBuilders.standaloneSetup(grupoItensResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restGrupoItensMockMvc.perform(get("/api/grupo-itens?eagerload=true"))
-        .andExpect(status().isOk());
-
-            verify(grupoItensServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
     @Test
     @Transactional
     public void getGrupoItens() throws Exception {

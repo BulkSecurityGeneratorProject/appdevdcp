@@ -1,5 +1,4 @@
-import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
-import { IGrupoItens } from 'app/shared/model/grupo-itens.model';
+import { IItemAvaliado } from 'app/shared/model//item-avaliado.model';
 
 export interface IItemAvaliacao {
   id?: number;
@@ -9,8 +8,10 @@ export interface IItemAvaliacao {
   pontosPessoa?: number;
   pontosProcesso?: number;
   pontosProduto?: number;
+  ordemExibicao?: number;
   itensAvaliados?: IItemAvaliado[];
-  grupos?: IGrupoItens[];
+  grupoNome?: string;
+  grupoId?: number;
 }
 
 export const defaultValue: Readonly<IItemAvaliacao> = {

@@ -48,15 +48,20 @@ export class QuestionarioDetail extends React.Component<IQuestionarioDetailProps
             </dt>
             <dd>{questionarioEntity.ativo ? 'true' : 'false'}</dd>
             <dt>
+              <span id="versao">
+                <Translate contentKey="dcpdesconformidadesApp.questionario.versao">Versão</Translate>
+              </span>
+            </dt>
+            <dd>{questionarioEntity.versao}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
             </dt>
             <dd>
               {questionarioEntity.grupos
                 ? questionarioEntity.grupos.map((val, i) => (
-                    <span key={val.id}>
+                    <div key={val.id}>
                       <a>{val.nome}</a>
-                      {i === questionarioEntity.grupos.length - 1 ? '' : ', '}
-                    </span>
+                    </div>
                   ))
                 : null}
             </dd>

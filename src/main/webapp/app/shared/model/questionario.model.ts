@@ -6,6 +6,7 @@ export interface IQuestionario {
   nome?: string;
   descricao?: string;
   ativo?: boolean;
+  versao?: number;
   avaliacoesRealizadas?: IAvaliacao[];
   grupos?: IGrupoItens[];
 }

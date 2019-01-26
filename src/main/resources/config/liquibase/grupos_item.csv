@@ -1,10 +1,10 @@
-id;nome;created_by;last_modified_by
-1;"Recebimento Centralizado / Descentralizado ";system;system
-2;"Operação de Frente de Caixa, Central de Atendimento e Ilha de Tecnologia";system;system
-3;"SLR - Devolução / 9000";system;system
-4;"Exposição e Armazenagem";system;system
-5;"Quebras e Lixo";system;system
-6;"Inventário";system;system
-7;"Sinistros";system;system
-8;"Controle Gerencial";system;system
-9;"Gente & Gestão";system;system
+id;questionario_id;nome;created_by;last_modified_by
+1;1;"Recebimento Centralizado / Descentralizado ";system;system
+2;1;"Operação de Frente de Caixa, Central de Atendimento e Ilha de Tecnologia";system;system
+3;1;"SLR - Devolução / 9000";system;system
+4;1;"Exposição e Armazenagem";system;system
+5;1;"Quebras e Lixo";system;system
+6;1;"Inventário";system;system
+7;1;"Sinistros";system;system
+8;1;"Controle Gerencial";system;system
+9;1;"Gente & Gestão";system;system

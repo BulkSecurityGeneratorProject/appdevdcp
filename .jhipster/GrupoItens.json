@@ -11,19 +11,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "grupo",
+            "relationshipType": "one-to-many",
             "relationshipName": "itens",
             "otherEntityName": "itemAvaliacao",
-            "otherEntityField": "descricao",
-            "ownerSide": true
+            "otherEntityRelationshipName": "grupo"
         },
         {
-            "relationshipType": "many-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "questionario",
             "otherEntityName": "questionario",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "grupo"
+            "otherEntityField": "nome"
         }
     ],
     "changelogDate": "20181111155658",

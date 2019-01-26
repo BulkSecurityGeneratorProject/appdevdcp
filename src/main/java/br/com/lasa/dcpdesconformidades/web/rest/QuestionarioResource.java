@@ -80,12 +80,11 @@ public class QuestionarioResource {
     /**
      * GET  /questionarios : get all the questionarios.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of questionarios in body
      */
     @GetMapping("/questionarios")
     @Timed
-    public List<QuestionarioDTO> getAllQuestionarios(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<QuestionarioDTO> getAllQuestionarios() {
         log.debug("REST request to get all Questionarios");
         return questionarioService.findAll();
     }

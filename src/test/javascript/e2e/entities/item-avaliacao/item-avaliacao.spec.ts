@@ -66,6 +66,9 @@ describe('ItemAvaliacao e2e test', () => {
     expect(await itemAvaliacaoUpdatePage.getPontosProcessoInput()).to.eq('5');
     await itemAvaliacaoUpdatePage.setPontosProdutoInput('5');
     expect(await itemAvaliacaoUpdatePage.getPontosProdutoInput()).to.eq('5');
+    await itemAvaliacaoUpdatePage.setOrdemExibicaoInput('5');
+    expect(await itemAvaliacaoUpdatePage.getOrdemExibicaoInput()).to.eq('5');
+    await itemAvaliacaoUpdatePage.grupoSelectLastOption();
     await waitUntilDisplayed(itemAvaliacaoUpdatePage.getSaveButton());
     await itemAvaliacaoUpdatePage.save();
     await waitUntilHidden(itemAvaliacaoUpdatePage.getSaveButton());

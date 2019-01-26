@@ -65,6 +65,16 @@ export class ItemAvaliacaoDetail extends React.Component<IItemAvaliacaoDetailPro
               </span>
             </dt>
             <dd>{itemAvaliacaoEntity.pontosProduto}</dd>
+            <dt>
+              <span id="ordemExibicao">
+                <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.ordemExibicao">Ordem Exibição</Translate>
+              </span>
+            </dt>
+            <dd>{itemAvaliacaoEntity.ordemExibicao}</dd>
+            <dt>
+              <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.grupo">Grupo</Translate>
+            </dt>
+            <dd>{itemAvaliacaoEntity.grupoNome ? itemAvaliacaoEntity.grupoNome : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/item-avaliacao" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

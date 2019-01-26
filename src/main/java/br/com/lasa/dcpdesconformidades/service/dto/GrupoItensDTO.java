@@ -27,6 +27,10 @@ public class GrupoItensDTO implements Serializable {
     private Instant lastModifiedDate;
 
     private Set<ItemAvaliacaoDTO> itens = new HashSet<>();
+    
+    private Long questionarioId;
+
+    private String questionarioNome;
 
     public Long getId() {
         return id;
@@ -83,6 +87,22 @@ public class GrupoItensDTO implements Serializable {
     public void setLastModifiedDate(Instant lastModifiedDate) {
       this.lastModifiedDate = lastModifiedDate;
     }
+    
+    public Long getQuestionarioId() {
+      return questionarioId;
+    }
+
+    public void setQuestionarioId(Long questionarioId) {
+      this.questionarioId = questionarioId;
+    }
+
+    public String getQuestionarioNome() {
+      return questionarioNome;
+    }
+
+    public void setQuestionarioNome(String questionarioNome) {
+      this.questionarioNome = questionarioNome;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -107,8 +127,12 @@ public class GrupoItensDTO implements Serializable {
 
     @Override
     public String toString() {
-      return "GrupoItensDTO [id=" + id + ", nome=" + nome + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate="
-          + lastModifiedDate + ", itens=" + itens + "]";
+      return "GrupoItensDTO{" +
+          "id=" + getId() +
+          ", nome='" + getNome() + "'" +
+          ", questionario=" + getQuestionarioId() +
+          ", questionario='" + getQuestionarioNome() + "'" +
+          "}";
     }
     
     

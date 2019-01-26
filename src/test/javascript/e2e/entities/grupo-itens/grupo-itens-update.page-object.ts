@@ -5,7 +5,7 @@ export default class GrupoItensUpdatePage {
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   nomeInput: ElementFinder = element(by.css('input#grupo-itens-nome'));
-  itensSelect: ElementFinder = element(by.css('select#grupo-itens-itens'));
+  questionarioSelect: ElementFinder = element(by.css('select#grupo-itens-questionario'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -19,23 +19,23 @@ export default class GrupoItensUpdatePage {
     return this.nomeInput.getAttribute('value');
   }
 
-  async itensSelectLastOption() {
-    await this.itensSelect
+  async questionarioSelectLastOption() {
+    await this.questionarioSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async itensSelectOption(option) {
-    await this.itensSelect.sendKeys(option);
+  async questionarioSelectOption(option) {
+    await this.questionarioSelect.sendKeys(option);
   }
 
-  getItensSelect() {
-    return this.itensSelect;
+  getQuestionarioSelect() {
+    return this.questionarioSelect;
   }
 
-  async getItensSelectedOption() {
-    return this.itensSelect.element(by.css('option:checked')).getText();
+  async getQuestionarioSelectedOption() {
+    return this.questionarioSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

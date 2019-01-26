@@ -19,7 +19,8 @@
       "descricao": "Descrição",
       "ativo": "Ativo",
       "avaliacoesRealizadas": "Avaliações Realizadas",
-      "grupo": "Grupo"
+      "grupo": "Grupo",
+      "versao": "Versão"
     }
   }
 }

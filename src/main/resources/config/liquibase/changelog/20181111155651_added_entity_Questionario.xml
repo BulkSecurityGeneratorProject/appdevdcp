@@ -34,6 +34,9 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="versao" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
@@ -44,17 +47,6 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
-        <createTable tableName="questionario_grupo">
-            <column name="grupos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="questionarios_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="questionarios_id, grupos_id" tableName="questionario_grupo"/>
-        
         <loadData encoding="UTF-8"
                   file="config/liquibase/questionarios.csv"
                   separator=";"
@@ -62,11 +54,6 @@
             <column name="ativo" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
-        
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/questionario_grupo.csv"
-                  separator=";"
-                  tableName="questionario_grupo"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
