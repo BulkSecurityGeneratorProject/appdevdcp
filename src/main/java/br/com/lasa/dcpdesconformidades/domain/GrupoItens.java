@@ -1,17 +1,25 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A GrupoItens.
@@ -30,10 +38,15 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
     @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
+    
+    @NotNull
+    @Column(name = "ordem_exibicao", nullable = false)
+    private Float ordemExibicao;
 
     @OneToMany(mappedBy = "grupo")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ItemAvaliacao> itens = new HashSet<>();
+    @OrderBy("ordemExibicao ASC")
+    private Set<ItemAvaliacao> itens = new LinkedHashSet<>();
     
     @ManyToOne
     @JsonIgnoreProperties("grupos")
@@ -59,6 +72,19 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public Float getOrdemExibicao() {
+      return ordemExibicao;
+    }
+
+    public GrupoItens ordemExibicao(Float ordemExibicao) {
+        this.ordemExibicao = ordemExibicao;
+        return this;
+    }
+  
+    public void setOrdemExibicao(Float ordemExibicao) {
+        this.ordemExibicao = ordemExibicao;
     }
 
     public Set<ItemAvaliacao> getItens() {
@@ -125,6 +151,7 @@ public class GrupoItens extends AbstractAuditingEntity implements Serializable {
         return "GrupoItens{" +
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
+            ", ordemExibicao=" + getOrdemExibicao() +
             "}";
     }
 }

@@ -2,7 +2,7 @@ package br.com.lasa.dcpdesconformidades.service.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,7 +33,7 @@ public class QuestionarioDTO implements Serializable {
 
   private Instant lastModifiedDate;
 
-  private Set<GrupoItensDTO> grupos = new HashSet<>();
+  private LinkedHashSet<GrupoItensDTO> grupos = new LinkedHashSet<>();
 
   public Long getId() {
     return id;
@@ -75,11 +75,11 @@ public class QuestionarioDTO implements Serializable {
     this.versao = versao;
   }
 
-  public Set<GrupoItensDTO> getGrupos() {
+  public LinkedHashSet<GrupoItensDTO> getGrupos() {
     return grupos;
   }
 
-  public void setGrupos(Set<GrupoItensDTO> grupoItens) {
+  public void setGrupos(LinkedHashSet<GrupoItensDTO> grupoItens) {
     this.grupos = grupoItens;
   }
 

@@ -1,18 +1,23 @@
 package br.com.lasa.dcpdesconformidades.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Questionario.
@@ -48,7 +53,8 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
     
     @OneToMany(mappedBy = "questionario")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<GrupoItens> grupos = new HashSet<>();
+    @OrderBy("ordemExibicao ASC")
+    private Set<GrupoItens> grupos = new LinkedHashSet<>();
     
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     

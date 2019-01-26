@@ -16,6 +16,7 @@
         "title": "Grupo de Itens"
       },
       "nome": "Nome",
+      "ordemExibicao": "Ordem Exibição",
       "itens": "Itens",
       "questionario": "Questionário"
     }

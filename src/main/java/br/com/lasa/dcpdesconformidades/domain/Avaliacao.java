@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -161,7 +163,8 @@ public class Avaliacao implements Serializable {
     @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
-    private Set<ItemAuditado> itensAuditados = new HashSet<>();
+    @OrderBy("tipo DESC, id ASC")
+    private Set<ItemAuditado> itensAuditados = new LinkedHashSet<>();
     
     @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

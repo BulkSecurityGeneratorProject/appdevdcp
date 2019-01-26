@@ -15,7 +15,8 @@ import {
   Table,
   CardTitle,
   CardDeck,
-  Progress
+  Progress,
+  Alert
 } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, TextFormat } from 'react-jhipster';
@@ -51,7 +52,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
     // Obtém os primeiros itens de cada tipo e seta os rowspans neles
     itensAuditados
       .filter((item, index, array) => index === 0 || array[index - 1].tipo !== item.tipo)
-      .forEach((item, index) => (this.state.rowSpanForItensAuditados[index] = rowSpansForTipos[item.tipo]));
+      .forEach((item, index) => (this.state.rowSpanForItensAuditados[item.id] = rowSpansForTipos[item.tipo]));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -270,29 +271,29 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </TabPane>
               <TabPane tabId="AUDITORIA" className="tab-auditoria">
                 <Card body outline color="secondary">
-                  <div className="table-responsive">
-                    <Table responsive bordered hover size="sm">
-                      <thead>
-                        <tr>
-                          <th className="text-center">Tipo</th>
-                          <th className="text-center">Dpto.</th>
-                          <th className="text-center">Cód. SAP</th>
-                          <th className="text-center">Item</th>
-                          <th className="text-center">Saldo SAP 0001</th>
-                          <th className="text-center">Saldo Físico 0001</th>
-                          <th className="text-center">Diferença 0001</th>
-                          <th className="text-center">Saldo SAP 9000</th>
-                          <th className="text-center">Saldo Físico 9000</th>
-                          <th className="text-center">Diferença 9000</th>
-                          <th className="text-center">Motivo da divergência - Análise na loja</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {avaliacaoEntity.itensAuditados &&
-                          avaliacaoEntity.itensAuditados.map((itemAuditado, i) => (
+                  {avaliacaoEntity.itensAuditados && avaliacaoEntity.itensAuditados.length ? (
+                    <div className="table-responsive">
+                      <Table responsive bordered hover size="sm">
+                        <thead>
+                          <tr>
+                            <th className="text-center">Tipo</th>
+                            <th className="text-center">Dpto.</th>
+                            <th className="text-center">Cód. SAP</th>
+                            <th className="text-center">Item</th>
+                            <th className="text-center">Saldo SAP 0001</th>
+                            <th className="text-center">Saldo Físico 0001</th>
+                            <th className="text-center">Diferença 0001</th>
+                            <th className="text-center">Saldo SAP 9000</th>
+                            <th className="text-center">Saldo Físico 9000</th>
+                            <th className="text-center">Diferença 9000</th>
+                            <th className="text-center">Motivo da divergência - Análise na loja</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {avaliacaoEntity.itensAuditados.map((itemAuditado, i) => (
                             <tr key={`entity-${i}`}>
-                              {this.state.rowSpanForItensAuditados[i] && (
-                                <td rowSpan={this.state.rowSpanForItensAuditados[i]}>
+                              {this.state.rowSpanForItensAuditados[itemAuditado.id] && (
+                                <td rowSpan={this.state.rowSpanForItensAuditados[itemAuditado.id]} className="text-center align-middle">
                                   <Translate contentKey={`dcpdesconformidadesApp.TipoItemAuditado.${itemAuditado.tipo}`} />
                                 </td>
                               )}
@@ -308,33 +309,38 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                               <td>{itemAuditado.motivoDivergencia}</td>
                             </tr>
                           ))}
-                      </tbody>
-                    </Table>
-                  </div>
+                        </tbody>
+                      </Table>
+                    </div>
+                  ) : (
+                    <Alert color="warning" className="text-center">
+                      Nenhum item auditado para esta avaliação.
+                    </Alert>
+                  )}
                 </Card>
               </TabPane>
               <TabPane tabId="SOLICITACAO_AJUSTE" className="tab-solicitacao-ajuste">
                 <Card body outline color="secondary">
-                  <div className="table-responsive">
-                    <Table responsive bordered hover size="sm">
-                      <thead>
-                        <tr>
-                          <th className="text-center">Cód. SAP</th>
-                          <th className="text-center">Item</th>
-                          <th className="text-center">Saldo SAP 0001</th>
-                          <th className="text-center">Saldo Físico 0001</th>
-                          <th className="text-center">Diferença 0001</th>
-                          <th className="text-center">Saldo SAP 9000</th>
-                          <th className="text-center">Saldo Físico 9000</th>
-                          <th className="text-center">Diferença 9000</th>
-                          <th className="text-center">Motivo da diferença</th>
-                          <th className="text-center">Ação Corretiva / Preventiva</th>
-                          <th className="text-center">Responsável</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {avaliacaoEntity.itensComAjusteSolicitados &&
-                          avaliacaoEntity.itensComAjusteSolicitados.map((itemComAjusteSolicitado, i) => (
+                  {avaliacaoEntity.itensComAjusteSolicitados && avaliacaoEntity.itensComAjusteSolicitados.length ? (
+                    <div className="table-responsive">
+                      <Table responsive bordered hover size="sm">
+                        <thead>
+                          <tr>
+                            <th className="text-center">Cód. SAP</th>
+                            <th className="text-center">Item</th>
+                            <th className="text-center">Saldo SAP 0001</th>
+                            <th className="text-center">Saldo Físico 0001</th>
+                            <th className="text-center">Diferença 0001</th>
+                            <th className="text-center">Saldo SAP 9000</th>
+                            <th className="text-center">Saldo Físico 9000</th>
+                            <th className="text-center">Diferença 9000</th>
+                            <th className="text-center">Motivo da diferença</th>
+                            <th className="text-center">Ação Corretiva / Preventiva</th>
+                            <th className="text-center">Responsável</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {avaliacaoEntity.itensComAjusteSolicitados.map((itemComAjusteSolicitado, i) => (
                             <tr key={`entity-${i}`}>
                               <td>{itemComAjusteSolicitado.codigoSap}</td>
                               <td>{itemComAjusteSolicitado.descricaoItem}</td>
@@ -349,9 +355,14 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                               <td>{itemComAjusteSolicitado.responsavel}</td>
                             </tr>
                           ))}
-                      </tbody>
-                    </Table>
-                  </div>
+                        </tbody>
+                      </Table>
+                    </div>
+                  ) : (
+                    <Alert color="warning" className="text-center">
+                      Nenhum item com ajuste solicitado para esta avaliação.
+                    </Alert>
+                  )}
                 </Card>
               </TabPane>
               <TabPane tabId="ETIQUETA" className="tab-etiqueta">

@@ -45,6 +45,9 @@ public class GrupoItensResourceIntTest {
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
 
+    private static final Float DEFAULT_ORDEM_EXIBICAO = 1F;
+    private static final Float UPDATED_ORDEM_EXIBICAO = 2F;
+
     @Autowired
     private GrupoItensRepository grupoItensRepository;
 
@@ -89,7 +92,8 @@ public class GrupoItensResourceIntTest {
      */
     public static GrupoItens createEntity(EntityManager em) {
         GrupoItens grupoItens = new GrupoItens()
-            .nome(DEFAULT_NOME);
+            .nome(DEFAULT_NOME)
+            .ordemExibicao(DEFAULT_ORDEM_EXIBICAO);
         return grupoItens;
     }
 
@@ -115,6 +119,7 @@ public class GrupoItensResourceIntTest {
         assertThat(grupoItensList).hasSize(databaseSizeBeforeCreate + 1);
         GrupoItens testGrupoItens = grupoItensList.get(grupoItensList.size() - 1);
         assertThat(testGrupoItens.getNome()).isEqualTo(DEFAULT_NOME);
+        assertThat(testGrupoItens.getOrdemExibicao()).isEqualTo(DEFAULT_ORDEM_EXIBICAO);
     }
 
     @Test
@@ -158,6 +163,25 @@ public class GrupoItensResourceIntTest {
 
     @Test
     @Transactional
+    public void checkOrdemExibicaoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = grupoItensRepository.findAll().size();
+        // set the field null
+        grupoItens.setOrdemExibicao(null);
+
+        // Create the GrupoItens, which fails.
+        GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(grupoItens);
+
+        restGrupoItensMockMvc.perform(post("/api/grupo-itens")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(grupoItensDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<GrupoItens> grupoItensList = grupoItensRepository.findAll();
+        assertThat(grupoItensList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllGrupoItens() throws Exception {
         // Initialize the database
         grupoItensRepository.saveAndFlush(grupoItens);
@@ -167,7 +191,8 @@ public class GrupoItensResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(grupoItens.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())));
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
+            .andExpect(jsonPath("$.[*].ordemExibicao").value(hasItem(DEFAULT_ORDEM_EXIBICAO.doubleValue())));
     }
     
     @Test
@@ -181,7 +206,8 @@ public class GrupoItensResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(grupoItens.getId().intValue()))
-            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()));
+            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
+            .andExpect(jsonPath("$.ordemExibicao").value(DEFAULT_ORDEM_EXIBICAO.doubleValue()));
     }
 
     @Test
@@ -205,7 +231,8 @@ public class GrupoItensResourceIntTest {
         // Disconnect from session so that the updates on updatedGrupoItens are not directly saved in db
         em.detach(updatedGrupoItens);
         updatedGrupoItens
-            .nome(UPDATED_NOME);
+            .nome(UPDATED_NOME)
+            .ordemExibicao(UPDATED_ORDEM_EXIBICAO);
         GrupoItensDTO grupoItensDTO = grupoItensMapper.toDto(updatedGrupoItens);
 
         restGrupoItensMockMvc.perform(put("/api/grupo-itens")
@@ -218,6 +245,7 @@ public class GrupoItensResourceIntTest {
         assertThat(grupoItensList).hasSize(databaseSizeBeforeUpdate);
         GrupoItens testGrupoItens = grupoItensList.get(grupoItensList.size() - 1);
         assertThat(testGrupoItens.getNome()).isEqualTo(UPDATED_NOME);
+        assertThat(testGrupoItens.getOrdemExibicao()).isEqualTo(UPDATED_ORDEM_EXIBICAO);
     }
 
     @Test

@@ -124,6 +124,21 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="ordemExibicaoLabel" for="ordemExibicao">
+                    <Translate contentKey="dcpdesconformidadesApp.grupoItens.ordemExibicao">Ordem Exibicao</Translate>
+                  </Label>
+                  <AvField
+                    id="grupo-itens-ordemExibicao"
+                    type="string"
+                    className="form-control"
+                    name="ordemExibicao"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
                   <Label for="questionario.nome">
                     <Translate contentKey="dcpdesconformidadesApp.grupoItens.questionario">Questionário</Translate>
                   </Label>

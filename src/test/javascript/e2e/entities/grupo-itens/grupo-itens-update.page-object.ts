@@ -5,6 +5,7 @@ export default class GrupoItensUpdatePage {
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   nomeInput: ElementFinder = element(by.css('input#grupo-itens-nome'));
+  ordemExibicaoInput: ElementFinder = element(by.css('input#grupo-itens-ordemExibicao'));
   questionarioSelect: ElementFinder = element(by.css('select#grupo-itens-questionario'));
 
   getPageTitle() {
@@ -17,6 +18,14 @@ export default class GrupoItensUpdatePage {
 
   async getNomeInput() {
     return this.nomeInput.getAttribute('value');
+  }
+
+  async setOrdemExibicaoInput(ordemExibicao) {
+    await this.ordemExibicaoInput.sendKeys(ordemExibicao);
+  }
+
+  async getOrdemExibicaoInput() {
+    return this.ordemExibicaoInput.getAttribute('value');
   }
 
   async questionarioSelectLastOption() {

@@ -25,6 +25,9 @@
             <column name="nome" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="ordem_exibicao" type="${floatType}">
+                <constraints nullable="false" />
+            </column>
             <column name="questionario_id" type="bigint">
                 <constraints nullable="true" />
             </column>

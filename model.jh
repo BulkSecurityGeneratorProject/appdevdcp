@@ -140,6 +140,7 @@ entity ItemAvaliado {
 
 entity GrupoItens {
 	nome String required
+    ordemExibicao Float required
 }
 
 enum TipoAnexoItem {

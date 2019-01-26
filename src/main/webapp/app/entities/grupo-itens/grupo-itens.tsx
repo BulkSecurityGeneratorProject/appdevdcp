@@ -42,6 +42,9 @@ export class GrupoItens extends React.Component<IGrupoItensProps> {
                   <Translate contentKey="dcpdesconformidadesApp.grupoItens.nome">Nome</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="dcpdesconformidadesApp.grupoItens.ordemExibicao">Ordem Exibição</Translate>
+                </th>
+                <th>
                   <Translate contentKey="dcpdesconformidadesApp.grupoItens.questionario">Questionário</Translate>
                 </th>
                 <th>
@@ -59,6 +62,7 @@ export class GrupoItens extends React.Component<IGrupoItensProps> {
                     </Button>
                   </td>
                   <td>{grupoItens.nome}</td>
+                  <td>{grupoItens.ordemExibicao}</td>
                   <td>
                     {grupoItens.questionarioNome ? (
                       <Link to={`questionario/${grupoItens.questionarioId}`}>{grupoItens.questionarioNome}</Link>

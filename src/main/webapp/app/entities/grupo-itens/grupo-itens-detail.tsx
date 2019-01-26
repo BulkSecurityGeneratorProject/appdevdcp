@@ -35,6 +35,12 @@ export class GrupoItensDetail extends React.Component<IGrupoItensDetailProps> {
             </dt>
             <dd>{grupoItensEntity.nome}</dd>
             <dt>
+              <span id="ordemExibicao">
+                <Translate contentKey="dcpdesconformidadesApp.grupoItens.ordemExibicao">Ordem Exibicao</Translate>
+              </span>
+            </dt>
+            <dd>{grupoItensEntity.ordemExibicao}</dd>
+            <dt>
               <Translate contentKey="dcpdesconformidadesApp.grupoItens.questionario">Questionário</Translate>
             </dt>
             <dd>{grupoItensEntity.questionarioNome ? grupoItensEntity.questionarioNome : ''}</dd>

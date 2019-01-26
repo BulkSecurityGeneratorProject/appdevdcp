@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-import br.com.lasa.dcpdesconformidades.domain.ItemAuditado;
-import br.com.lasa.dcpdesconformidades.domain.ItemAvaliado;
-import br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CategorizacaoPerdaQuebra;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.NivelEficiencia;
@@ -104,7 +102,7 @@ public class AvaliacaoDTO implements Serializable {
     
     private Set<ItemAvaliadoDTO> itensAvaliados = new HashSet<>();
     
-    private Set<ItemAuditadoDTO> itensAuditados = new HashSet<>();
+    private LinkedHashSet<ItemAuditadoDTO> itensAuditados = new LinkedHashSet<>();
     
     private Set<ItemSolicitadoAjusteDTO> itensComAjusteSolicitados = new HashSet<>();
 
@@ -412,11 +410,11 @@ public class AvaliacaoDTO implements Serializable {
       this.itensAvaliados = itensAvaliados;
     }
 
-    public Set<ItemAuditadoDTO> getItensAuditados() {
+    public LinkedHashSet<ItemAuditadoDTO> getItensAuditados() {
       return itensAuditados;
     }
 
-    public void setItensAuditados(Set<ItemAuditadoDTO> itensAuditados) {
+    public void setItensAuditados(LinkedHashSet<ItemAuditadoDTO> itensAuditados) {
       this.itensAuditados = itensAuditados;
     }
 
