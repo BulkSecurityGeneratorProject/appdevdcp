@@ -1,6 +1,10 @@
 import axios from 'axios';
 
 import { TranslatorContext, Storage } from 'react-jhipster';
+import numeral from 'numeral';
+import 'numeral/locales/pt-br'; // tslint:disable-line no-submodule-imports
+import moment from 'moment';
+import 'moment/locale/pt-br'; // tslint:disable-line no-submodule-imports
 
 export const ACTION_TYPES = {
   SET_LOCALE: 'locale/SET_LOCALE'
@@ -18,6 +22,8 @@ export default (state: LocaleState = initialState, action): LocaleState => {
       const currentLocale = action.locale;
       if (state.currentLocale !== currentLocale) {
         TranslatorContext.setLocale(currentLocale);
+        numeral.locale(currentLocale);
+        moment.locale(currentLocale);
       }
       return {
         currentLocale
