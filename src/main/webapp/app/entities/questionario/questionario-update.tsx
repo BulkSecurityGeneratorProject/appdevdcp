@@ -21,13 +21,13 @@ export interface IQuestionarioUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface IQuestionarioUpdateState {
   isNew: boolean;
-  grupos: any[];
+  // grupos: any[];
 }
 
 export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps, IQuestionarioUpdateState> {
   state: IQuestionarioUpdateState = {
-    isNew: !this.props.match.params || !this.props.match.params.id,
-    grupos: []
+    isNew: !this.props.match.params || !this.props.match.params.id
+    // grupos: []
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -43,22 +43,22 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getGrupoItens();
+    // this.props.getGrupoItens();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.isNew && nextProps.questionarioEntity.grupos && nextProps.questionarioEntity.grupos.length) {
-      this.state.grupos = nextProps.questionarioEntity.grupos.map(a => a.id);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!this.state.isNew && nextProps.questionarioEntity.grupos && nextProps.questionarioEntity.grupos.length) {
+  //     this.state.grupos = nextProps.questionarioEntity.grupos.map(a => a.id);
+  //   }
+  // }
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const { questionarioEntity } = this.props;
       const entity = {
         ...questionarioEntity,
-        ...values,
-        grupos: mapIdList(values.grupos)
+        ...values
+        // grupos: mapIdList(values.grupos)
       };
 
       if (this.state.isNew) {
@@ -73,9 +73,9 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
     this.props.history.push('/entity/questionario');
   };
 
-  handleGruposChange = selectedOption => {
-    this.setState({ grupos: selectedOption });
-  };
+  // handleGruposChange = selectedOption => {
+  //   this.setState({ grupos: selectedOption });
+  // };
 
   render() {
     const { questionarioEntity, grupoItens, loading, updating } = this.props;
@@ -135,7 +135,7 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                   </Label>
                   <AvField id="questionario-versao" type="text" name="versao" />
                 </AvGroup>
-                <AvGroup>
+                {/* <AvGroup>
                   <Label for="grupoItens">
                     <Translate contentKey="dcpdesconformidadesApp.questionario.grupo">Grupo</Translate>
                   </Label>
@@ -151,7 +151,7 @@ export class QuestionarioUpdate extends React.Component<IQuestionarioUpdateProps
                     isSearchable
                     required
                   />
-                </AvGroup>
+                </AvGroup> */}
                 <Button tag={Link} id="cancel-save" to="/entity/questionario" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

@@ -24,14 +24,14 @@ export interface IGrupoItensUpdateProps extends StateProps, DispatchProps, Route
 export interface IGrupoItensUpdateState {
   isNew: boolean;
   questionarioId: string;
-  itens: IItemAvaliacao[];
+  // itens: IItemAvaliacao[];
 }
 
 export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IGrupoItensUpdateState> {
   state: IGrupoItensUpdateState = {
     isNew: !this.props.match.params || !this.props.match.params.id,
-    questionarioId: '0',
-    itens: []
+    questionarioId: '0'
+    // itens: []
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -51,19 +51,19 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
     this.props.getQuestionarios();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.isNew && nextProps.grupoItensEntity.itens && nextProps.grupoItensEntity.itens.length) {
-      this.state.itens = nextProps.grupoItensEntity.itens.map(a => a.id);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!this.state.isNew && nextProps.grupoItensEntity.itens && nextProps.grupoItensEntity.itens.length) {
+  //     this.state.itens = nextProps.grupoItensEntity.itens.map(a => a.id);
+  //   }
+  // }
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const { grupoItensEntity } = this.props;
       const entity = {
         ...grupoItensEntity,
-        ...values,
-        itens: mapIdList(values.itens)
+        ...values
+        // itens: mapIdList(values.itens)
       };
 
       if (this.state.isNew) {
@@ -78,9 +78,9 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
     this.props.history.push('/entity/grupo-itens');
   };
 
-  handleItensChange = selectedOption => {
-    this.setState({ itens: selectedOption });
-  };
+  // handleItensChange = selectedOption => {
+  //   this.setState({ itens: selectedOption });
+  // };
 
   render() {
     const { grupoItensEntity, itemAvaliacaos, questionarios, loading, updating } = this.props;
@@ -153,7 +153,7 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                       : null}
                   </AvInput>
                 </AvGroup>
-                <AvGroup>
+                {/* <AvGroup>
                   <Label for="itemAvaliacaos">
                     <Translate contentKey="dcpdesconformidadesApp.grupoItens.itens">Itens</Translate>
                   </Label>
@@ -169,7 +169,7 @@ export class GrupoItensUpdate extends React.Component<IGrupoItensUpdateProps, IG
                     isSearchable
                     required
                   />
-                </AvGroup>
+                </AvGroup> */}
                 <Button tag={Link} id="cancel-save" to="/entity/grupo-itens" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
