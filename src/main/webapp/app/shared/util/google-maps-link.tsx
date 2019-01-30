@@ -1,7 +1,5 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
-
 interface IGoogleMapsLinkProps {
   lat1: number;
   long1: number;
@@ -32,7 +30,7 @@ export const GoogleMapsLink = ({ lat1, long1, lat2, long2, label }: IGoogleMapsL
   }
   return (
     <a href={`http://maps.google.com/maps?q=${lat1},${long1}`} target="_blank">
-      <FontAwesomeIcon icon={faMapMarkedAlt} />
+      <FontAwesomeIcon icon="map-marked-alt" />
       &nbsp;
       <span className="d-none d-md-inline">{label}</span>
     </a>
