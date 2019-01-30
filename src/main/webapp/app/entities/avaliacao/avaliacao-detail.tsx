@@ -28,7 +28,18 @@ import { getEntity } from './avaliacao.reducer';
 import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 import { TipoItemAuditado } from 'app/shared/model/item-auditado.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import {
+  APP_DATE_FORMAT,
+  APP_LOCAL_DATE_FORMAT,
+  APP_DATE_EXTENSO_FORMAT,
+  APP_PERCENTAGE_FORMAT,
+  APP_CURRENCY_FORMAT
+} from 'app/config/constants';
+import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
+import { GoogleMapsLink } from 'app/shared/util/google-maps-link';
+import { IGrupoItens } from 'app/shared/model/grupo-itens.model';
+import { IItemAvaliacao } from 'app/shared/model/item-avaliacao.model';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export interface IAvaliacaoDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -42,6 +53,8 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
     rowSpanForItensAuditados: {}
   };
 
+  // Obtém os primeiros itens de cada tipo e define o rowspan deles de acordo com a quantidade de itens para o tipo
+  // Pressupõe que a lista já está ordenada por tipo
   includeRowspanForItensAuditados(itensAuditados) {
     const rowSpansForTipos: { [key in TipoItemAuditado]?: number } = {
       [TipoItemAuditado.TOP_5_PERDAS]: itensAuditados.filter(i => i.tipo === TipoItemAuditado.TOP_5_PERDAS).length,
@@ -49,10 +62,13 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
       [TipoItemAuditado.TROCA_CANCELAMENTO_DVC]: itensAuditados.filter(i => i.tipo === TipoItemAuditado.TROCA_CANCELAMENTO_DVC).length
     };
 
-    // Obtém os primeiros itens de cada tipo e seta os rowspans neles
     itensAuditados
       .filter((item, index, array) => index === 0 || array[index - 1].tipo !== item.tipo)
       .forEach((item, index) => (this.state.rowSpanForItensAuditados[item.id] = rowSpansForTipos[item.tipo]));
+  }
+
+  getItemAvaliadoParaItemAvaliacaoId(itemAvaliacaoId: number): IItemAvaliado {
+    return this.props.avaliacaoEntity.itensAvaliados.find(item => item.itemAvaliacaoId === itemAvaliacaoId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,6 +87,224 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         activeTab: tab
       });
     }
+  }
+
+  PerdaQuebraRows = ({ avaliacaoEntity }) => (
+    <>
+      <tr>
+        <td className="text-center">
+          <b>10</b>
+        </td>
+        <td colSpan={2} className="text-center table-header">
+          <b>Perda e Quebra (último acumulado)</b>
+        </td>
+        <td className="text-center table-header">
+          <b>%</b>
+        </td>
+        <td className="text-center table-header">
+          <b>Financeiro R$</b>
+        </td>
+        <td className="text-center table-header">
+          <b>Categorização</b>
+        </td>
+        <td className="text-center table-header">
+          <b>Pontuação</b>
+        </td>
+        <th className="table-header" />
+        <th className="table-header" />
+      </tr>
+      <tr>
+        <td className="text-center">10.1</td>
+        <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusPerda}`}>
+          <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusPerda}`} />
+        </td>
+        <td>Valores de perda do último acumulado do ano</td>
+        <td className="text-center">
+          <TextFormat value={avaliacaoEntity.percentualPerda} type="number" format={'0.00'} />
+        </td>
+        <td className="text-center">
+          <TextFormat value={avaliacaoEntity.financeiroPerda} type="number" format={APP_CURRENCY_FORMAT} />
+        </td>
+        <td className={`text-center categorizacao-perda-quebra-${avaliacaoEntity.categorizacaoPerda}`}>
+          <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacaoEntity.categorizacaoPerda}`} />
+        </td>
+        <td className="text-center">{avaliacaoEntity.pontuacaoPerda}</td>
+        <th />
+        <th />
+      </tr>
+      <tr>
+        <td className="text-center">10.2</td>
+        <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusQuebra}`}>
+          <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusQuebra}`} />
+        </td>
+        <td>Valores de quebra do último acumulado do ano</td>
+        <td className="text-center">
+          <TextFormat value={avaliacaoEntity.percentualQuebra} type="number" format={'0.00'} />
+        </td>
+        <td className="text-center">
+          <TextFormat value={avaliacaoEntity.financeiroQuebra} type="number" format={APP_CURRENCY_FORMAT} />
+        </td>
+        <td className={`text-center categorizacao-perda-quebra-${avaliacaoEntity.categorizacaoQuebra}`}>
+          <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacaoEntity.categorizacaoQuebra}`} />
+        </td>
+        <td className="text-center">{avaliacaoEntity.pontuacaoQuebra}</td>
+        <th />
+        <th />
+      </tr>
+    </>
+  );
+
+  GrupoPontosSum = ({ grupo }) => {
+    const pontos = this.props.avaliacaoEntity.pontosPorGrupos[grupo.id];
+    return (
+      <>
+        <tr className="grupo-pontos-sum-table-row">
+          <td colSpan={3}>
+            {' '}
+            <b>Pontos válidos ({pontos.totalPontos})</b>{' '}
+          </td>
+          <td className="text-center">{pontos.pontosProcedimento}</td>
+          <td className="text-center">{pontos.pontosPessoa}</td>
+          <td className="text-center">{pontos.pontosProcesso}</td>
+          <td className="text-center">{pontos.pontosProduto}</td>
+          <th />
+          <th />
+        </tr>
+        <tr className="grupo-pontos-sum-table-row">
+          <td colSpan={3}>
+            {' '}
+            <b>Pontos obtidos ({pontos.totalPontosObtidos})</b>{' '}
+          </td>
+          <td className="text-center">{pontos.pontosObtidosProcedimento}</td>
+          <td className="text-center">{pontos.pontosObtidosPessoa}</td>
+          <td className="text-center">{pontos.pontosObtidosProcesso}</td>
+          <td className="text-center">{pontos.pontosObtidosProduto}</td>
+          <th />
+          <th />
+        </tr>
+      </>
+    );
+  };
+
+  GrupoItensRow = ({ grupo }) =>
+    grupo.itens.map((itemAvaliacao, j) => {
+      const itemAvaliado = this.getItemAvaliadoParaItemAvaliacaoId(itemAvaliacao.id);
+      return (
+        <tr key={`item-avaliado-${j}`}>
+          <td className="text-center">{j + 1}</td>
+          <td className={`text-center status-item-avaliado-${itemAvaliado.status}`}>
+            <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${itemAvaliado.status}`} />
+          </td>
+          <td>{itemAvaliacao.descricao}</td>
+          <td className="text-center">{itemAvaliado.pontosObtidosProcedimento}</td>
+          <td className="text-center">{itemAvaliado.pontosObtidosPessoa}</td>
+          <td className="text-center">{itemAvaliado.pontosObtidosProcesso}</td>
+          <td className="text-center">{itemAvaliado.pontosObtidosProduto}</td>
+          <td className="text-center">
+            <GoogleMapsLink
+              lat1={itemAvaliado.latitudeLocalResposta}
+              long1={itemAvaliado.longitudeLocalResposta}
+              lat2={this.props.avaliacaoEntity.lojaLatitude}
+              long2={this.props.avaliacaoEntity.lojaLongitude}
+            />
+          </td>
+          <td className="text-center">{itemAvaliado.observacoes}</td>
+        </tr>
+      );
+    });
+
+  CheckpointGrupoRow = ({ avaliacaoEntity }) =>
+    avaliacaoEntity.questionario.grupos.map((grupo, i) => {
+      const pontos = avaliacaoEntity.pontosPorGrupos[grupo.id];
+      return (
+        <tr key={`checkpoint-grupo-${i}`}>
+          <td>
+            <b>{grupo.nome}</b>
+          </td>
+          <td className="text-right">
+            <TextFormat value={pontos.pontosObtidosProcedimento / pontos.pontosProcedimento} type="number" format={APP_PERCENTAGE_FORMAT} />
+          </td>
+          <td className="text-right">
+            <TextFormat value={pontos.pontosObtidosPessoa / pontos.pontosPessoa} type="number" format={APP_PERCENTAGE_FORMAT} />
+          </td>
+          <td className="text-right">
+            <TextFormat value={pontos.pontosObtidosProcesso / pontos.pontosProcesso} type="number" format={APP_PERCENTAGE_FORMAT} />
+          </td>
+          <td className="text-right">
+            <TextFormat value={pontos.pontosObtidosProduto / pontos.pontosProduto} type="number" format={APP_PERCENTAGE_FORMAT} />
+          </td>
+        </tr>
+      );
+    });
+
+  getPerformancePontosBarChartData() {
+    const barChartData = [];
+
+    const pontos = {
+      pontosProcedimento: 0,
+      pontosPessoa: 0,
+      pontosProcesso: 0,
+      pontosProduto: 0,
+      pontosObtidosProcedimento: 0,
+      pontosObtidosPessoa: 0,
+      pontosObtidosProcesso: 0,
+      pontosObtidosProduto: 0
+    };
+
+    Object.keys(this.props.avaliacaoEntity.pontosPorGrupos).forEach(grupoId => {
+      const pontosPorGrupo = this.props.avaliacaoEntity.pontosPorGrupos[grupoId];
+      pontos.pontosProcedimento += pontosPorGrupo.pontosProcedimento;
+      pontos.pontosPessoa += pontosPorGrupo.pontosPessoa;
+      pontos.pontosProcesso += pontosPorGrupo.pontosProcesso;
+      pontos.pontosProduto += pontosPorGrupo.pontosProduto;
+      pontos.pontosObtidosProcedimento += pontosPorGrupo.pontosObtidosProcedimento;
+      pontos.pontosObtidosPessoa += pontosPorGrupo.pontosObtidosPessoa;
+      pontos.pontosObtidosProcesso += pontosPorGrupo.pontosObtidosProcesso;
+      pontos.pontosObtidosProduto += pontosPorGrupo.pontosObtidosProduto;
+    });
+
+    barChartData.push(
+      {
+        tipo: 'Procedimento',
+        validos: pontos.pontosProcedimento,
+        obtidos: pontos.pontosObtidosProcedimento
+      },
+      {
+        tipo: 'Pessoa',
+        validos: pontos.pontosPessoa,
+        obtidos: pontos.pontosObtidosPessoa
+      },
+      {
+        tipo: 'Processo',
+        validos: pontos.pontosProcesso,
+        obtidos: pontos.pontosObtidosProcesso
+      },
+      {
+        tipo: 'Produto',
+        validos: pontos.pontosProduto,
+        obtidos: pontos.pontosObtidosProduto
+      }
+    );
+
+    return barChartData;
+  }
+
+  getPerformanceGruposBarChartData() {
+    const barChartData = [];
+
+    this.props.avaliacaoEntity.questionario.grupos.forEach(grupo => {
+      const pontos = this.props.avaliacaoEntity.pontosPorGrupos[grupo.id];
+
+      barChartData.push({
+        nomeGrupo: grupo.nome,
+        procedimento: (pontos.pontosObtidosProcedimento * 100) / pontos.pontosProcedimento,
+        pessoa: (pontos.pontosObtidosPessoa * 100) / pontos.pontosPessoa,
+        processo: (pontos.pontosObtidosProcesso * 100) / pontos.pontosProcesso,
+        produto: (pontos.pontosObtidosProduto * 100) / pontos.pontosProduto
+      });
+    });
+
+    return barChartData;
   }
 
   render() {
@@ -126,14 +360,17 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
             </Nav>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="CHECKLIST" className="tab-checklist">
-                <Card body outline color="secondary">
+                <Card body outline>
                   <Row>
                     <Col xs="2">
                       <b>
                         <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate>
                       </b>
                     </Col>
-                    <Col xs="2">{avaliacaoEntity.lojaNome ? avaliacaoEntity.lojaNome : ''}</Col>
+                    <Col xs="2">
+                      {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome} `}(
+                      <GoogleMapsLink lat1={avaliacaoEntity.lojaLatitude} long1={avaliacaoEntity.lojaLongitude} label="Ver no mapa" />)
+                    </Col>
                     <Col xs="2">
                       <b>
                         <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>
@@ -148,7 +385,15 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </b>
                     </Col>
                     <Col xs="2">
-                      <TextFormat value={avaliacaoEntity.iniciadaEm} type="date" format={APP_DATE_FORMAT} />
+                      <TextFormat value={avaliacaoEntity.iniciadaEm} type="date" format={APP_DATE_FORMAT} />(
+                      <GoogleMapsLink
+                        lat1={avaliacaoEntity.latitudeInicioAvaliacao}
+                        long1={avaliacaoEntity.longitudeInicioAvaliacao}
+                        lat2={avaliacaoEntity.lojaLatitude}
+                        long2={avaliacaoEntity.lojaLongitude}
+                        label="Ver no mapa"
+                      />
+                      )
                     </Col>
                   </Row>
 
@@ -171,7 +416,15 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </b>
                     </Col>
                     <Col xs="2">
-                      <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} />
+                      <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} />(
+                      <GoogleMapsLink
+                        lat1={avaliacaoEntity.latitudeSubmissaoAvaliacao}
+                        long1={avaliacaoEntity.longitudeSubmissaoAvaliacao}
+                        lat2={avaliacaoEntity.lojaLatitude}
+                        long2={avaliacaoEntity.lojaLongitude}
+                        label="Ver no mapa"
+                      />
+                      )
                     </Col>
                   </Row>
 
@@ -188,89 +441,205 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </b>
                     </Col>
                     <Col xs="2">{avaliacaoEntity.prontuarioResponsavelLoja}</Col>
-                    <Col xs="4" />
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacaoSubmissaoEnviadaForaDaLoja">
+                          Observacao Submissao Enviada Fora Da Loja
+                        </Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">{avaliacaoEntity.observacaoSubmissaoEnviadaForaDaLoja}</Col>
+                  </Row>
+
+                  <Row>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.status">Status</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">
+                      <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacaoEntity.status}`} />
+                    </Col>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">
+                      {avaliacaoEntity.canceladoEm && (
+                        <TextFormat value={avaliacaoEntity.canceladoEm} type="date" format={APP_DATE_FORMAT} />
+                      )}
+                    </Col>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">{avaliacaoEntity.motivoCancelamento}</Col>
+                  </Row>
+
+                  <Row>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionário</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">
+                      {avaliacaoEntity.questionario && avaliacaoEntity.questionario.nome ? (
+                        <Link to={`/entity/questionario/${avaliacaoEntity.questionario.id}`}>{avaliacaoEntity.questionario.nome}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </Col>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">{avaliacaoEntity.importadoViaPlanilha ? 'true' : 'false'}</Col>
+                    <Col xs="2">
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>
+                      </b>
+                    </Col>
+                    <Col xs="2">{avaliacaoEntity.caminhoArquivoPlanilha}</Col>
                   </Row>
                 </Card>
 
-                <Card body outline color="secondary">
+                <Card body outline>
                   <div className="table-responsive">
                     <Table responsive bordered hover size="sm">
                       <thead>
-                        <tr>
-                          <th className="text-center">Item</th>
-                          <th className="text-center">Classificação</th>
-                          <th className="text-center">Descrição do item</th>
+                        <tr className="table-header">
+                          <th className="text-center">
+                            <b>Item</b>
+                          </th>
+                          <th className="text-center">
+                            <b>Classificação</b>
+                          </th>
+                          <th className="text-center">
+                            <b>Descrição do item</b>
+                          </th>
+                          <th />
                           <th />
                           <th />
                           <th />
                           <th />
                           <th className="text-center">
-                            <Translate contentKey="dcpdesconformidadesApp.avaliacao.status">Status</Translate>
+                            <b>Observações DCP</b>
                           </th>
-                          <th className="text-center">Observações DCP</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {/* {avaliacaoList.map((avaliacao, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${avaliacao.id}`} color="link" size="sm">
-                        {avaliacao.id}
-                      </Button>
-                    </td>
-                    <td>{avaliacao.lojaNome ? <Link to={`loja/${avaliacao.lojaId}`}>{avaliacao.lojaNome}</Link> : ''}</td>
-                    <td>{avaliacao.nomeResponsavelLoja}</td>
-                    <td>{avaliacao.prontuarioResponsavelLoja}</td>
-                    <td>{avaliacao.avaliadorName ? avaliacao.avaliadorName : ''}</td>
-                    <td>
-                      <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacao.status}`} />
-                    </td>
-                    <td>
-                      <TextFormat type="date" value={avaliacao.iniciadaEm} format={APP_DATE_FORMAT} />
-                    </td>
-                    <td>
-                      <TextFormat type="date" value={avaliacao.submetidoEm} format={APP_DATE_FORMAT} />
-                    </td>
-                    <td>
-                      <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacao.criticidadePainel}`} />
-                    </td>
-                    <td>
-                      <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaGeral}`} />
-                    </td>
-                    <td>{avaliacao.importadoViaPlanilha ? 'true' : 'false'}</td>
-                    <td>{avaliacao.caminhoArquivoPlanilha}</td>
-                    <td>
-                      {avaliacao.questionarioNome ? (
-                        <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>
-                      ) : (
-                        ''
-                      )}
-                    </td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${avaliacao.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${avaliacao.id}/delete`} color="danger" size="sm">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.cancel">Cancel</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))} */}
+                        {avaliacaoEntity.questionario &&
+                          avaliacaoEntity.questionario.grupos.map((grupo, i) => (
+                            <>
+                              <tr key={`grupo-itens-${i}`}>
+                                <td className="text-center">
+                                  {' '}
+                                  <b>{i + 1}</b>{' '}
+                                </td>
+                                <td colSpan={2} className="text-center table-header">
+                                  <b>{grupo.nome}</b>
+                                </td>
+                                <td className="text-center table-header">
+                                  <b>Procedimento</b>
+                                </td>
+                                <td className="text-center table-header">
+                                  <b>Pessoa</b>
+                                </td>
+                                <td className="text-center table-header">
+                                  <b>Processo</b>
+                                </td>
+                                <td className="text-center table-header">
+                                  <b>Produto</b>
+                                </td>
+                                <td className="text-center table-header">
+                                  <b>Local</b>
+                                </td>
+                                <th className="table-header" />
+                              </tr>
+
+                              <this.GrupoItensRow grupo={grupo} />
+
+                              <this.GrupoPontosSum grupo={grupo} />
+                            </>
+                          ))}
+
+                        <this.PerdaQuebraRows avaliacaoEntity={avaliacaoEntity} />
                       </tbody>
                     </Table>
                   </div>
                 </Card>
+
+                <Card body outline>
+                  <Row>
+                    <Col>
+                      <p>
+                        Eu, {avaliacaoEntity.nomeResponsavelLoja}, prontuário {avaliacaoEntity.prontuarioResponsavelLoja}, responsável pela
+                        loja {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome}`}, declaro que em{' '}
+                        <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} /> recebi o "Relatório de
+                        Desconformidade e a etiqueta com o nível de eficiência da loja em relação a Política de Prevenção da Cia" e seus
+                        respectivos anexos, emitido em visita realizada nesta data, pelo SPP {avaliacaoEntity.avaliadorName}, prontuário{' '}
+                        {avaliacaoEntity.avaliadorProntuario}. Estou ciente do prazo de 15 dias, contados desta data, para regularizar as
+                        ações que corrijam as desconformidades verificadas.
+                      </p>
+                      <p>
+                        Estou ciente ainda que o DCP encaminhará por e-mail e/ou disponibilizará no portal Elasa o "Relatório de
+                        Desconformidade" , consignando as desconformidades verificadas. Após o prazo estipulado, será realizada uma nova
+                        vistoria, para verificar as ações corretivas adotadas. Na hipótese de não terem sido sanadas as irregularidades,
+                        total ou parcialmente, tenho ciência de que estarei sujeito à aplicação de penalidade disciplinar.
+                      </p>
+                      <p>
+                        Este Relatório de Desconformidade e a Etiqueta de Eficiência do DCP têm como objetivo evidenciar aspectos da
+                        Política de Prevenção de Perdas da Companhia que devem ser rigorosamente atendidos, garantindo um clima de segurança
+                        e controle em loja. Todas as desconformidades relacionadas foram apresentadas na oportunidade da atual visita ao
+                        responsável pela loja, sendo os prazos concedidos em decorrência da complexidade de cada medida. É considerado
+                        reincidente o responsável que não tiver cumprido as medidas corretivas determinadas na última visita realizada ou
+                        que gerar novas desconformidades idênticas às levantadas em visitas anteriores.
+                      </p>
+                    </Col>
+                  </Row>
+
+                  <Row className="align-self-center">
+                    <Col>
+                      <span className="text-signed">
+                        {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome}`},{' '}
+                        <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_EXTENSO_FORMAT} />
+                      </span>
+                    </Col>
+                  </Row>
+                  <Row className="align-self-center" style={{ marginBottom: '1rem' }}>
+                    <Col>
+                      <b>Local e Data</b>
+                    </Col>
+                  </Row>
+
+                  <Row className="align-self-center">
+                    <Col>
+                      <span className="text-signed">{avaliacaoEntity.nomeResponsavelLoja}</span>
+                    </Col>
+                  </Row>
+                  <Row className="align-self-center" style={{ marginBottom: '1rem' }}>
+                    <Col>
+                      <b>Responsável pela loja</b>
+                    </Col>
+                  </Row>
+
+                  <Row className="align-self-center">
+                    <Col>
+                      <span className="text-signed">{avaliacaoEntity.avaliadorName}</span>
+                    </Col>
+                  </Row>
+                  <Row className="align-self-center">
+                    <Col>
+                      <b>Responsável pela vistoria</b>
+                    </Col>
+                  </Row>
+                </Card>
               </TabPane>
               <TabPane tabId="AUDITORIA" className="tab-auditoria">
-                <Card body outline color="secondary">
+                <Card body outline>
                   {avaliacaoEntity.itensAuditados && avaliacaoEntity.itensAuditados.length ? (
                     <div className="table-responsive">
                       <Table responsive bordered hover size="sm">
@@ -291,10 +660,12 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         </thead>
                         <tbody>
                           {avaliacaoEntity.itensAuditados.map((itemAuditado, i) => (
-                            <tr key={`entity-${i}`}>
+                            <tr key={`item-auditado-${i}`} className={`tipo-item-auditado-${itemAuditado.tipo}`}>
                               {this.state.rowSpanForItensAuditados[itemAuditado.id] && (
-                                <td rowSpan={this.state.rowSpanForItensAuditados[itemAuditado.id]} className="text-center align-middle">
-                                  <Translate contentKey={`dcpdesconformidadesApp.TipoItemAuditado.${itemAuditado.tipo}`} />
+                                <td rowSpan={this.state.rowSpanForItensAuditados[itemAuditado.id]} className="text-center">
+                                  <b>
+                                    <Translate contentKey={`dcpdesconformidadesApp.TipoItemAuditado.${itemAuditado.tipo}`} />
+                                  </b>
                                 </td>
                               )}
                               <td>{itemAuditado.codigoDepartamento}</td>
@@ -320,7 +691,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                 </Card>
               </TabPane>
               <TabPane tabId="SOLICITACAO_AJUSTE" className="tab-solicitacao-ajuste">
-                <Card body outline color="secondary">
+                <Card body outline>
                   {avaliacaoEntity.itensComAjusteSolicitados && avaliacaoEntity.itensComAjusteSolicitados.length ? (
                     <div className="table-responsive">
                       <Table responsive bordered hover size="sm">
@@ -341,7 +712,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         </thead>
                         <tbody>
                           {avaliacaoEntity.itensComAjusteSolicitados.map((itemComAjusteSolicitado, i) => (
-                            <tr key={`entity-${i}`}>
+                            <tr key={`item-solicitado-ajuste-${i}`}>
                               <td>{itemComAjusteSolicitado.codigoSap}</td>
                               <td>{itemComAjusteSolicitado.descricaoItem}</td>
                               <td>{itemComAjusteSolicitado.saldoSap0001}</td>
@@ -367,47 +738,6 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </TabPane>
               <TabPane tabId="ETIQUETA" className="tab-etiqueta">
                 <Row>
-                  {/* <Col>
-                <Row>
-                  <Col>
-                    <Row>
-                      <Col>
-                        <b><Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate></b>
-                      </Col>
-                      <Col>
-                        {avaliacaoEntity.lojaNome ? avaliacaoEntity.lojaNome : ''}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <b><Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate></b>
-                      </Col>
-                      <Col>
-                        <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacaoEntity.criticidadePainel}`} />
-                      </Col>
-                    </Row>
-                  </Col>
-
-                  <Col>
-                    <Row>
-                      <Col>
-                        <b><Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate></b>
-                      </Col>
-                      <Col>
-                        {avaliacaoEntity.lojaNome ? avaliacaoEntity.lojaNome : ''}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <b><Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate></b>
-                      </Col>
-                      <Col>
-                        <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacaoEntity.criticidadePainel}`} />
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Col> */}
                   <Col>
                     <NivelEficienciaCard
                       etiqueta={avaliacaoEntity.nivelEficienciaGeral}
@@ -444,231 +774,67 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                 </Row>
               </TabPane>
               <TabPane tabId="APOIO_SPP" className="tab-apoio-spp">
-                <Row>
-                  <Col sm="12">
-                    <h4>APOIO_SPP</h4>
-                  </Col>
-                </Row>
+                {avaliacaoEntity.questionario &&
+                  avaliacaoEntity.questionario.grupos && (
+                    <>
+                      <Card body outline>
+                        <CardTitle className="text-center">Nível de Eficiência - Consolidado</CardTitle>
+                        <div className="table-responsive">
+                          <Table responsive bordered hover size="sm">
+                            <thead>
+                              <tr>
+                                <th className="text-center">Check points</th>
+                                <th className="text-center">Procedimento</th>
+                                <th className="text-center">Pessoa</th>
+                                <th className="text-center">Processo</th>
+                                <th className="text-center">Produto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <this.CheckpointGrupoRow avaliacaoEntity={avaliacaoEntity} />
+                            </tbody>
+                          </Table>
+                        </div>
+                      </Card>
+                      <Card body outline>
+                        <CardTitle className="text-center">Performance</CardTitle>
+                        <ResponsiveContainer width="100%" height={400}>
+                          <BarChart data={this.getPerformanceGruposBarChartData()}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="nomeGrupo" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="procedimento" name="Procedimento" fill="#3F6CB0" />
+                            <Bar dataKey="pessoa" name="Pessoa" fill="#B03B3C" />
+                            <Bar dataKey="processo" name="Processo" fill="#8AB048" />
+                            <Bar dataKey="produto" name="Produto" fill="#6C4D91" />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </Card>
+                      <Card body outline>
+                        <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
+                        <ResponsiveContainer width="50%" height={300}>
+                          <BarChart data={this.getPerformancePontosBarChartData()}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="tipo" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="validos" name="Válidos" fill="#3F6CB0" />
+                            <Bar dataKey="obtidos" name="Obtidos" fill="#8AB048" />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </Card>
+                    </>
+                  )}
               </TabPane>
             </TabContent>
           </div>
-          <dl className="jh-entity-details">
-            <dt>
-              <span id="iniciadaEm">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={avaliacaoEntity.iniciadaEm} type="date" format={APP_DATE_FORMAT} />
-            </dd>
-            <dt>
-              <span id="latitudeInicioAvaliacao">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.latitudeInicioAvaliacao">Latitude Inicio Avaliacao</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.latitudeInicioAvaliacao}</dd>
-            <dt>
-              <span id="longitudeInicioAvaliacao">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.longitudeInicioAvaliacao">Longitude Inicio Avaliacao</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.longitudeInicioAvaliacao}</dd>
-            <dt>
-              <span id="nomeResponsavelLoja">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeResponsavelLoja">Nome Responsavel Loja</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nomeResponsavelLoja}</dd>
-            <dt>
-              <span id="prontuarioResponsavelLoja">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.prontuarioResponsavelLoja">Prontuario Responsavel Loja</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.prontuarioResponsavelLoja}</dd>
-            <dt>
-              <span id="submetidoEm">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidoEm">Submetido Em</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} />
-            </dd>
-            <dt>
-              <span id="latitudeSubmissaoAvaliacao">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.latitudeSubmissaoAvaliacao">Latitude Submissao Avaliacao</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.latitudeSubmissaoAvaliacao}</dd>
-            <dt>
-              <span id="longitudeSubmissaoAvaliacao">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.longitudeSubmissaoAvaliacao">
-                  Longitude Submissao Avaliacao
-                </Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.longitudeSubmissaoAvaliacao}</dd>
-            <dt>
-              <span id="observacaoSubmissaoEnviadaForaDaLoja">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacaoSubmissaoEnviadaForaDaLoja">
-                  Observacao Submissao Enviada Fora Da Loja
-                </Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.observacaoSubmissaoEnviadaForaDaLoja}</dd>
-            <dt>
-              <span id="status">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.status">Status</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.status}</dd>
-            <dt>
-              <span id="criticidadePainel">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.criticidadePainel">Criticidade Painel</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.criticidadePainel}</dd>
-            <dt>
-              <span id="nivelEficienciaGeral">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral">Nivel Eficiencia Geral</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nivelEficienciaGeral}</dd>
-            <dt>
-              <span id="nivelEficienciaProcedimento">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento">
-                  Nivel Eficiencia Procedimento
-                </Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nivelEficienciaProcedimento}</dd>
-            <dt>
-              <span id="nivelEficienciaPessoa">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa">Nivel Eficiencia Pessoa</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nivelEficienciaPessoa}</dd>
-            <dt>
-              <span id="nivelEficienciaProcesso">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso">Nivel Eficiencia Processo</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nivelEficienciaProcesso}</dd>
-            <dt>
-              <span id="nivelEficienciaProduto">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto">Nivel Eficiencia Produto</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.nivelEficienciaProduto}</dd>
-            <dt>
-              <span id="canceladoEm">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={avaliacaoEntity.canceladoEm} type="date" format={APP_DATE_FORMAT} />
-            </dd>
-            <dt>
-              <span id="motivoCancelamento">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.motivoCancelamento">Motivo Cancelamento</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.motivoCancelamento}</dd>
-            <dt>
-              <span id="percentualPerda">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerda">Percentual Perda</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.percentualPerda}</dd>
-            <dt>
-              <span id="financeiroPerda">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerda">Financeiro Perda</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.financeiroPerda}</dd>
-            <dt>
-              <span id="pontuacaoPerda">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerda">Pontuacao Perda</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.pontuacaoPerda}</dd>
-            <dt>
-              <span id="statusPerda">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusPerda">Status Perda</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.statusPerda}</dd>
-            <dt>
-              <span id="categorizacaoPerda">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerda">Categorizacao Perda</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.categorizacaoPerda}</dd>
-            <dt>
-              <span id="percentualQuebra">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualQuebra">Percentual Quebra</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.percentualQuebra}</dd>
-            <dt>
-              <span id="financeiroQuebra">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroQuebra">Financeiro Quebra</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.financeiroQuebra}</dd>
-            <dt>
-              <span id="pontuacaoQuebra">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoQuebra">Pontuacao Quebra</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.pontuacaoQuebra}</dd>
-            <dt>
-              <span id="statusQuebra">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.statusQuebra">Status Quebra</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.statusQuebra}</dd>
-            <dt>
-              <span id="categorizacaoQuebra">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoQuebra">Categorizacao Quebra</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.categorizacaoQuebra}</dd>
-            <dt>
-              <span id="importadoViaPlanilha">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.importadoViaPlanilha ? 'true' : 'false'}</dd>
-            <dt>
-              <span id="caminhoArquivoPlanilha">
-                <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>
-              </span>
-            </dt>
-            <dd>{avaliacaoEntity.caminhoArquivoPlanilha}</dd>
-            <dt>
-              <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeAvaliador">Avaliador</Translate>
-            </dt>
-            <dd>{avaliacaoEntity.avaliadorName ? avaliacaoEntity.avaliadorName : ''}</dd>
-            <dt>
-              <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>
-            </dt>
-            <dd>{avaliacaoEntity.questionarioNome ? avaliacaoEntity.questionarioNome : ''}</dd>
-            <dt>
-              <Translate contentKey="dcpdesconformidadesApp.avaliacao.loja">Loja</Translate>
-            </dt>
-            <dd>{avaliacaoEntity.lojaNome ? avaliacaoEntity.lojaNome : ''}</dd>
-          </dl>
-          <Button tag={Link} to="/entity/avaliacao" replace color="info">
+          <Button tag={Link} to="/entity/avaliacao" replace color="info" style={{ marginTop: '15px' }}>
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
-            </span>
-          </Button>
-          &nbsp;
-          <Button tag={Link} to={`/entity/avaliacao/${avaliacaoEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
         </Col>
@@ -682,6 +848,7 @@ const NivelEficienciaCard = props => (
     <CardTitle className="text-center">{props.title}</CardTitle>
     <Row>
       <Col xs="8">
+        <div className="help-text">Mais eficiente</div>
         <Progress className="progress-etiqueta-A" value="100">
           <span>A</span>
         </Progress>
@@ -697,6 +864,7 @@ const NivelEficienciaCard = props => (
         <Progress className="progress-etiqueta-E" value="20">
           <span>E</span>
         </Progress>
+        <div className="help-text">Menos eficiente</div>
       </Col>
       <Col xs="4" className={`etiqueta-text etiqueta-text-${props.etiqueta}`}>
         {props.etiqueta}

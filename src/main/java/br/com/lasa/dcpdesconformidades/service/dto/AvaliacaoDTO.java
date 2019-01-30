@@ -100,6 +100,10 @@ public class AvaliacaoDTO implements Serializable {
 
     private String lojaNome;
     
+    private String lojaLatitude;
+    
+    private String lojaLongitude;
+    
     private Set<ItemAvaliadoDTO> itensAvaliados = new HashSet<>();
     
     private LinkedHashSet<ItemAuditadoDTO> itensAuditados = new LinkedHashSet<>();
@@ -402,6 +406,22 @@ public class AvaliacaoDTO implements Serializable {
         this.lojaNome = lojaNome;
     }
     
+    public String getLojaLatitude() {
+      return lojaLatitude;
+    }
+
+    public void setLojaLatitude(String lojaLatitude) {
+      this.lojaLatitude = lojaLatitude;
+    }
+
+    public String getLojaLongitude() {
+      return lojaLongitude;
+    }
+
+    public void setLojaLongitude(String lojaLongitude) {
+      this.lojaLongitude = lojaLongitude;
+    }
+
     public Set<ItemAvaliadoDTO> getItensAvaliados() {
       return itensAvaliados;
     }

@@ -5,15 +5,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 
-import reducer, {
-  ACTION_TYPES,
-  createEntity,
-  deleteEntity,
-  getEntities,
-  getEntity,
-  updateEntity,
-  reset
-} from 'app/entities/avaliacao/avaliacao.reducer';
+import reducer, { ACTION_TYPES, deleteEntity, getEntities, getEntity, reset } from 'app/entities/avaliacao/avaliacao.reducer';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IAvaliacao, defaultValue } from 'app/shared/model/avaliacao.model';
 
@@ -71,20 +63,6 @@ describe('Entities reducer tests', () => {
       });
     });
 
-    it('should set state to updating', () => {
-      testMultipleTypes(
-        [REQUEST(ACTION_TYPES.CREATE_AVALIACAO), REQUEST(ACTION_TYPES.UPDATE_AVALIACAO), REQUEST(ACTION_TYPES.CANCEL_AVALIACAO)],
-        {},
-        state => {
-          expect(state).toMatchObject({
-            errorMessage: null,
-            updateSuccess: false,
-            updating: true
-          });
-        }
-      );
-    });
-
     it('should reset the state', () => {
       expect(
         reducer(
@@ -102,13 +80,7 @@ describe('Entities reducer tests', () => {
   describe('Failures', () => {
     it('should set a message in errorMessage', () => {
       testMultipleTypes(
-        [
-          FAILURE(ACTION_TYPES.FETCH_AVALIACAO_LIST),
-          FAILURE(ACTION_TYPES.FETCH_AVALIACAO),
-          FAILURE(ACTION_TYPES.CREATE_AVALIACAO),
-          FAILURE(ACTION_TYPES.UPDATE_AVALIACAO),
-          FAILURE(ACTION_TYPES.CANCEL_AVALIACAO)
-        ],
+        [FAILURE(ACTION_TYPES.FETCH_AVALIACAO_LIST), FAILURE(ACTION_TYPES.FETCH_AVALIACAO), FAILURE(ACTION_TYPES.CANCEL_AVALIACAO)],
         'error message',
         state => {
           expect(state).toMatchObject({
@@ -147,21 +119,6 @@ describe('Entities reducer tests', () => {
       ).toEqual({
         ...initialState,
         loading: false,
-        entity: payload.data
-      });
-    });
-
-    it('should create/update entity', () => {
-      const payload = { data: 'fake payload' };
-      expect(
-        reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.CREATE_AVALIACAO),
-          payload
-        })
-      ).toEqual({
-        ...initialState,
-        updating: false,
-        updateSuccess: true,
         entity: payload.data
       });
     });
@@ -216,46 +173,6 @@ describe('Entities reducer tests', () => {
         }
       ];
       await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
-
-    it('dispatches ACTION_TYPES.CREATE_AVALIACAO actions', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.CREATE_AVALIACAO)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.CREATE_AVALIACAO),
-          payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_AVALIACAO_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_AVALIACAO_LIST),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
-
-    it('dispatches ACTION_TYPES.UPDATE_AVALIACAO actions', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.UPDATE_AVALIACAO)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.UPDATE_AVALIACAO),
-          payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_AVALIACAO_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_AVALIACAO_LIST),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
     it('dispatches ACTION_TYPES.CANCEL_AVALIACAO actions', async () => {

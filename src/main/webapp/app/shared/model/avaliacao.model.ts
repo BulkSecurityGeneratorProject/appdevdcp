@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
 import { IItemAuditado } from 'app/shared/model/item-auditado.model';
 import { IItemSolicitadoAjuste } from 'app/shared/model/item-solicitado-ajuste.model';
+import { IQuestionario } from 'app/shared/model/questionario.model';
 
 export const enum StatusAvaliacao {
   INICIADA = 'INICIADA',
@@ -80,10 +81,27 @@ export interface IAvaliacao {
   avaliadorName?: string;
   avaliadorProntuario?: string;
   avaliadorId?: number;
-  questionarioNome?: string;
-  questionarioId?: number;
+  questionario?: IQuestionario;
   lojaNome?: string;
   lojaId?: number;
+  lojaLatitude?: number;
+  lojaLongitude?: number;
+  pontosPorGrupos?: {
+    [grupoId: number]: IPontosPorGrupo;
+  };
+}
+
+export interface IPontosPorGrupo {
+  pontosProcedimento: number;
+  pontosPessoa: number;
+  pontosProcesso: number;
+  pontosProduto: number;
+  pontosObtidosProcedimento: number;
+  pontosObtidosPessoa: number;
+  pontosObtidosProcesso: number;
+  pontosObtidosProduto: number;
+  totalPontos: number;
+  totalPontosObtidos: number;
 }
 
 export const defaultValue: Readonly<IAvaliacao> = {

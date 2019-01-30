@@ -1,16 +1,13 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, IPayload, IPayloadResult } from 'react-jhipster';
+import { ICrudGetAction, ICrudGetAllAction, IPayload, IPayloadResult } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
-import { IAvaliacao, defaultValue } from 'app/shared/model/avaliacao.model';
+import { IAvaliacao, defaultValue, IPontosPorGrupo } from 'app/shared/model/avaliacao.model';
 
 export const ACTION_TYPES = {
   FETCH_AVALIACAO_LIST: 'avaliacao/FETCH_AVALIACAO_LIST',
   FETCH_AVALIACAO: 'avaliacao/FETCH_AVALIACAO',
-  CREATE_AVALIACAO: 'avaliacao/CREATE_AVALIACAO',
-  UPDATE_AVALIACAO: 'avaliacao/UPDATE_AVALIACAO',
   CANCEL_AVALIACAO: 'avaliacao/CANCEL_AVALIACAO',
   RESET: 'avaliacao/RESET'
 };
@@ -41,8 +38,6 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
         updateSuccess: false,
         loading: true
       };
-    case REQUEST(ACTION_TYPES.CREATE_AVALIACAO):
-    case REQUEST(ACTION_TYPES.UPDATE_AVALIACAO):
     case REQUEST(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
         ...state,
@@ -52,8 +47,6 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
       };
     case FAILURE(ACTION_TYPES.FETCH_AVALIACAO_LIST):
     case FAILURE(ACTION_TYPES.FETCH_AVALIACAO):
-    case FAILURE(ACTION_TYPES.CREATE_AVALIACAO):
-    case FAILURE(ACTION_TYPES.UPDATE_AVALIACAO):
     case FAILURE(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
         ...state,
@@ -70,18 +63,12 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_AVALIACAO):
+      const data = action.payload.data;
+      includePontosTotaisParaGrupos(data);
       return {
         ...state,
         loading: false,
-        entity: action.payload.data
-      };
-    case SUCCESS(ACTION_TYPES.CREATE_AVALIACAO):
-    case SUCCESS(ACTION_TYPES.UPDATE_AVALIACAO):
-      return {
-        ...state,
-        updating: false,
-        updateSuccess: true,
-        entity: action.payload.data
+        entity: data
       };
     case SUCCESS(ACTION_TYPES.CANCEL_AVALIACAO):
       return {
@@ -103,6 +90,48 @@ const apiUrl = 'api/avaliacaos';
 
 // Actions
 
+const includePontosTotaisParaGrupos: ((avaliacao?: IAvaliacao) => void) = avaliacao => {
+  avaliacao.pontosPorGrupos = {};
+
+  avaliacao.questionario.grupos.forEach(grupo => {
+    const itensAvaliacaoIds = grupo.itens.map(item => item.id);
+
+    const pontos = {
+      pontosProcedimento: 0,
+      pontosPessoa: 0,
+      pontosProcesso: 0,
+      pontosProduto: 0,
+      pontosObtidosProcedimento: 0,
+      pontosObtidosPessoa: 0,
+      pontosObtidosProcesso: 0,
+      pontosObtidosProduto: 0,
+      totalPontos: 0,
+      totalPontosObtidos: 0,
+      obtencao: 0
+    };
+
+    avaliacao.itensAvaliados.forEach(item => {
+      if (itensAvaliacaoIds.includes(item.itemAvaliacaoId)) {
+        pontos.pontosProcedimento += item.pontosProcedimento;
+        pontos.pontosPessoa += item.pontosPessoa;
+        pontos.pontosProcesso += item.pontosProcesso;
+        pontos.pontosProduto += item.pontosProduto;
+        pontos.pontosObtidosProcedimento += item.pontosObtidosProcedimento;
+        pontos.pontosObtidosPessoa += item.pontosObtidosPessoa;
+        pontos.pontosObtidosProcesso += item.pontosObtidosProcesso;
+        pontos.pontosObtidosProduto += item.pontosObtidosProduto;
+      }
+    });
+
+    pontos.totalPontos = pontos.pontosProcedimento + pontos.pontosPessoa + pontos.pontosProcesso + pontos.pontosProduto;
+    pontos.totalPontosObtidos =
+      pontos.pontosObtidosProcedimento + pontos.pontosObtidosPessoa + pontos.pontosObtidosProcesso + pontos.pontosObtidosProduto;
+    pontos.obtencao = pontos.totalPontosObtidos / pontos.totalPontos;
+
+    avaliacao.pontosPorGrupos[grupo.id] = pontos;
+  });
+};
+
 export const getEntities: ICrudGetAllAction<IAvaliacao> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
@@ -117,24 +146,6 @@ export const getEntity: ICrudGetAction<IAvaliacao> = id => {
     type: ACTION_TYPES.FETCH_AVALIACAO,
     payload: axios.get<IAvaliacao>(requestUrl)
   };
-};
-
-export const createEntity: ICrudPutAction<IAvaliacao> = entity => async dispatch => {
-  const result = await dispatch({
-    type: ACTION_TYPES.CREATE_AVALIACAO,
-    payload: axios.post(apiUrl, cleanEntity(entity))
-  });
-  dispatch(getEntities());
-  return result;
-};
-
-export const updateEntity: ICrudPutAction<IAvaliacao> = entity => async dispatch => {
-  const result = await dispatch({
-    type: ACTION_TYPES.UPDATE_AVALIACAO,
-    payload: axios.put(apiUrl, cleanEntity(entity))
-  });
-  dispatch(getEntities());
-  return result;
 };
 
 export const deleteEntity: ICrudDeleteAction<IAvaliacao> = (id, motivo) => async dispatch => {

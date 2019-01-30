@@ -16,7 +16,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './avaliacao.reducer';
-import { IAvaliacao } from 'app/shared/model/avaliacao.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -149,8 +148,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <td>{avaliacao.importadoViaPlanilha ? 'true' : 'false'}</td>
                   <td>{avaliacao.caminhoArquivoPlanilha}</td>
                   <td>
-                    {avaliacao.questionarioNome ? (
-                      <Link to={`questionario/${avaliacao.questionarioId}`}>{avaliacao.questionarioNome}</Link>
+                    {avaliacao.questionario.nome ? (
+                      <Link to={`questionario/${avaliacao.questionario.id}`}>{avaliacao.questionario.nome}</Link>
                     ) : (
                       ''
                     )}

@@ -317,12 +317,97 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 
 .tab-checklist table,
 .tab-solicitacao-ajuste table,
-.tab-auditoria table {
+.tab-auditoria table,
+.tab-apoio-spp table {
   font-size: 0.8rem;
 }
 
 .tab-checklist {
+  .status-item-avaliado-OK {
+    background-color: rgba(207, 223, 174, 1);
+    color: rgba(62, 81, 30, 1);
+    font-weight: 600;
+  }
+  .status-item-avaliado-NAO_OK {
+    background-color: rgba(238, 211, 211, 1);
+    color: rgba(225, 39, 39, 1);
+    font-weight: 600;
+  }
+  .status-item-avaliado-N_A {
+    background-color: rgba(246, 203, 164, 1);
+    color: rgba(216, 86, 37, 1);
+    font-weight: 600;
+  }
+
+  .categorizacao-perda-quebra-INADMISSIVEL {
+    background-color: rgba(29, 29, 29, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+  .categorizacao-perda-quebra-CRITICO {
+    background-color: rgba(225, 39, 39, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+  .categorizacao-perda-quebra-VALOR_ELEVADO {
+    background-color: rgba(217, 86, 37, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+  .categorizacao-perda-quebra-ATENCAO {
+    background-color: rgba(244, 180, 40, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+  .categorizacao-perda-quebra-CONTROLE {
+    background-color: rgba(60, 132, 53, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+  .categorizacao-perda-quebra-SOBRA_DESCONTROLE {
+    background-color: rgba(180, 114, 114, 1);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .table-header {
+    background-color: rgba(134, 36, 23, 1);
+    color: #fff;
+  }
+
+  .grupo-pontos-sum-table-row {
+    background-color: rgba(230, 103, 107, 1);
+    color: #fff;
+  }
+}
+
+.tab-auditoria {
+  .tipo-item-auditado-TOP_5_PERDAS {
+    background-color: rgba(231, 128, 192, 0.7);
+  }
+  .tipo-item-auditado-ALTO_RISCO {
+    background-color: rgba(254, 253, 193, 0.7);
+  }
+  .tipo-item-auditado-TROCA_CANCELAMENTO_DVC {
+    background-color: rgba(245, 192, 135, 0.7);
+  }
+}
+
+.tab-checklist,
+.tab-auditoria,
+.tab-solicitacao-ajuste,
+.tab-apoio-spp {
+  td,
+  th {
+    @extend .align-middle;
+  }
   .card + .card {
+    margin-top: 1rem;
+  }
+}
+
+.tab-etiqueta {
+  .card-deck {
     margin-top: 1rem;
   }
 }
@@ -333,6 +418,11 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   $etiquetaCColor: rgba(216, 85, 37, 1);
   $etiquetaDColor: rgba(225, 39, 39, 1);
   $etiquetaEColor: rgba(0, 0, 0, 1);
+
+  .help-text {
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
 
   .progress {
     span {
@@ -406,6 +496,12 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
     margin-top: 0.8rem;
     font-size: 0.8rem;
   }
+}
+
+.text-signed {
+  border-bottom: 1px solid;
+  display: table;
+  padding: 0 2rem;
 }
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
