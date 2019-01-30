@@ -63,19 +63,15 @@ public class ItemAvaliado implements Serializable {
     @Column(name = "longitude_local_resposta", nullable = false)
     private Double longitudeLocalResposta;
 
-    @NotNull
     @Column(name = "pontos_procedimento", nullable = false)
     private Integer pontosProcedimento;
 
-    @NotNull
     @Column(name = "pontos_pessoa", nullable = false)
     private Integer pontosPessoa;
 
-    @NotNull
     @Column(name = "pontos_processo", nullable = false)
     private Integer pontosProcesso;
 
-    @NotNull
     @Column(name = "pontos_produto", nullable = false)
     private Integer pontosProduto;
 

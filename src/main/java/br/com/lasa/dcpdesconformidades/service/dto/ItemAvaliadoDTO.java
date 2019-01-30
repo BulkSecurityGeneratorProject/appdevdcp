@@ -29,16 +29,12 @@ public class ItemAvaliadoDTO implements Serializable {
     @NotNull
     private Double longitudeLocalResposta;
 
-    @NotNull
     private Integer pontosProcedimento;
 
-    @NotNull
     private Integer pontosPessoa;
 
-    @NotNull
     private Integer pontosProcesso;
 
-    @NotNull
     private Integer pontosProduto;
 
     private Integer pontosObtidosProcedimento;
