@@ -10,6 +10,21 @@ const adminMenuItems = (
     <DropdownItem tag={Link} to="/admin/user-management">
       <FontAwesomeIcon icon="user" fixedWidth /> <Translate contentKey="global.menu.admin.userManagement">User management</Translate>
     </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/loja">
+      <FontAwesomeIcon icon="store-alt" fixedWidth /> <Translate contentKey="global.menu.entities.loja" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/questionario">
+      <FontAwesomeIcon icon="tasks" fixedWidth /> <Translate contentKey="global.menu.entities.questionario" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/grupo-itens">
+      <FontAwesomeIcon icon="layer-group" fixedWidth /> <Translate contentKey="global.menu.entities.grupoItens" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/item-avaliacao">
+      <FontAwesomeIcon icon="question-circle" fixedWidth /> <Translate contentKey="global.menu.entities.itemAvaliacao" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/perda-quebra-acumulados-ano-loja">
+      <FontAwesomeIcon icon="calculator" fixedWidth /> <Translate contentKey="global.menu.entities.perdaQuebraAcumuladosAnoLoja" />
+    </DropdownItem>
     <DropdownItem tag={Link} to="/admin/metrics">
       <FontAwesomeIcon icon="tachometer-alt" fixedWidth /> <Translate contentKey="global.menu.admin.metrics">Metrics</Translate>
     </DropdownItem>

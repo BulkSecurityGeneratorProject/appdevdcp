@@ -45,3 +45,14 @@ export const Home = props => (
     </NavLink>
   </NavItem>
 );
+
+export const Avaliacoes = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/entity/avaliacao" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="file-invoice" />
+      <span>
+        <Translate contentKey="global.menu.entities.avaliacao" />
+      </span>
+    </NavLink>
+  </NavItem>
+);

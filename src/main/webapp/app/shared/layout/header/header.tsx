@@ -2,14 +2,12 @@ import './header.scss';
 
 import React from 'react';
 import { Translate, Storage } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Navbar, Nav, NavbarToggler, Collapse } from 'reactstrap';
 
-import { NavLink as Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Home, Brand } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu } from './menus';
+import { Home, Brand, Avaliacoes } from './header-components';
+import { AdminMenu, AccountMenu } from './menus';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -64,7 +62,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           <Collapse isOpen={this.state.menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
               <Home />
-              {isAuthenticated && <EntitiesMenu />}
+              {isAuthenticated && <Avaliacoes />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
               <AccountMenu isAuthenticated={isAuthenticated} />
             </Nav>
