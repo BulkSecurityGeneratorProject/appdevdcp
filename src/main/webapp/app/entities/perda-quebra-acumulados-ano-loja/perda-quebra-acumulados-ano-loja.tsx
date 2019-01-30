@@ -118,7 +118,7 @@ export class PerdaQuebraAcumuladosAnoLoja extends React.Component<IPerdaQuebraAc
                   </td>
                   <td>
                     {perdaQuebraAcumuladosAnoLoja.loja ? (
-                      <Link to={`loja/${perdaQuebraAcumuladosAnoLoja.loja.id}`}>{perdaQuebraAcumuladosAnoLoja.loja.nome}</Link>
+                      <Link to={`loja/${perdaQuebraAcumuladosAnoLoja.loja.id}`}>{perdaQuebraAcumuladosAnoLoja.loja.nomeFormatado}</Link>
                     ) : (
                       ''
                     )}

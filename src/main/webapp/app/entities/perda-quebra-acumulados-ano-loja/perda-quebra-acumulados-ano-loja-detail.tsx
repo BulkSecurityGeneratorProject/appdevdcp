@@ -104,7 +104,7 @@ export class PerdaQuebraAcumuladosAnoLojaDetail extends React.Component<IPerdaQu
             <dt>
               <Translate contentKey="dcpdesconformidadesApp.perdaQuebraAcumuladosAnoLoja.loja">Loja</Translate>
             </dt>
-            <dd>{perdaQuebraAcumuladosAnoLojaEntity.loja ? perdaQuebraAcumuladosAnoLojaEntity.loja.nome : ''}</dd>
+            <dd>{perdaQuebraAcumuladosAnoLojaEntity.loja ? perdaQuebraAcumuladosAnoLojaEntity.loja.nomeFormatado : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/perda-quebra-acumulados-ano-loja" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

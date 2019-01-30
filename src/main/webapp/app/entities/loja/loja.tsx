@@ -82,7 +82,7 @@ export class Loja extends React.Component<ILojaProps, ILojaState> {
                 <tr key={`entity-${i}`}>
                   <td>
                     <Button tag={Link} to={`${match.url}/${loja.id}`} color="link" size="sm">
-                      {loja.id}
+                      L{loja.id}
                     </Button>
                   </td>
                   <td>{loja.nome}</td>

@@ -63,7 +63,7 @@ public class Loja implements Serializable {
     private Set<User> avaliadores = new HashSet<>();
     
     public String getNomeFormatado() {
-        return String.format("%d - %s", this.id, this.nome);
+        return String.format("L%d - %s", this.id, this.nome);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
