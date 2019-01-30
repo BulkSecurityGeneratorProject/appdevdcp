@@ -76,10 +76,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeResponsavelLoja">Nome Responsavel Loja</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('prontuarioResponsavelLoja')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.prontuarioResponsavelLoja">Prontuario Responsavel Loja</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.nomeAvaliador">Avaliador</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
@@ -128,7 +124,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   </td>
                   <td>{avaliacao.lojaNome ? <Link to={`loja/${avaliacao.lojaId}`}>{avaliacao.lojaNome}</Link> : ''}</td>
                   <td>{avaliacao.nomeResponsavelLoja}</td>
-                  <td>{avaliacao.prontuarioResponsavelLoja}</td>
                   <td>{avaliacao.avaliadorName ? avaliacao.avaliadorName : ''}</td>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.StatusAvaliacao.${avaliacao.status}`} />
