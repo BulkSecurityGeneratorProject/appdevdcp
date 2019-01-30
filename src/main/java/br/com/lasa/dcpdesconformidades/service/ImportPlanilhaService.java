@@ -10,12 +10,14 @@ import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -180,7 +182,7 @@ public class ImportPlanilhaService {
     Integer prontuarioAvaliador = Integer.valueOf(extractCellValueWithCommentsAsString(sheetChecklist, "F4"));
     CriticidadePainel criticidadePainel = CriticidadePainel.fromDescricao(extractCellValueWithCommentsAsString(sheetChecklist, "G3"));
     String dataAsString = extractCellValueWithCommentsAsString(sheetChecklist, "I3");
-    Instant dataAvaliacao = LocalDate.parse(dataAsString, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay().toInstant(ZoneOffset.UTC);
+    Instant dataAvaliacao = LocalDate.parse(dataAsString, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant();
 
 
     Double percentualPerda = Double.valueOf(extractCellValueWithCommentsAsString(sheetChecklist, "E112"));
@@ -270,10 +272,6 @@ public class ImportPlanilhaService {
       StatusItemAvaliado status = StatusItemAvaliado.fromClassificacao(extractCellValueWithCommentsAsString(row.getCell(2)));
       String descricao = extractCellValueWithCommentsAsString(row.getCell(3));
 
-      Integer pontosProcedimento = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(15))).intValue();
-      Integer pontosPessoa = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(16))).intValue();
-      Integer pontosProcesso = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(17))).intValue();
-      Integer pontosProduto = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(18))).intValue();
 
       String observacoes = extractCellValueWithCommentsAsString(row.getCell(9));
 
@@ -289,17 +287,23 @@ public class ImportPlanilhaService {
       itemAvaliado.observacoes(observacoes);
       itemAvaliado.latitudeLocalResposta(loja.getLatitude());
       itemAvaliado.longitudeLocalResposta(loja.getLongitude());
-      itemAvaliado.pontosProcedimento(pontosProcedimento);
-      itemAvaliado.pontosPessoa(pontosPessoa);
-      itemAvaliado.pontosProcesso(pontosProcesso);
-      itemAvaliado.pontosProduto(pontosProduto);
 
+      // N/A não tem pontos válidos / obtidos.
       if (status != StatusItemAvaliado.N_A) {
+        
+        Integer pontosProcedimento = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(15))).intValue();
+        Integer pontosPessoa = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(16))).intValue();
+        Integer pontosProcesso = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(17))).intValue();
+        Integer pontosProduto = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(18))).intValue();
         Integer pontosObtidosProcedimento = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(4))).intValue();
         Integer pontosObtidosPessoa = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(5))).intValue();
         Integer pontosObtidosProcesso = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(6))).intValue();
         Integer pontosObtidosProduto = Float.valueOf(extractCellValueWithCommentsAsString(row.getCell(7))).intValue();
 
+        itemAvaliado.pontosProcedimento(pontosProcedimento);
+        itemAvaliado.pontosPessoa(pontosPessoa);
+        itemAvaliado.pontosProcesso(pontosProcesso);
+        itemAvaliado.pontosProduto(pontosProduto);
         itemAvaliado.pontosObtidosProcedimento(pontosObtidosProcedimento);
         itemAvaliado.pontosObtidosPessoa(pontosObtidosPessoa);
         itemAvaliado.pontosObtidosProcesso(pontosObtidosProcesso);
