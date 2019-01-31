@@ -1,4 +1,4 @@
-import { IItemAvaliado } from 'app/shared/model//item-avaliado.model';
+import { IItemAvaliado } from 'app/shared/model/item-avaliado.model';
 
 export interface IItemAvaliacao {
   id?: number;

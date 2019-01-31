@@ -25,25 +25,9 @@ import itemAvaliacao, {
   ItemAvaliacaoState
 } from 'app/entities/item-avaliacao/item-avaliacao.reducer';
 // prettier-ignore
-import itemAvaliado, {
-  ItemAvaliadoState
-} from 'app/entities/item-avaliado/item-avaliado.reducer';
-// prettier-ignore
 import grupoItens, {
   GrupoItensState
 } from 'app/entities/grupo-itens/grupo-itens.reducer';
-// prettier-ignore
-import anexoItem, {
-  AnexoItemState
-} from 'app/entities/anexo-item/anexo-item.reducer';
-// prettier-ignore
-import itemAuditado, {
-  ItemAuditadoState
-} from 'app/entities/item-auditado/item-auditado.reducer';
-// prettier-ignore
-import itemSolicitadoAjuste, {
-  ItemSolicitadoAjusteState
-} from 'app/entities/item-solicitado-ajuste/item-solicitado-ajuste.reducer';
 // prettier-ignore
 import perdaQuebraAcumuladosAnoLoja, {
   PerdaQuebraAcumuladosAnoLojaState
@@ -61,11 +45,7 @@ export interface IRootState {
   readonly loja: LojaState;
   readonly avaliacao: AvaliacaoState;
   readonly itemAvaliacao: ItemAvaliacaoState;
-  readonly itemAvaliado: ItemAvaliadoState;
   readonly grupoItens: GrupoItensState;
-  readonly anexoItem: AnexoItemState;
-  readonly itemAuditado: ItemAuditadoState;
-  readonly itemSolicitadoAjuste: ItemSolicitadoAjusteState;
   readonly perdaQuebraAcumuladosAnoLoja: PerdaQuebraAcumuladosAnoLojaState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
@@ -82,11 +62,7 @@ const rootReducer = combineReducers<IRootState>({
   loja,
   avaliacao,
   itemAvaliacao,
-  itemAvaliado,
   grupoItens,
-  anexoItem,
-  itemAuditado,
-  itemSolicitadoAjuste,
   perdaQuebraAcumuladosAnoLoja,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
