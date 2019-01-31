@@ -7,6 +7,7 @@ import { Translate, translate } from 'react-jhipster';
 
 const adminMenuItems = (
   <>
+    <DropdownItem header>DCP</DropdownItem>
     <DropdownItem tag={Link} to="/admin/user-management">
       <FontAwesomeIcon icon="user" fixedWidth /> <Translate contentKey="global.menu.admin.userManagement">User management</Translate>
     </DropdownItem>
@@ -25,6 +26,8 @@ const adminMenuItems = (
     <DropdownItem tag={Link} to="/entity/perda-quebra-acumulados-ano-loja">
       <FontAwesomeIcon icon="calculator" fixedWidth /> <Translate contentKey="global.menu.entities.perdaQuebraAcumuladosAnoLoja" />
     </DropdownItem>
+    <DropdownItem divider />
+    <DropdownItem header>Sistema</DropdownItem>
     <DropdownItem tag={Link} to="/admin/metrics">
       <FontAwesomeIcon icon="tachometer-alt" fixedWidth /> <Translate contentKey="global.menu.admin.metrics">Metrics</Translate>
     </DropdownItem>
