@@ -32,6 +32,7 @@ a {
     padding: 1rem;
     .card {
       padding: 1rem;
+      margin-top: 1rem;
     }
     .view-routes {
       height: 100%;
@@ -400,15 +401,6 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   td,
   th {
     @extend .align-middle;
-  }
-  .card + .card {
-    margin-top: 1rem;
-  }
-}
-
-.tab-etiqueta {
-  .card-deck {
-    margin-top: 1rem;
   }
 }
 

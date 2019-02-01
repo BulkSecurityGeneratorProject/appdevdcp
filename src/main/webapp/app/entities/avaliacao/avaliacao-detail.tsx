@@ -15,6 +15,7 @@ import {
   Table,
   CardTitle,
   CardDeck,
+  CardGroup,
   Progress,
   Alert
 } from 'reactstrap';
@@ -25,7 +26,7 @@ import classnames from 'classnames';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './avaliacao.reducer';
-import { IAvaliacao } from 'app/shared/model/avaliacao.model';
+import { IAvaliacao, IPontosPorGrupo } from 'app/shared/model/avaliacao.model';
 import { TipoItemAuditado } from 'app/shared/model/item-auditado.model';
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -46,11 +47,13 @@ export interface IAvaliacaoDetailProps extends StateProps, DispatchProps, RouteC
 export interface IAvaliacaoDetailState {
   activeTab: string;
   rowSpanForItensAuditados: {};
+  pontosValidosEObtidosPorTipo: any[];
 }
 export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAvaliacaoDetailState> {
   state: IAvaliacaoDetailState = {
     activeTab: 'CHECKLIST',
-    rowSpanForItensAuditados: {}
+    rowSpanForItensAuditados: {},
+    pontosValidosEObtidosPorTipo: [] as any[]
   };
 
   // Obtém os primeiros itens de cada tipo e define o rowspan deles de acordo com a quantidade de itens para o tipo
@@ -67,6 +70,58 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
       .forEach((item, index) => (this.state.rowSpanForItensAuditados[item.id] = rowSpansForTipos[item.tipo]));
   }
 
+  getPontosValidosEObtidosPorTipo(pontosPorGrupos: IPontosPorGrupo[], pontuacaoPerdaEQuebra: number) {
+    const data = [];
+
+    const pontos = {
+      pontosProcedimento: 0,
+      pontosPessoa: 0,
+      pontosProcesso: 0,
+      pontosProduto: 0,
+      pontosObtidosProcedimento: 0,
+      pontosObtidosPessoa: 0,
+      pontosObtidosProcesso: 0,
+      pontosObtidosProduto: 0
+    };
+
+    Object.keys(pontosPorGrupos).forEach(grupoId => {
+      const pontosPorGrupo = pontosPorGrupos[grupoId];
+      pontos.pontosProcedimento += pontosPorGrupo.pontosProcedimento;
+      pontos.pontosPessoa += pontosPorGrupo.pontosPessoa;
+      pontos.pontosProcesso += pontosPorGrupo.pontosProcesso;
+      pontos.pontosProduto += pontosPorGrupo.pontosProduto;
+      pontos.pontosObtidosProcedimento += pontosPorGrupo.pontosObtidosProcedimento;
+      pontos.pontosObtidosPessoa += pontosPorGrupo.pontosObtidosPessoa;
+      pontos.pontosObtidosProcesso += pontosPorGrupo.pontosObtidosProcesso;
+      pontos.pontosObtidosProduto += pontosPorGrupo.pontosObtidosProduto;
+    });
+
+    data.push(
+      {
+        tipo: 'Procedimento',
+        validos: pontos.pontosProcedimento,
+        obtidos: pontos.pontosObtidosProcedimento + pontuacaoPerdaEQuebra
+      },
+      {
+        tipo: 'Pessoa',
+        validos: pontos.pontosPessoa,
+        obtidos: pontos.pontosObtidosPessoa + pontuacaoPerdaEQuebra
+      },
+      {
+        tipo: 'Processo',
+        validos: pontos.pontosProcesso,
+        obtidos: pontos.pontosObtidosProcesso + pontuacaoPerdaEQuebra
+      },
+      {
+        tipo: 'Produto',
+        validos: pontos.pontosProduto,
+        obtidos: pontos.pontosObtidosProduto + pontuacaoPerdaEQuebra
+      }
+    );
+
+    return data;
+  }
+
   getItemAvaliadoParaItemAvaliacaoId(itemAvaliacaoId: number): IItemAvaliado {
     return this.props.avaliacaoEntity.itensAvaliados.find(item => item.itemAvaliacaoId === itemAvaliacaoId);
   }
@@ -74,6 +129,12 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
   componentWillReceiveProps(nextProps) {
     if (nextProps.avaliacaoEntity.itensAuditados && nextProps.avaliacaoEntity.itensAuditados.length) {
       this.includeRowspanForItensAuditados(nextProps.avaliacaoEntity.itensAuditados);
+    }
+    if (nextProps.avaliacaoEntity.pontosPorGrupos) {
+      this.state.pontosValidosEObtidosPorTipo = this.getPontosValidosEObtidosPorTipo(
+        nextProps.avaliacaoEntity.pontosPorGrupos,
+        nextProps.avaliacaoEntity.pontuacaoPerda + nextProps.avaliacaoEntity.pontuacaoQuebra
+      );
     }
   }
 
@@ -237,58 +298,6 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
       );
     });
 
-  getPerformancePontosBarChartData() {
-    const barChartData = [];
-
-    const pontos = {
-      pontosProcedimento: 0,
-      pontosPessoa: 0,
-      pontosProcesso: 0,
-      pontosProduto: 0,
-      pontosObtidosProcedimento: 0,
-      pontosObtidosPessoa: 0,
-      pontosObtidosProcesso: 0,
-      pontosObtidosProduto: 0
-    };
-
-    Object.keys(this.props.avaliacaoEntity.pontosPorGrupos).forEach(grupoId => {
-      const pontosPorGrupo = this.props.avaliacaoEntity.pontosPorGrupos[grupoId];
-      pontos.pontosProcedimento += pontosPorGrupo.pontosProcedimento;
-      pontos.pontosPessoa += pontosPorGrupo.pontosPessoa;
-      pontos.pontosProcesso += pontosPorGrupo.pontosProcesso;
-      pontos.pontosProduto += pontosPorGrupo.pontosProduto;
-      pontos.pontosObtidosProcedimento += pontosPorGrupo.pontosObtidosProcedimento;
-      pontos.pontosObtidosPessoa += pontosPorGrupo.pontosObtidosPessoa;
-      pontos.pontosObtidosProcesso += pontosPorGrupo.pontosObtidosProcesso;
-      pontos.pontosObtidosProduto += pontosPorGrupo.pontosObtidosProduto;
-    });
-
-    barChartData.push(
-      {
-        tipo: 'Procedimento',
-        validos: pontos.pontosProcedimento,
-        obtidos: pontos.pontosObtidosProcedimento
-      },
-      {
-        tipo: 'Pessoa',
-        validos: pontos.pontosPessoa,
-        obtidos: pontos.pontosObtidosPessoa
-      },
-      {
-        tipo: 'Processo',
-        validos: pontos.pontosProcesso,
-        obtidos: pontos.pontosObtidosProcesso
-      },
-      {
-        tipo: 'Produto',
-        validos: pontos.pontosProduto,
-        obtidos: pontos.pontosObtidosProduto
-      }
-    );
-
-    return barChartData;
-  }
-
   getPerformanceGruposBarChartData() {
     const barChartData = [];
 
@@ -309,6 +318,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
 
   render() {
     const { avaliacaoEntity } = this.props;
+    const { activeTab, rowSpanForItensAuditados, pontosValidosEObtidosPorTipo } = this.state;
     return (
       <Row>
         <Col>
@@ -319,7 +329,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
             <Nav tabs>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === 'CHECKLIST' })}
+                  className={classnames({ active: activeTab === 'CHECKLIST' })}
                   onClick={() => this.toggle('CHECKLIST')} // tslint:disable-line jsx-no-lambda
                 >
                   Checklist
@@ -327,7 +337,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === 'AUDITORIA' })}
+                  className={classnames({ active: activeTab === 'AUDITORIA' })}
                   onClick={() => this.toggle('AUDITORIA')} // tslint:disable-line jsx-no-lambda
                 >
                   Auditoria
@@ -335,7 +345,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === 'SOLICITACAO_AJUSTE' })}
+                  className={classnames({ active: activeTab === 'SOLICITACAO_AJUSTE' })}
                   onClick={() => this.toggle('SOLICITACAO_AJUSTE')} // tslint:disable-line jsx-no-lambda
                 >
                   Solicitação de Ajuste
@@ -343,7 +353,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === 'ETIQUETA' })}
+                  className={classnames({ active: activeTab === 'ETIQUETA' })}
                   onClick={() => this.toggle('ETIQUETA')} // tslint:disable-line jsx-no-lambda
                 >
                   Etiqueta
@@ -351,14 +361,14 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === 'APOIO_SPP' })}
+                  className={classnames({ active: activeTab === 'APOIO_SPP' })}
                   onClick={() => this.toggle('APOIO_SPP')} // tslint:disable-line jsx-no-lambda
                 >
                   Apoio SPP
                 </NavLink>
               </NavItem>
             </Nav>
-            <TabContent activeTab={this.state.activeTab}>
+            <TabContent activeTab={activeTab}>
               <TabPane tabId="CHECKLIST" className="tab-checklist">
                 <Card body outline>
                   <Row>
@@ -572,6 +582,52 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   </div>
                 </Card>
 
+                <CardGroup>
+                  <Card body outline>
+                    <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
+                    <ResponsiveContainer height={300}>
+                      <BarChart data={pontosValidosEObtidosPorTipo}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="tipo" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="validos" name="Válidos" fill="#3F6CB0" />
+                        <Bar dataKey="obtidos" name="Obtidos" fill="#8AB048" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </Card>
+                  <Card body outline>
+                    <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
+                    <div className="table-responsive">
+                      <Table responsive bordered hover size="sm">
+                        <thead>
+                          <tr>
+                            <th />
+                            <th className="text-center">Pontos válidos</th>
+                            <th className="text-center">Pontos obtidos</th>
+                            <th className="text-center">% Obtenção</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {pontosValidosEObtidosPorTipo.map((pontos, i) => (
+                            <tr key={`pontos-validos-e-obtidos-${i}`}>
+                              <td className="text-center">
+                                <b>{pontos.tipo}</b>
+                              </td>
+                              <td className="text-center">{pontos.validos}</td>
+                              <td className="text-center">{pontos.obtidos}</td>
+                              <td className="text-center">
+                                <TextFormat value={pontos.obtidos / pontos.validos} type="number" format={APP_PERCENTAGE_FORMAT} />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                  </Card>
+                </CardGroup>
+
                 <Card body outline>
                   <Row>
                     <Col>
@@ -642,7 +698,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                 <Card body outline>
                   {avaliacaoEntity.itensAuditados && avaliacaoEntity.itensAuditados.length ? (
                     <div className="table-responsive">
-                      <Table responsive bordered hover size="sm">
+                      <Table responsive bordered hover size="sm" style={{ margin: 0 }}>
                         <thead>
                           <tr>
                             <th className="text-center">Tipo</th>
@@ -661,8 +717,8 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         <tbody>
                           {avaliacaoEntity.itensAuditados.map((itemAuditado, i) => (
                             <tr key={`item-auditado-${i}`} className={`tipo-item-auditado-${itemAuditado.tipo}`}>
-                              {this.state.rowSpanForItensAuditados[itemAuditado.id] && (
-                                <td rowSpan={this.state.rowSpanForItensAuditados[itemAuditado.id]} className="text-center">
+                              {rowSpanForItensAuditados[itemAuditado.id] && (
+                                <td rowSpan={rowSpanForItensAuditados[itemAuditado.id]} className="text-center">
                                   <b>
                                     <Translate contentKey={`dcpdesconformidadesApp.TipoItemAuditado.${itemAuditado.tipo}`} />
                                   </b>
@@ -684,7 +740,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </Table>
                     </div>
                   ) : (
-                    <Alert color="warning" className="text-center">
+                    <Alert color="warning" className="text-center" style={{ margin: 0 }}>
                       Nenhum item auditado para esta avaliação.
                     </Alert>
                   )}
@@ -694,7 +750,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                 <Card body outline>
                   {avaliacaoEntity.itensComAjusteSolicitados && avaliacaoEntity.itensComAjusteSolicitados.length ? (
                     <div className="table-responsive">
-                      <Table responsive bordered hover size="sm">
+                      <Table responsive bordered hover size="sm" style={{ margin: 0 }}>
                         <thead>
                           <tr>
                             <th className="text-center">Cód. SAP</th>
@@ -730,7 +786,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </Table>
                     </div>
                   ) : (
-                    <Alert color="warning" className="text-center">
+                    <Alert color="warning" className="text-center" style={{ margin: 0 }}>
                       Nenhum item com ajuste solicitado para esta avaliação.
                     </Alert>
                   )}
@@ -809,20 +865,6 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                             <Bar dataKey="pessoa" name="Pessoa" fill="#B03B3C" />
                             <Bar dataKey="processo" name="Processo" fill="#8AB048" />
                             <Bar dataKey="produto" name="Produto" fill="#6C4D91" />
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </Card>
-                      <Card body outline>
-                        <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
-                        <ResponsiveContainer width="50%" height={300}>
-                          <BarChart data={this.getPerformancePontosBarChartData()}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="tipo" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="validos" name="Válidos" fill="#3F6CB0" />
-                            <Bar dataKey="obtidos" name="Obtidos" fill="#8AB048" />
                           </BarChart>
                         </ResponsiveContainer>
                       </Card>
