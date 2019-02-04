@@ -23,7 +23,7 @@ export class GrupoItensDetail extends React.Component<IGrupoItensDetailProps> {
     const { grupoItensEntity } = this.props;
     return (
       <Row>
-        <Col md="8">
+        <Col>
           <h2>
             <Translate contentKey="dcpdesconformidadesApp.grupoItens.detail.title">GrupoItens</Translate> [<b>{grupoItensEntity.id}</b>]
           </h2>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Badge } from 'reactstrap';
+import { Button, Row, Badge, Col } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -20,11 +20,11 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
   render() {
     const { user } = this.props;
     return (
-      <div>
-        <h2>
-          <Translate contentKey="userManagement.detail.title">User</Translate> [<b>{user.login}</b>]
-        </h2>
-        <Row size="md">
+      <Row>
+        <Col>
+          <h2>
+            <Translate contentKey="userManagement.detail.title">User</Translate> [<b>{user.login}</b>]
+          </h2>
           <dl className="jh-entity-details">
             <dt>
               <Translate contentKey="userManagement.login">Login</Translate>
@@ -88,15 +88,29 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
                   : null}
               </ul>
             </dd>
+            <dt>
+              <Translate contentKey="userManagement.lojas">Lojas</Translate>
+            </dt>
+            <dd>
+              <ul className="list-unstyled">
+                {user.lojas
+                  ? user.lojas.map((loja, i) => (
+                      <li key={`user-loja-${i}`}>
+                        <Badge color="info">{loja.nomeFormatado}</Badge>
+                      </li>
+                    ))
+                  : null}
+              </ul>
+            </dd>
           </dl>
-        </Row>
-        <Button tag={Link} to="/admin/user-management" replace color="info">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="entity.action.back">Back</Translate>
-          </span>
-        </Button>
-      </div>
+          <Button tag={Link} to="/admin/user-management" replace color="info">
+            <FontAwesomeIcon icon="arrow-left" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="entity.action.back">Back</Translate>
+            </span>
+          </Button>
+        </Col>
+      </Row>
     );
   }
 }

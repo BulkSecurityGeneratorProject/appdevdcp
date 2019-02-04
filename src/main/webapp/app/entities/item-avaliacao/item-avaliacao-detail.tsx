@@ -23,7 +23,7 @@ export class ItemAvaliacaoDetail extends React.Component<IItemAvaliacaoDetailPro
     const { itemAvaliacaoEntity } = this.props;
     return (
       <Row>
-        <Col md="8">
+        <Col>
           <h2>
             <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.detail.title">ItemAvaliacao</Translate> [
             <b>{itemAvaliacaoEntity.id}</b>]

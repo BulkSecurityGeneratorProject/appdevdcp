@@ -23,7 +23,7 @@ export class QuestionarioDetail extends React.Component<IQuestionarioDetailProps
     const { questionarioEntity } = this.props;
     return (
       <Row>
-        <Col md="8">
+        <Col>
           <h2>
             <Translate contentKey="dcpdesconformidadesApp.questionario.detail.title">Questionario</Translate> [
             <b>{questionarioEntity.id}</b>]

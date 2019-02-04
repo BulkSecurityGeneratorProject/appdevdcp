@@ -23,7 +23,7 @@ export class LojaDetail extends React.Component<ILojaDetailProps> {
     const { lojaEntity } = this.props;
     return (
       <Row>
-        <Col md="8">
+        <Col>
           <h2>
             <Translate contentKey="dcpdesconformidadesApp.loja.detail.title">Loja</Translate> [<b>{lojaEntity.id}</b>]
           </h2>
