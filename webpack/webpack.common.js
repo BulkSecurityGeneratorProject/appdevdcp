@@ -58,6 +58,17 @@ module.exports = options => ({
         exclude: [utils.root('node_modules')]
       },
       {
+        test: /\.js$/, // Transform all .js files required somewhere with Babel
+        //exclude: /node_modules/,
+        exclude: /node_modules[\\/](?!@av).*/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env', 'react', 'stage-0']
+          },
+        },
+      },
+      {
         test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
         loader: 'file-loader',
         options: {
