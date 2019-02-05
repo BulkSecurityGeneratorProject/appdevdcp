@@ -7,6 +7,7 @@ import { IUser, defaultValue } from 'app/shared/model/user.model';
 export const ACTION_TYPES = {
   FETCH_ROLES: 'userManagement/FETCH_ROLES',
   FETCH_USERS: 'userManagement/FETCH_USERS',
+  FETCH_USER_LDAP: 'userManagement/FETCH_USER_LDAP',
   FETCH_USER: 'userManagement/FETCH_USER',
   CREATE_USER: 'userManagement/CREATE_USER',
   UPDATE_USER: 'userManagement/UPDATE_USER',
@@ -36,6 +37,7 @@ export default (state: UserManagementState = initialState, action): UserManageme
       };
     case REQUEST(ACTION_TYPES.FETCH_USERS):
     case REQUEST(ACTION_TYPES.FETCH_USER):
+    case REQUEST(ACTION_TYPES.FETCH_USER_LDAP):
       return {
         ...state,
         errorMessage: null,
@@ -54,6 +56,7 @@ export default (state: UserManagementState = initialState, action): UserManageme
     case FAILURE(ACTION_TYPES.FETCH_USERS):
     case FAILURE(ACTION_TYPES.FETCH_USER):
     case FAILURE(ACTION_TYPES.FETCH_ROLES):
+    case FAILURE(ACTION_TYPES.FETCH_USER_LDAP):
     case FAILURE(ACTION_TYPES.CREATE_USER):
     case FAILURE(ACTION_TYPES.UPDATE_USER):
     case FAILURE(ACTION_TYPES.DELETE_USER):
@@ -77,6 +80,7 @@ export default (state: UserManagementState = initialState, action): UserManageme
         totalItems: action.payload.headers['x-total-count']
       };
     case SUCCESS(ACTION_TYPES.FETCH_USER):
+    case SUCCESS(ACTION_TYPES.FETCH_USER_LDAP):
       return {
         ...state,
         loading: false,
@@ -119,6 +123,11 @@ export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
 export const getRoles = () => ({
   type: ACTION_TYPES.FETCH_ROLES,
   payload: axios.get(`${apiUrl}/authorities`)
+});
+
+export const getUserLdap = login => ({
+  type: ACTION_TYPES.FETCH_USER_LDAP,
+  payload: axios.get(`${apiUrl}-ldap/${login}`)
 });
 
 export const getUser: ICrudGetAction<IUser> = id => {

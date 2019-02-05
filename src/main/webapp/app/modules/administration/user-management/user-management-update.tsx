@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Label, Row, Col } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField, AvFeedback } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Button, Label, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
+import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AvSelect from '@availity/reactstrap-validation-select';
+import AvSelect, { AvSelectField } from '@availity/reactstrap-validation-select';
 
 import { locales, languages } from 'app/config/translation';
-import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
+import { getUser, getRoles, updateUser, createUser, getUserLdap, reset } from './user-management.reducer';
 import { getEntities as getLojas } from 'app/entities/loja/loja.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { IAuthority } from 'app/shared/model/authority.model';
@@ -20,13 +20,15 @@ export interface IUserManagementUpdateState {
   isNew: boolean;
   authorities: IAuthority[];
   lojasSelecionadas: ILoja[];
+  login: string;
 }
 
 export class UserManagementUpdate extends React.Component<IUserManagementUpdateProps, IUserManagementUpdateState> {
   state: IUserManagementUpdateState = {
     isNew: !this.props.match.params || !this.props.match.params.login,
     authorities: [],
-    lojasSelecionadas: []
+    lojasSelecionadas: [],
+    login: null
   };
 
   componentDidMount() {
@@ -45,6 +47,9 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
     }
     if (!this.state.isNew && nextProps.user.lojas && nextProps.user.lojas.length) {
       this.state.lojasSelecionadas = nextProps.user.lojas.map(a => a.id);
+    }
+    if (nextProps.user.login) {
+      this.state.login = nextProps.user.login;
     }
   }
 
@@ -71,6 +76,15 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
 
   handleLojasChange = selectedOption => {
     this.setState({ lojasSelecionadas: selectedOption });
+  };
+
+  handleObterLogin = event => {
+    event.stopPropagation();
+    this.props.getUserLdap(this.state.login);
+  };
+
+  handleLoginChange = event => {
+    this.setState({ login: event.target.value });
   };
 
   render() {
@@ -103,31 +117,45 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                   <Label for="login">
                     <Translate contentKey="userManagement.login">Login</Translate>
                   </Label>
-                  <AvField
-                    type="text"
-                    className="form-control"
-                    name="login"
-                    validate={{
-                      required: {
-                        value: true,
-                        errorMessage: translate('register.messages.validate.login.required')
-                      },
-                      pattern: {
-                        value: '^[_.@A-Za-z0-9-]*$',
-                        errorMessage: translate('register.messages.validate.login.pattern')
-                      },
-                      minLength: {
-                        value: 1,
-                        errorMessage: translate('register.messages.validate.login.minlength')
-                      },
-                      maxLength: {
-                        value: 50,
-                        errorMessage: translate('register.messages.validate.login.maxlength')
-                      }
-                    }}
-                    value={user.login}
-                    readOnly={!this.state.isNew}
-                  />
+                  <Row>
+                    <Col>
+                      <AvField
+                        type="text"
+                        className="form-control"
+                        name="login"
+                        validate={{
+                          required: {
+                            value: true,
+                            errorMessage: translate('register.messages.validate.login.required')
+                          },
+                          pattern: {
+                            value: '^[_.@A-Za-z0-9-]*$',
+                            errorMessage: translate('register.messages.validate.login.pattern')
+                          },
+                          minLength: {
+                            value: 1,
+                            errorMessage: translate('register.messages.validate.login.minlength')
+                          },
+                          maxLength: {
+                            value: 50,
+                            errorMessage: translate('register.messages.validate.login.maxlength')
+                          }
+                        }}
+                        onChange={this.handleLoginChange}
+                        value={this.state.login}
+                        readOnly={!this.state.isNew}
+                      />
+                    </Col>
+                    {this.state.isNew ? (
+                      <Col>
+                        <Button color="info" onClick={this.handleObterLogin}>
+                          <FontAwesomeIcon icon="search" />
+                          &nbsp;
+                          <Translate contentKey="entity.action.search">Search</Translate>
+                        </Button>
+                      </Col>
+                    ) : null}
+                  </Row>
                 </AvGroup>
                 <AvGroup>
                   <Label for="name">
@@ -138,20 +166,20 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                     className="form-control"
                     name="name"
                     validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
                       maxLength: {
                         value: 255,
                         errorMessage: translate('entity.validation.maxlength', { max: 255 })
                       }
                     }}
                     value={user.name}
-                    readOnly={!this.state.isNew}
+                    readOnly
                   />
                 </AvGroup>
                 <AvGroup>
                   <AvField
                     name="email"
                     label={translate('global.form.email')}
-                    placeholder={translate('global.form.email.placeholder')}
                     type="email"
                     validate={{
                       required: {
@@ -171,6 +199,20 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                       }
                     }}
                     value={user.email}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label for="prontuario">
+                    <Translate contentKey="userManagement.prontuario">Prontuario</Translate>
+                  </Label>
+                  <AvField
+                    name="prontuario"
+                    type="number"
+                    validate={{
+                      minLength: { value: 5, errorMessage: translate('entity.validation.minlength', { min: 5 }) },
+                      maxLength: { value: 10, errorMessage: translate('entity.validation.maxlength', { max: 10 }) }
+                    }}
+                    value={user.prontuario}
                   />
                 </AvGroup>
                 <AvGroup check inline>
@@ -255,7 +297,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   updating: storeState.userManagement.updating
 });
 
-const mapDispatchToProps = { getUser, getRoles, getLojas, updateUser, createUser, reset };
+const mapDispatchToProps = { getUser, getRoles, getLojas, updateUser, createUser, getUserLdap, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

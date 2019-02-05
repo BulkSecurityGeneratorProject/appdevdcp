@@ -9,7 +9,7 @@ public class LdapUserDTO implements Serializable {
 
   private Integer prontuario;
 
-  private String nome;
+  private String name;
 
   private String email;
   
@@ -33,12 +33,12 @@ public class LdapUserDTO implements Serializable {
     this.prontuario = prontuario;
   }
 
-  public String getNome() {
-    return nome;
+  public String getName() {
+    return name;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setName(String nome) {
+    this.name = nome;
   }
 
   public String getEmail() {

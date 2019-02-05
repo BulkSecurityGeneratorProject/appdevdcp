@@ -2,11 +2,14 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -29,13 +32,17 @@ import com.codahale.metrics.annotation.Timed;
 import br.com.lasa.dcpdesconformidades.config.Constants;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
+import br.com.lasa.dcpdesconformidades.repository.LdapException;
+import br.com.lasa.dcpdesconformidades.repository.UserLdapRepository;
 import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
 import br.com.lasa.dcpdesconformidades.service.MailService;
 import br.com.lasa.dcpdesconformidades.service.UserService;
+import br.com.lasa.dcpdesconformidades.service.dto.LdapUserDTO;
 import br.com.lasa.dcpdesconformidades.service.dto.UserDTO;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.BadRequestAlertException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.EmailAlreadyUsedException;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.LoginAlreadyUsedException;
 import br.com.lasa.dcpdesconformidades.web.rest.util.HeaderUtil;
 import br.com.lasa.dcpdesconformidades.web.rest.util.PaginationUtil;
@@ -76,11 +83,14 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+    
+    private final UserLdapRepository userLdapRepository;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, UserLdapRepository userLdapRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.userLdapRepository = userLdapRepository;
     }
 
     /**
@@ -152,6 +162,7 @@ public class UserResource {
      */
     @GetMapping("/users")
     @Timed
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
@@ -176,6 +187,7 @@ public class UserResource {
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     @Timed
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(
@@ -195,6 +207,31 @@ public class UserResource {
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("userManagement.deleted", login)).build();
+    }
+    
+    /**
+     * GET /users/:login : get the "login" user.
+     *
+     * @param login the login of the user to find
+     * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
+     */
+    @GetMapping("/users-ldap/{login:" + Constants.LOGIN_REGEX + "}")
+    @Timed
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<LdapUserDTO> getUserLdap(@PathVariable String login) {
+        log.debug("REST request to get User : {}", login);
+        try {
+          Optional<LdapUserDTO> user = userLdapRepository.getUserByLogin(login);
+          if(user.isPresent()) {
+            return ResponseEntity.ok().body(user.get());
+          } else {
+            return ResponseEntity.ok().headers(HeaderUtil.createAlert("userManagement.loginNotFound", login)).build();
+          }
+          
+        } catch (LdapException e) {
+          throw new RuntimeException(e.getMessage());
+        }
+        
     }
 }

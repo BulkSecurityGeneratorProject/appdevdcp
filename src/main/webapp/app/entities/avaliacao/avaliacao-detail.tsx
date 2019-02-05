@@ -175,7 +175,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <th className="table-header" />
       </tr>
       <tr>
-        <td className="text-center">10.1</td>
+        <td className="text-center">1</td>
         <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusPerda}`}>
           <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusPerda}`} />
         </td>
@@ -194,7 +194,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <th />
       </tr>
       <tr>
-        <td className="text-center">10.2</td>
+        <td className="text-center">2</td>
         <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusQuebra}`}>
           <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusQuebra}`} />
         </td>

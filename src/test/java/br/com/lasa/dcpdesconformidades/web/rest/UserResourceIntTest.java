@@ -37,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
+import br.com.lasa.dcpdesconformidades.repository.UserLdapRepository;
 import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
 import br.com.lasa.dcpdesconformidades.service.MailService;
@@ -83,6 +84,9 @@ public class UserResourceIntTest {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private UserLdapRepository userLdapRepository;
 
     @Autowired
     private UserMapper userMapper;
@@ -110,7 +114,7 @@ public class UserResourceIntTest {
     public void setup() {
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userService, userRepository, mailService);
+        UserResource userResource = new UserResource(userService, userRepository, mailService, userLdapRepository);
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

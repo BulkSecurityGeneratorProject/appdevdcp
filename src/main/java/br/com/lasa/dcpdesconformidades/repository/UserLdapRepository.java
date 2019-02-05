@@ -2,6 +2,7 @@ package br.com.lasa.dcpdesconformidades.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
@@ -42,7 +43,7 @@ public class UserLdapRepository {
     this.applicationProperties = applicationProperties;
   }
 
-  public LdapUserDTO getUserByLogin(String login) throws LdapException {
+  public Optional<LdapUserDTO> getUserByLogin(String login) throws LdapException {
 
     LdapQuery query = LdapQueryBuilder.query() //
         .searchScope(SearchScope.SUBTREE) //
@@ -55,10 +56,10 @@ public class UserLdapRepository {
     try {
       List<LdapUserDTO> users = ldapTemplate.search(query, new UserAttributesMapper());
       if (users == null || users.isEmpty()) {
-        return null;
+        return Optional.empty();
       }
 
-      return users.get(0);
+      return Optional.of(users.get(0));
     } catch (Exception e) {
       LOGGER.error(e.getMessage(), e);
       throw new LdapException("Ocorreu um erro ao consultar usuários no AD por filtro.", e);
@@ -96,7 +97,7 @@ public class UserLdapRepository {
 
       user.setLogin((String) attrs.get(ATTRIBUTE_LOGIN).get());
 
-      user.setNome((String) attrs.get(ATTRIBUTE_NAME).get());
+      user.setName((String) attrs.get(ATTRIBUTE_NAME).get());
 
       Attribute emailAttribute = attrs.get(ATTRIBUTE_EMAIL);
       user.setEmail(emailAttribute == null ? null : (String) emailAttribute.get());

@@ -13,6 +13,7 @@ export interface IUser {
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
   password?: string;
+  prontuario?: number;
   lojas?: ILoja[];
 }
 
@@ -21,7 +22,7 @@ export const defaultValue: Readonly<IUser> = {
   login: '',
   name: '',
   email: '',
-  activated: false,
+  activated: true,
   langKey: '',
   authorities: [],
   createdBy: '',
@@ -29,5 +30,6 @@ export const defaultValue: Readonly<IUser> = {
   lastModifiedBy: '',
   lastModifiedDate: null,
   password: '',
+  prontuario: 0,
   lojas: []
 };

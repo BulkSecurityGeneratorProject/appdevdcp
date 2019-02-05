@@ -11,12 +11,14 @@
     "delete": {
       "question": "Você tem certeza que deseja excluir o usuário {{ login }}?"
     },
+    "loginNotFound": "Login \"{{ param }}\" não encontrado",
     "detail": {
       "title": "Usuário"
     },
     "login": "Login",
     "name": "Nome",
     "email": "Email",
+    "prontuario": "Prontuário",
     "activated": "Ativo",
     "deactivated": "Inativo",
     "profiles": "Perfis",
