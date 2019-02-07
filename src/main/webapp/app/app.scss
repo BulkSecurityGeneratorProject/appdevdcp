@@ -379,6 +379,9 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   .grupo-pontos-sum-table-row {
     background-color: rgba(230, 103, 107, 1);
     color: #fff;
+    &:hover {
+      background-color: rgba(220, 53, 70, 1);
+    }
   }
 }
 

@@ -98,22 +98,22 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
 
     data.push(
       {
-        tipo: 'Procedimento',
+        tipo: translate('dcpdesconformidadesApp.avaliacao.procedimentos'),
         validos: pontos.pontosProcedimento,
         obtidos: pontos.pontosObtidosProcedimento + pontuacaoPerdaEQuebra
       },
       {
-        tipo: 'Pessoa',
+        tipo: translate('dcpdesconformidadesApp.avaliacao.pessoas'),
         validos: pontos.pontosPessoa,
         obtidos: pontos.pontosObtidosPessoa + pontuacaoPerdaEQuebra
       },
       {
-        tipo: 'Processo',
+        tipo: translate('dcpdesconformidadesApp.avaliacao.processos'),
         validos: pontos.pontosProcesso,
         obtidos: pontos.pontosObtidosProcesso + pontuacaoPerdaEQuebra
       },
       {
-        tipo: 'Produto',
+        tipo: translate('dcpdesconformidadesApp.avaliacao.produtos'),
         validos: pontos.pontosProduto,
         obtidos: pontos.pontosObtidosProduto + pontuacaoPerdaEQuebra
       }
@@ -154,22 +154,34 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
     <>
       <tr>
         <td className="text-center">
-          <b>10</b>
+          <b>{avaliacaoEntity.questionario.grupos.length + 1}</b>
         </td>
         <td colSpan={2} className="text-center table-header">
-          <b>Perda e Quebra (último acumulado)</b>
+          <b>
+            <Translate contentKey="dcpdesconformidadesApp.avaliacao.ultimoAcumuladoPerdaEQuebra">
+              Perda e Quebra (último acumulado)
+            </Translate>
+          </b>
         </td>
         <td className="text-center table-header">
-          <b>%</b>
+          <b>
+            <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualPerdaEQuebra">%</Translate>
+          </b>
         </td>
         <td className="text-center table-header">
-          <b>Financeiro R$</b>
+          <b>
+            <Translate contentKey="dcpdesconformidadesApp.avaliacao.financeiroPerdaEQuebra">Financeiro R$</Translate>
+          </b>
         </td>
         <td className="text-center table-header">
-          <b>Categorização</b>
+          <b>
+            <Translate contentKey="dcpdesconformidadesApp.avaliacao.categorizacaoPerdaEQuebra">Categorização</Translate>
+          </b>
         </td>
         <td className="text-center table-header">
-          <b>Pontuação</b>
+          <b>
+            <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontuacaoPerdaEQuebra">Pontuação</Translate>
+          </b>
         </td>
         <th className="table-header" />
         <th className="table-header" />
@@ -179,9 +191,11 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusPerda}`}>
           <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusPerda}`} />
         </td>
-        <td>Valores de perda do último acumulado do ano</td>
+        <td>
+          <Translate contentKey="dcpdesconformidadesApp.avaliacao.descricaoPerda">Valores de perda do último acumulado do ano</Translate>
+        </td>
         <td className="text-center">
-          <TextFormat value={avaliacaoEntity.percentualPerda} type="number" format={'0.00'} />
+          <TextFormat value={avaliacaoEntity.percentualPerda} type="number" format={APP_PERCENTAGE_FORMAT} />
         </td>
         <td className="text-center">
           <TextFormat value={avaliacaoEntity.financeiroPerda} type="number" format={APP_CURRENCY_FORMAT} />
@@ -198,9 +212,11 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <td className={`text-center status-item-avaliado-${avaliacaoEntity.statusQuebra}`}>
           <Translate contentKey={`dcpdesconformidadesApp.StatusItemAvaliado.${avaliacaoEntity.statusQuebra}`} />
         </td>
-        <td>Valores de quebra do último acumulado do ano</td>
+        <td>
+          <Translate contentKey="dcpdesconformidadesApp.avaliacao.descricaoQuebra">Valores de quebra do último acumulado do ano</Translate>
+        </td>
         <td className="text-center">
-          <TextFormat value={avaliacaoEntity.percentualQuebra} type="number" format={'0.00'} />
+          <TextFormat value={avaliacaoEntity.percentualQuebra} type="number" format={APP_PERCENTAGE_FORMAT} />
         </td>
         <td className="text-center">
           <TextFormat value={avaliacaoEntity.financeiroQuebra} type="number" format={APP_CURRENCY_FORMAT} />
@@ -222,7 +238,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <tr className="grupo-pontos-sum-table-row">
           <td colSpan={3}>
             {' '}
-            <b>Pontos válidos ({pontos.totalPontos})</b>{' '}
+            <b>
+              <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosValidos">Pontos válidos</Translate> ({pontos.totalPontos})
+            </b>{' '}
           </td>
           <td className="text-center">{pontos.pontosProcedimento}</td>
           <td className="text-center">{pontos.pontosPessoa}</td>
@@ -234,7 +252,10 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <tr className="grupo-pontos-sum-table-row">
           <td colSpan={3}>
             {' '}
-            <b>Pontos obtidos ({pontos.totalPontosObtidos})</b>{' '}
+            <b>
+              <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosObtidos">Pontos obtidos</Translate> ({pontos.totalPontosObtidos}
+              )
+            </b>{' '}
           </td>
           <td className="text-center">{pontos.pontosObtidosProcedimento}</td>
           <td className="text-center">{pontos.pontosObtidosPessoa}</td>
@@ -332,7 +353,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   className={classnames({ active: activeTab === 'CHECKLIST' })}
                   onClick={() => this.toggle('CHECKLIST')} // tslint:disable-line jsx-no-lambda
                 >
-                  Checklist
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.tabs.checklist">Checklist</Translate>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -340,7 +361,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   className={classnames({ active: activeTab === 'AUDITORIA' })}
                   onClick={() => this.toggle('AUDITORIA')} // tslint:disable-line jsx-no-lambda
                 >
-                  Auditoria
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.tabs.auditoria">Auditoria</Translate>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -348,7 +369,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   className={classnames({ active: activeTab === 'SOLICITACAO_AJUSTE' })}
                   onClick={() => this.toggle('SOLICITACAO_AJUSTE')} // tslint:disable-line jsx-no-lambda
                 >
-                  Solicitação de Ajuste
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.tabs.solicitacaoAjuste">Solicitação de Ajuste</Translate>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -356,7 +377,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   className={classnames({ active: activeTab === 'ETIQUETA' })}
                   onClick={() => this.toggle('ETIQUETA')} // tslint:disable-line jsx-no-lambda
                 >
-                  Etiqueta
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.tabs.etiqueta">Etiqueta</Translate>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -364,7 +385,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   className={classnames({ active: activeTab === 'APOIO_SPP' })}
                   onClick={() => this.toggle('APOIO_SPP')} // tslint:disable-line jsx-no-lambda
                 >
-                  Apoio SPP
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.tabs.apoioSPP">Apoio SPP</Translate>
                 </NavLink>
               </NavItem>
             </Nav>
@@ -379,7 +400,12 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     </Col>
                     <Col xs="2">
                       {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome} `}(
-                      <GoogleMapsLink lat1={avaliacaoEntity.lojaLatitude} long1={avaliacaoEntity.lojaLongitude} label="Ver no mapa" />)
+                      <GoogleMapsLink
+                        lat1={avaliacaoEntity.lojaLatitude}
+                        long1={avaliacaoEntity.lojaLongitude}
+                        label={translate('dcpdesconformidadesApp.avaliacao.verLocalNoMapa')}
+                      />
+                      )
                     </Col>
                     <Col xs="2">
                       <b>
@@ -401,7 +427,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         long1={avaliacaoEntity.longitudeInicioAvaliacao}
                         lat2={avaliacaoEntity.lojaLatitude}
                         long2={avaliacaoEntity.lojaLongitude}
-                        label="Ver no mapa"
+                        label={translate('dcpdesconformidadesApp.avaliacao.verLocalNoMapa')}
                       />
                       )
                     </Col>
@@ -432,7 +458,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         long1={avaliacaoEntity.longitudeSubmissaoAvaliacao}
                         lat2={avaliacaoEntity.lojaLatitude}
                         long2={avaliacaoEntity.lojaLongitude}
-                        label="Ver no mapa"
+                        label={translate('dcpdesconformidadesApp.avaliacao.verLocalNoMapa')}
                       />
                       )
                     </Col>
@@ -522,13 +548,19 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       <thead>
                         <tr className="table-header">
                           <th className="text-center">
-                            <b>Item</b>
+                            <b>
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.item">Item</Translate>
+                            </b>
                           </th>
                           <th className="text-center">
-                            <b>Classificação</b>
+                            <b>
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.classificacaoItem">Classificação</Translate>
+                            </b>
                           </th>
                           <th className="text-center">
-                            <b>Descrição do item</b>
+                            <b>
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.descricaoItem">Descrição do item</Translate>
+                            </b>
                           </th>
                           <th />
                           <th />
@@ -536,7 +568,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                           <th />
                           <th />
                           <th className="text-center">
-                            <b>Observações DCP</b>
+                            <b>
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacoesItem">Observações DCP</Translate>
+                            </b>
                           </th>
                         </tr>
                       </thead>
@@ -553,19 +587,29 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                                   <b>{grupo.nome}</b>
                                 </td>
                                 <td className="text-center table-header">
-                                  <b>Procedimento</b>
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.procedimentos">Procedimentos</Translate>
+                                  </b>
                                 </td>
                                 <td className="text-center table-header">
-                                  <b>Pessoa</b>
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.pessoas">Pessoa</Translate>
+                                  </b>
                                 </td>
                                 <td className="text-center table-header">
-                                  <b>Processo</b>
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.processos">Processos</Translate>
+                                  </b>
                                 </td>
                                 <td className="text-center table-header">
-                                  <b>Produto</b>
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.produtos">Produtos</Translate>
+                                  </b>
                                 </td>
                                 <td className="text-center table-header">
-                                  <b>Local</b>
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.localRespostaItem">Local</Translate>
+                                  </b>
                                 </td>
                                 <th className="table-header" />
                               </tr>
@@ -576,7 +620,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                             </>
                           ))}
 
-                        <this.PerdaQuebraRows avaliacaoEntity={avaliacaoEntity} />
+                        {avaliacaoEntity.questionario && <this.PerdaQuebraRows avaliacaoEntity={avaliacaoEntity} />}
                       </tbody>
                     </Table>
                   </div>
@@ -584,7 +628,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
 
                 <CardGroup>
                   <Card body outline>
-                    <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
+                    <CardTitle className="text-center">
+                      <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosValidosEObtidos">Pontos válidos / obtidos</Translate>
+                    </CardTitle>
                     <ResponsiveContainer height={300}>
                       <BarChart data={pontosValidosEObtidosPorTipo}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -598,15 +644,23 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     </ResponsiveContainer>
                   </Card>
                   <Card body outline>
-                    <CardTitle className="text-center">Pontos Válidos / Obtidos</CardTitle>
+                    <CardTitle className="text-center">
+                      <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosValidosEObtidos">Pontos válidos / obtidos</Translate>
+                    </CardTitle>
                     <div className="table-responsive">
                       <Table responsive bordered hover size="sm">
                         <thead>
                           <tr>
                             <th />
-                            <th className="text-center">Pontos válidos</th>
-                            <th className="text-center">Pontos obtidos</th>
-                            <th className="text-center">% Obtenção</th>
+                            <th className="text-center">
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosValidos">Pontos válidos</Translate>
+                            </th>
+                            <th className="text-center">
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.pontosObtidos">Pontos obtidos</Translate>
+                            </th>
+                            <th className="text-center">
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.percentualObtencaoPontos">% Obtenção</Translate>
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -642,7 +696,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       </p>
                       <p>
                         Estou ciente ainda que o DCP encaminhará por e-mail e/ou disponibilizará no portal Elasa o "Relatório de
-                        Desconformidade" , consignando as desconformidades verificadas. Após o prazo estipulado, será realizada uma nova
+                        Desconformidade", consignando as desconformidades verificadas. Após o prazo estipulado, será realizada uma nova
                         vistoria, para verificar as ações corretivas adotadas. Na hipótese de não terem sido sanadas as irregularidades,
                         total ou parcialmente, tenho ciência de que estarei sujeito à aplicação de penalidade disciplinar.
                       </p>
@@ -667,7 +721,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   </Row>
                   <Row className="align-self-center" style={{ marginBottom: '1rem' }}>
                     <Col>
-                      <b>Local e Data</b>
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.contrato.localEData">Local e Data</Translate>
+                      </b>
                     </Col>
                   </Row>
 
@@ -678,7 +734,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   </Row>
                   <Row className="align-self-center" style={{ marginBottom: '1rem' }}>
                     <Col>
-                      <b>Responsável pela loja</b>
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.contrato.responsavelLoja">Responsável pela loja</Translate>
+                      </b>
                     </Col>
                   </Row>
 
@@ -689,7 +747,11 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   </Row>
                   <Row className="align-self-center">
                     <Col>
-                      <b>Responsável pela vistoria</b>
+                      <b>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.contrato.responsavelVistoria">
+                          Responsável pela vistoria
+                        </Translate>
+                      </b>
                     </Col>
                   </Row>
                 </Card>
@@ -797,7 +859,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                   <Col>
                     <NivelEficienciaCard
                       etiqueta={avaliacaoEntity.nivelEficienciaGeral}
-                      title="Nível de Eficiência Loja"
+                      title={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaGeral')}
                       text={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaGeralObservacao')}
                     />
                   </Col>
@@ -807,22 +869,22 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     <CardDeck>
                       <NivelEficienciaCard
                         etiqueta={avaliacaoEntity.nivelEficienciaProcedimento}
-                        title="Procedimentos"
+                        title={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimento')}
                         text={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProcedimentoObservacao')}
                       />
                       <NivelEficienciaCard
                         etiqueta={avaliacaoEntity.nivelEficienciaProcesso}
-                        title="Processos"
+                        title={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProcesso')}
                         text={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProcessoObservacao')}
                       />
                       <NivelEficienciaCard
                         etiqueta={avaliacaoEntity.nivelEficienciaProduto}
-                        title="Produtos"
+                        title={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProduto')}
                         text={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaProdutoObservacao')}
                       />
                       <NivelEficienciaCard
                         etiqueta={avaliacaoEntity.nivelEficienciaPessoa}
-                        title="Pessoas"
+                        title={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoa')}
                         text={translate('dcpdesconformidadesApp.avaliacao.nivelEficienciaPessoaObservacao')}
                       />
                     </CardDeck>

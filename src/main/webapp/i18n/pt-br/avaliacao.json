@@ -10,26 +10,29 @@
       "detail": {
         "title": "Avaliação"
       },
+      "tabs": {
+        "checklist": "Checklist",
+        "auditoria": "Auditoria",
+        "solicitacaoAjuste": "Solicitação de Ajuste",
+        "etiqueta": "Etiqueta",
+        "apoioSPP": "Apoio SPP"
+      },
       "iniciadaEm": "Iniciada Em",
-      "latitudeInicioAvaliacao": "Latitude Inicio Avaliacao",
-      "longitudeInicioAvaliacao": "Longitude Inicio Avaliacao",
       "nomeResponsavelLoja": "Responsável pela loja",
       "prontuarioResponsavelLoja": "Prontuário",
       "submetidoEm": "Submetido Em",
-      "latitudeSubmissaoAvaliacao": "Latitude Submissao Avaliacao",
-      "longitudeSubmissaoAvaliacao": "Longitude Submissao Avaliacao",
       "observacaoSubmissaoEnviadaForaDaLoja": "Observacao Submissao Enviada Fora Da Loja",
       "status": "Status",
       "criticidadePainel": "Criticidade Painel",
-      "nivelEficienciaGeral": "Nivel Eficiencia Geral",
+      "nivelEficienciaGeral": "Nível Eficiência Geral",
       "nivelEficienciaGeralObservacao": "O nível de eficiência avalia o quanto a loja está em acordo com a política de Prevenção de Perdas da Cia. Este nível será mensurado em quatro pontos Procedimentos, Processos, Produtos e Pessoas, o melhor nível é o \"A\" que sinaliza que a loja está em alinhamento com as oriemntações do DCP da mesma forma quanto mais próximo do nível \"E\" significa que a loja não está alinhada e tem grandes possibilidade de apresentar resultados ruins de perdas contribuindo para baixa performance do Distrito, Região e Cia.",
-      "nivelEficienciaProcedimento": "Nivel Eficiencia Procedimento",
+      "nivelEficienciaProcedimento": "Nível Eficiência Procedimentos",
       "nivelEficienciaProcedimentoObservacao": "A eficiência de procedimentos indica o nível de aderência da gestão da loja em relação as orientações do DCP e a política de prevenção de perda das Cia.",
-      "nivelEficienciaPessoa": "Nivel Eficiencia Pessoa",
+      "nivelEficienciaPessoa": "Nível Eficiência Pessoas",
       "nivelEficienciaPessoaObservacao": "Avaliação sobre a gestão de pessoas em relação a disseminação da cultura de prevenção de perda da Cia.",
-      "nivelEficienciaProcesso": "Nivel Eficiencia Processo",
+      "nivelEficienciaProcesso": "Nível Eficiência Processos",
       "nivelEficienciaProcessoObservacao": "Avaliação sobre a aderência da loja aos processos de prevenção de perdas e suas rotinas.",
-      "nivelEficienciaProduto": "Nivel Eficiencia Produto",
+      "nivelEficienciaProduto": "Nível Eficiência Produtos",
       "nivelEficienciaProdutoObservacao": "Avaliação sobre o controle físico e a rotina de gestão de estoques.",
       "canceladoEm": "Cancelado Em",
       "motivoCancelamento": "Motivo Cancelamento",
@@ -51,7 +54,143 @@
       "nomeAvaliador": "Avaliador",
       "prontuarioAvaliador": "Prontuário",
       "questionario": "Questionario",
-      "loja": "Loja"
+      "loja": "Loja",
+      "descricaoPerda": "Valores de perda do último acumulado do ano",
+      "descricaoQuebra": "Valores de quebra do último acumulado do ano",
+      "ultimoAcumuladoPerdaEQuebra": "Perda e Quebra (último acumulado)",
+      "percentualPerdaEQuebra": "%",
+      "financeiroPerdaEQuebra": "Financeiro R$",
+      "categorizacaoPerdaEQuebra": "Categorização",
+      "pontuacaoPerdaEQuebra": "Pontuação",
+      "procedimentos": "Procedimentos",
+      "pessoas": "Pessoas",
+      "processos": "Processos",
+      "produtos": "Produtos",
+      "pontosValidos": "Pontos válidos",
+      "pontosObtidos": "Pontos obtidos",
+      "percentualObtencaoPontos": "% Obtenção",
+      "verLocalNoMapa": "Ver no mapa",
+      "item": "Item",
+      "classificacaoItem": "Classificação",
+      "descricaoItem": "Descrição do item",
+      "observacoesItem": "Observações DCP",
+      "localRespostaItem": "Local",
+      "pontosValidosEObtidos": "Pontos válidos / obtidos",
+      "contrato": {
+        "texto": "<p>Eu, {{nomeResponsavelLoja}}, prontuário {{prontuarioResponsavelLoja}}, responsável pela loja {{loja}}, declaro que em {{data}} recebi o \"Relatório de Desconformidade e a etiqueta com o nível de eficiência da loja em relação a Política de Prevenção da Cia\" e seus respectivos anexos, emitido em visita realizada nesta data, pelo SPP {{nomeAvaliador}}, prontuário {{prontuarioAvaliador}}. Estou ciente do prazo de 15 dias, contados desta data, para regularizar as ações que corrijam as desconformidades verificadas.</p> <p>Estou ciente ainda que o DCP encaminhará por e-mail e/ou disponibilizará no portal Elasa o \"Relatório de Desconformidade\", consignando as desconformidades verificadas. Após o prazo estipulado, será realizada uma nova vistoria, para verificar as ações corretivas adotadas. Na hipótese de não terem sido sanadas as irregularidades, total ou parcialmente, tenho ciência de que estarei sujeito à aplicação de penalidade disciplinar.</p> <p>Este Relatório de Desconformidade e a Etiqueta de Eficiência do DCP têm como objetivo evidenciar aspectos da Política de Prevenção de Perdas da Companhia que devem ser rigorosamente atendidos, garantindo um clima de segurança e controle em loja. Todas as desconformidades relacionadas foram apresentadas na oportunidade da atual visita ao responsável pela loja, sendo os prazos concedidos em decorrência da complexidade de cada medida. É considerado reincidente o responsável que não tiver cumprido as medidas corretivas determinadas na última visita realizada ou que gerar novas desconformidades idênticas às levantadas em visitas anteriores.</p>",
+        "localEData": "Local e Data",
+        "responsavelLoja": "Responsável pela loja",
+        "responsavelVistoria": "Responsável pela vistoria"
+      },
+      "itemAvaliado": {
+        "home": {
+          "title": "Item Avaliados",
+          "createLabel": "Criar novo Item Avaliado",
+          "createOrEditLabel": "Criar ou editar Item Avaliado"
+        },
+        "created": "Um novo Item Avaliado foi criado com o identificador {{ param }}",
+        "updated": "Um Item Avaliado foi atualizado com o identificador {{ param }}",
+        "deleted": "Um Item Avaliado foi deletado com o identificador {{ param }}",
+        "delete": {
+          "question": "Tem certeza de que deseja excluir Item Avaliado {{ id }}?"
+        },
+        "detail": {
+          "title": "Item Avaliado"
+        },
+        "respondidoEm": "Respondido Em",
+        "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+        "status": "Status",
+        "observacoes": "Observacoes",
+        "latitudeLocalResposta": "Latitude Local Resposta",
+        "longitudeLocalResposta": "Longitude Local Resposta",
+        "pontosProcedimento": "Pontos Procedimento",
+        "pontosPessoa": "Pontos Pessoa",
+        "pontosProcesso": "Pontos Processo",
+        "pontosProduto": "Pontos Produto",
+        "pontosObtidosProcedimento": "Pontos Obtidos Procedimento",
+        "pontosObtidosPessoa": "Pontos Obtidos Pessoa",
+        "pontosObtidosProcesso": "Pontos Obtidos Processo",
+        "pontosObtidosProduto": "Pontos Obtidos Produto",
+        "anexos": "Anexos",
+        "itemAvaliacao": "Item Avaliacao",
+        "avaliacao": "Avaliacao"
+      },
+      "itemAuditado": {
+        "home": {
+          "title": "Item Auditados",
+          "createLabel": "Criar novo Item Auditado",
+          "createOrEditLabel": "Criar ou editar Item Auditado"
+        },
+        "created": "Um novo Item Auditado foi criado com o identificador {{ param }}",
+        "updated": "Um Item Auditado foi atualizado com o identificador {{ param }}",
+        "deleted": "Um Item Auditado foi deletado com o identificador {{ param }}",
+        "delete": {
+          "question": "Tem certeza de que deseja excluir Item Auditado {{ id }}?"
+        },
+        "detail": {
+          "title": "Item Auditado"
+        },
+        "respondidoEm": "Respondido Em",
+        "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+        "tipo": "Tipo",
+        "codigoDepartamento": "Codigo Departamento",
+        "codigoSap": "Codigo Sap",
+        "descricaoItem": "Descricao Item",
+        "saldoSap0001": "Saldo Sap 0001",
+        "saldoFisico0001": "Saldo Fisico 0001",
+        "saldoSap9000": "Saldo Sap 9000",
+        "saldoFisico9000": "Saldo Fisico 9000",
+        "motivoDivergencia": "Motivo Divergencia",
+        "avaliacao": "Avaliacao"
+      },
+      "itemSolicitadoAjuste": {
+        "home": {
+          "title": "Item Solicitado Ajustes",
+          "createLabel": "Criar novo Item Solicitado Ajuste",
+          "createOrEditLabel": "Criar ou editar Item Solicitado Ajuste"
+        },
+        "created": "Um novo Item Solicitado Ajuste foi criado com o identificador {{ param }}",
+        "updated": "Um Item Solicitado Ajuste foi atualizado com o identificador {{ param }}",
+        "deleted": "Um Item Solicitado Ajuste foi deletado com o identificador {{ param }}",
+        "delete": {
+          "question": "Tem certeza de que deseja excluir Item Solicitado Ajuste {{ id }}?"
+        },
+        "detail": {
+          "title": "Item Solicitado Ajuste"
+        },
+        "respondidoEm": "Respondido Em",
+        "ultimaAtualizacaoEm": "Ultima Atualizacao Em",
+        "codigoDepartamento": "Codigo Departamento",
+        "codigoSap": "Codigo Sap",
+        "descricaoItem": "Descricao Item",
+        "saldoSap0001": "Saldo Sap 0001",
+        "saldoFisico0001": "Saldo Fisico 0001",
+        "saldoSap9000": "Saldo Sap 9000",
+        "saldoFisico9000": "Saldo Fisico 9000",
+        "motivoDivergencia": "Motivo Divergencia",
+        "acaoCorretivaOuPreventiva": "Acao Corretiva Ou Preventiva",
+        "responsavel": "Responsavel",
+        "avaliacao": "Avaliacao"
+      },
+      "anexoItem": {
+        "home": {
+          "title": "Anexo Items",
+          "createLabel": "Criar novo Anexo Item",
+          "createOrEditLabel": "Criar ou editar Anexo Item"
+        },
+        "created": "Um novo Anexo Item foi criado com o identificador {{ param }}",
+        "updated": "Um Anexo Item foi atualizado com o identificador {{ param }}",
+        "deleted": "Um Anexo Item foi deletado com o identificador {{ param }}",
+        "delete": {
+          "question": "Tem certeza de que deseja excluir Anexo Item {{ id }}?"
+        },
+        "detail": {
+          "title": "Anexo Item"
+        },
+        "tipo": "Tipo",
+        "caminhoArquivo": "Caminho Arquivo",
+        "itemAvaliado": "Item Avaliado"
+      }
     }
   }
 }
