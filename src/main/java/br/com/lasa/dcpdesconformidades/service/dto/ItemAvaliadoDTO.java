@@ -3,7 +3,11 @@ package br.com.lasa.dcpdesconformidades.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import br.com.lasa.dcpdesconformidades.domain.AnexoItem;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusItemAvaliado;
 
 /**
@@ -50,6 +54,8 @@ public class ItemAvaliadoDTO implements Serializable {
     private String itemAvaliacaoDescricao;
 
     private Long avaliacaoId;
+    
+    private Set<AnexoItemDTO> anexos = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -193,6 +199,14 @@ public class ItemAvaliadoDTO implements Serializable {
 
     public void setAvaliacaoId(Long avaliacaoId) {
         this.avaliacaoId = avaliacaoId;
+    }
+    
+    public Set<AnexoItemDTO> getAnexos() {
+      return anexos;
+    }
+
+    public void setAnexos(Set<AnexoItemDTO> anexos) {
+      this.anexos = anexos;
     }
 
     @Override

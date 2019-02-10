@@ -185,6 +185,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         </td>
         <th className="table-header" />
         <th className="table-header" />
+        <th className="table-header" />
       </tr>
       <tr>
         <td className="text-center">1</td>
@@ -204,6 +205,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
           <Translate contentKey={`dcpdesconformidadesApp.CategorizacaoPerdaQuebra.${avaliacaoEntity.categorizacaoPerda}`} />
         </td>
         <td className="text-center">{avaliacaoEntity.pontuacaoPerda}</td>
+        <th />
         <th />
         <th />
       </tr>
@@ -227,6 +229,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
         <td className="text-center">{avaliacaoEntity.pontuacaoQuebra}</td>
         <th />
         <th />
+        <th />
       </tr>
     </>
   );
@@ -248,6 +251,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
           <td className="text-center">{pontos.pontosProduto}</td>
           <th />
           <th />
+          <th />
         </tr>
         <tr className="grupo-pontos-sum-table-row">
           <td colSpan={3}>
@@ -261,6 +265,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
           <td className="text-center">{pontos.pontosObtidosPessoa}</td>
           <td className="text-center">{pontos.pontosObtidosProcesso}</td>
           <td className="text-center">{pontos.pontosObtidosProduto}</td>
+          <th />
           <th />
           <th />
         </tr>
@@ -291,6 +296,9 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
             />
           </td>
           <td className="text-center">{itemAvaliado.observacoes}</td>
+          <td className="text-center">
+            {itemAvaliado.anexos && itemAvaliado.anexos.length ? `Sim (${itemAvaliado.anexos.length})` : 'Não'}
+          </td>
         </tr>
       );
     });
@@ -567,11 +575,8 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                           <th />
                           <th />
                           <th />
-                          <th className="text-center">
-                            <b>
-                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacoesItem">Observações DCP</Translate>
-                            </b>
-                          </th>
+                          <th />
+                          <th />
                         </tr>
                       </thead>
                       <tbody>
@@ -611,7 +616,14 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                                     <Translate contentKey="dcpdesconformidadesApp.avaliacao.distanciaLojaResposta">Dist. Loja</Translate>
                                   </b>
                                 </td>
-                                <th className="table-header" />
+                                <th className="text-center table-header">
+                                  <b>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.observacoesItem">Observações DCP</Translate>
+                                  </b>
+                                </th>
+                                <th className="text-center table-header">
+                                  <b>Anexos</b>
+                                </th>
                               </tr>
 
                               <this.GrupoItensRow grupo={grupo} />

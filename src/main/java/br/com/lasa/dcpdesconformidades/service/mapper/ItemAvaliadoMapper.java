@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity ItemAvaliado and its DTO ItemAvaliadoDTO.
  */
-@Mapper(componentModel = "spring", uses = {ItemAvaliacaoMapper.class, AvaliacaoMapper.class})
+@Mapper(componentModel = "spring", uses = {ItemAvaliacaoMapper.class, AvaliacaoMapper.class, AnexoItemMapper.class})
 public interface ItemAvaliadoMapper extends EntityMapper<ItemAvaliadoDTO, ItemAvaliado> {
 
     @Mapping(source = "itemAvaliacao.id", target = "itemAvaliacaoId")
