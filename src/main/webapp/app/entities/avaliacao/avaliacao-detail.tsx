@@ -549,7 +549,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         <tr className="table-header">
                           <th className="text-center">
                             <b>
-                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.item">Item</Translate>
+                              <Translate contentKey="dcpdesconformidadesApp.avaliacao.item">#</Translate>
                             </b>
                           </th>
                           <th className="text-center">
@@ -557,7 +557,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                               <Translate contentKey="dcpdesconformidadesApp.avaliacao.classificacaoItem">Classificação</Translate>
                             </b>
                           </th>
-                          <th className="text-center">
+                          <th className="text-center" width="42%">
                             <b>
                               <Translate contentKey="dcpdesconformidadesApp.avaliacao.descricaoItem">Descrição do item</Translate>
                             </b>
@@ -608,7 +608,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                                 </td>
                                 <td className="text-center table-header">
                                   <b>
-                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.localRespostaItem">Local</Translate>
+                                    <Translate contentKey="dcpdesconformidadesApp.avaliacao.distanciaLojaResposta">Dist. Loja</Translate>
                                   </b>
                                 </td>
                                 <th className="table-header" />

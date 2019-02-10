@@ -103,10 +103,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('caminhoArquivoPlanilha')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.questionario">Questionario</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
@@ -141,7 +137,6 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                     <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaGeral}`} />
                   </td>
                   <td>{avaliacao.importadoViaPlanilha ? 'Sim' : 'Não'}</td>
-                  <td>{avaliacao.caminhoArquivoPlanilha}</td>
                   <td>
                     {avaliacao.questionario.nome ? (
                       <Link to={`questionario/${avaliacao.questionario.id}`}>{avaliacao.questionario.nome}</Link>

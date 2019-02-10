@@ -26,7 +26,7 @@ function deg2rad(deg) {
 export const GoogleMapsLink = ({ lat1, long1, lat2, long2, label }: IGoogleMapsLinkProps) => {
   if (lat2 && long2) {
     const dist = getDistanceFromLatLongInMeters(lat1, long1, lat2, long2);
-    label = label ? `${label} - a ${dist}m da loja` : `a ${dist}m da loja`;
+    label = label ? `${label} - ${dist}m` : `${dist}m`;
   }
   return (
     <a href={`http://maps.google.com/maps?q=${lat1},${long1}`} target="_blank">
