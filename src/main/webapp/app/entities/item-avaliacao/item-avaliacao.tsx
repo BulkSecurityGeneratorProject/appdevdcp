@@ -74,7 +74,7 @@ export class ItemAvaliacao extends React.Component<IItemAvaliacaoProps> {
                     </Button>
                   </td>
                   <td>{itemAvaliacao.descricao}</td>
-                  <td>{itemAvaliacao.anexoObrigatorio ? 'true' : 'false'}</td>
+                  <td>{itemAvaliacao.anexoObrigatorio ? 'Sim' : 'Não'}</td>
                   <td>{itemAvaliacao.pontosProcedimento}</td>
                   <td>{itemAvaliacao.pontosPessoa}</td>
                   <td>{itemAvaliacao.pontosProcesso}</td>

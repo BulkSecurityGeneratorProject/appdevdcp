@@ -40,7 +40,7 @@ export class ItemAvaliacaoDetail extends React.Component<IItemAvaliacaoDetailPro
                 <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.anexoObrigatorio">Anexo Obrigatorio</Translate>
               </span>
             </dt>
-            <dd>{itemAvaliacaoEntity.anexoObrigatorio ? 'true' : 'false'}</dd>
+            <dd>{itemAvaliacaoEntity.anexoObrigatorio ? 'Sim' : 'Não'}</dd>
             <dt>
               <span id="pontosProcedimento">
                 <Translate contentKey="dcpdesconformidadesApp.itemAvaliacao.pontosProcedimento">Pontos Procedimento</Translate>

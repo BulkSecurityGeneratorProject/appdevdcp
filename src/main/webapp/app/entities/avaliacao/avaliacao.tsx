@@ -140,7 +140,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.NivelEficiencia.${avaliacao.nivelEficienciaGeral}`} />
                   </td>
-                  <td>{avaliacao.importadoViaPlanilha ? 'true' : 'false'}</td>
+                  <td>{avaliacao.importadoViaPlanilha ? 'Sim' : 'Não'}</td>
                   <td>{avaliacao.caminhoArquivoPlanilha}</td>
                   <td>
                     {avaliacao.questionario.nome ? (

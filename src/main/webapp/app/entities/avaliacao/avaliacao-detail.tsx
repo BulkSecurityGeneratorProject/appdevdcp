@@ -532,7 +532,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                         <Translate contentKey="dcpdesconformidadesApp.avaliacao.importadoViaPlanilha">Importado Via Planilha</Translate>
                       </b>
                     </Col>
-                    <Col xs="2">{avaliacaoEntity.importadoViaPlanilha ? 'true' : 'false'}</Col>
+                    <Col xs="2">{avaliacaoEntity.importadoViaPlanilha ? 'Sim' : 'Não'}</Col>
                     <Col xs="2">
                       <b>
                         <Translate contentKey="dcpdesconformidadesApp.avaliacao.caminhoArquivoPlanilha">Caminho Arquivo Planilha</Translate>

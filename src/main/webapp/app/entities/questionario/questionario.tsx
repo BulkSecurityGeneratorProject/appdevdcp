@@ -66,7 +66,7 @@ export class Questionario extends React.Component<IQuestionarioProps> {
                   </td>
                   <td>{questionario.nome}</td>
                   <td>{questionario.descricao}</td>
-                  <td>{questionario.ativo ? 'true' : 'false'}</td>
+                  <td>{questionario.ativo ? 'Sim' : 'Não'}</td>
                   <td>{questionario.versao}</td>
                   <td>
                     {questionario.grupos

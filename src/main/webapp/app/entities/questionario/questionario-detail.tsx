@@ -46,7 +46,7 @@ export class QuestionarioDetail extends React.Component<IQuestionarioDetailProps
                 <Translate contentKey="dcpdesconformidadesApp.questionario.ativo">Ativo</Translate>
               </span>
             </dt>
-            <dd>{questionarioEntity.ativo ? 'true' : 'false'}</dd>
+            <dd>{questionarioEntity.ativo ? 'Sim' : 'Não'}</dd>
             <dt>
               <span id="versao">
                 <Translate contentKey="dcpdesconformidadesApp.questionario.versao">Versão</Translate>
