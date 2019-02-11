@@ -565,7 +565,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                               <Translate contentKey="dcpdesconformidadesApp.avaliacao.classificacaoItem">Classificação</Translate>
                             </b>
                           </th>
-                          <th className="text-center" width="42%">
+                          <th className="text-center" style={{ width: '42%' }}>
                             <b>
                               <Translate contentKey="dcpdesconformidadesApp.avaliacao.descricaoItem">Descrição do item</Translate>
                             </b>
