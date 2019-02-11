@@ -1,5 +1,5 @@
 # ===================================================================
-# Spring Boot configuration for the "dev" profile.
+# Spring Boot configuration for the "local" profile.
 #
 # This configuration overrides the application.yml file.
 #
@@ -21,26 +21,32 @@ logging:
 
 spring:
     profiles:
-        active: dev
+        active: local
         include:
             - swagger
             # Uncomment to activate TLS for the dev profile
             #- tls
     devtools:
         restart:
-            enabled: false
+            enabled: true
         livereload:
-            enabled: false
+            enabled: false # we use Webpack dev server + BrowserSync for livereload
+    jackson:
+        serialization:
+            indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://peldcp.mysql.database.azure.com:3306/dcp?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false
-        username: master@peldcp
-        password: @Lasa.2019
+        url: jdbc:h2:file:./target/h2db/db/dcpdesconformidades;DB_CLOSE_DELAY=-1
+        username: dcpdesconformidades
+        password:
         hikari:
             auto-commit: false
+    h2:
+        console:
+            enabled: false
     jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        database: MYSQL
+        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database: H2
         show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
@@ -50,7 +56,7 @@ spring:
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
     liquibase:
-        contexts: dev
+        contexts: local
     mail:
         host: localhost
         port: 25
@@ -66,7 +72,7 @@ server:
 
 # Properties to be exposed on the /info management endpoint
 info:
-    display-ribbon-on-profiles: "dev"
+    display-ribbon-on-profiles: "local"
 
 # ===================================================================
 # JHipster specific properties
@@ -81,6 +87,14 @@ jhipster:
         ehcache: # Ehcache configuration
             time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
             max-entries: 100 # Number of objects in each cache entry
+    # CORS is only enabled by default with the "local" profile, so BrowserSync can access the API
+    cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+        allowed-headers: "*"
+        exposed-headers: "Authorization,Link,X-Total-Count"
+        allow-credentials: true
+        max-age: 1800
     security:
         authentication:
             jwt:
@@ -121,5 +135,5 @@ application:
     urlRaioxListarTodasLojas: http://52.31.153.101/gestao_api/lista_loja_posicao
     raioxUser: painel
     raioxPassword: painel_info
-    filesBasePath: ### TODO
+    filesBasePath: /Users/delta/Projects/coding/temp/dcpdesconformidades/
 

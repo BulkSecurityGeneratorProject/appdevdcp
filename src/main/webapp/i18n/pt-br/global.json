@@ -68,6 +68,7 @@
       "id": "Código"
     },
     "ribbon": {
+      "local": "Local",
       "dev": "Development"
     },
     "item-count": "Mostrando {{first}} - {{second}} de {{total}} resultados."
