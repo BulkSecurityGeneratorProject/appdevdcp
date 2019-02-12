@@ -45,8 +45,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-  @Query(value = "select app_user.* from app_user inner join loja_user on app_user.id = loja_user.users_id where loja_user.lojas_id =:idLoja", nativeQuery = true)
-  Set<User> findAllByIdLoja(@Param("idLoja") Long idLoja);
-  
   Optional<User> findOneByProntuario(Integer prontuario);
 }
