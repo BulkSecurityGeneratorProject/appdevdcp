@@ -38,15 +38,11 @@ public class LojaService {
 
   private final LojaRaioxMapper lojaRaioxMapper;
 
-  private final UserRepository userRepository;
-
-  public LojaService(LojaRepository lojaRepository, LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper,
-      UserRepository userRepository) {
+  public LojaService(LojaRepository lojaRepository, LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper) {
     this.lojaRepository = lojaRepository;
     this.lojaRaioxRepository = lojaRaioxRepository;
     this.lojaParaAvaliacaoMapper = lojaParaAvaliacaoMapper;
     this.lojaRaioxMapper = lojaRaioxMapper;
-    this.userRepository = userRepository;
   }
 
   /**
@@ -79,35 +75,6 @@ public class LojaService {
    */
   public Page<Loja> findAllWithEagerRelationships(Pageable pageable) {
     return lojaRepository.findAllWithEagerRelationships(pageable);
-  }
-
-  /**
-   * Get all the lojas.
-   *
-   * @param pageable the pagination information
-   * @return the list of entities
-   */
-  @Transactional(readOnly = true)
-  public Page<Loja> findAllInRaiox(Pageable pageable) {
-    log.debug("Request to get all Lojas");
-    return lojaRaioxRepository.findAll(pageable) //
-        .map(lojaRaioxMapper::toEntity);
-  }
-
-  /**
-   * Get one loja by id.
-   *
-   * @param id the id of the entity
-   * @return the entity
-   */
-  @Transactional(readOnly = true)
-  public Optional<Loja> findOneInRaiox(Long id) {
-    log.debug("Request to get Loja : {}", id);
-    return lojaRaioxRepository.findOne(id) //
-        .map(lojaRaioxMapper::toEntity).map(loja -> {
-          loja.setAvaliadores(userRepository.findAllByIdLoja(id));
-          return loja;
-        });
   }
 
   /**
