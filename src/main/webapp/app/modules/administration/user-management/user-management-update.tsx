@@ -14,6 +14,8 @@ import { IRootState } from 'app/shared/reducers';
 import { IAuthority } from 'app/shared/model/authority.model';
 import { ILoja } from 'app/shared/model/loja.model';
 
+import { mapIdList } from 'app/shared/util/entity-utils';
+
 export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
 
 export interface IUserManagementUpdateState {
@@ -58,10 +60,17 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
   }
 
   saveUser = (event, values) => {
+    const { user } = this.props;
+    const entity = {
+      ...user,
+      ...values,
+      lojas: mapIdList(values.lojas)
+    };
+
     if (this.state.isNew) {
-      this.props.createUser(values);
+      this.props.createUser(entity);
     } else {
-      this.props.updateUser(values);
+      this.props.updateUser(entity);
     }
     this.handleClose();
   };
@@ -205,15 +214,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                   <Label for="prontuario">
                     <Translate contentKey="userManagement.prontuario">Prontuario</Translate>
                   </Label>
-                  <AvField
-                    name="prontuario"
-                    type="number"
-                    validate={{
-                      minLength: { value: 5, errorMessage: translate('entity.validation.minlength', { min: 5 }) },
-                      maxLength: { value: 10, errorMessage: translate('entity.validation.maxlength', { max: 10 }) }
-                    }}
-                    value={user.prontuario}
-                  />
+                  <AvField name="prontuario" type="number" value={user.prontuario} />
                 </AvGroup>
                 <AvGroup check inline>
                   <Label>
@@ -264,7 +265,6 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                     valueKey="id"
                     isMulti
                     isSearchable
-                    required
                   />
                 </AvGroup>
                 <Button tag={Link} to="/admin/user-management" replace color="info">

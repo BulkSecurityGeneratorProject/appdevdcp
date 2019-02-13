@@ -55,6 +55,10 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
             </dt>
             <dd>{user.langKey ? languages[user.langKey].name : undefined}</dd>
             <dt>
+              <Translate contentKey="userManagement.prontuario">Prontuario</Translate>
+            </dt>
+            <dd>{user.prontuario}</dd>
+            <dt>
               <Translate contentKey="userManagement.createdBy">Created By</Translate>
             </dt>
             <dd>{user.createdBy}</dd>

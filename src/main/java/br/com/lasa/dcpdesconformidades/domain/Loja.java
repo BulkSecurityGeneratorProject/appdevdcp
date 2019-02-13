@@ -52,9 +52,11 @@ public class Loja implements Serializable {
     @OneToMany(mappedBy = "loja")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Avaliacao> avaliacoes = new HashSet<>();
+    
     @OneToMany(mappedBy = "loja")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PerdaQuebraAcumuladosAnoLoja> perdaQuebraAcumuladosAnos = new HashSet<>();
+    
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "loja_avaliadores",

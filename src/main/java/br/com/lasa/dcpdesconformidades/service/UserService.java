@@ -1,10 +1,10 @@
 package br.com.lasa.dcpdesconformidades.service;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,7 +120,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+        return userRepository.findAllByLoginNotIn(pageable, new HashSet<String>(Arrays.asList(Constants.ANONYMOUS_USER, Constants.SYSTEM_ACCOUNT))).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -148,5 +148,9 @@ public class UserService {
     private void clearUserCaches(User user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+        // TODO deveria limpar somente para os avaliadores dentro do objeto da loja, mas o cache não é
+        // limpado devido ao objeto armazenado como key pelo hibernate ser um LongType e não um Long
+        // normal (não é possível criar um LongType para efetuar a comparação).
+        Objects.requireNonNull(cacheManager.getCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliadores")).clear();
     }
 }

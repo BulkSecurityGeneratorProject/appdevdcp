@@ -1,11 +1,13 @@
 package br.com.lasa.dcpdesconformidades.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +18,6 @@ import br.com.lasa.dcpdesconformidades.domain.Loja;
 import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.repository.LojaRaioxRepository;
 import br.com.lasa.dcpdesconformidades.repository.LojaRepository;
-import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.service.dto.LojaParaAvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.LojaParaAvaliacaoMapper;
 import br.com.lasa.dcpdesconformidades.service.mapper.LojaRaioxMapper;
@@ -37,12 +38,15 @@ public class LojaService {
   private final LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper;
 
   private final LojaRaioxMapper lojaRaioxMapper;
+  
+  private final CacheManager cacheManager;
 
-  public LojaService(LojaRepository lojaRepository, LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper) {
+  public LojaService(LojaRepository lojaRepository, LojaRaioxRepository lojaRaioxRepository, LojaParaAvaliacaoMapper lojaParaAvaliacaoMapper, LojaRaioxMapper lojaRaioxMapper, CacheManager cacheManager) {
     this.lojaRepository = lojaRepository;
     this.lojaRaioxRepository = lojaRaioxRepository;
     this.lojaParaAvaliacaoMapper = lojaParaAvaliacaoMapper;
     this.lojaRaioxMapper = lojaRaioxMapper;
+    this.cacheManager = cacheManager;
   }
 
   /**
@@ -53,7 +57,14 @@ public class LojaService {
    */
   public Loja save(Loja loja) {
     log.debug("Request to save Loja : {}", loja);
-    return lojaRepository.save(loja);
+    loja = lojaRepository.save(loja);
+
+    // TODO deveria limpar somente para os avaliadores dentro do objeto da loja, mas o cache não é
+    // limpado devido ao objeto armazenado como key pelo hibernate ser um LongType e não um Long
+    // normal (não é possível criar um LongType para efetuar a comparação).
+    Objects.requireNonNull(cacheManager.getCache(br.com.lasa.dcpdesconformidades.domain.User.class.getName() + ".lojas")).clear();
+
+    return loja;
   }
 
   /**

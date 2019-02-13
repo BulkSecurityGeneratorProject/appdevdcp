@@ -154,7 +154,6 @@ export class LojaUpdate extends React.Component<ILojaUpdateProps, ILojaUpdateSta
                     valueKey="id"
                     isMulti
                     isSearchable
-                    required
                   />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/loja" replace color="info">

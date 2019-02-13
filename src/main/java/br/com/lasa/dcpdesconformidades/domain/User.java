@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -94,7 +95,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Avaliacao> avaliacoes = new HashSet<>();
     
-    @ManyToMany(mappedBy = "avaliadores", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "loja_avaliadores", joinColumns = @JoinColumn(name = "avaliadores_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "lojas_id", referencedColumnName = "id"))
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore

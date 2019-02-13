@@ -47,6 +47,8 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Questionario.class.getName() + ".grupos", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliadores", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliacoes", jcacheConfiguration);
+            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".perdaQuebraAcumuladosAnos", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName() + ".itensAvaliados", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.Avaliacao.class.getName() + ".itensPerdaEQuebraAcumulados", jcacheConfiguration);
@@ -63,9 +65,6 @@ public class CacheConfiguration {
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.AnexoItem.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemAuditado.class.getName(), jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.ItemSolicitadoAjuste.class.getName(), jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".users", jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".avaliacoes", jcacheConfiguration);
-            cm.createCache(br.com.lasa.dcpdesconformidades.domain.Loja.class.getName() + ".perdaQuebraAcumuladosAnos", jcacheConfiguration);
             cm.createCache(br.com.lasa.dcpdesconformidades.domain.PerdaQuebraAcumuladosAnoLoja.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
