@@ -10,6 +10,7 @@ application {
     databaseType sql
     prodDatabaseType mysql
     jhiPrefix app
+    enableTranslation false
     languages [pt-br]
     nativeLanguage pt-br
     packageName br.com.lasa.dcpdesconformidades
@@ -25,7 +26,8 @@ enum StatusAvaliacao {
     CHECKLIST_FINALIZADO,
     ANEXO_AUDITORIA_FINALIZADO,
     ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,
-    SUBMETIDO
+    SUBMETIDA,
+    CANCELADA
 }
 
 /**
@@ -84,7 +86,7 @@ entity Avaliacao {
     longitudeInicioAvaliacao Double required
     nomeResponsavelLoja String // Caso ele precise sobrescrever e também pra não permitir mudanças
     prontuarioResponsavelLoja Integer // Caso ele precise sobrescrever e também pra não permitir mudanças
-    submetidoEm Instant
+    submetidaEm Instant
     latitudeSubmissaoAvaliacao Double
     longitudeSubmissaoAvaliacao Double
     observacaoSubmissaoEnviadaForaDaLoja String
@@ -95,7 +97,7 @@ entity Avaliacao {
     nivelEficienciaPessoa NivelEficiencia
     nivelEficienciaProcesso NivelEficiencia
     nivelEficienciaProduto NivelEficiencia
-    canceladoEm Instant
+    canceladaEm Instant
     motivoCancelamento String
     percentualPerda Double
     financeiroPerda BigDecimal
