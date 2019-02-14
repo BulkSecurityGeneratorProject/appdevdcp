@@ -23,7 +23,7 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
   List<Avaliacao> findByAvaliadorIsCurrentUser();
 
   @Modifying
-  @Query("update Avaliacao a set a.status = :status, a.canceladoEm = :canceladoEm, a.motivoCancelamento = :motivoCancelamento where a.id = :id")
-  int setStatusAsCancelledFor(@Param("status") StatusAvaliacao status, @Param("canceladoEm") Instant canceladoEm, @Param("motivoCancelamento") String motivoCancelamento, @Param("id") Long id);
+  @Query("update Avaliacao a set a.status = :status, a.canceladaEm = :canceladaEm, a.motivoCancelamento = :motivoCancelamento where a.id = :id")
+  int setStatusAsCancelledFor(@Param("status") StatusAvaliacao status, @Param("canceladaEm") Instant canceladaEm, @Param("motivoCancelamento") String motivoCancelamento, @Param("id") Long id);
 
 }

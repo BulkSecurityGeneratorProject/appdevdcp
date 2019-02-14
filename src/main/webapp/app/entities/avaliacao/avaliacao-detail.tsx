@@ -456,11 +456,11 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     <Col xs="2">{avaliacaoEntity.avaliadorProntuario ? avaliacaoEntity.avaliadorProntuario : ''}</Col>
                     <Col xs="2">
                       <b>
-                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidoEm">Submetido Em</Translate>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidaEm">Submetida Em</Translate>
                       </b>
                     </Col>
                     <Col xs="2">
-                      <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} />(
+                      <TextFormat value={avaliacaoEntity.submetidaEm} type="date" format={APP_DATE_FORMAT} />(
                       <GoogleMapsLink
                         lat1={avaliacaoEntity.latitudeSubmissaoAvaliacao}
                         long1={avaliacaoEntity.longitudeSubmissaoAvaliacao}
@@ -506,12 +506,12 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     </Col>
                     <Col xs="2">
                       <b>
-                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladoEm">Cancelado Em</Translate>
+                        <Translate contentKey="dcpdesconformidadesApp.avaliacao.canceladaEm">Cancelada Em</Translate>
                       </b>
                     </Col>
                     <Col xs="2">
-                      {avaliacaoEntity.canceladoEm && (
-                        <TextFormat value={avaliacaoEntity.canceladoEm} type="date" format={APP_DATE_FORMAT} />
+                      {avaliacaoEntity.canceladaEm && (
+                        <TextFormat value={avaliacaoEntity.canceladaEm} type="date" format={APP_DATE_FORMAT} />
                       )}
                     </Col>
                     <Col xs="2">
@@ -700,7 +700,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                       <p>
                         Eu, {avaliacaoEntity.nomeResponsavelLoja}, prontuário {avaliacaoEntity.prontuarioResponsavelLoja}, responsável pela
                         loja {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome}`}, declaro que em{' '}
-                        <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_FORMAT} /> recebi o "Relatório de
+                        <TextFormat value={avaliacaoEntity.submetidaEm} type="date" format={APP_DATE_FORMAT} /> recebi o "Relatório de
                         Desconformidade e a etiqueta com o nível de eficiência da loja em relação a Política de Prevenção da Cia" e seus
                         respectivos anexos, emitido em visita realizada nesta data, pelo SPP {avaliacaoEntity.avaliadorName}, prontuário{' '}
                         {avaliacaoEntity.avaliadorProntuario}. Estou ciente do prazo de 15 dias, contados desta data, para regularizar as
@@ -727,7 +727,7 @@ export class AvaliacaoDetail extends React.Component<IAvaliacaoDetailProps, IAva
                     <Col>
                       <span className="text-signed">
                         {`L${avaliacaoEntity.lojaId} - ${avaliacaoEntity.lojaNome}`},{' '}
-                        <TextFormat value={avaliacaoEntity.submetidoEm} type="date" format={APP_DATE_EXTENSO_FORMAT} />
+                        <TextFormat value={avaliacaoEntity.submetidaEm} type="date" format={APP_DATE_EXTENSO_FORMAT} />
                       </span>
                     </Col>
                   </Row>

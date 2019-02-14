@@ -31,7 +31,7 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "submetidoEm",
+            "fieldName": "submetidaEm",
             "fieldType": "Instant"
         },
         {
@@ -49,7 +49,7 @@
         {
             "fieldName": "status",
             "fieldType": "StatusAvaliacao",
-            "fieldValues": "INICIADA,CHECKLIST_FINALIZADO,ANEXO_AUDITORIA_FINALIZADO,ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,SUBMETIDO",
+            "fieldValues": "INICIADA,CHECKLIST_FINALIZADO,ANEXO_AUDITORIA_FINALIZADO,ANEXO_SOLICITACAO_AJUSTE_FINALIZADO,SUBMETIDA,CANCELADA",
             "fieldValidateRules": [
                 "required"
             ]
@@ -85,7 +85,7 @@
             "fieldValues": "A,B,C,D,E"
         },
         {
-            "fieldName": "canceladoEm",
+            "fieldName": "canceladaEm",
             "fieldType": "Instant"
         },
         {

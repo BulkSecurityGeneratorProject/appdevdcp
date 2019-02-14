@@ -74,8 +74,8 @@ public class AvaliacaoResourceIntTest {
     private static final Integer DEFAULT_PRONTUARIO_RESPONSAVEL_LOJA = 1;
     private static final Integer UPDATED_PRONTUARIO_RESPONSAVEL_LOJA = 2;
 
-    private static final Instant DEFAULT_SUBMETIDO_EM = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_SUBMETIDO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_SUBMETIDA_EM = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_SUBMETIDA_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Double DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO = 1D;
     private static final Double UPDATED_LATITUDE_SUBMISSAO_AVALIACAO = 2D;
@@ -107,8 +107,8 @@ public class AvaliacaoResourceIntTest {
     private static final NivelEficiencia DEFAULT_NIVEL_EFICIENCIA_PRODUTO = NivelEficiencia.A;
     private static final NivelEficiencia UPDATED_NIVEL_EFICIENCIA_PRODUTO = NivelEficiencia.B;
 
-    private static final Instant DEFAULT_CANCELADO_EM = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CANCELADO_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_CANCELADA_EM = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CANCELADA_EM = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_MOTIVO_CANCELAMENTO = "AAAAAAAAAA";
     private static final String UPDATED_MOTIVO_CANCELAMENTO = "BBBBBBBBBB";
@@ -198,7 +198,7 @@ public class AvaliacaoResourceIntTest {
             .longitudeInicioAvaliacao(DEFAULT_LONGITUDE_INICIO_AVALIACAO)
             .nomeResponsavelLoja(DEFAULT_NOME_RESPONSAVEL_LOJA)
             .prontuarioResponsavelLoja(DEFAULT_PRONTUARIO_RESPONSAVEL_LOJA)
-            .submetidoEm(DEFAULT_SUBMETIDO_EM)
+            .submetidaEm(DEFAULT_SUBMETIDA_EM)
             .latitudeSubmissaoAvaliacao(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO)
             .longitudeSubmissaoAvaliacao(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO)
             .observacaoSubmissaoEnviadaForaDaLoja(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA)
@@ -209,7 +209,7 @@ public class AvaliacaoResourceIntTest {
             .nivelEficienciaPessoa(DEFAULT_NIVEL_EFICIENCIA_PESSOA)
             .nivelEficienciaProcesso(DEFAULT_NIVEL_EFICIENCIA_PROCESSO)
             .nivelEficienciaProduto(DEFAULT_NIVEL_EFICIENCIA_PRODUTO)
-            .canceladoEm(DEFAULT_CANCELADO_EM)
+            .canceladaEm(DEFAULT_CANCELADA_EM)
             .motivoCancelamento(DEFAULT_MOTIVO_CANCELAMENTO)
             .percentualPerda(DEFAULT_PERCENTUAL_PERDA)
             .financeiroPerda(DEFAULT_FINANCEIRO_PERDA)
@@ -267,7 +267,7 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getLongitudeInicioAvaliacao()).isEqualTo(DEFAULT_LONGITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getNomeResponsavelLoja()).isEqualTo(DEFAULT_NOME_RESPONSAVEL_LOJA);
         assertThat(testAvaliacao.getProntuarioResponsavelLoja()).isEqualTo(DEFAULT_PRONTUARIO_RESPONSAVEL_LOJA);
-        assertThat(testAvaliacao.getSubmetidoEm()).isEqualTo(DEFAULT_SUBMETIDO_EM);
+        assertThat(testAvaliacao.getSubmetidaEm()).isEqualTo(DEFAULT_SUBMETIDA_EM);
         assertThat(testAvaliacao.getLatitudeSubmissaoAvaliacao()).isEqualTo(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getLongitudeSubmissaoAvaliacao()).isEqualTo(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getObservacaoSubmissaoEnviadaForaDaLoja()).isEqualTo(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA);
@@ -278,7 +278,7 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getNivelEficienciaPessoa()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PESSOA);
         assertThat(testAvaliacao.getNivelEficienciaProcesso()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PROCESSO);
         assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(DEFAULT_NIVEL_EFICIENCIA_PRODUTO);
-        assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(DEFAULT_CANCELADO_EM);
+        assertThat(testAvaliacao.getCanceladaEm()).isEqualTo(DEFAULT_CANCELADA_EM);
         assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(DEFAULT_MOTIVO_CANCELAMENTO);
         assertThat(testAvaliacao.getPercentualPerda()).isEqualTo(DEFAULT_PERCENTUAL_PERDA);
         assertThat(testAvaliacao.getFinanceiroPerda()).isEqualTo(DEFAULT_FINANCEIRO_PERDA);
@@ -425,7 +425,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].longitudeInicioAvaliacao").value(hasItem(DEFAULT_LONGITUDE_INICIO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].nomeResponsavelLoja").value(hasItem(DEFAULT_NOME_RESPONSAVEL_LOJA.toString())))
             .andExpect(jsonPath("$.[*].prontuarioResponsavelLoja").value(hasItem(DEFAULT_PRONTUARIO_RESPONSAVEL_LOJA)))
-            .andExpect(jsonPath("$.[*].submetidoEm").value(hasItem(DEFAULT_SUBMETIDO_EM.toString())))
+            .andExpect(jsonPath("$.[*].submetidaEm").value(hasItem(DEFAULT_SUBMETIDA_EM.toString())))
             .andExpect(jsonPath("$.[*].latitudeSubmissaoAvaliacao").value(hasItem(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].longitudeSubmissaoAvaliacao").value(hasItem(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO.doubleValue())))
             .andExpect(jsonPath("$.[*].observacaoSubmissaoEnviadaForaDaLoja").value(hasItem(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA.toString())))
@@ -436,7 +436,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.[*].nivelEficienciaPessoa").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PESSOA.toString())))
             .andExpect(jsonPath("$.[*].nivelEficienciaProcesso").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString())))
             .andExpect(jsonPath("$.[*].nivelEficienciaProduto").value(hasItem(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString())))
-            .andExpect(jsonPath("$.[*].canceladoEm").value(hasItem(DEFAULT_CANCELADO_EM.toString())))
+            .andExpect(jsonPath("$.[*].canceladaEm").value(hasItem(DEFAULT_CANCELADA_EM.toString())))
             .andExpect(jsonPath("$.[*].motivoCancelamento").value(hasItem(DEFAULT_MOTIVO_CANCELAMENTO.toString())))
             .andExpect(jsonPath("$.[*].percentualPerda").value(hasItem(DEFAULT_PERCENTUAL_PERDA.doubleValue())))
             .andExpect(jsonPath("$.[*].financeiroPerda").value(hasItem(DEFAULT_FINANCEIRO_PERDA.intValue())))
@@ -468,7 +468,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.longitudeInicioAvaliacao").value(DEFAULT_LONGITUDE_INICIO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.nomeResponsavelLoja").value(DEFAULT_NOME_RESPONSAVEL_LOJA.toString()))
             .andExpect(jsonPath("$.prontuarioResponsavelLoja").value(DEFAULT_PRONTUARIO_RESPONSAVEL_LOJA))
-            .andExpect(jsonPath("$.submetidoEm").value(DEFAULT_SUBMETIDO_EM.toString()))
+            .andExpect(jsonPath("$.submetidaEm").value(DEFAULT_SUBMETIDA_EM.toString()))
             .andExpect(jsonPath("$.latitudeSubmissaoAvaliacao").value(DEFAULT_LATITUDE_SUBMISSAO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.longitudeSubmissaoAvaliacao").value(DEFAULT_LONGITUDE_SUBMISSAO_AVALIACAO.doubleValue()))
             .andExpect(jsonPath("$.observacaoSubmissaoEnviadaForaDaLoja").value(DEFAULT_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA.toString()))
@@ -479,7 +479,7 @@ public class AvaliacaoResourceIntTest {
             .andExpect(jsonPath("$.nivelEficienciaPessoa").value(DEFAULT_NIVEL_EFICIENCIA_PESSOA.toString()))
             .andExpect(jsonPath("$.nivelEficienciaProcesso").value(DEFAULT_NIVEL_EFICIENCIA_PROCESSO.toString()))
             .andExpect(jsonPath("$.nivelEficienciaProduto").value(DEFAULT_NIVEL_EFICIENCIA_PRODUTO.toString()))
-            .andExpect(jsonPath("$.canceladoEm").value(DEFAULT_CANCELADO_EM.toString()))
+            .andExpect(jsonPath("$.canceladaEm").value(DEFAULT_CANCELADA_EM.toString()))
             .andExpect(jsonPath("$.motivoCancelamento").value(DEFAULT_MOTIVO_CANCELAMENTO.toString()))
             .andExpect(jsonPath("$.percentualPerda").value(DEFAULT_PERCENTUAL_PERDA.doubleValue()))
             .andExpect(jsonPath("$.financeiroPerda").value(DEFAULT_FINANCEIRO_PERDA.intValue()))
@@ -521,7 +521,7 @@ public class AvaliacaoResourceIntTest {
             .longitudeInicioAvaliacao(UPDATED_LONGITUDE_INICIO_AVALIACAO)
             .nomeResponsavelLoja(UPDATED_NOME_RESPONSAVEL_LOJA)
             .prontuarioResponsavelLoja(UPDATED_PRONTUARIO_RESPONSAVEL_LOJA)
-            .submetidoEm(UPDATED_SUBMETIDO_EM)
+            .submetidaEm(UPDATED_SUBMETIDA_EM)
             .latitudeSubmissaoAvaliacao(UPDATED_LATITUDE_SUBMISSAO_AVALIACAO)
             .longitudeSubmissaoAvaliacao(UPDATED_LONGITUDE_SUBMISSAO_AVALIACAO)
             .observacaoSubmissaoEnviadaForaDaLoja(UPDATED_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA)
@@ -532,7 +532,7 @@ public class AvaliacaoResourceIntTest {
             .nivelEficienciaPessoa(UPDATED_NIVEL_EFICIENCIA_PESSOA)
             .nivelEficienciaProcesso(UPDATED_NIVEL_EFICIENCIA_PROCESSO)
             .nivelEficienciaProduto(UPDATED_NIVEL_EFICIENCIA_PRODUTO)
-            .canceladoEm(UPDATED_CANCELADO_EM)
+            .canceladaEm(UPDATED_CANCELADA_EM)
             .motivoCancelamento(UPDATED_MOTIVO_CANCELAMENTO)
             .percentualPerda(UPDATED_PERCENTUAL_PERDA)
             .financeiroPerda(UPDATED_FINANCEIRO_PERDA)
@@ -562,7 +562,7 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getLongitudeInicioAvaliacao()).isEqualTo(UPDATED_LONGITUDE_INICIO_AVALIACAO);
         assertThat(testAvaliacao.getNomeResponsavelLoja()).isEqualTo(UPDATED_NOME_RESPONSAVEL_LOJA);
         assertThat(testAvaliacao.getProntuarioResponsavelLoja()).isEqualTo(UPDATED_PRONTUARIO_RESPONSAVEL_LOJA);
-        assertThat(testAvaliacao.getSubmetidoEm()).isEqualTo(UPDATED_SUBMETIDO_EM);
+        assertThat(testAvaliacao.getSubmetidaEm()).isEqualTo(UPDATED_SUBMETIDA_EM);
         assertThat(testAvaliacao.getLatitudeSubmissaoAvaliacao()).isEqualTo(UPDATED_LATITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getLongitudeSubmissaoAvaliacao()).isEqualTo(UPDATED_LONGITUDE_SUBMISSAO_AVALIACAO);
         assertThat(testAvaliacao.getObservacaoSubmissaoEnviadaForaDaLoja()).isEqualTo(UPDATED_OBSERVACAO_SUBMISSAO_ENVIADA_FORA_DA_LOJA);
@@ -573,7 +573,7 @@ public class AvaliacaoResourceIntTest {
         assertThat(testAvaliacao.getNivelEficienciaPessoa()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PESSOA);
         assertThat(testAvaliacao.getNivelEficienciaProcesso()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PROCESSO);
         assertThat(testAvaliacao.getNivelEficienciaProduto()).isEqualTo(UPDATED_NIVEL_EFICIENCIA_PRODUTO);
-        assertThat(testAvaliacao.getCanceladoEm()).isEqualTo(UPDATED_CANCELADO_EM);
+        assertThat(testAvaliacao.getCanceladaEm()).isEqualTo(UPDATED_CANCELADA_EM);
         assertThat(testAvaliacao.getMotivoCancelamento()).isEqualTo(UPDATED_MOTIVO_CANCELAMENTO);
         assertThat(testAvaliacao.getPercentualPerda()).isEqualTo(UPDATED_PERCENTUAL_PERDA);
         assertThat(testAvaliacao.getFinanceiroPerda()).isEqualTo(UPDATED_FINANCEIRO_PERDA);

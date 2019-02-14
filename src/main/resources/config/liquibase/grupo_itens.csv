@@ -1,0 +1,10 @@
+id;questionario_id;ordem_exibicao;nome;criado_por;criado_em
+1;1;1;"Recebimento Centralizado / Descentralizado ";system;current_timestamp
+2;1;2;"Operação de Frente de Caixa, Central de Atendimento e Ilha de Tecnologia";system;current_timestamp
+3;1;3;"SLR - Devolução / 9000";system;current_timestamp
+4;1;4;"Exposição e Armazenagem";system;current_timestamp
+5;1;5;"Quebras e Lixo";system;current_timestamp
+6;1;6;"Inventário";system;current_timestamp
+7;1;7;"Sinistros";system;current_timestamp
+8;1;8;"Controle Gerencial";system;current_timestamp
+9;1;9;"Gente & Gestão";system;current_timestamp

@@ -56,8 +56,6 @@ public class UserServiceIntTest {
     user.setActivated(true);
     user.setEmail("johndoe@localhost");
     user.setName("john");
-    user.setImageUrl("http://placehold.it/50x50");
-    user.setLangKey("en");
 
     when(dateTimeProvider.getNow()).thenReturn(Optional.of(LocalDateTime.now()));
     auditingHandler.setDateTimeProvider(dateTimeProvider);

@@ -223,18 +223,6 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="langKey">
-                    <Translate contentKey="userManagement.langKey">Language Key</Translate>
-                  </Label>
-                  <AvField type="select" className="form-control" name="langKey" value={user.langKey}>
-                    {locales.map(locale => (
-                      <option value={locale} key={locale}>
-                        {languages[locale].name}
-                      </option>
-                    ))}
-                  </AvField>
-                </AvGroup>
-                <AvGroup>
                   <Label for="authorities">
                     <Translate contentKey="userManagement.profiles">Profiles</Translate>
                   </Label>

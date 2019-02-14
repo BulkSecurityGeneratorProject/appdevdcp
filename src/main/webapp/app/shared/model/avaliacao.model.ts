@@ -9,7 +9,8 @@ export const enum StatusAvaliacao {
   CHECKLIST_FINALIZADO = 'CHECKLIST_FINALIZADO',
   ANEXO_AUDITORIA_FINALIZADO = 'ANEXO_AUDITORIA_FINALIZADO',
   ANEXO_SOLICITACAO_AJUSTE_FINALIZADO = 'ANEXO_SOLICITACAO_AJUSTE_FINALIZADO',
-  SUBMETIDO = 'SUBMETIDO'
+  SUBMETIDA = 'SUBMETIDA',
+  CANCELADA = 'CANCELADA'
 }
 
 export const enum CriticidadePainel {
@@ -50,7 +51,7 @@ export interface IAvaliacao {
   longitudeInicioAvaliacao?: number;
   nomeResponsavelLoja?: string;
   prontuarioResponsavelLoja?: number;
-  submetidoEm?: Moment;
+  submetidaEm?: Moment;
   latitudeSubmissaoAvaliacao?: number;
   longitudeSubmissaoAvaliacao?: number;
   observacaoSubmissaoEnviadaForaDaLoja?: string;
@@ -61,7 +62,7 @@ export interface IAvaliacao {
   nivelEficienciaPessoa?: NivelEficiencia;
   nivelEficienciaProcesso?: NivelEficiencia;
   nivelEficienciaProduto?: NivelEficiencia;
-  canceladoEm?: Moment;
+  canceladaEm?: Moment;
   motivoCancelamento?: string;
   percentualPerda?: number;
   financeiroPerda?: number;

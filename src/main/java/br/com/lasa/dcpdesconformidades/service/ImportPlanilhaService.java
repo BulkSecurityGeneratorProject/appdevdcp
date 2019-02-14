@@ -224,14 +224,14 @@ public class ImportPlanilhaService {
     avaliacao.longitudeInicioAvaliacao(loja.getLongitude());
     avaliacao.latitudeSubmissaoAvaliacao(loja.getLatitude());
     avaliacao.longitudeSubmissaoAvaliacao(loja.getLongitude());
-    avaliacao.status(StatusAvaliacao.SUBMETIDO);
+    avaliacao.status(StatusAvaliacao.SUBMETIDA);
     avaliacao.criticidadePainel(criticidadePainel);
     avaliacao.nivelEficienciaGeral(nivelEficienciaGeral);
     avaliacao.nivelEficienciaProcedimento(nivelEficienciaProcedimento);
     avaliacao.nivelEficienciaPessoa(nivelEficienciaPessoa);
     avaliacao.nivelEficienciaProcesso(nivelEficienciaProcesso);
     avaliacao.nivelEficienciaProduto(nivelEficienciaProduto);
-    avaliacao.submetidoEm(dataAvaliacao);
+    avaliacao.submetidaEm(dataAvaliacao);
     avaliacao.percentualPerda(percentualPerda);
     avaliacao.financeiroPerda(financeiroPerda);
     avaliacao.pontuacaoPerda(pontuacaoPerda);

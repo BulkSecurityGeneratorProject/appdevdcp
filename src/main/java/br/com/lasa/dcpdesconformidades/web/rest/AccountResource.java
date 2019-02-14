@@ -89,8 +89,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new InternalServerErrorException("User could not be found");
         }
-        userService.updateUser(userDTO.getName(), userDTO.getEmail(), userDTO.getLangKey(),
-            userDTO.getImageUrl());
+        userService.updateUser(userDTO.getName(), userDTO.getEmail());
     }
 
 }

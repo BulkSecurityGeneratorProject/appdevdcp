@@ -36,7 +36,7 @@ public class AvaliacaoDTO implements Serializable {
 
     private Integer prontuarioResponsavelLoja;
 
-    private Instant submetidoEm;
+    private Instant submetidaEm;
 
     private Double latitudeSubmissaoAvaliacao;
 
@@ -59,7 +59,7 @@ public class AvaliacaoDTO implements Serializable {
 
     private NivelEficiencia nivelEficienciaProduto;
 
-    private Instant canceladoEm;
+    private Instant canceladaEm;
 
     private String motivoCancelamento;
 
@@ -158,12 +158,12 @@ public class AvaliacaoDTO implements Serializable {
         this.prontuarioResponsavelLoja = prontuarioResponsavelLoja;
     }
 
-    public Instant getSubmetidoEm() {
-        return submetidoEm;
+    public Instant getSubmetidaEm() {
+        return submetidaEm;
     }
 
-    public void setSubmetidoEm(Instant submetidoEm) {
-        this.submetidoEm = submetidoEm;
+    public void setSubmetidaEm(Instant submetidaEm) {
+        this.submetidaEm = submetidaEm;
     }
 
     public Double getLatitudeSubmissaoAvaliacao() {
@@ -246,12 +246,12 @@ public class AvaliacaoDTO implements Serializable {
         this.nivelEficienciaProduto = nivelEficienciaProduto;
     }
 
-    public Instant getCanceladoEm() {
-        return canceladoEm;
+    public Instant getCanceladaEm() {
+        return canceladaEm;
     }
 
-    public void setCanceladoEm(Instant canceladoEm) {
-        this.canceladoEm = canceladoEm;
+    public void setCanceladaEm(Instant canceladaEm) {
+        this.canceladaEm = canceladaEm;
     }
 
     public String getMotivoCancelamento() {
@@ -476,7 +476,7 @@ public class AvaliacaoDTO implements Serializable {
             ", longitudeInicioAvaliacao=" + getLongitudeInicioAvaliacao() +
             ", nomeResponsavelLoja='" + getNomeResponsavelLoja() + "'" +
             ", prontuarioResponsavelLoja=" + getProntuarioResponsavelLoja() +
-            ", submetidoEm='" + getSubmetidoEm() + "'" +
+            ", submetidaEm='" + getSubmetidaEm() + "'" +
             ", latitudeSubmissaoAvaliacao=" + getLatitudeSubmissaoAvaliacao() +
             ", longitudeSubmissaoAvaliacao=" + getLongitudeSubmissaoAvaliacao() +
             ", observacaoSubmissaoEnviadaForaDaLoja='" + getObservacaoSubmissaoEnviadaForaDaLoja() + "'" +
@@ -487,7 +487,7 @@ public class AvaliacaoDTO implements Serializable {
             ", nivelEficienciaPessoa='" + getNivelEficienciaPessoa() + "'" +
             ", nivelEficienciaProcesso='" + getNivelEficienciaProcesso() + "'" +
             ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
-            ", canceladoEm='" + getCanceladoEm() + "'" +
+            ", canceladaEm='" + getCanceladaEm() + "'" +
             ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
             ", percentualPerda=" + getPercentualPerda() +
             ", financeiroPerda=" + getFinanceiroPerda() +

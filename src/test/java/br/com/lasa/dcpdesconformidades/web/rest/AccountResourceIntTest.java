@@ -119,8 +119,6 @@ public class AccountResourceIntTest {
         user.setLogin("test");
         user.setName("john");
         user.setEmail("john.doe@jhipster.com");
-        user.setImageUrl("http://placehold.it/50x50");
-        user.setLangKey("en");
         user.setAuthorities(authorities);
         when(mockUserService.getUserWithAuthorities()).thenReturn(Optional.of(user));
 
@@ -131,8 +129,6 @@ public class AccountResourceIntTest {
             .andExpect(jsonPath("$.login").value("test"))
             .andExpect(jsonPath("$.name").value("john"))
             .andExpect(jsonPath("$.email").value("john.doe@jhipster.com"))
-            .andExpect(jsonPath("$.imageUrl").value("http://placehold.it/50x50"))
-            .andExpect(jsonPath("$.langKey").value("en"))
             .andExpect(jsonPath("$.authorities").value(Authority.ROLE_ADMIN));
     }
 
@@ -153,8 +149,6 @@ public class AccountResourceIntTest {
         validUser.setPassword("password");
         validUser.setName("Alice");
         validUser.setEmail("test-register-valid@example.com");
-        validUser.setImageUrl("http://placehold.it/50x50");
-        validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         validUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
         assertThat(userRepository.findOneByLogin("test-register-valid").isPresent()).isFalse();
 
@@ -176,8 +170,6 @@ public class AccountResourceIntTest {
         invalidUser.setName("Funky");
         invalidUser.setEmail("funky@example.com");
         invalidUser.setActivated(true);
-        invalidUser.setImageUrl("http://placehold.it/50x50");
-        invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(
@@ -199,8 +191,6 @@ public class AccountResourceIntTest {
         invalidUser.setName("Bob");
         invalidUser.setEmail("invalid");// <-- invalid
         invalidUser.setActivated(true);
-        invalidUser.setImageUrl("http://placehold.it/50x50");
-        invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(
@@ -222,8 +212,6 @@ public class AccountResourceIntTest {
         invalidUser.setName("Bob");
         invalidUser.setEmail("bob@example.com");
         invalidUser.setActivated(true);
-        invalidUser.setImageUrl("http://placehold.it/50x50");
-        invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(
@@ -245,8 +233,6 @@ public class AccountResourceIntTest {
         invalidUser.setName("Bob");
         invalidUser.setEmail("bob@example.com");
         invalidUser.setActivated(true);
-        invalidUser.setImageUrl("http://placehold.it/50x50");
-        invalidUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         invalidUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(
@@ -268,8 +254,6 @@ public class AccountResourceIntTest {
         firstUser.setPassword("password");
         firstUser.setName("Alice");
         firstUser.setEmail("alice@example.com");
-        firstUser.setImageUrl("http://placehold.it/50x50");
-        firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         firstUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Duplicate login, different email
@@ -278,8 +262,6 @@ public class AccountResourceIntTest {
         secondUser.setPassword(firstUser.getPassword());
         secondUser.setName(firstUser.getName());
         secondUser.setEmail("alice2@example.com");
-        secondUser.setImageUrl(firstUser.getImageUrl());
-        secondUser.setLangKey(firstUser.getLangKey());
         secondUser.setCreatedBy(firstUser.getCreatedBy());
         secondUser.setCreatedDate(firstUser.getCreatedDate());
         secondUser.setLastModifiedBy(firstUser.getLastModifiedBy());
@@ -322,8 +304,6 @@ public class AccountResourceIntTest {
         firstUser.setPassword("password");
         firstUser.setName("Alice");
         firstUser.setEmail("test-register-duplicate-email@example.com");
-        firstUser.setImageUrl("http://placehold.it/50x50");
-        firstUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         firstUser.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Register first user
@@ -342,8 +322,6 @@ public class AccountResourceIntTest {
         secondUser.setPassword(firstUser.getPassword());
         secondUser.setName(firstUser.getName());
         secondUser.setEmail(firstUser.getEmail());
-        secondUser.setImageUrl(firstUser.getImageUrl());
-        secondUser.setLangKey(firstUser.getLangKey());
         secondUser.setAuthorities(new HashSet<>(firstUser.getAuthorities()));
 
         // Register second (non activated) user
@@ -366,8 +344,6 @@ public class AccountResourceIntTest {
         userWithUpperCaseEmail.setPassword(firstUser.getPassword());
         userWithUpperCaseEmail.setName(firstUser.getName());
         userWithUpperCaseEmail.setEmail("TEST-register-duplicate-email@example.com");
-        userWithUpperCaseEmail.setImageUrl(firstUser.getImageUrl());
-        userWithUpperCaseEmail.setLangKey(firstUser.getLangKey());
         userWithUpperCaseEmail.setAuthorities(new HashSet<>(firstUser.getAuthorities()));
 
         // Register third (not activated) user
@@ -401,8 +377,6 @@ public class AccountResourceIntTest {
         validUser.setName("Bad");
         validUser.setEmail("badguy@example.com");
         validUser.setActivated(true);
-        validUser.setImageUrl("http://placehold.it/50x50");
-        validUser.setLangKey(Constants.DEFAULT_LANGUAGE);
         validUser.setAuthorities(Collections.singleton(Authority.ROLE_ADMIN));
 
         restMvc.perform(
@@ -451,8 +425,6 @@ public class AccountResourceIntTest {
         userDTO.setName("firstname");
         userDTO.setEmail("save-account@example.com");
         userDTO.setActivated(false);
-        userDTO.setImageUrl("http://placehold.it/50x50");
-        userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(Authority.ROLE_ADMIN));
 
         restMvc.perform(
@@ -464,8 +436,6 @@ public class AccountResourceIntTest {
         User updatedUser = userRepository.findOneByLogin(user.getLogin()).orElse(null);
         assertThat(updatedUser.getName()).isEqualTo(userDTO.getName());
         assertThat(updatedUser.getEmail()).isEqualTo(userDTO.getEmail());
-        assertThat(updatedUser.getLangKey()).isEqualTo(userDTO.getLangKey());
-        assertThat(updatedUser.getImageUrl()).isEqualTo(userDTO.getImageUrl());
         assertThat(updatedUser.getActivated()).isEqualTo(true);
         assertThat(updatedUser.getAuthorities()).isEmpty();
     }
@@ -486,8 +456,6 @@ public class AccountResourceIntTest {
         userDTO.setName("firstname");
         userDTO.setEmail("invalid email");
         userDTO.setActivated(false);
-        userDTO.setImageUrl("http://placehold.it/50x50");
-        userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(Authority.ROLE_ADMIN));
 
         restMvc.perform(
@@ -522,8 +490,6 @@ public class AccountResourceIntTest {
         userDTO.setName("firstname");
         userDTO.setEmail("save-existing-email2@example.com");
         userDTO.setActivated(false);
-        userDTO.setImageUrl("http://placehold.it/50x50");
-        userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(Authority.ROLE_ADMIN));
 
         restMvc.perform(
@@ -552,8 +518,6 @@ public class AccountResourceIntTest {
         userDTO.setName("firstname");
         userDTO.setEmail("save-existing-email-and-login@example.com");
         userDTO.setActivated(false);
-        userDTO.setImageUrl("http://placehold.it/50x50");
-        userDTO.setLangKey(Constants.DEFAULT_LANGUAGE);
         userDTO.setAuthorities(Collections.singleton(Authority.ROLE_ADMIN));
 
         restMvc.perform(

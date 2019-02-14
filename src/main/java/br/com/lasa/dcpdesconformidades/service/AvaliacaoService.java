@@ -82,7 +82,7 @@ public class AvaliacaoService {
      */
     public void cancel(Long id, String motivoCancelamento) {
         log.debug("Request to delete Avaliacao : {}", id);
-        avaliacaoRepository.setStatusAsCancelledFor(StatusAvaliacao.CANCELADO, Instant.now(), motivoCancelamento, id);
+        avaliacaoRepository.setStatusAsCancelledFor(StatusAvaliacao.CANCELADA, Instant.now(), motivoCancelamento, id);
     }
         
     public AvaliacaoDTO iniciarAvaliacaoPara(String codigoLoja){

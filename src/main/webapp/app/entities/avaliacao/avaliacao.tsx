@@ -87,8 +87,8 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                   <Translate contentKey="dcpdesconformidadesApp.avaliacao.iniciadaEm">Iniciada Em</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('submetidoEm')}>
-                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidoEm">Submetido Em</Translate>{' '}
+                <th className="hand" onClick={this.sort('submetidaEm')}>
+                  <Translate contentKey="dcpdesconformidadesApp.avaliacao.submetidaEm">Submetida Em</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('criticidadePainel')}>
@@ -128,7 +128,7 @@ export class Avaliacao extends React.Component<IAvaliacaoProps, IAvaliacaoState>
                     <TextFormat type="date" value={avaliacao.iniciadaEm} format={APP_DATE_FORMAT} />
                   </td>
                   <td>
-                    <TextFormat type="date" value={avaliacao.submetidoEm} format={APP_DATE_FORMAT} />
+                    <TextFormat type="date" value={avaliacao.submetidaEm} format={APP_DATE_FORMAT} />
                   </td>
                   <td>
                     <Translate contentKey={`dcpdesconformidadesApp.CriticidadePainel.${avaliacao.criticidadePainel}`} />

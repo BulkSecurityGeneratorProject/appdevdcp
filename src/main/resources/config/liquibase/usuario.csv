@@ -1,0 +1,6 @@
+id;login;prontuario;nome;email;ativo;criado_por;criado_em
+1;system;null;System;system@localhost;true;system;current_timestamp
+2;anonymoususer;null;Anonymous;anonymous@localhost;true;system;current_timestamp
+3;admin;null;Administrator;admin@localhost;true;system;current_timestamp
+4;user;null;User;user@localhost;true;system;current_timestamp
+5;jvrodrigues;328117;Avaliador Juliano;avaliador@localhost;true;system;current_timestamp

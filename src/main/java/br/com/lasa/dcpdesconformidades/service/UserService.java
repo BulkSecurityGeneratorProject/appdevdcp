@@ -44,12 +44,6 @@ public class UserService {
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail().toLowerCase());
-        user.setImageUrl(userDTO.getImageUrl());
-        if (userDTO.getLangKey() == null) {
-            user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-        } else {
-            user.setLangKey(userDTO.getLangKey());
-        }
         user.setActivated(true);
         user.setProntuario(userDTO.getProntuario());
         user.setAuthorities(userDTO.getAuthorities());
@@ -65,17 +59,13 @@ public class UserService {
      *
      * @param name name of user
      * @param email email id of user
-     * @param langKey language key
-     * @param imageUrl image URL of user
      */
-    public void updateUser(String name, String email, String langKey, String imageUrl) {
+    public void updateUser(String name, String email) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
                 user.setName(name);
                 user.setEmail(email.toLowerCase());
-                user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -97,9 +87,7 @@ public class UserService {
                 user.setLogin(userDTO.getLogin().toLowerCase());
                 user.setName(userDTO.getName());
                 user.setEmail(userDTO.getEmail().toLowerCase());
-                user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
-                user.setLangKey(userDTO.getLangKey());
                 user.setProntuario(userDTO.getProntuario());
                 user.setAuthorities(userDTO.getAuthorities());
                 user.setLojas(userDTO.getLojas());

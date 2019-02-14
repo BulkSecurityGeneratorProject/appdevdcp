@@ -37,22 +37,22 @@
             <column name="versao" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="created_by" type="varchar(50)">
+            <column name="criado_por" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by" type="varchar(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="criado_em" type="timestamp"/>
+            <column name="ultima_modificacao_por" type="varchar(50)"/>
+            <column name="ultima_modificacao_em" type="timestamp"/>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
         <loadData encoding="UTF-8"
-                  file="config/liquibase/questionarios.csv"
+                  file="config/liquibase/questionario.csv"
                   separator=";"
                   tableName="questionario">
             <column name="ativo" type="boolean"/>
-            <column name="created_date" type="timestamp"/>
+            <column name="criado_em" type="timestamp"/>
         </loadData>
         
     </changeSet>

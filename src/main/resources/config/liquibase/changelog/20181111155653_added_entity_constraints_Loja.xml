@@ -8,16 +8,16 @@
     -->
     <changeSet id="20181111155653-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="lojas_id"
-                                 baseTableName="loja_avaliadores"
-                                 constraintName="fk_loja_avaliadores_lojas_id"
+        <addForeignKeyConstraint baseColumnNames="loja_id"
+                                 baseTableName="loja_avaliador"
+                                 constraintName="fk_loja_avaliador_loja_id"
                                  referencedColumnNames="id"
                                  referencedTableName="loja"/>
-        <addForeignKeyConstraint baseColumnNames="avaliadores_id"
-                                 baseTableName="loja_avaliadores"
-                                 constraintName="fk_loja_avaliadores_avaliadores_id"
+        <addForeignKeyConstraint baseColumnNames="avaliador_id"
+                                 baseTableName="loja_avaliador"
+                                 constraintName="fk_loja_avaliador_avaliador_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="app_user"/>
+                                 referencedTableName="usuario"/>
         
     </changeSet>
 </databaseChangeLog>

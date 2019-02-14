@@ -1,0 +1,78 @@
+id;grupo_id;ordem_exibicao;descricao;anexo_obrigatorio;pontos_procedimento;pontos_pessoa;pontos_processo;pontos_produto;criado_por;criado_em
+1;1;1;"Não existe fragilidade entre a área de descarga e a loja.";false;1;1;7;3;system;current_timestamp
+2;1;2;"É realizado o checklist de Recebimento ( verificar o arquivamento de fotos).";false;5;1;7;3;system;current_timestamp
+3;1;3;"Auditagem de carga realizada em acordo com orientações do DCP.";false;5;1;7;5;system;current_timestamp
+4;1;4;"Loja abre chamado para mercadoria recebida com avaria ou problema de validade.";false;5;1;7;5;system;current_timestamp
+5;1;5;"Tratamento de ocorrências do CD em acordo com orientações do DCP (auditar ao menos uma anomalia).";false;7;1;7;7;system;current_timestamp
+6;1;6;"Devolução do paletes/Rolls recebidos para o CD.";false;3;1;7;1;system;current_timestamp
+7;1;7;"O responsável de loja executa a rotina de recebimento centralizado.";false;7;1;7;5;system;current_timestamp
+8;1;8;"O responsável de loja executa a rotina de recebimento descentralizado.";false;7;1;7;7;system;current_timestamp
+9;2;1;"Operação em acordo com orientações do DCP (Crachá, cupom retido, calculadora, uso de sacolas, etc.).";false;5;5;7;5;system;current_timestamp
+10;2;2;"Inexistência de mercadorias devolvidas pelo cliente na frente de caixa/central.";false;3;1;7;3;system;current_timestamp
+11;2;3;"Existe controle para compras de associado.";false;3;7;7;5;system;current_timestamp
+12;2;4;"Mercadoria de troca destinada a quebra devidamente destruídas.";false;3;1;7;3;system;current_timestamp
+13;2;5;"Rotinas de Cancelamento em acordo com orientações do DCP.";false;5;1;7;5;system;current_timestamp
+14;2;6;"Rotinas de Troca em acordo com orientações do DCP.";false;5;1;7;3;system;current_timestamp
+15;2;7;"Rotinas de DVC em acordo com orientações do DCP.";false;5;1;7;1;system;current_timestamp
+16;2;8;"Sangrias e coletas estão sendo realizadas conforme orientações do DCP.";false;5;5;7;1;system;current_timestamp
+17;3;1;"Checklist de devolução realizado conforme o manual ( verificar o arquivamento de fotos).";false;3;1;5;1;system;current_timestamp
+18;3;2;"Devolução realizada conforme Manual/CI.";false;3;1;5;5;system;current_timestamp
+19;3;3;"Estoque 9000 está em acordo com o DCP ( saldo em acordo, etiquetas e devidamente segregado).";false;5;1;3;5;system;current_timestamp
+20;4;1;"Inexistência de mercadorias expostas após ou entre as antenas. ";false;5;1;3;7;system;current_timestamp
+21;4;2;"Vitrines trancadas, chaves controladas e em bom estado de conservação.";false;5;1;3;7;system;current_timestamp
+22;4;3;"Deptos de Risco, chaves controladas, protegidos e armazenados de acordo com o Manual do DCP.";false;5;1;3;7;system;current_timestamp
+23;4;4;"Inexistência de confinamento de itens com etiqueta alto destrutiva.";false;3;1;3;3;system;current_timestamp
+24;4;5;"Baleiros e geladeiras limpos (controle de pragas sendo realizado).";false;7;3;3;5;system;current_timestamp
+25;4;6;"Tabletes de chocolates expostos unitariamente conforme orientações de exposição do DCP.";false;5;1;3;7;system;current_timestamp
+26;4;7;"Inexistência de caixas/carrinhos/cestos aguardando abastecimento sem a presença de responsáveis.";false;3;1;3;5;system;current_timestamp
+27;4;8;"Empilhamentos (altura, localização e volume) em acordo com as orientações do DCP.";false;3;1;3;5;system;current_timestamp
+28;4;9;"Uso de etiqueta rígida conforme orientação do DCP.";false;3;1;1;3;system;current_timestamp
+29;4;10;"O PVPS (primeiro que "vence" primeiro que ''sai'') está sendo feito de forma correta (Estoque e salão de vendas).                                                                                                                            ";false;7;1;7;7;system;current_timestamp
+30;4;11;"Mercadorias vencidas (Estoque e salão de vendas).";false;7;1;7;7;system;current_timestamp
+31;4;12;"Inexistência de produtos degustados e/ou avariados nas áreas internas.";false;1;7;3;5;system;current_timestamp
+32;4;13;"Inexistência de mercadorias avariadas / empilhamentos em contato direto com o chão / excesso de exposição / estoque organizado etc…";false;3;1;3;5;system;current_timestamp
+33;4;14;"Inexistência de mercadorias obstruindo equipamentos de combate a incêndio.";false;7;3;7;7;system;current_timestamp
+34;5;1;"Loja está utilizando aplicativo do celular corporativo para controle de vencimento.";false;3;1;7;3;system;current_timestamp
+35;5;2;"Utilização do Rádio Frequência/Scanner para tratamento das quebras.";false;3;1;7;3;system;current_timestamp
+36;5;3;"Realização diária de quebra (lançamento sistêmico, inutilização física e descarte).";false;5;1;7;5;system;current_timestamp
+37;5;4;"Quebra bonificada realizada dentro do prazo e em acordo com orientações do DCP.";false;5;1;7;5;system;current_timestamp
+38;5;5;"Controle de quebra no departamento 51(<0,09%) ZLO047.";false;5;1;7;5;system;current_timestamp
+39;5;6;"Loja utiliza saco de lixo transparente.";false;3;1;7;1;system;current_timestamp
+40;5;7;"Local destinado a descarte de papelão e lixo é controlado.";false;5;1;7;1;system;current_timestamp
+41;5;8;"Responsável da loja acompanha o descarte do lixo/papelão/palete.";false;5;3;7;3;system;current_timestamp
+42;6;1;"Preparativos para o IO conforme manual do DCP.";false;7;1;5;7;system;current_timestamp
+43;6;2;"Gerente presente no dia do I.O., executando todas as etapas que antecedem e após as contagens da empresa de inventário.";false;7;3;5;7;system;current_timestamp
+44;6;3;"Auditagens realizadas ao longo do IO, devidamente vistadas pelos responsáveis pelas conferências e/ou empresa.";false;7;3;5;7;system;current_timestamp
+45;6;4;"Checklist de IO preenchido e enviado ao término do mesmo.";false;5;1;3;7;system;current_timestamp
+46;6;5;"Crítica de IO realizado conforme manual do DCP.";false;7;1;5;7;system;current_timestamp
+47;6;6;"IRE realizado conforme orientações do DCP e dentro do prazo solicitado.";false;7;1;5;7;system;current_timestamp
+48;7;1;"Intellex em funcionamento com o ármário limpo e conservado  / CFTV (câmeras e monitores) operantes e desobstruídos.";false;3;1;3;3;system;current_timestamp
+49;7;2;"Realiza blitz preventiva anti pernoite.";false;3;1;5;3;system;current_timestamp
+50;7;3;"Procedimentos de abertura e fechamento de loja conforme o padrão DCP.";false;3;5;5;3;system;current_timestamp
+51;7;4;"Áreas críticas, (estoque de risco, tesouraria, ilha tecnologia, porta de loja, doca) cobertas pelo sistema de monitoramento/alarme.";false;3;1;5;3;system;current_timestamp
+52;7;5;"Tesouraria conforme padrão DCP (Iluminação 24h, Cofres Seguros, armários trancados).";false;3;1;5;5;system;current_timestamp
+53;7;6;"Sistema de monitoramento com a SEDE (Rede e Victor) e VIGILÂNCIA (Particionamento, Botão A.P., Contatos e senhas) operante e atualizados.";false;5;1;5;3;system;current_timestamp
+54;7;7;"Sistema de rastreamento (rastro ativo) testado e operando conforme padrão do DCP.";false;5;1;5;3;system;current_timestamp
+55;7;8;"Equipamentos de acionamento/desativação (Scantop, Desacopladores, etc.) em funcionamento.";false;1;1;3;1;system;current_timestamp
+56;7;9;"Portas e janelas conforme padrão do DCP (Trancadas, dispositivos sonoros, sensores).";false;3;3;1;3;system;current_timestamp
+57;7;10;"Procedimentos pós sinistro (B.O., contagens, chamado CSC e solicitação de imagem) em acordo com o DCP.";false;5;1;7;7;system;current_timestamp
+58;8;1;"Auditagens nos deptos de risco e alto risco.";false;7;1;5;5;system;current_timestamp
+59;8;2;"Loja controla a documentação de promotores/prestadores de serviço.";false;7;3;3;1;system;current_timestamp
+60;8;3;"Verificado acesso de pessoas as áreas de risco (Tesouraria, Estoque, Casa de máquinas, etc.).";false;7;5;3;5;system;current_timestamp
+61;8;4;"Cadastro de senhas e perfil atualizados e autorizados pelo gerente.";false;7;5;5;1;system;current_timestamp
+62;8;5;"Planilha de troca, atualizada e tratada pelo responsável de loja.";false;7;1;5;3;system;current_timestamp
+63;8;6;"Planilha de cancelamento, atualizada e tratada pelo responsável de loja.";false;7;1;5;5;system;current_timestamp
+64;8;7;"Planilha de dvc, atualizada e tratada pelo responsável de loja.";false;7;1;5;1;system;current_timestamp
+65;8;8;"Planilha de diferença de caixa, atualizada e tratada pelo responsável de loja.";false;7;1;5;1;system;current_timestamp
+66;8;9;"Planilha de controle de quebra, atualizada e tratada pelo responsável de loja.";false;7;1;5;5;system;current_timestamp
+67;8;10;"PDV habilitado e operado pelo mesmo associado.";false;7;7;5;3;system;current_timestamp
+68;8;11;"Controle da movimentação de celulares (IMEI, estoque, exposição e venda).";false;7;1;5;3;system;current_timestamp
+69;8;12;"Atuação gerencial sobre o último RD/RE.";false;7;1;7;3;system;current_timestamp
+70;9;1;"Disk Alerta exposto em local de circulação e em bom estado de conservação.";false;5;7;5;3;system;current_timestamp
+71;9;2;"Associados conhecem o concurso de perdas (Q<0,20; P+Q <0,8).";false;5;7;5;3;system;current_timestamp
+72;9;3;"Gestão à vista, para os resultados de perdas (comitê e mural de acordo com o concurso).";false;5;7;3;1;system;current_timestamp
+73;9;4;"Equipe de loja em alinhamento com a campanha "Perda Eu Combato" (boton, cartaz, etc).";false;5;7;5;1;system;current_timestamp
+74;9;5;"Uniforme em acordo com o padrão (camisa branca, calça/saia cinza, gravata).";false;3;7;1;1;system;current_timestamp
+75;9;6;"Auxiliares de Prevenção com credenciamento devidamente realizado.";false;3;7;3;1;system;current_timestamp
+76;9;7;"Rotina da equipe de Prevenção realizada em acordo com as orientações do DCP.";false;3;7;3;1;system;current_timestamp
+77;9;8;"Movimentação de APPs com participação do DCP.";false;5;7;1;1;system;current_timestamp

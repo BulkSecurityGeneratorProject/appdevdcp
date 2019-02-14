@@ -42,7 +42,7 @@ import br.com.lasa.dcpdesconformidades.domain.enumeration.Authority;
  * A user.
  */
 @Entity
-@Table(name = "app_user")
+@Table(name = "usuario")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -59,7 +59,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String login;
 
     @Size(max = 255)
-    @Column(name = "name", length = 50)
+    @Column(name = "nome", length = 50)
     private String name;
 
     @Email
@@ -68,22 +68,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String email;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "ativo", nullable = false)
     private boolean activated = false;
-
-    @Size(min = 2, max = 6)
-    @Column(name = "lang_key", length = 6)
-    private String langKey;
-
-    @Size(max = 256)
-    @Column(name = "image_url", length = 256)
-    private String imageUrl;
 
     @JsonIgnore
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass=Authority.class, fetch = FetchType.EAGER)
-    @CollectionTable(name="app_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @Column(name="authority_name")
+    @CollectionTable(name="usuario_perfil", joinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName = "id")})
+    @Column(name="nome_perfil")
     @BatchSize(size = 20)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
@@ -96,8 +88,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Set<Avaliacao> avaliacoes = new HashSet<>();
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "loja_avaliadores", joinColumns = @JoinColumn(name = "avaliadores_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "lojas_id", referencedColumnName = "id"))
+    @JoinTable(name = "loja_avaliador", joinColumns = @JoinColumn(name = "avaliador_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "loja_id", referencedColumnName = "id"))
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
@@ -136,28 +128,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public boolean getActivated() {
         return activated;
     }
 
     public void setActivated(boolean activated) {
         this.activated = activated;
-    }
-
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
     }
 
     public Set<Authority> getAuthorities() {
@@ -212,7 +188,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "login='" + login + '\'' + ", name='" + name + '\'' + ", email='" + email + '\'' + ", imageUrl='" + imageUrl + '\''
-                + ", activated='" + activated + '\'' + ", langKey='" + langKey + '\'' + "}";
+        return "User{" + "login='" + login + '\'' + ", name='" + name + '\'' + ", email='" + email + '\''
+                + ", activated='" + activated + '\'' + "}";
     }
 }

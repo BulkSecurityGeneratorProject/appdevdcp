@@ -42,7 +42,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="submetido_em" type="datetime">
+            <column name="submetida_em" type="datetime">
                 <constraints nullable="true" />
             </column>
 
@@ -86,7 +86,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="cancelado_em" type="datetime">
+            <column name="cancelada_em" type="datetime">
                 <constraints nullable="true" />
             </column>
 
@@ -157,8 +157,8 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="avaliacao" columnName="iniciada_em" columnDataType="datetime"/>
-        <dropDefaultValue tableName="avaliacao" columnName="submetido_em" columnDataType="datetime"/>
-        <dropDefaultValue tableName="avaliacao" columnName="cancelado_em" columnDataType="datetime"/>
+        <dropDefaultValue tableName="avaliacao" columnName="submetida_em" columnDataType="datetime"/>
+        <dropDefaultValue tableName="avaliacao" columnName="cancelada_em" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

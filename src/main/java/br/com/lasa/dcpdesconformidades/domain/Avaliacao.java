@@ -67,8 +67,8 @@ public class Avaliacao implements Serializable {
     @Column(name = "prontuario_responsavel_loja")
     private Integer prontuarioResponsavelLoja;
 
-    @Column(name = "submetido_em")
-    private Instant submetidoEm;
+    @Column(name = "submetida_em")
+    private Instant submetidaEm;
 
     @Column(name = "latitude_submissao_avaliacao")
     private Double latitudeSubmissaoAvaliacao;
@@ -108,8 +108,8 @@ public class Avaliacao implements Serializable {
     @Column(name = "nivel_eficiencia_produto")
     private NivelEficiencia nivelEficienciaProduto;
 
-    @Column(name = "cancelado_em")
-    private Instant canceladoEm;
+    @Column(name = "cancelada_em")
+    private Instant canceladaEm;
 
     @Column(name = "motivo_cancelamento")
     private String motivoCancelamento;
@@ -260,17 +260,17 @@ public class Avaliacao implements Serializable {
         this.prontuarioResponsavelLoja = prontuarioResponsavelLoja;
     }
 
-    public Instant getSubmetidoEm() {
-        return submetidoEm;
+    public Instant getSubmetidaEm() {
+        return submetidaEm;
     }
 
-    public Avaliacao submetidoEm(Instant submetidoEm) {
-        this.submetidoEm = submetidoEm;
+    public Avaliacao submetidaEm(Instant submetidaEm) {
+        this.submetidaEm = submetidaEm;
         return this;
     }
 
-    public void setSubmetidoEm(Instant submetidoEm) {
-        this.submetidoEm = submetidoEm;
+    public void setSubmetidaEm(Instant submetidaEm) {
+        this.submetidaEm = submetidaEm;
     }
 
     public Double getLatitudeSubmissaoAvaliacao() {
@@ -403,17 +403,17 @@ public class Avaliacao implements Serializable {
         this.nivelEficienciaProduto = nivelEficienciaProduto;
     }
 
-    public Instant getCanceladoEm() {
-        return canceladoEm;
+    public Instant getCanceladaEm() {
+        return canceladaEm;
     }
 
-    public Avaliacao canceladoEm(Instant canceladoEm) {
-        this.canceladoEm = canceladoEm;
+    public Avaliacao canceladaEm(Instant canceladaEm) {
+        this.canceladaEm = canceladaEm;
         return this;
     }
 
-    public void setCanceladoEm(Instant canceladoEm) {
-        this.canceladoEm = canceladoEm;
+    public void setCanceladaEm(Instant canceladaEm) {
+        this.canceladaEm = canceladaEm;
     }
 
     public String getMotivoCancelamento() {
@@ -729,7 +729,7 @@ public class Avaliacao implements Serializable {
             ", longitudeInicioAvaliacao=" + getLongitudeInicioAvaliacao() +
             ", nomeResponsavelLoja='" + getNomeResponsavelLoja() + "'" +
             ", prontuarioResponsavelLoja=" + getProntuarioResponsavelLoja() +
-            ", submetidoEm='" + getSubmetidoEm() + "'" +
+            ", submetidaEm='" + getSubmetidaEm() + "'" +
             ", latitudeSubmissaoAvaliacao=" + getLatitudeSubmissaoAvaliacao() +
             ", longitudeSubmissaoAvaliacao=" + getLongitudeSubmissaoAvaliacao() +
             ", observacaoSubmissaoEnviadaForaDaLoja='" + getObservacaoSubmissaoEnviadaForaDaLoja() + "'" +
@@ -740,7 +740,7 @@ public class Avaliacao implements Serializable {
             ", nivelEficienciaPessoa='" + getNivelEficienciaPessoa() + "'" +
             ", nivelEficienciaProcesso='" + getNivelEficienciaProcesso() + "'" +
             ", nivelEficienciaProduto='" + getNivelEficienciaProduto() + "'" +
-            ", canceladoEm='" + getCanceladoEm() + "'" +
+            ", canceladaEm='" + getCanceladaEm() + "'" +
             ", motivoCancelamento='" + getMotivoCancelamento() + "'" +
             ", percentualPerda=" + getPercentualPerda() +
             ", financeiroPerda=" + getFinanceiroPerda() +

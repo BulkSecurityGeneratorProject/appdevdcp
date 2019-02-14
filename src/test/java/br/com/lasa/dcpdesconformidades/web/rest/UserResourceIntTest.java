@@ -70,12 +70,6 @@ public class UserResourceIntTest {
     private static final String DEFAULT_FIRSTNAME = "john";
     private static final String UPDATED_FIRSTNAME = "jhipsterFirstName";
 
-    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
-    private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
-
-    private static final String DEFAULT_LANGKEY = "en";
-    private static final String UPDATED_LANGKEY = "fr";
-
     @Autowired
     private UserRepository userRepository;
 
@@ -135,8 +129,6 @@ public class UserResourceIntTest {
         user.setActivated(true);
         user.setEmail(RandomStringUtils.randomAlphabetic(5) + DEFAULT_EMAIL);
         user.setName(DEFAULT_FIRSTNAME);
-        user.setImageUrl(DEFAULT_IMAGEURL);
-        user.setLangKey(DEFAULT_LANGKEY);
         return user;
     }
 
@@ -159,8 +151,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(DEFAULT_FIRSTNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);
         managedUserVM.setActivated(true);
-        managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
-        managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         restUserMockMvc.perform(post("/api/users")
@@ -175,8 +165,6 @@ public class UserResourceIntTest {
         assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(testUser.getName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
-        assertThat(testUser.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
     }
 
     @Test
@@ -191,8 +179,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(DEFAULT_FIRSTNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);
         managedUserVM.setActivated(true);
-        managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
-        managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // An entity with an existing ID cannot be created, so this API call must fail
@@ -219,8 +205,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(DEFAULT_FIRSTNAME);
         managedUserVM.setEmail("anothermail@localhost");
         managedUserVM.setActivated(true);
-        managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
-        managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Create the User
@@ -247,8 +231,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(DEFAULT_FIRSTNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);// this email should already be used
         managedUserVM.setActivated(true);
-        managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
-        managedUserVM.setLangKey(DEFAULT_LANGKEY);
         managedUserVM.setAuthorities(Collections.singleton(Authority.ROLE_USER));
 
         // Create the User
@@ -275,9 +257,7 @@ public class UserResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_FIRSTNAME)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGEURL)))
-            .andExpect(jsonPath("$.[*].langKey").value(hasItem(DEFAULT_LANGKEY)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
     }
 
     @Test
@@ -294,9 +274,7 @@ public class UserResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.login").value(user.getLogin()))
             .andExpect(jsonPath("$.name").value(DEFAULT_FIRSTNAME))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGEURL))
-            .andExpect(jsonPath("$.langKey").value(DEFAULT_LANGKEY));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
 
         assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNotNull();
     }
@@ -325,8 +303,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(UPDATED_FIRSTNAME);
         managedUserVM.setEmail(UPDATED_EMAIL);
         managedUserVM.setActivated(updatedUser.getActivated());
-        managedUserVM.setImageUrl(UPDATED_IMAGEURL);
-        managedUserVM.setLangKey(UPDATED_LANGKEY);
         managedUserVM.setCreatedBy(updatedUser.getCreatedBy());
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
@@ -344,8 +320,6 @@ public class UserResourceIntTest {
         User testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
-        assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
     }
 
     @Test
@@ -365,8 +339,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(UPDATED_FIRSTNAME);
         managedUserVM.setEmail(UPDATED_EMAIL);
         managedUserVM.setActivated(updatedUser.getActivated());
-        managedUserVM.setImageUrl(UPDATED_IMAGEURL);
-        managedUserVM.setLangKey(UPDATED_LANGKEY);
         managedUserVM.setCreatedBy(updatedUser.getCreatedBy());
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
@@ -385,8 +357,6 @@ public class UserResourceIntTest {
         assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
         assertThat(testUser.getName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
-        assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
     }
 
     @Test
@@ -400,8 +370,6 @@ public class UserResourceIntTest {
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setName("java");
-        anotherUser.setImageUrl("");
-        anotherUser.setLangKey("en");
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
@@ -413,8 +381,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(updatedUser.getName());
         managedUserVM.setEmail("jhipster@localhost");// this email should already be used by anotherUser
         managedUserVM.setActivated(updatedUser.getActivated());
-        managedUserVM.setImageUrl(updatedUser.getImageUrl());
-        managedUserVM.setLangKey(updatedUser.getLangKey());
         managedUserVM.setCreatedBy(updatedUser.getCreatedBy());
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
@@ -438,8 +404,6 @@ public class UserResourceIntTest {
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setName("java");
-        anotherUser.setImageUrl("");
-        anotherUser.setLangKey("en");
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
@@ -451,8 +415,6 @@ public class UserResourceIntTest {
         managedUserVM.setName(updatedUser.getName());
         managedUserVM.setEmail(updatedUser.getEmail());
         managedUserVM.setActivated(updatedUser.getActivated());
-        managedUserVM.setImageUrl(updatedUser.getImageUrl());
-        managedUserVM.setLangKey(updatedUser.getLangKey());
         managedUserVM.setCreatedBy(updatedUser.getCreatedBy());
         managedUserVM.setCreatedDate(updatedUser.getCreatedDate());
         managedUserVM.setLastModifiedBy(updatedUser.getLastModifiedBy());
@@ -525,8 +487,6 @@ public class UserResourceIntTest {
         userDTO.setName(DEFAULT_FIRSTNAME);
         userDTO.setEmail(DEFAULT_EMAIL);
         userDTO.setActivated(true);
-        userDTO.setImageUrl(DEFAULT_IMAGEURL);
-        userDTO.setLangKey(DEFAULT_LANGKEY);
         userDTO.setCreatedBy(DEFAULT_LOGIN);
         userDTO.setLastModifiedBy(DEFAULT_LOGIN);
         userDTO.setAuthorities(Collections.singleton(Authority.ROLE_USER));
@@ -537,8 +497,6 @@ public class UserResourceIntTest {
         assertThat(user.getName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(user.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(user.getActivated()).isEqualTo(true);
-        assertThat(user.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
-        assertThat(user.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
         assertThat(user.getCreatedBy()).isNull();
         assertThat(user.getCreatedDate()).isNotNull();
         assertThat(user.getLastModifiedBy()).isNull();
@@ -564,8 +522,6 @@ public class UserResourceIntTest {
         assertThat(userDTO.getName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(userDTO.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(userDTO.isActivated()).isEqualTo(true);
-        assertThat(userDTO.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
-        assertThat(userDTO.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
         assertThat(userDTO.getCreatedBy()).isEqualTo(DEFAULT_LOGIN);
         assertThat(userDTO.getCreatedDate()).isEqualTo(user.getCreatedDate());
         assertThat(userDTO.getLastModifiedBy()).isEqualTo(DEFAULT_LOGIN);
