@@ -12,6 +12,8 @@ public final class Constants {
     public static final String ANONYMOUS_USER = "anonymoususer";
     public static final String DEFAULT_LANGUAGE = "pt-br";
     
+    public static final String SPRING_PROFILE_LOCAL = "local";
+    
     private Constants() {
     }
 }
