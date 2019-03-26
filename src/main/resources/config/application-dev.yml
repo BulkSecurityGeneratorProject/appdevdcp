@@ -35,7 +35,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://peldcp.mysql.database.azure.com:3306/dcp?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false
         username: master@peldcp
-        password: @Lasa.2019
+        password: "Q!w2e3r4t5y6"
         hikari:
             auto-commit: false
     jpa:
