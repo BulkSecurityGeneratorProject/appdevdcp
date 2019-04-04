@@ -464,7 +464,7 @@
 	                <appServicePlanName>ASEpeldcpPlan</appServicePlanName>
 	
 	                <!-- Java Runtime Stack for Web App on Linux-->
-	                <linuxRuntime>tomcat 8.5-jre8</linuxRuntime>
+	                <linuxRuntime>tomcat 9.0-jre8</linuxRuntime>
                 </configuration>
             </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
