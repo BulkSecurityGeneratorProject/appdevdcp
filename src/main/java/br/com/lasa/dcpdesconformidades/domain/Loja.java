@@ -83,6 +83,11 @@ public class Loja implements Serializable {
         this.id = id;
     }
 
+    public Loja id(Long id){
+        this.id = id;
+        return this;
+    }
+
     public String getNome() {
         return nome;
     }

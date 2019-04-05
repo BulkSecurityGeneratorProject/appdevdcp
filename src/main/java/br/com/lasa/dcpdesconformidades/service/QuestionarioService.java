@@ -83,4 +83,8 @@ public class QuestionarioService {
         log.debug("Request to delete Questionario : {}", id);
         questionarioRepository.deleteById(id);
     }
+
+    public Optional<Questionario> buscaQuestionarioAtivo(){
+        return questionarioRepository.findAllWithEagerRelationshipsWhereAtivoTrue();
+    }
 }

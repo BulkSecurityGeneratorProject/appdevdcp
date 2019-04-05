@@ -168,6 +168,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.lojas = lojas;
     }
 
+    public boolean hasLoja(Long idLoja){
+        return lojas.stream().filter(loja -> loja.getId()==idLoja).count() > 0;
+    }
+
+    public Loja getLoja(Long idLoja){
+        return lojas.stream().filter(loja -> loja.getId()==idLoja).findAny().get();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

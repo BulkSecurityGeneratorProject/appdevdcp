@@ -8,12 +8,16 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
+import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoInputVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,7 +58,7 @@ public class AvaliacaoResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new avaliacaoDTO, or with status 400 (Bad Request) if the avaliacao has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/avaliacaos")
+    @PostMapping("/avaliacoes")
     @Timed
     public ResponseEntity<AvaliacaoDTO> createAvaliacao(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
         log.debug("REST request to save Avaliacao : {}", avaliacaoDTO);
@@ -62,33 +66,33 @@ public class AvaliacaoResource {
             throw new BadRequestAlertException("A new avaliacao cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AvaliacaoDTO result = avaliacaoService.save(avaliacaoDTO);
-        return ResponseEntity.created(new URI("/api/avaliacaos/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/avaliacoes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /avaliacaos : get all the avaliacaos.
+     * GET  /avaliacoes : get all the avaliacoes.
      *
      * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of avaliacaos in body
+     * @return the ResponseEntity with status 200 (OK) and the list of avaliacoes in body
      */
-    @GetMapping("/avaliacaos")
+    @GetMapping("/avaliacoes")
     @Timed
     public ResponseEntity<List<AvaliacaoDTO>> getAllAvaliacaos(Pageable pageable) {
         log.debug("REST request to get a page of Avaliacaos");
         Page<AvaliacaoDTO> page = avaliacaoService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/avaliacaos");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/avaliacoes");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
-     * GET  /avaliacaos/:id : get the "id" avaliacao.
+     * GET  /avaliacoes/:id : get the "id" avaliacao.
      *
      * @param id the id of the avaliacaoDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the avaliacaoDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/avaliacaos/{id}")
+    @GetMapping("/avaliacoes/{id}")
     @Timed
     public ResponseEntity<AvaliacaoDTO> getAvaliacao(@PathVariable Long id) {
         log.debug("REST request to get Avaliacao : {}", id);
@@ -97,12 +101,12 @@ public class AvaliacaoResource {
     }
 
     /**
-     * DELETE  /avaliacaos/:id : delete the "id" avaliacao.
+     * DELETE  /avaliacoes/:id : delete the "id" avaliacao.
      *
      * @param id the id of the avaliacaoDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @PostMapping("/avaliacaos/{id}")
+    @PostMapping("/avaliacoes/{id}")
     @Timed
     public ResponseEntity<Void> cancelAvaliacao(@PathVariable Long id, @RequestBody AvaliacaoDTO avaliacaoDTO) {
         log.debug("REST request to delete Avaliacao : {}", id);
@@ -110,15 +114,16 @@ public class AvaliacaoResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
         
-    @GetMapping("/avaliacaos/{codigoLoja}/iniciar")
+    @PostMapping("/avaliacoes/iniciar")
     @Timed
-    public AvaliacaoDTO iniciarAvaliacaoPara(@PathVariable String codigoLoja) {
-        log.debug("REST request to iniciar Avaliacao : {}", codigoLoja);
-        AvaliacaoDTO avaliacaoDTO = avaliacaoService.iniciarAvaliacaoPara(codigoLoja);
-        return avaliacaoDTO;
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.AVALIADOR + "\")")
+    public Avaliacao iniciarAvaliacaoPara(@Valid @RequestBody IniciarAvaliacaoInputVM avaliacaoInput) {
+        log.debug("REST request to iniciar Avaliacao : {}", avaliacaoInput);
+        Avaliacao avaliacao = avaliacaoService.iniciarAvaliacaoPara(avaliacaoInput);
+        return avaliacao;
     }
     
-    @PostMapping("/avaliacaos/{codigoLoja}/iniciar")
+    @PostMapping("/avaliacoes/submeter")
     @Timed
     public AvaliacaoDTO submeterAvaliacaoPara(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) {
         log.debug("REST request to submeter Avaliacao : {}", avaliacaoDTO);

@@ -1,10 +1,18 @@
 package br.com.lasa.dcpdesconformidades.service;
 
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
+import br.com.lasa.dcpdesconformidades.domain.Loja;
+import br.com.lasa.dcpdesconformidades.domain.Questionario;
+import br.com.lasa.dcpdesconformidades.domain.User;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.AvaliacaoMapper;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.ForbiddenException;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.PreconditionFailedException;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoInputVM;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +37,15 @@ public class AvaliacaoService {
 
     private final AvaliacaoMapper avaliacaoMapper;
 
-    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, AvaliacaoMapper avaliacaoMapper) {
+    private final UserService userService;
+
+    private final QuestionarioService questionarioService;
+
+    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, AvaliacaoMapper avaliacaoMapper, UserService userService, QuestionarioService questionarioService) {
         this.avaliacaoRepository = avaliacaoRepository;
         this.avaliacaoMapper = avaliacaoMapper;
+        this.userService = userService;
+        this.questionarioService = questionarioService;
     }
 
     /**
@@ -85,10 +99,32 @@ public class AvaliacaoService {
         avaliacaoRepository.setStatusAsCancelledFor(StatusAvaliacao.CANCELADA, Instant.now(), motivoCancelamento, id);
     }
         
-    public AvaliacaoDTO iniciarAvaliacaoPara(String codigoLoja){
-        return null;
+    public Avaliacao iniciarAvaliacaoPara(IniciarAvaliacaoInputVM avaliacaoInput){
+        final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        Loja loja = user.getLoja(avaliacaoInput.getIdLoja());
+        if(loja==null) throw new ForbiddenException("User is not allowed to update the store "+avaliacaoInput.getIdLoja());
+        Avaliacao avaliacao = criarNovaAvaliacao(loja, user, avaliacaoInput);
+        Avaliacao avaliacaoCriada = avaliacaoRepository.save(avaliacao);
+        return avaliacao;
         
     }
+
+    private Avaliacao criarNovaAvaliacao(Loja loja, User user, IniciarAvaliacaoInputVM avaliacaoInput){
+        Questionario questionario =  questionarioService.buscaQuestionarioAtivo().orElseThrow(()-> new PreconditionFailedException("Nenhum questionário ativo no momento"));
+        Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setLoja(loja);
+        avaliacao.setAvaliador(user);
+        avaliacao.setQuestionario(questionario);
+        avaliacao.setIniciadaEm(Instant.now());
+        avaliacao.setLatitudeInicioAvaliacao(avaliacaoInput.getLatitude());
+        avaliacao.setLongitudeInicioAvaliacao(avaliacaoInput.getLongitude());
+        avaliacao.setNomeResponsavelLoja(avaliacaoInput.getNomeResponsavelLoja());
+        avaliacao.setProntuarioResponsavelLoja(avaliacaoInput.getProntuarioResponsavelLoja());
+        avaliacao.importadoViaPlanilha(false);//TODO: WTF?!?!?
+        avaliacao.setStatus(StatusAvaliacao.INICIADA);
+        return avaliacao;
+    }
+
 
     public AvaliacaoDTO submeterAvaliacao(AvaliacaoDTO avaliacaoDTO) {
         // TODO Auto-generated method stub

@@ -86,7 +86,7 @@ export default (state: AvaliacaoState = initialState, action): AvaliacaoState =>
   }
 };
 
-const apiUrl = 'api/avaliacaos';
+const apiUrl = 'api/avaliacoes';
 
 // Actions
 

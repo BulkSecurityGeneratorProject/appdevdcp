@@ -61,6 +61,11 @@ public class TokenProvider {
     }
 
     public String createToken(Authentication authentication, boolean rememberMe) {
+        Map<String, Object> aditionalClaims = new HashMap<>();
+        return createToken(authentication, rememberMe, aditionalClaims);
+    }
+
+    public String createToken(Authentication authentication, boolean rememberMe, Map<String, Object> aditionalClaims) {
         String authorities = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.joining(","));
@@ -73,9 +78,12 @@ public class TokenProvider {
             validity = new Date(now + this.tokenValidityInMilliseconds);
         }
 
+        if(aditionalClaims == null) aditionalClaims = new HashMap<String,Object>();
+
         return Jwts.builder()
             .setSubject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
+            .addClaims(aditionalClaims)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
             .compact();
