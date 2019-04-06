@@ -12,10 +12,8 @@ import br.com.lasa.dcpdesconformidades.web.rest.errors.ForbiddenException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.PreconditionFailedException;
 import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoInputVM;
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -100,6 +98,7 @@ public class AvaliacaoService {
     }
         
     public Avaliacao iniciarAvaliacaoPara(IniciarAvaliacaoInputVM avaliacaoInput){
+        //TODO Verificar se já existe uma avaliação deste usuário para esta loja
         final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         Loja loja = user.getLoja(avaliacaoInput.getIdLoja());
         if(loja==null) throw new ForbiddenException("User is not allowed to update the store "+avaliacaoInput.getIdLoja());

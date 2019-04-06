@@ -328,7 +328,7 @@ public class ImportPlanilhaService {
       if (rowNum + 1 >= LINHA_INICIO_TOP_5_PERDAS_AUDITORIA && rowNum + 1 <= LINHA_FIM_TOP_5_PERDAS_AUDITORIA) {
         tipoItemAuditado = TipoItemAuditado.TOP_5_PERDAS;
       } else if (rowNum + 1 >= LINHA_INICIO_AR_AUDITORIA && rowNum + 1 <= LINHA_FIM_AR_AUDITORIA) {
-        tipoItemAuditado = TipoItemAuditado.ALTO_RISCO;
+        tipoItemAuditado = TipoItemAuditado.AUTO_RISCO;
       } else if (rowNum + 1 >= LINHA_INICIO_TROCA_CANCELAMENTO_DVC_AUDITORIA && rowNum + 1 <= LINHA_FIM_TROCA_CANCELAMENTO_DVC_AUDITORIA) {
         tipoItemAuditado = TipoItemAuditado.TROCA_CANCELAMENTO_DVC;
       } else {
