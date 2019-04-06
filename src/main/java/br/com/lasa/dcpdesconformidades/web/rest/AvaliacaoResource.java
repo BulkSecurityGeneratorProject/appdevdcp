@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.security.AuthoritiesConstants;
 import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoInputVM;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoOutputVM;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.SubmeterAvaliacaoInputVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -117,16 +119,18 @@ public class AvaliacaoResource {
     @PostMapping("/avaliacoes/iniciar")
     @Timed
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.AVALIADOR + "\")")
-    public Avaliacao iniciarAvaliacaoPara(@Valid @RequestBody IniciarAvaliacaoInputVM avaliacaoInput) {
+    public IniciarAvaliacaoOutputVM iniciarAvaliacaoPara(@Valid @RequestBody IniciarAvaliacaoInputVM avaliacaoInput) {
         log.debug("REST request to iniciar Avaliacao : {}", avaliacaoInput);
         Avaliacao avaliacao = avaliacaoService.iniciarAvaliacaoPara(avaliacaoInput);
-        return avaliacao;
+        IniciarAvaliacaoOutputVM output = new IniciarAvaliacaoOutputVM();
+        output.setAvaliacao(avaliacao);
+        return output;
     }
     
     @PostMapping("/avaliacoes/submeter")
     @Timed
-    public AvaliacaoDTO submeterAvaliacaoPara(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) {
-        log.debug("REST request to submeter Avaliacao : {}", avaliacaoDTO);
-        return avaliacaoService.submeterAvaliacao(avaliacaoDTO);
+    public Avaliacao submeterAvaliacaoPara(@Valid @RequestBody SubmeterAvaliacaoInputVM avaliacaoInput) {
+        log.debug("REST request to submeter Avaliacao : {}", avaliacaoInput);
+        return avaliacaoService.submeterAvaliacao(avaliacaoInput);
     }
 }

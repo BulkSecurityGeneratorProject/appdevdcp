@@ -99,6 +99,7 @@ public class ItemAvaliado implements Serializable {
     @JsonIgnoreProperties("itensAvaliados")
     private ItemAvaliacao itemAvaliacao;
 
+    //TODO Avaliar possibilidade de JsonIgnore a propriedade avaliacao com um todo
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties({"itensAvaliados", "itensAuditados", "itensComAjusteSolicitados"})

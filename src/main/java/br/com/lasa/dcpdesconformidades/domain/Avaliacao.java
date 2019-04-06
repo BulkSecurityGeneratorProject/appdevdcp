@@ -21,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -155,18 +154,18 @@ public class Avaliacao implements Serializable {
     @Column(name = "caminho_arquivo_planilha")
     private String caminhoArquivoPlanilha;
 
-    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
     private Set<ItemAvaliado> itensAvaliados = new HashSet<>();
     
-    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
     @OrderBy("tipo DESC, id ASC")
     private Set<ItemAuditado> itensAuditados = new LinkedHashSet<>();
     
-    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(FetchMode.SUBSELECT)
     private Set<ItemSolicitadoAjuste> itensComAjusteSolicitados = new HashSet<>();

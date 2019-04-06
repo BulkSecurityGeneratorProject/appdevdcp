@@ -18,9 +18,9 @@ public class ItemAvaliadoDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Instant respondidoEm;
+    private Instant respondidoEm = Instant.now();
 
-    private Instant ultimaAtualizacaoEm;
+    private Instant ultimaAtualizacaoEm = Instant.now();
 
     @NotNull
     private StatusItemAvaliado status;

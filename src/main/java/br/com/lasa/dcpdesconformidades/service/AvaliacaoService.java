@@ -1,17 +1,18 @@
 package br.com.lasa.dcpdesconformidades.service;
 
-import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
-import br.com.lasa.dcpdesconformidades.domain.Loja;
-import br.com.lasa.dcpdesconformidades.domain.Questionario;
-import br.com.lasa.dcpdesconformidades.domain.User;
+import br.com.lasa.dcpdesconformidades.domain.*;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao;
 import br.com.lasa.dcpdesconformidades.repository.AvaliacaoRepository;
 import br.com.lasa.dcpdesconformidades.service.dto.AvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.AvaliacaoMapper;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemAuditadoMapper;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemAvaliadoMapper;
+import br.com.lasa.dcpdesconformidades.service.mapper.ItemSolicitadoAjusteMapper;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.ForbiddenException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.PreconditionFailedException;
 import br.com.lasa.dcpdesconformidades.web.rest.vm.IniciarAvaliacaoInputVM;
+import br.com.lasa.dcpdesconformidades.web.rest.vm.SubmeterAvaliacaoInputVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Avaliacao.
@@ -39,7 +44,14 @@ public class AvaliacaoService {
 
     private final QuestionarioService questionarioService;
 
-    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, AvaliacaoMapper avaliacaoMapper, UserService userService, QuestionarioService questionarioService) {
+
+
+    public AvaliacaoService(
+        AvaliacaoRepository avaliacaoRepository,
+        AvaliacaoMapper avaliacaoMapper,
+        UserService userService,
+        QuestionarioService questionarioService
+    ) {
         this.avaliacaoRepository = avaliacaoRepository;
         this.avaliacaoMapper = avaliacaoMapper;
         this.userService = userService;
@@ -96,20 +108,21 @@ public class AvaliacaoService {
         log.debug("Request to delete Avaliacao : {}", id);
         avaliacaoRepository.setStatusAsCancelledFor(StatusAvaliacao.CANCELADA, Instant.now(), motivoCancelamento, id);
     }
-        
-    public Avaliacao iniciarAvaliacaoPara(IniciarAvaliacaoInputVM avaliacaoInput){
+
+    public Avaliacao iniciarAvaliacaoPara(IniciarAvaliacaoInputVM avaliacaoInput) {
         //TODO Verificar se já existe uma avaliação deste usuário para esta loja
         final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         Loja loja = user.getLoja(avaliacaoInput.getIdLoja());
-        if(loja==null) throw new ForbiddenException("User is not allowed to update the store "+avaliacaoInput.getIdLoja());
+        if (loja == null)
+            throw new ForbiddenException("User is not allowed to update the store " + avaliacaoInput.getIdLoja());
         Avaliacao avaliacao = criarNovaAvaliacao(loja, user, avaliacaoInput);
         Avaliacao avaliacaoCriada = avaliacaoRepository.save(avaliacao);
         return avaliacao;
-        
+
     }
 
-    private Avaliacao criarNovaAvaliacao(Loja loja, User user, IniciarAvaliacaoInputVM avaliacaoInput){
-        Questionario questionario =  questionarioService.buscaQuestionarioAtivo().orElseThrow(()-> new PreconditionFailedException("Nenhum questionário ativo no momento"));
+    private Avaliacao criarNovaAvaliacao(Loja loja, User user, IniciarAvaliacaoInputVM avaliacaoInput) {
+        Questionario questionario = questionarioService.buscaQuestionarioAtivo().orElseThrow(() -> new PreconditionFailedException("Nenhum questionário ativo no momento"));
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setLoja(loja);
         avaliacao.setAvaliador(user);
@@ -125,8 +138,34 @@ public class AvaliacaoService {
     }
 
 
-    public AvaliacaoDTO submeterAvaliacao(AvaliacaoDTO avaliacaoDTO) {
-        // TODO Auto-generated method stub
-        return null;
+    public Avaliacao submeterAvaliacao(SubmeterAvaliacaoInputVM avaliacaoInput) {
+        Avaliacao avaliacao = avaliacaoRepository.findById(avaliacaoInput.getId())
+            .orElseThrow(() -> new PreconditionFailedException("Nenhuma avaliação encontrada para o id:" + avaliacaoInput.getId()));
+        final User user = userService.getUserWithAuthorities().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        if(avaliacao.getAvaliador().getId() != user.getId()) throw new ForbiddenException("Usuário "+user.getName()+" não tem permissão para realizar esta avaliação");
+        avaliacao = getAvaliacaoSubmetida(avaliacao, avaliacaoInput);
+
+
+        //TODO validar se todas as respostas da avaliação foram preenchidas? E se mudarem o questionário no meio do caminho ?
+        avaliacao = avaliacaoRepository.save(avaliacao);
+        return avaliacao;
+    }
+
+    private Avaliacao getAvaliacaoSubmetida(Avaliacao avaliacao, SubmeterAvaliacaoInputVM avaliacaoInput) {
+        avaliacaoInput.getItensAuditados().forEach(i->i.setAvaliacaoId(avaliacaoInput.getId()));
+        avaliacaoInput.getItensAvaliados().forEach(i->i.setAvaliacaoId(avaliacaoInput.getId()));
+        avaliacaoInput.getItensComAjusteSolicitados().forEach(i->i.setAvaliacaoId(avaliacaoInput.getId()));
+
+        AvaliacaoDTO avaliacaoDto = avaliacaoMapper.toDto(avaliacao);
+        avaliacaoDto.setCriticidadePainel(avaliacaoInput.getCriticidadePainel());
+//        avaliacao.setStatus();
+        avaliacaoDto.setItensAuditados(avaliacaoInput.getItensAuditados());
+        avaliacaoDto.setItensAvaliados(avaliacaoInput.getItensAvaliados());
+        avaliacaoDto.setItensComAjusteSolicitados(avaliacaoInput.getItensComAjusteSolicitados());
+        avaliacaoDto.setLatitudeSubmissaoAvaliacao(avaliacaoInput.getLatitude());
+        avaliacaoDto.setLongitudeSubmissaoAvaliacao(avaliacaoInput.getLongitude());
+        avaliacaoDto.setSubmetidaEm(Instant.now());
+        avaliacaoDto.setObservacaoSubmissaoEnviadaForaDaLoja(avaliacaoInput.getObservacaoSubmissaoEnviadaForaDaLoja());
+        return avaliacaoMapper.toEntity(avaliacaoDto);
     }
 }

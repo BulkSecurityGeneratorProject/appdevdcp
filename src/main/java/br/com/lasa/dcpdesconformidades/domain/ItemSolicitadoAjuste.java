@@ -67,9 +67,10 @@ public class ItemSolicitadoAjuste implements Serializable {
     @Column(name = "responsavel")
     private String responsavel;
 
+    //TODO Avaliar possibilidade de JsonIgnore a propriedade avaliacao com um todo
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("itensComAjusteSolicitados")
+    @JsonIgnoreProperties({"itensAvaliados", "itensAuditados", "itensComAjusteSolicitados"})
     private Avaliacao avaliacao;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

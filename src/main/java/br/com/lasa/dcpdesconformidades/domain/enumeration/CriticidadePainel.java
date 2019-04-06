@@ -1,8 +1,11 @@
 package br.com.lasa.dcpdesconformidades.domain.enumeration;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * The CriticidadePainel enumeration.
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CriticidadePainel {
   INADMISSIVEL("Inadmissível"), //
   CONTROLE("Controle"), //
@@ -19,6 +22,10 @@ public enum CriticidadePainel {
   public String getDescricao() {
     return descricao;
   }
+
+    public String getId() {
+        return this.name();
+    }
 
   public static CriticidadePainel fromDescricao(String descricao) {
     for (CriticidadePainel c : CriticidadePainel.values()) {
