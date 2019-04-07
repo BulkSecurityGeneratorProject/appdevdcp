@@ -5,16 +5,16 @@ import br.com.lasa.dcpdesconformidades.domain.Avaliacao;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.CriticidadePainel;
 import br.com.lasa.dcpdesconformidades.domain.enumeration.TipoItemAuditado;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class IniciarAvaliacaoOutputVM {
 
     private Avaliacao avaliacao;
 
-    private List<TipoItemAuditado> tiposAuditoria = Arrays.asList(TipoItemAuditado.values());
+    private List<Map<String,String>> tiposAuditoria = TipoItemAuditado.getAllOptions();
 
-    private List<CriticidadePainel> criticidadesPainel = Arrays.asList(CriticidadePainel.values());
+    private List<Map<String,String>> criticidadesPainel = CriticidadePainel.getAllOptions();
 
     public Avaliacao getAvaliacao() {
         return avaliacao;
@@ -24,11 +24,11 @@ public class IniciarAvaliacaoOutputVM {
         this.avaliacao = avaliacao;
     }
 
-    public List<TipoItemAuditado> getTiposAuditoria() {
+    public List<Map<String, String>> getTiposAuditoria() {
         return tiposAuditoria;
     }
 
-    public List<CriticidadePainel> getCriticidadesPainel() {
+    public List<Map<String, String>> getCriticidadesPainel() {
         return criticidadesPainel;
     }
 }

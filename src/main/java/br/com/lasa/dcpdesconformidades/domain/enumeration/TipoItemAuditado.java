@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 /**
  * The TipoItemAuditado enumeration.
  */
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TipoItemAuditado {
     TOP_5_PERDAS("Top 5 Perdas"), AUTO_RISCO("Auto Risco"), TROCA_CANCELAMENTO_DVC("Troca/Cancelamento/DVC");
 
@@ -22,13 +21,15 @@ public enum TipoItemAuditado {
         return descricao;
     }
 
-    public String getId() {
-        return this.name();
-    }
-
     public static List<Map<String, String>> getAllOptions() {
-        return Arrays.stream(TipoItemAuditado.values())
-            .map((item) -> Collections.singletonMap(item.name(), item.getDescricao()))
+        return Arrays.stream(CriticidadePainel.values())
+            .map((item) -> Collections.unmodifiableMap(new HashMap<String, String>() {
+                    {
+                        put("id", item.name());
+                        put("descricao", item.getDescricao());
+                    }
+                })
+            )
             .collect(Collectors.toList());
     }
 }

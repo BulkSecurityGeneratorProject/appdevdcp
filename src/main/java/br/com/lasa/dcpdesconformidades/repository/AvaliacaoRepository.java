@@ -22,6 +22,9 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
   @Query("select avaliacao from Avaliacao avaliacao where avaliacao.avaliador.login = ?#{principal.username}")
   List<Avaliacao> findByAvaliadorIsCurrentUser();
 
+    @Query("select avaliacao from Avaliacao avaliacao where avaliacao.avaliador.login = :login and avaliacao.loja.id=:lojaId and avaliacao.status=br.com.lasa.dcpdesconformidades.domain.enumeration.StatusAvaliacao.INICIADA")
+    List<Avaliacao> findActiveByAvaliadorLoja(@Param("login") String login, @Param("lojaId") Long lojaId);
+
   @Modifying
   @Query("update Avaliacao a set a.status = :status, a.canceladaEm = :canceladaEm, a.motivoCancelamento = :motivoCancelamento where a.id = :id")
   int setStatusAsCancelledFor(@Param("status") StatusAvaliacao status, @Param("canceladaEm") Instant canceladaEm, @Param("motivoCancelamento") String motivoCancelamento, @Param("id") Long id);
