@@ -5,6 +5,7 @@ import br.com.lasa.dcpdesconformidades.repository.UserRepository;
 import br.com.lasa.dcpdesconformidades.security.jwt.JWTFilter;
 import br.com.lasa.dcpdesconformidades.security.jwt.TokenProvider;
 import br.com.lasa.dcpdesconformidades.web.rest.errors.InternalServerErrorException;
+import br.com.lasa.dcpdesconformidades.web.rest.errors.NotFoundException;
 import br.com.lasa.dcpdesconformidades.web.rest.vm.LoginVM;
 
 import com.codahale.metrics.annotation.Timed;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,24 +49,29 @@ public class UserJWTController {
     @PostMapping("/authenticate")
     @Timed
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());
+            Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
 
-        Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        boolean rememberMe = (loginVM.isRememberMe() == null) ? false : loginVM.isRememberMe();
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            boolean rememberMe = (loginVM.isRememberMe() == null) ? false : loginVM.isRememberMe();
 
-        User user = userRepository.findOneByLogin(loginVM.getUsername()).orElseThrow(() -> new InternalServerErrorException("Current user login not found. Login not on user list"));;
-        HashMap<String,Object> aditionalClaims = new HashMap<>();
+            User user = userRepository.findOneByLogin(loginVM.getUsername()).orElseThrow(() -> new InternalServerErrorException("Current user login not found. Login not on user list"));
+            ;
+            HashMap<String, Object> aditionalClaims = new HashMap<>();
 
-        aditionalClaims.put(NAME_CLAIM, user.getName());
-        aditionalClaims.put(PROTUARIO_CLAIM, user.getProntuario());
+            aditionalClaims.put(NAME_CLAIM, user.getName());
+            aditionalClaims.put(PROTUARIO_CLAIM, user.getProntuario());
 
-        String jwt = tokenProvider.createToken(authentication, rememberMe, aditionalClaims);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-        return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+            String jwt = tokenProvider.createToken(authentication, rememberMe, aditionalClaims);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+            return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+        } catch (BadCredentialsException ex) {
+            throw new NotFoundException("Usuário ou senha inválidos");
+        }
     }
 
     /**
