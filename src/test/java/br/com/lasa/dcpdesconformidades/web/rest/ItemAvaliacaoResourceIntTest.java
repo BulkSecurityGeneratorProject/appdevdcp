@@ -4,6 +4,7 @@ import br.com.lasa.dcpdesconformidades.DcpdesconformidadesApp;
 
 import br.com.lasa.dcpdesconformidades.domain.ItemAvaliacao;
 import br.com.lasa.dcpdesconformidades.repository.ItemAvaliacaoRepository;
+import br.com.lasa.dcpdesconformidades.service.ImagemService;
 import br.com.lasa.dcpdesconformidades.service.ItemAvaliacaoService;
 import br.com.lasa.dcpdesconformidades.service.dto.ItemAvaliacaoDTO;
 import br.com.lasa.dcpdesconformidades.service.mapper.ItemAvaliacaoMapper;
@@ -73,6 +74,9 @@ public class ItemAvaliacaoResourceIntTest {
     private ItemAvaliacaoService itemAvaliacaoService;
 
     @Autowired
+    private ImagemService imagemService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -91,7 +95,7 @@ public class ItemAvaliacaoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ItemAvaliacaoResource itemAvaliacaoResource = new ItemAvaliacaoResource(itemAvaliacaoService);
+        final ItemAvaliacaoResource itemAvaliacaoResource = new ItemAvaliacaoResource(itemAvaliacaoService, imagemService);
         this.restItemAvaliacaoMockMvc = MockMvcBuilders.standaloneSetup(itemAvaliacaoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
