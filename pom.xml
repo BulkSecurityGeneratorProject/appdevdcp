@@ -370,6 +370,12 @@
 		    <version>3.6.1</version>
 		</dependency>
 
+        <!-- Azure sdk  -->
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>azure-storage</artifactId>
+			<version>8.2.0</version>
+		</dependency>
 
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
@@ -449,7 +455,7 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
             </plugin>
-            
+
             <plugin>
                 <groupId>com.microsoft.azure</groupId>
                 <artifactId>azure-webapp-maven-plugin</artifactId>
@@ -458,11 +464,11 @@
                 <configuration>
                     <resourceGroup>PEL-DCP-DEV</resourceGroup>
                     <appName>appdcpdev</appName>
-                   
+
 	                <!-- Deploy Web App to the existing App Service Plan -->
 	                <appServicePlanResourceGroup>PEL-DCP-DEV</appServicePlanResourceGroup>
 	                <appServicePlanName>ASEpeldcpPlan</appServicePlanName>
-	
+
 	                <!-- Java Runtime Stack for Web App on Linux-->
 	                <linuxRuntime>tomcat 9.0-jre8</linuxRuntime>
                 </configuration>

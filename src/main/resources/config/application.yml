@@ -63,6 +63,12 @@ spring:
         web:
             pageable:
                 maxPageSize: 5000
+    azure:
+        storage:
+            defaultEndpointsProtocol: https
+            account: peldcpdev
+            key1: fqQgfQK6pD/0jRL0lMZU1hp05eCsO54Um4rxpUhjpFwNpJumYRgvENuWbQr8ffhJSetb+kgwX+VJ2c1IhjZ1Ew==
+            key2: 8NmvWWuEdkYeaWKbGYuYevwlDAeq4s4giNNXTKdNt5aOK8kXPFk+SEZ+arAzyz9P0NkoMxOgoYEHeCMA0DfH3A==
     
 
 server:
