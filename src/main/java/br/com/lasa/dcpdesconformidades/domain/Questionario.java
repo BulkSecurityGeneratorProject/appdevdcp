@@ -6,14 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
@@ -51,7 +44,7 @@ public class Questionario extends AbstractAuditingEntity implements Serializable
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Avaliacao> avaliacoesRealizadas = new HashSet<>();
     
-    @OneToMany(mappedBy = "questionario")
+    @OneToMany(mappedBy = "questionario", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OrderBy("ordemExibicao ASC")
     private Set<GrupoItens> grupos = new LinkedHashSet<>();
