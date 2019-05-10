@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.microsoft.azure.storage.StorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -140,17 +141,17 @@ public class ItemAvaliacaoResource {
     /**
      * PUT  /item-avaliacaos/:id/anexo : upload anexo of itemAvaliacao.
      *
-     * @param id the id of the itemAvaliacaoDTO 
+     * @param id the id of the AvaliacaoDTO
      * @param anexo the file
      * @return the ResponseEntity with status 200 (OK)
      * @throws Throwable 
      */
     @PutMapping("/item-avaliacaos/{id}/anexo")
     @Timed
-    public ResponseEntity<Void> uploadAnexoItemAvaliacao(@PathVariable Long id, @RequestPart MultipartFile anexo) throws Throwable {
+    public ResponseEntity<URI> uploadAnexoItemAvaliacao(@PathVariable Long id, @RequestPart MultipartFile anexo) throws Throwable {
         log.debug("REST request to put ItemAvaliacao : {} anexo {}", id, anexo.getOriginalFilename());
         ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setItemAvaliadoId(id);
+        imagemDTO.setAvaliacaoId(id);
         imagemDTO.setNome(anexo.getOriginalFilename());
         imagemDTO.setSize(anexo.getSize());
         imagemDTO.setMimeType(anexo.getContentType());
@@ -164,16 +165,15 @@ public class ItemAvaliacaoResource {
         imagemService.save(imagemDTO);
         
         return ResponseEntity
-        		.created(new URI("/api/item-avaliacaos/" + imagemDTO.getItemAvaliadoId() + "/anexo/" + imagemDTO.getNome()))
+        		.created(new URI("/api/item-avaliacaos/" + imagemDTO.getAvaliacaoId() + "/anexo/" + imagemDTO.getNome()))
                 .headers(HeaderUtil.createEntityCreationAlert("anexo", imagemDTO.getNome()))
-                .body(null);
+                .body(new URI("/api/item-avaliacaos/" + imagemDTO.getAvaliacaoId() + "/anexo/" + imagemDTO.getNome()));
     }
 
     /**
      * GET  /item-avaliacaos/:id/anexo : upload anexo of itemAvaliacao.
      *
-     * @param id the id of the itemAvaliacaoDTO 
-     * @param anexo the file
+     * @param id the id of the AvaliacaoDTO
      * @return the ResponseEntity with status 200 (OK)
      * @throws Throwable 
      */
@@ -194,8 +194,7 @@ public class ItemAvaliacaoResource {
     /**
      * DELETE  /item-avaliacaos/:id/anexo : delete anexo of itemAvaliacao.
      *
-     * @param id the id of the itemAvaliacaoDTO 
-     * @param anexo the file
+     * @param id the id of the AvaliacaoDTO
      * @return the ResponseEntity with status 200 (OK)
      * @throws Throwable 
      */
@@ -203,9 +202,11 @@ public class ItemAvaliacaoResource {
     @Timed
     public ResponseEntity<Void> deleteAnexoItemAvaliacao(@PathVariable Long id, @PathVariable String nome) throws Throwable {
         log.debug("REST request to put ItemAvaliacao : {}", id);
-        
-        imagemService.deleteOne(nome, id);
-        
+        try {
+            imagemService.deleteOne(nome, id);
+        }catch (StorageException se){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("anexo", id.toString() + "/" + nome)).build();
     }
 }

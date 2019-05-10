@@ -12,7 +12,7 @@ public class ImagemDTO  implements Serializable{
 	private String nome;
 	private Long size;
 	private String mimeType;
-	private Long itemAvaliadoId;
+	private Long avaliacaoId;
 	private byte[] arquivo;
 
 	/**
@@ -64,16 +64,16 @@ public class ImagemDTO  implements Serializable{
 		this.mimeType = mimeType;
 	}
 	/**
-	 * @return the itemAvaliadoId
+	 * @return the avaliacaoId
 	 */
-	public Long getItemAvaliadoId() {
-		return itemAvaliadoId;
+	public Long getAvaliacaoId() {
+		return avaliacaoId;
 	}
 	/**
-	 * @param itemAvaliadoId the itemAvaliadoId to set
+	 * @param avaliacaoId the avaliacaoId to set
 	 */
-	public void setItemAvaliadoId(Long itemAvaliadoId) {
-		this.itemAvaliadoId = itemAvaliadoId;
+	public void setAvaliacaoId(Long avaliacaoId) {
+		this.avaliacaoId = avaliacaoId;
 	}
 
 

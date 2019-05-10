@@ -91,7 +91,7 @@ public class ImagemService {
 	
 	private void uploadFile(ImagemDTO imagemDTO) throws Throwable  {
         // Container name must be lower case.
-        CloudBlobContainer container = getContainer(df.format(imagemDTO.getItemAvaliadoId()));
+        CloudBlobContainer container = getContainer(df.format(imagemDTO.getAvaliacaoId()));
         container.createIfNotExists();
 
         // Upload an image file.
@@ -115,7 +115,7 @@ public class ImagemService {
 
         ImagemDTO imagemDTO = new ImagemDTO();
         imagemDTO.setNome(nome);
-        imagemDTO.setItemAvaliadoId(itemAvaliadoId);
+        imagemDTO.setAvaliacaoId(itemAvaliadoId);
         blob.downloadAttributes();
         Map<String, String> meta = blob.getMetadata();
 

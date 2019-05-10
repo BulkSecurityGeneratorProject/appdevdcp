@@ -22,7 +22,7 @@ public enum TipoItemAuditado {
     }
 
     public static List<Map<String, String>> getAllOptions() {
-        return Arrays.stream(CriticidadePainel.values())
+        return Arrays.stream(TipoItemAuditado.values())
             .map((item) -> Collections.unmodifiableMap(new HashMap<String, String>() {
                     {
                         put("id", item.name());
