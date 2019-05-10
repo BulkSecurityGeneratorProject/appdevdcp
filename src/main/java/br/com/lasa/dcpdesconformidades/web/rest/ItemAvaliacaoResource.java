@@ -3,7 +3,9 @@ package br.com.lasa.dcpdesconformidades.web.rest;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -148,7 +150,7 @@ public class ItemAvaliacaoResource {
      */
     @PutMapping("/item-avaliacaos/{id}/anexo")
     @Timed
-    public ResponseEntity<URI> uploadAnexoItemAvaliacao(@PathVariable Long id, @RequestPart MultipartFile anexo) throws Throwable {
+    public ResponseEntity<Map<String,Object>> uploadAnexoItemAvaliacao(@PathVariable Long id, @RequestPart MultipartFile anexo) throws Throwable {
         log.debug("REST request to put ItemAvaliacao : {} anexo {}", id, anexo.getOriginalFilename());
         ImagemDTO imagemDTO = new ImagemDTO();
         imagemDTO.setAvaliacaoId(id);
@@ -161,13 +163,15 @@ public class ItemAvaliacaoResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        //TODO validar acesso a avaliacao e existência da mesma
+        //TODO Validar status de sucesso da davaliação, caso já esteja submetida, retornar status unchanged
         imagemService.save(imagemDTO);
-        
+        Map<String,Object> body = new HashMap<String,Object>();
+        body.put("url",new URI("/api/item-avaliacaos/" + imagemDTO.getAvaliacaoId() + "/anexo/" + imagemDTO.getNome()));
         return ResponseEntity
         		.created(new URI("/api/item-avaliacaos/" + imagemDTO.getAvaliacaoId() + "/anexo/" + imagemDTO.getNome()))
                 .headers(HeaderUtil.createEntityCreationAlert("anexo", imagemDTO.getNome()))
-                .body(new URI("/api/item-avaliacaos/" + imagemDTO.getAvaliacaoId() + "/anexo/" + imagemDTO.getNome()));
+                .body(body);
     }
 
     /**
